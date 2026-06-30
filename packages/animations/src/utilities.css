@@ -1,0 +1,191 @@
+@utility animate-glass-shimmer {
+  background-image: linear-gradient(
+    90deg,
+    transparent 0%,
+    color-mix(in oklch, var(--foreground) 15%, transparent) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: glass-shimmer 2s ease-in-out infinite;
+}
+
+@utility animate-glass-pulse {
+  animation: glass-pulse 2s ease-in-out infinite;
+}
+
+@utility animate-fade-in {
+  animation: fade-in var(--duration-slow) var(--ease-default) forwards;
+}
+
+@utility animate-fade-in-up {
+  animation: fade-in-up var(--duration-enter) var(--ease-default) forwards;
+}
+
+@utility animate-glass-rise {
+  animation: glass-rise var(--duration-enter) var(--ease-default) forwards;
+}
+
+@utility animate-scale-in {
+  animation: scale-in var(--duration-slow) var(--ease-spring) forwards;
+}
+
+@utility animate-float-in {
+  animation: float-in var(--duration-enter) var(--ease-default) forwards;
+}
+
+@utility animate-tab-content {
+  animation: tab-content-in var(--duration-slow) var(--ease-default) forwards;
+}
+
+@utility animate-row-fade-in {
+  animation: row-fade-in var(--duration-slow) var(--ease-default) backwards;
+}
+
+@utility animate-content-glow {
+  animation: content-glow 4s ease-in-out infinite;
+}
+
+@utility animate-mesh-drift {
+  animation: mesh-drift 20s ease-in-out infinite;
+}
+
+@utility glass-specular-on-mount {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      transparent 38%,
+      color-mix(in oklch, white 40%, transparent) 50%,
+      transparent 62%
+    );
+    transform: translateX(-120%) skewX(-12deg);
+    animation: specular-sweep 1.4s var(--ease-default) 0.35s forwards;
+    pointer-events: none;
+  }
+}
+
+@utility glass-stagger-rows {
+  & > tr {
+    animation: row-fade-in var(--duration-slow) var(--ease-default) backwards;
+  }
+
+  & > tr:nth-child(1) {
+    animation-delay: calc(var(--duration-stagger) * 1);
+  }
+  & > tr:nth-child(2) {
+    animation-delay: calc(var(--duration-stagger) * 2);
+  }
+  & > tr:nth-child(3) {
+    animation-delay: calc(var(--duration-stagger) * 3);
+  }
+  & > tr:nth-child(4) {
+    animation-delay: calc(var(--duration-stagger) * 4);
+  }
+  & > tr:nth-child(5) {
+    animation-delay: calc(var(--duration-stagger) * 5);
+  }
+  & > tr:nth-child(6) {
+    animation-delay: calc(var(--duration-stagger) * 6);
+  }
+  & > tr:nth-child(7) {
+    animation-delay: calc(var(--duration-stagger) * 7);
+  }
+  & > tr:nth-child(8) {
+    animation-delay: calc(var(--duration-stagger) * 8);
+  }
+  & > tr:nth-child(9) {
+    animation-delay: calc(var(--duration-stagger) * 9);
+  }
+  & > tr:nth-child(10) {
+    animation-delay: calc(var(--duration-stagger) * 10);
+  }
+}
+
+@utility glass-stagger-children {
+  & > * {
+    animation: fade-in-up var(--duration-slow) var(--ease-default) backwards;
+  }
+
+  & > *:nth-child(1) {
+    animation-delay: calc(var(--duration-stagger) * 1);
+  }
+  & > *:nth-child(2) {
+    animation-delay: calc(var(--duration-stagger) * 2);
+  }
+  & > *:nth-child(3) {
+    animation-delay: calc(var(--duration-stagger) * 3);
+  }
+  & > *:nth-child(4) {
+    animation-delay: calc(var(--duration-stagger) * 4);
+  }
+  & > *:nth-child(5) {
+    animation-delay: calc(var(--duration-stagger) * 5);
+  }
+}
+
+@utility glass-link-underline {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--duration-normal) var(--ease-default);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+}
+
+@utility glass-row-hover {
+  transition-property: background-color, transform, box-shadow;
+  transition-duration: var(--duration-normal);
+  transition-timing-function: var(--ease-default);
+
+  &:hover {
+    transform: translateX(2px);
+    box-shadow: inset 3px 0 0 color-mix(in oklch, var(--primary) 55%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glass-shimmer,
+  .animate-glass-pulse,
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-glass-rise,
+  .animate-scale-in,
+  .animate-float-in,
+  .animate-tab-content,
+  .animate-row-fade-in,
+  .animate-content-glow,
+  .animate-mesh-drift,
+  .glass-specular-on-mount::after,
+  .glass-stagger-rows > tr,
+  .glass-stagger-children > * {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .glass-row-hover:hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .glass-link-underline::after {
+    transform: scaleX(1) !important;
+  }
+}

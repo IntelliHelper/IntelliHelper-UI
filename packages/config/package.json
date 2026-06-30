@@ -1,0 +1,16 @@
+{
+  "name": "@intelli/config",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./postcss": "./postcss.config.mjs",
+    "./globals.css": "./src/globals.css"
+  },
+  "dependencies": {
+    "@intelli/animations": "workspace:*",
+    "@intelli/themes": "workspace:*",
+    "@intelli/tokens": "workspace:*",
+    "@tailwindcss/postcss": "^4.1.8",
+    "tailwindcss": "^4.1.8"
+  }
+}

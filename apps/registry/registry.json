@@ -1,0 +1,159 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "intelli-ui",
+  "homepage": "https://intelli-ui.dev",
+  "items": [
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Liquid Glass button with chrome layer (outline, secondary, ghost) and content layer (default, destructive) variants.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/button.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
+        "shapes": ["rounded", "pill", "rectangular"],
+        "sizes": ["sm", "default", "lg", "icon"]
+      }
+    },
+    {
+      "name": "glass-bar",
+      "type": "registry:ui",
+      "title": "Glass Bar",
+      "description": "Neutral Liquid Glass capsule for grouped controls above content.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "glass-icon-button"],
+      "files": [
+        {
+          "path": "packages/ui/src/glass-bar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/glass-bar.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "glass-icon-button",
+      "type": "registry:ui",
+      "title": "Glass Icon Button",
+      "description": "Circular Liquid Glass button for icon-only chrome controls.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/glass-icon-button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/glass-icon-button.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "glass-content-card",
+      "type": "registry:ui",
+      "title": "Glass Content Card",
+      "description": "Expressive content container for saturated backgrounds beneath glass chrome.",
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/glass-content-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/glass-content-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "Liquid Glass card with chrome, elevated, content, and outline variants.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/card.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "content", "outline"]
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Glass capsule tab list with chrome active triggers.",
+      "dependencies": [
+        "@radix-ui/react-tabs",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/tabs.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tabs.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "Glass-styled data table with chrome container and hover rows.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/table.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "plain"]
+      }
+    },
+    {
+      "name": "utils",
+      "type": "registry:lib",
+      "title": "Utils",
+      "description": "Utility functions for class name merging.",
+      "dependencies": ["clsx", "tailwind-merge"],
+      "files": [
+        {
+          "path": "packages/utils/src/cn.ts",
+          "type": "registry:lib",
+          "target": "lib/utils.ts"
+        },
+        {
+          "path": "packages/utils/src/focus-ring.ts",
+          "type": "registry:lib",
+          "target": "lib/focus-ring.ts"
+        }
+      ]
+    }
+  ]
+}

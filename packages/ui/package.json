@@ -1,26 +1,33 @@
 {
-  "name": "@repo/ui",
+  "name": "@intelli/ui",
   "version": "0.0.0",
   "private": true,
   "exports": {
-    "./*": "./src/*.tsx"
+    ".": "./src/index.ts",
+    "./button": "./src/button.tsx",
+    "./glass-bar": "./src/glass-bar.tsx",
+    "./glass-icon-button": "./src/glass-icon-button.tsx",
+    "./glass-content-card": "./src/glass-content-card.tsx",
+    "./card": "./src/card.tsx",
+    "./tabs": "./src/tabs.tsx",
+    "./table": "./src/table.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
-    "generate:component": "turbo gen react-component",
     "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@intelli/utils": "workspace:*",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-tabs": "^1.1.12",
+    "class-variance-authority": "^0.7.1",
+    "react": "^19.2.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "@types/node": "^22.15.3",
     "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
     "eslint": "^9.39.1",
     "typescript": "5.9.2"
-  },
-  "dependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
   }
 }

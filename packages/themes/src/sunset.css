@@ -1,0 +1,119 @@
+@layer theme {
+  /* Light — warm Material surfaces + Apple rose-gold vibrancy */
+  :root[data-theme="sunset"] {
+    --background: oklch(0.97 0.015 55);
+    --foreground: oklch(0.25 0.05 35);
+    --surface: oklch(1 0.01 55);
+    --card: oklch(1 0.01 55 / 0.72);
+    --card-foreground: oklch(0.25 0.05 35);
+    --popover: oklch(1 0.01 55 / 0.88);
+    --popover-foreground: oklch(0.25 0.05 35);
+    --primary: oklch(0.62 0.2 45);
+    --primary-foreground: oklch(0.99 0 0);
+    --secondary: oklch(0.94 0.03 55);
+    --secondary-foreground: oklch(0.3 0.05 35);
+    --muted: oklch(0.93 0.02 55);
+    --muted-foreground: oklch(0.48 0.04 40);
+    --accent: oklch(0.58 0.22 15);
+    --accent-foreground: oklch(0.99 0 0);
+    --destructive: oklch(0.52 0.22 25);
+    --destructive-foreground: oklch(0.99 0 0);
+    --border: oklch(0.78 0.04 55 / 0.55);
+    --input: oklch(0.9 0.03 55 / 0.75);
+    --ring: oklch(0.62 0.2 45 / 0.55);
+    --shadow-color: oklch(0.4 0.1 40);
+
+    --glass-blur: 22px;
+    --glass-saturation: 170%;
+    --glass-border: color-mix(in oklch, var(--foreground) 16%, transparent);
+    --glass-highlight: color-mix(in oklch, white 75%, transparent);
+    --glass-shadow: 0 4px 28px color-mix(in oklch, var(--shadow-color) 14%, transparent);
+    --glass-shadow-hover: 0 10px 36px color-mix(in oklch, var(--shadow-color) 20%, transparent);
+    --glass-shadow-pressed: inset 0 2px 6px color-mix(in oklch, var(--shadow-color) 14%, transparent);
+    --glass-inset: inset 0 1px 0 var(--glass-highlight);
+    --glass-shimmer: color-mix(in oklch, white 40%, transparent);
+
+    --button-filled-bg: color-mix(in oklch, var(--primary) 90%, transparent);
+    --button-filled-text: oklch(0.99 0 0);
+    --button-filled-border: color-mix(in oklch, var(--primary) 65%, white);
+    --button-filled-text-shadow: none;
+
+    --button-destructive-bg: color-mix(in oklch, var(--destructive) 88%, transparent);
+    --button-destructive-text: oklch(0.99 0 0);
+    --button-destructive-border: color-mix(in oklch, var(--destructive) 60%, white);
+
+    --button-tonal-bg: color-mix(in oklch, var(--secondary) 85%, white);
+    --button-tonal-text: oklch(0.28 0.05 35);
+    --button-tonal-border: color-mix(in oklch, var(--foreground) 12%, transparent);
+
+    --button-outline-bg: color-mix(in oklch, var(--surface) 72%, transparent);
+    --button-outline-text: oklch(0.25 0.05 35);
+    --button-outline-border: color-mix(in oklch, var(--foreground) 26%, transparent);
+
+    --button-ghost-text: oklch(0.25 0.05 35);
+    --button-ghost-hover-bg: color-mix(in oklch, var(--foreground) 6%, transparent);
+
+    --mesh-1: oklch(0.78 0.18 55 / 0.4);
+    --mesh-2: oklch(0.65 0.22 25 / 0.35);
+    --mesh-3: oklch(0.7 0.16 75 / 0.3);
+  }
+
+  /* Dark — ember glow on deep umber glass */
+  :root[data-theme="sunset"].dark {
+    --background: oklch(0.15 0.04 35);
+    --foreground: oklch(0.93 0.02 55);
+    --surface: oklch(0.21 0.04 35);
+    --card: oklch(0.21 0.04 35 / 0.55);
+    --card-foreground: oklch(0.93 0.02 55);
+    --popover: oklch(0.18 0.04 35 / 0.88);
+    --popover-foreground: oklch(0.93 0.02 55);
+    --primary: oklch(0.74 0.17 55);
+    --primary-foreground: oklch(0.15 0.04 40);
+    --secondary: oklch(0.28 0.04 35);
+    --secondary-foreground: oklch(0.9 0.02 55);
+    --muted: oklch(0.23 0.04 35);
+    --muted-foreground: oklch(0.68 0.03 55);
+    --accent: oklch(0.7 0.2 20);
+    --accent-foreground: oklch(0.15 0.04 20);
+    --destructive: oklch(0.62 0.2 25);
+    --destructive-foreground: oklch(0.99 0 0);
+    --border: oklch(0.42 0.05 40 / 0.4);
+    --input: oklch(0.3 0.04 35 / 0.5);
+    --ring: oklch(0.74 0.17 55 / 0.5);
+    --shadow-color: oklch(0.06 0.03 35);
+
+    --glass-blur: 26px;
+    --glass-saturation: 185%;
+    --glass-border: color-mix(in oklch, var(--foreground) 18%, transparent);
+    --glass-highlight: color-mix(in oklch, white 16%, transparent);
+    --glass-shadow: 0 8px 36px color-mix(in oklch, black 38%, transparent);
+    --glass-shadow-hover: 0 14px 44px color-mix(in oklch, black 48%, transparent);
+    --glass-shadow-pressed: inset 0 2px 8px color-mix(in oklch, black 32%, transparent);
+    --glass-inset: inset 0 1px 0 var(--glass-highlight);
+    --glass-shimmer: color-mix(in oklch, white 14%, transparent);
+
+    --button-filled-bg: color-mix(in oklch, var(--primary) 78%, transparent);
+    --button-filled-text: oklch(0.99 0 0);
+    --button-filled-border: color-mix(in oklch, var(--primary) 48%, white);
+    --button-filled-text-shadow: 0 1px 2px color-mix(in oklch, black 28%, transparent);
+
+    --button-destructive-bg: color-mix(in oklch, var(--destructive) 68%, transparent);
+    --button-destructive-text: oklch(0.99 0 0);
+    --button-destructive-border: color-mix(in oklch, var(--destructive) 42%, white);
+
+    --button-tonal-bg: color-mix(in oklch, var(--secondary) 60%, transparent);
+    --button-tonal-text: oklch(0.92 0.02 55);
+    --button-tonal-border: color-mix(in oklch, var(--foreground) 10%, transparent);
+
+    --button-outline-bg: color-mix(in oklch, var(--surface) 38%, transparent);
+    --button-outline-text: oklch(0.93 0.02 55);
+    --button-outline-border: color-mix(in oklch, var(--foreground) 28%, transparent);
+
+    --button-ghost-text: oklch(0.93 0.02 55);
+    --button-ghost-hover-bg: color-mix(in oklch, var(--foreground) 8%, transparent);
+
+    --mesh-1: oklch(0.5 0.18 55 / 0.55);
+    --mesh-2: oklch(0.42 0.22 20 / 0.5);
+    --mesh-3: oklch(0.45 0.14 75 / 0.45);
+  }
+}
