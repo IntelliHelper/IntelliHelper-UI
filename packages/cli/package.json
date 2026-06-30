@@ -1,5 +1,5 @@
 {
-  "name": "@intelli/cli",
+  "name": "@intellihelper/cli",
   "version": "0.1.0",
   "description": "Add and update Intelli UI Liquid Glass components in your project",
   "type": "module",

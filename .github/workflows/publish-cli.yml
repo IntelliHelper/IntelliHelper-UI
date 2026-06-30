@@ -7,7 +7,7 @@ on:
 
 jobs:
   publish:
-    name: Publish @intelli/cli to npm
+    name: Publish @intellihelper/cli to npm
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -30,9 +30,9 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build CLI
-        run: pnpm --filter @intelli/cli build
+        run: pnpm --filter @intellihelper/cli build
 
       - name: Publish to npm
-        run: pnpm --filter @intelli/cli publish --no-git-checks --access public
+        run: pnpm --filter @intellihelper/cli publish --no-git-checks --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

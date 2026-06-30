@@ -5,27 +5,27 @@ import { useState } from "react";
 const commands = [
   {
     label: "Initialize",
-    command: "npx @intelli/cli@latest init",
+    command: "npx @intellihelper/cli@latest init",
     description: "Create components.json in your project",
   },
   {
     label: "Add components",
-    command: "npx @intelli/cli@latest add button card tabs",
+    command: "npx @intellihelper/cli@latest add button card tabs",
     description: "Install one or more components (utils are added automatically)",
   },
   {
     label: "Interactive add",
-    command: "npx @intelli/cli@latest add",
+    command: "npx @intellihelper/cli@latest add",
     description: "Pick components from a list when you omit names",
   },
   {
     label: "List available",
-    command: "npx @intelli/cli@latest list",
+    command: "npx @intellihelper/cli@latest list",
     description: "See all registry components and what is installed",
   },
   {
     label: "Update",
-    command: "npx @intelli/cli@latest update",
+    command: "npx @intellihelper/cli@latest update",
     description: "Pull registry updates; prompts before overwriting local edits",
   },
 ] as const;

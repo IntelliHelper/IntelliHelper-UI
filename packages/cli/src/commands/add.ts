@@ -38,9 +38,9 @@ export async function runAdd(options: AddOptions): Promise<void> {
   if (targets.length === 0) {
     if (!process.stdin.isTTY) {
       logger.error(
-        "Please specify at least one component. Example: npx @intelli/cli add button",
+        "Please specify at least one component. Example: npx @intellihelper/cli add button",
       );
-      logger.info("Run `npx @intelli/cli list` to see available components.");
+      logger.info("Run `npx @intellihelper/cli list` to see available components.");
       process.exit(1);
     }
 
