@@ -1,0 +1,51 @@
+@import "@intelli/config/globals.css";
+
+html {
+  color-scheme: light dark;
+}
+
+.mesh-background {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: var(--background);
+  transition: background 400ms var(--ease-default);
+}
+
+.mesh-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.8;
+  transition:
+    background 600ms var(--ease-default),
+    opacity 400ms var(--ease-default);
+}
+
+.mesh-blob-1 {
+  width: 600px;
+  height: 600px;
+  top: -10%;
+  left: -5%;
+  background: var(--mesh-1);
+  animation: mesh-drift 20s ease-in-out infinite;
+}
+
+.mesh-blob-2 {
+  width: 500px;
+  height: 500px;
+  top: 40%;
+  right: -10%;
+  background: var(--mesh-2);
+  animation: mesh-drift 25s ease-in-out infinite reverse;
+}
+
+.mesh-blob-3 {
+  width: 450px;
+  height: 450px;
+  bottom: -5%;
+  left: 30%;
+  background: var(--mesh-3);
+  animation: mesh-drift 22s ease-in-out infinite 5s;
+}

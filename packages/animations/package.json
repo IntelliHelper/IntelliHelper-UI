@@ -1,0 +1,8 @@
+{
+  "name": "@intelli/animations",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./globals.css": "./src/index.css"
+  }
+}

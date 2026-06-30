@@ -1,0 +1,17 @@
+{
+  "name": "@intelli/cli",
+  "version": "0.0.0",
+  "private": true,
+  "bin": {
+    "intelli-ui": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^22.15.3",
+    "typescript": "5.9.2"
+  }
+}

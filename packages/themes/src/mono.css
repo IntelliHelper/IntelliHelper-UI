@@ -1,0 +1,119 @@
+@layer theme {
+  /* Light — pure white surfaces, black on-surface (Material baseline) */
+  :root[data-theme="mono"] {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.13 0 0);
+    --surface: oklch(1 0 0);
+    --card: oklch(1 0 0 / 0.85);
+    --card-foreground: oklch(0.13 0 0);
+    --popover: oklch(1 0 0 / 0.95);
+    --popover-foreground: oklch(0.13 0 0);
+    --primary: oklch(0.13 0 0);
+    --primary-foreground: oklch(0.99 0 0);
+    --secondary: oklch(0.96 0 0);
+    --secondary-foreground: oklch(0.2 0 0);
+    --muted: oklch(0.95 0 0);
+    --muted-foreground: oklch(0.45 0 0);
+    --accent: oklch(0.2 0 0);
+    --accent-foreground: oklch(0.99 0 0);
+    --destructive: oklch(0.45 0 0);
+    --destructive-foreground: oklch(0.99 0 0);
+    --border: oklch(0.82 0 0 / 0.7);
+    --input: oklch(0.92 0 0 / 0.9);
+    --ring: oklch(0.13 0 0 / 0.35);
+    --shadow-color: oklch(0.2 0 0);
+
+    --glass-blur: 16px;
+    --glass-saturation: 100%;
+    --glass-border: color-mix(in oklch, var(--foreground) 14%, transparent);
+    --glass-highlight: color-mix(in oklch, white 85%, transparent);
+    --glass-shadow: 0 2px 16px color-mix(in oklch, var(--shadow-color) 8%, transparent);
+    --glass-shadow-hover: 0 4px 24px color-mix(in oklch, var(--shadow-color) 12%, transparent);
+    --glass-shadow-pressed: inset 0 2px 4px color-mix(in oklch, var(--shadow-color) 10%, transparent);
+    --glass-inset: inset 0 1px 0 var(--glass-highlight);
+    --glass-shimmer: color-mix(in oklch, white 50%, transparent);
+
+    --button-filled-bg: color-mix(in oklch, var(--primary) 95%, transparent);
+    --button-filled-text: oklch(0.99 0 0);
+    --button-filled-border: color-mix(in oklch, var(--primary) 80%, transparent);
+    --button-filled-text-shadow: none;
+
+    --button-destructive-bg: color-mix(in oklch, var(--destructive) 92%, transparent);
+    --button-destructive-text: oklch(0.99 0 0);
+    --button-destructive-border: color-mix(in oklch, var(--destructive) 70%, transparent);
+
+    --button-tonal-bg: color-mix(in oklch, var(--secondary) 90%, transparent);
+    --button-tonal-text: oklch(0.15 0 0);
+    --button-tonal-border: color-mix(in oklch, var(--foreground) 12%, transparent);
+
+    --button-outline-bg: color-mix(in oklch, var(--surface) 80%, transparent);
+    --button-outline-text: oklch(0.13 0 0);
+    --button-outline-border: color-mix(in oklch, var(--foreground) 30%, transparent);
+
+    --button-ghost-text: oklch(0.13 0 0);
+    --button-ghost-hover-bg: color-mix(in oklch, var(--foreground) 5%, transparent);
+
+    --mesh-1: oklch(0.92 0 0 / 0.6);
+    --mesh-2: oklch(0.88 0 0 / 0.5);
+    --mesh-3: oklch(0.95 0 0 / 0.45);
+  }
+
+  /* Dark — pure black surfaces, white on-surface */
+  :root[data-theme="mono"].dark {
+    --background: oklch(0.1 0 0);
+    --foreground: oklch(0.97 0 0);
+    --surface: oklch(0.14 0 0);
+    --card: oklch(0.14 0 0 / 0.75);
+    --card-foreground: oklch(0.97 0 0);
+    --popover: oklch(0.12 0 0 / 0.95);
+    --popover-foreground: oklch(0.97 0 0);
+    --primary: oklch(0.97 0 0);
+    --primary-foreground: oklch(0.1 0 0);
+    --secondary: oklch(0.22 0 0);
+    --secondary-foreground: oklch(0.92 0 0);
+    --muted: oklch(0.18 0 0);
+    --muted-foreground: oklch(0.62 0 0);
+    --accent: oklch(0.85 0 0);
+    --accent-foreground: oklch(0.1 0 0);
+    --destructive: oklch(0.55 0 0);
+    --destructive-foreground: oklch(0.99 0 0);
+    --border: oklch(0.35 0 0 / 0.55);
+    --input: oklch(0.24 0 0 / 0.65);
+    --ring: oklch(0.97 0 0 / 0.3);
+    --shadow-color: oklch(0 0 0);
+
+    --glass-blur: 18px;
+    --glass-saturation: 100%;
+    --glass-border: color-mix(in oklch, var(--foreground) 12%, transparent);
+    --glass-highlight: color-mix(in oklch, white 10%, transparent);
+    --glass-shadow: 0 4px 24px color-mix(in oklch, black 45%, transparent);
+    --glass-shadow-hover: 0 8px 32px color-mix(in oklch, black 55%, transparent);
+    --glass-shadow-pressed: inset 0 2px 6px color-mix(in oklch, black 35%, transparent);
+    --glass-inset: inset 0 1px 0 var(--glass-highlight);
+    --glass-shimmer: color-mix(in oklch, white 10%, transparent);
+
+    --button-filled-bg: color-mix(in oklch, var(--primary) 88%, transparent);
+    --button-filled-text: oklch(0.1 0 0);
+    --button-filled-border: color-mix(in oklch, var(--primary) 60%, transparent);
+    --button-filled-text-shadow: none;
+
+    --button-destructive-bg: color-mix(in oklch, var(--destructive) 75%, transparent);
+    --button-destructive-text: oklch(0.99 0 0);
+    --button-destructive-border: color-mix(in oklch, var(--destructive) 45%, transparent);
+
+    --button-tonal-bg: color-mix(in oklch, var(--secondary) 70%, transparent);
+    --button-tonal-text: oklch(0.94 0 0);
+    --button-tonal-border: color-mix(in oklch, var(--foreground) 10%, transparent);
+
+    --button-outline-bg: color-mix(in oklch, var(--surface) 45%, transparent);
+    --button-outline-text: oklch(0.97 0 0);
+    --button-outline-border: color-mix(in oklch, var(--foreground) 28%, transparent);
+
+    --button-ghost-text: oklch(0.97 0 0);
+    --button-ghost-hover-bg: color-mix(in oklch, var(--foreground) 7%, transparent);
+
+    --mesh-1: oklch(0.2 0 0 / 0.5);
+    --mesh-2: oklch(0.16 0 0 / 0.45);
+    --mesh-3: oklch(0.24 0 0 / 0.4);
+  }
+}
