@@ -7,6 +7,11 @@ import { DialogDemo } from "../components/dialog-demo";
 import { CustomizationDemo } from "../components/customization-demo";
 import { AccordionSliderDemo } from "../components/accordion-slider-demo";
 import { FormComponentsDemo } from "../components/form-components-demo";
+import { CalendarDemo } from "../components/calendar-demo";
+import { SheetHoverCardDemo } from "../components/sheet-hover-card-demo";
+import { TogglePopoverDemo } from "../components/toggle-popover-demo";
+import { SelectSidebarDemo } from "../components/select-sidebar-demo";
+import { BackgroundPictureDemo } from "../components/background-picture-demo";
 import { ToggleComponentsDemo } from "../components/toggle-components-demo";
 import { LiquidGlassDemo } from "../components/liquid-glass-demo";
 import { ThemeSwitcher } from "../components/theme-switcher";
@@ -84,6 +89,13 @@ export default function Home() {
 
       <main className="mx-auto max-w-5xl space-y-6 px-6 pb-16">
         <GlassSection
+          title="Background Picture"
+          description="Choose a preset gradient, upload your own image, or reset to the default mesh — applies to the entire playground"
+        >
+          <BackgroundPictureDemo />
+        </GlassSection>
+
+        <GlassSection
           title="CLI"
           description="Add Liquid Glass components to any Next.js + Tailwind project"
         >
@@ -113,6 +125,20 @@ export default function Home() {
         </GlassSection>
 
         <GlassSection
+          title="Select & Sidebar"
+          description="Frosted dropdown with rise-in panel and chevron rotation — collapsible glass sidebar with staggered nav items"
+        >
+          <SelectSidebarDemo />
+        </GlassSection>
+
+        <GlassSection
+          title="Calendar"
+          description="Frosted glass date picker with primary selection, range highlighting, and month/year dropdowns"
+        >
+          <CalendarDemo />
+        </GlassSection>
+
+        <GlassSection
           title="Switch, Checkbox & Badge"
           description="Frosted toggle controls with spring thumb slide, animated check marks, and scale-in badges"
         >
@@ -131,6 +157,20 @@ export default function Home() {
           description="Highly transparent frosted modal with glass-rise content and chrome close control"
         >
           <DialogDemo />
+        </GlassSection>
+
+        <GlassSection
+          title="Sheet & Hover Card"
+          description="Edge slide-in glass panels with frosted overlay — rich hover previews with spring scale-in"
+        >
+          <SheetHoverCardDemo />
+        </GlassSection>
+
+        <GlassSection
+          title="Toggle & Popover"
+          description="Pressable chrome toggles with capsule groups — click-triggered frosted popover panels"
+        >
+          <TogglePopoverDemo />
         </GlassSection>
 
         <GlassSection
