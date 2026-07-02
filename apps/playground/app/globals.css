@@ -10,7 +10,12 @@ html {
   z-index: -1;
   overflow: hidden;
   background: var(--background);
-  transition: background 400ms var(--ease-default);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition:
+    background 400ms var(--ease-default),
+    background-image 400ms var(--ease-default);
 }
 
 .mesh-blob {

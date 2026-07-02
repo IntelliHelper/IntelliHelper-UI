@@ -312,6 +312,236 @@
       }
     },
     {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Frosted glass select with spring chevron rotation, rise-in dropdown, and animated check indicators.",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "input"],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/select.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "sizes": ["sm", "default", "lg"],
+        "states": ["default", "error", "success"]
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Frosted glass tooltip with spring scale-in animation for contextual hints.",
+      "dependencies": [
+        "@radix-ui/react-tooltip",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/tooltip.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tooltip.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"]
+      }
+    },
+    {
+      "name": "sidebar",
+      "type": "registry:ui",
+      "title": "Sidebar",
+      "description": "Collapsible Liquid Glass sidebar with slide-in mobile sheet, icon rail collapse, collapsed tooltips, and persisted open state.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "tooltip"],
+      "files": [
+        {
+          "path": "packages/ui/src/sidebar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sidebar.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "collapsible": ["none", "icon", "offcanvas"],
+        "sides": ["left", "right"]
+      }
+    },
+    {
+      "name": "calendar",
+      "type": "registry:ui",
+      "title": "Calendar",
+      "description": "Frosted glass date picker with primary selection states, range highlighting, and rise-in panel animation.",
+      "dependencies": [
+        "react-day-picker",
+        "date-fns",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "button"],
+      "files": [
+        {
+          "path": "packages/ui/src/calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/calendar.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "sizes": ["sm", "default", "lg"],
+        "modes": ["single", "multiple", "range"]
+      }
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "Slide-in glass panel from any edge with frosted overlay, spring slide animation, and chrome close control.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "dialog"],
+      "files": [
+        {
+          "path": "packages/ui/src/sheet.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sheet.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "sides": ["top", "right", "bottom", "left"],
+        "sizes": ["sm", "default", "lg", "full"],
+        "overlayBlur": ["none", "sm", "default", "lg", "xl", "heavy"],
+        "overlayDim": ["none", "light", "default", "heavy"],
+        "slots": ["overlayClassName", "closeClassName", "closeIcon", "closeLabel"]
+      }
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "Frosted glass hover preview with spring scale-in animation for rich contextual content.",
+      "dependencies": [
+        "@radix-ui/react-hover-card",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/hover-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/hover-card.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Pressable glass toggle with chrome pressed state, outline and ghost variants, and spring scale feedback.",
+      "dependencies": [
+        "@radix-ui/react-toggle",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/toggle.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline", "ghost"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "Capsule glass container for mutually exclusive or multi-select toggle items with shared variant context.",
+      "dependencies": [
+        "@radix-ui/react-toggle-group",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "toggle"],
+      "files": [
+        {
+          "path": "packages/ui/src/toggle-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/toggle-group.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "plain"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Click-triggered frosted glass panel with spring scale-in animation for forms and contextual actions.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/popover.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/popover.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "background-picture-picker",
+      "type": "registry:ui",
+      "title": "Background Picture Picker",
+      "description": "Select a preset background, upload a custom image, or choose none for a transparent surface.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/background-picture-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/background-picture-picker.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": ["sm", "default", "lg"],
+        "sources": ["none", "preset", "custom"],
+        "slots": ["overlayClassName"]
+      }
+    },
+    {
       "name": "table",
       "type": "registry:ui",
       "title": "Table",

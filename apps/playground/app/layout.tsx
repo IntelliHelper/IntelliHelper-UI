@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "@intelli/themes";
+import { PlaygroundBackgroundProvider } from "../components/playground-background-provider";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -16,12 +17,7 @@ export default function RootLayout({
     <html lang="en" data-theme="mono" className="light" suppressHydrationWarning>
       <body className="min-h-screen antialiased px-4 pt-4">
         <ThemeProvider defaultTheme="mono" defaultMode="light">
-          <div className="mesh-background" aria-hidden="true">
-            <div className="mesh-blob mesh-blob-1" />
-            <div className="mesh-blob mesh-blob-2" />
-            <div className="mesh-blob mesh-blob-3" />
-          </div>
-          {children}
+          <PlaygroundBackgroundProvider>{children}</PlaygroundBackgroundProvider>
         </ThemeProvider>
       </body>
     </html>
