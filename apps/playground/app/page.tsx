@@ -4,6 +4,7 @@ import { ButtonGlassDemo } from "../components/button-glass-demo";
 import { CliGettingStarted } from "../components/cli-getting-started";
 import { DataComponentsDemo } from "../components/data-components-demo";
 import { LayoutUtilityDemo } from "../components/layout-utility-demo";
+import { MarkdownViewerDemo } from "../components/markdown-viewer-demo";
 import { DialogDemo } from "../components/dialog-demo";
 import { CustomizationDemo } from "../components/customization-demo";
 import { AccordionSliderDemo } from "../components/accordion-slider-demo";
@@ -186,6 +187,13 @@ export default function Home() {
           description="Separators, spinners, progress, radio groups, native select, scroll areas, resizable panels, and typography"
         >
           <LayoutUtilityDemo />
+        </GlassSection>
+
+        <GlassSection
+          title="Markdown Editor & Viewer"
+          description="Visual rich-text or markdown source editing with formatting toolbar, split preview, undo/redo, and a glass-styled renderer with Shiki highlighting"
+        >
+          <MarkdownViewerDemo />
         </GlassSection>
 
         <GlassSection

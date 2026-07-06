@@ -791,6 +791,107 @@
       }
     },
     {
+      "name": "markdown-viewer",
+      "type": "registry:ui",
+      "title": "Markdown Viewer",
+      "description": "Glass-styled markdown renderer with typography primitives, Shiki syntax highlighting, GFM tables, and optional scroll area.",
+      "dependencies": [
+        "class-variance-authority",
+        "react-markdown",
+        "remark-gfm",
+        "shiki"
+      ],
+      "registryDependencies": ["utils", "typography", "scroll-area", "separator"],
+      "files": [
+        {
+          "path": "packages/ui/src/markdown-highlight.ts",
+          "type": "registry:lib",
+          "target": "lib/markdown-highlight.ts"
+        },
+        {
+          "path": "packages/ui/src/markdown-code-block.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/markdown-code-block.tsx"
+        },
+        {
+          "path": "packages/ui/src/markdown-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/markdown-viewer.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome", "outline"],
+        "tones": ["default", "chrome", "muted"],
+        "features": ["gfm", "highlight", "scrollable"]
+      }
+    },
+    {
+      "name": "markdown-editor",
+      "type": "registry:ui",
+      "title": "Markdown Editor",
+      "description": "Glass-styled markdown editor with visual rich-text mode, formatting toolbar, split preview, undo/redo, keyboard shortcuts, and live stats.",
+      "dependencies": [
+        "class-variance-authority",
+        "marked",
+        "react-markdown",
+        "remark-gfm",
+        "shiki",
+        "react-resizable-panels",
+        "turndown",
+        "turndown-plugin-gfm"
+      ],
+      "registryDependencies": [
+        "utils",
+        "markdown-viewer",
+        "glass-icon-button",
+        "toggle-group",
+        "tooltip",
+        "scroll-area",
+        "separator",
+        "resizable"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/markdown-editor-convert.ts",
+          "type": "registry:lib",
+          "target": "lib/markdown-editor-convert.ts"
+        },
+        {
+          "path": "packages/ui/src/markdown-editor-utils.ts",
+          "type": "registry:lib",
+          "target": "lib/markdown-editor-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/markdown-rich-text-utils.ts",
+          "type": "registry:lib",
+          "target": "lib/markdown-rich-text-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/markdown-rich-text-editor.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/markdown-rich-text-editor.tsx"
+        },
+        {
+          "path": "packages/ui/src/markdown-editor.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/markdown-editor.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome", "outline"],
+        "editorModes": ["rich-text", "markdown"],
+        "views": ["edit", "split", "preview"],
+        "features": [
+          "rich-text",
+          "toolbar",
+          "undo-redo",
+          "keyboard-shortcuts",
+          "split-preview",
+          "stats"
+        ]
+      }
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "title": "Utils",
