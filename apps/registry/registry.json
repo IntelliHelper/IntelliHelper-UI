@@ -562,6 +562,235 @@
       }
     },
     {
+      "name": "empty",
+      "type": "registry:ui",
+      "title": "Empty",
+      "description": "Compound empty-state layout with frosted dashed chrome container and icon media slot.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/empty.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/empty.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline"],
+        "mediaVariants": ["default", "icon"]
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Glass pulse loading placeholder with default, chrome, and text variants.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/skeleton.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/skeleton.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome", "text"],
+        "rounded": ["none", "sm", "md", "lg", "full"]
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Accessible pagination nav composing glass button variants for page links.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "button"],
+      "files": [
+        {
+          "path": "packages/ui/src/pagination.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pagination.tsx"
+        }
+      ],
+      "meta": {
+        "slots": ["PaginationLink", "PaginationPrevious", "PaginationNext", "PaginationEllipsis"]
+      }
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "Glass chrome divider for horizontal and vertical layout separation.",
+      "dependencies": [
+        "@radix-ui/react-separator",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/separator.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/separator.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome", "subtle"],
+        "orientations": ["horizontal", "vertical"]
+      }
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "Accessible loading spinner with chrome, primary, and muted variants.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/spinner.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/spinner.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "primary", "muted", "chrome"],
+        "sizes": ["sm", "default", "lg", "xl"]
+      }
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Frosted glass progress bar with spring-animated primary fill.",
+      "dependencies": [
+        "@radix-ui/react-progress",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/progress.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/progress.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "Custom scrollbar with optional chrome container for overflow content.",
+      "dependencies": [
+        "@radix-ui/react-scroll-area",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/scroll-area.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/scroll-area.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome", "outline"]
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Glass chrome radio controls with spring scale and primary indicator dot.",
+      "dependencies": [
+        "@radix-ui/react-radio-group",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/radio-group.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radio-group.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline"],
+        "sizes": ["sm", "default", "lg"],
+        "orientations": ["vertical", "horizontal"]
+      }
+    },
+    {
+      "name": "resizable",
+      "type": "registry:ui",
+      "title": "Resizable",
+      "description": "Drag-to-resize panel groups with optional glass grip handle.",
+      "dependencies": [
+        "react-resizable-panels",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/resizable.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/resizable.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome"],
+        "slots": ["ResizableHandle"]
+      }
+    },
+    {
+      "name": "native-select",
+      "type": "registry:ui",
+      "title": "Native Select",
+      "description": "Styled native HTML select with glass field variants and chevron icon.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "input"],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/native-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/native-select.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline"],
+        "sizes": ["sm", "default", "lg"],
+        "widths": ["fit", "full"]
+      }
+    },
+    {
+      "name": "typography",
+      "type": "registry:ui",
+      "title": "Typography",
+      "description": "Semantic text primitives for headings, body copy, quotes, and inline code.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/typography.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/typography.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "chrome", "muted"],
+        "elements": ["h1", "h2", "h3", "h4", "p", "blockquote", "code", "lead", "large", "small", "muted", "list"]
+      }
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "title": "Utils",

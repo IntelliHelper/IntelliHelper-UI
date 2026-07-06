@@ -3,6 +3,7 @@ import { Button } from "@intelli/ui";
 import { ButtonGlassDemo } from "../components/button-glass-demo";
 import { CliGettingStarted } from "../components/cli-getting-started";
 import { DataComponentsDemo } from "../components/data-components-demo";
+import { LayoutUtilityDemo } from "../components/layout-utility-demo";
 import { DialogDemo } from "../components/dialog-demo";
 import { CustomizationDemo } from "../components/customization-demo";
 import { AccordionSliderDemo } from "../components/accordion-slider-demo";
@@ -174,10 +175,17 @@ export default function Home() {
         </GlassSection>
 
         <GlassSection
-          title="Card, Tabs & Table"
-          description="Chrome-layer surfaces with premium motion — rise-in cards, sliding tab indicator, staggered table rows"
+          title="Card, Tabs, Table & Data States"
+          description="Chrome-layer surfaces with premium motion — rise-in cards, sliding tab indicator, skeleton loading, empty states, and pagination"
         >
           <DataComponentsDemo />
+        </GlassSection>
+
+        <GlassSection
+          title="Layout & Utility"
+          description="Separators, spinners, progress, radio groups, native select, scroll areas, resizable panels, and typography"
+        >
+          <LayoutUtilityDemo />
         </GlassSection>
 
         <GlassSection

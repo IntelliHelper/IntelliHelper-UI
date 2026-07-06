@@ -3,11 +3,16 @@
 import { useState } from "react";
 import { Calendar, type DateRange } from "@intelli/ui";
 
+const DEMO_REFERENCE_DATE = new Date(2026, 6, 6);
+const DEMO_RANGE_END = new Date(2026, 6, 10);
+
 export function CalendarDemo() {
-  const [singleDate, setSingleDate] = useState<Date | undefined>(new Date());
+  const [singleDate, setSingleDate] = useState<Date | undefined>(
+    DEMO_REFERENCE_DATE,
+  );
   const [range, setRange] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: new Date(Date.now() + 4 * 24 * 60 * 60 * 1000),
+    from: DEMO_REFERENCE_DATE,
+    to: DEMO_RANGE_END,
   });
 
   return (
@@ -23,6 +28,7 @@ export function CalendarDemo() {
             selected={singleDate}
             onSelect={setSingleDate}
             variant="chrome"
+            defaultMonth={DEMO_REFERENCE_DATE}
           />
         </div>
 
@@ -37,6 +43,7 @@ export function CalendarDemo() {
             onSelect={setRange}
             numberOfMonths={1}
             variant="elevated"
+            defaultMonth={DEMO_REFERENCE_DATE}
           />
         </div>
       </div>
@@ -53,6 +60,7 @@ export function CalendarDemo() {
           captionLayout="dropdown"
           startMonth={new Date(2024, 0)}
           endMonth={new Date(2028, 11)}
+          defaultMonth={DEMO_REFERENCE_DATE}
           variant="outline"
           size="lg"
         />
