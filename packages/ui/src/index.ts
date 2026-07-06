@@ -302,6 +302,45 @@ export {
   typographyVariants,
 } from "./typography";
 export {
+  MarkdownViewer,
+  MarkdownCodeBlock,
+  markdownViewerVariants,
+  createMarkdownComponents,
+  parseFencedCodeBlock,
+  highlightMarkdownCode,
+  type MarkdownViewerProps,
+  type MarkdownCodeBlockProps,
+} from "./markdown-viewer";
+export {
+  MarkdownEditor,
+  MarkdownEditorToolbar,
+  markdownEditorVariants,
+  editorSurfaceVariants,
+  type MarkdownEditorProps,
+  type MarkdownEditorHandle,
+  type MarkdownEditorToolbarProps,
+  type MarkdownEditorView,
+  type MarkdownEditorMode,
+} from "./markdown-editor";
+export {
+  MarkdownRichTextEditor,
+  richTextSurfaceVariants,
+  type MarkdownRichTextEditorProps,
+  type MarkdownRichTextEditorHandle,
+} from "./markdown-rich-text-editor";
+export {
+  applyMarkdownAction,
+  getMarkdownStats,
+  handleTabKey,
+  MARKDOWN_EDITOR_SHORTCUTS,
+  type MarkdownEditorAction,
+} from "./markdown-editor-utils";
+export {
+  markdownToHtml,
+  htmlToMarkdown,
+} from "./markdown-editor-convert";
+export { applyRichTextAction } from "./markdown-rich-text-utils";
+export {
   BackgroundPicturePicker,
   BackgroundPictureSurface,
   backgroundPicturePickerVariants,

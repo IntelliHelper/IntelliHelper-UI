@@ -39,7 +39,9 @@
     "./radio-group": "./src/radio-group.tsx",
     "./resizable": "./src/resizable.tsx",
     "./native-select": "./src/native-select.tsx",
-    "./typography": "./src/typography.tsx"
+    "./typography": "./src/typography.tsx",
+    "./markdown-viewer": "./src/markdown-viewer.tsx",
+    "./markdown-editor": "./src/markdown-editor.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
@@ -66,14 +68,21 @@
     "@radix-ui/react-tooltip": "^1.2.7",
     "class-variance-authority": "^0.7.1",
     "date-fns": "^4.4.0",
+    "marked": "^18.0.5",
     "react": "^19.2.0",
     "react-day-picker": "^10.0.1",
-    "react-resizable-panels": "^4.12.1"
+    "react-markdown": "^10.1.0",
+    "react-resizable-panels": "^4.12.1",
+    "remark-gfm": "^4.0.1",
+    "shiki": "^4.3.1",
+    "turndown": "^7.2.4",
+    "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "@types/react": "19.2.2",
+    "@types/turndown": "^5.0.6",
     "eslint": "^9.39.1",
     "typescript": "5.9.2"
   }
