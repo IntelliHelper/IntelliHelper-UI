@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Button } from "@intelli/ui";
+import { Button, ScrollToTop } from "@intelli/ui";
 import { ButtonGlassDemo } from "../components/button-glass-demo";
 import { CliGettingStarted } from "../components/cli-getting-started";
 import { DataComponentsDemo } from "../components/data-components-demo";
@@ -184,7 +184,7 @@ export default function Home() {
 
         <GlassSection
           title="Layout & Utility"
-          description="Separators, spinners, progress, radio groups, native select, scroll areas, resizable panels, and typography"
+          description="Separators, spinners, progress, radio groups, native select, scroll areas, scroll to top, resizable panels, and typography"
         >
           <LayoutUtilityDemo />
         </GlassSection>
@@ -275,6 +275,8 @@ export default function Home() {
           </Button>
         </GlassSection>
       </main>
+
+      <ScrollToTop />
     </div>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import {
   NativeSelect,
   NativeSelectOption,
@@ -11,6 +11,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
   ScrollArea,
+  ScrollToTop,
   Separator,
   Spinner,
   TypographyBlockquote,
@@ -54,6 +55,7 @@ function LabelRow({
 export function LayoutUtilityDemo() {
   const [plan, setPlan] = useState("starter");
   const [progress, setProgress] = useState(62);
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   return (
     <div className="space-y-8">
@@ -125,15 +127,18 @@ export function LayoutUtilityDemo() {
 
         <div className="space-y-4">
           <p className="text-sm font-medium text-foreground">Scroll Area</p>
-          <ScrollArea variant="chrome" className="h-40 p-4">
-            <div className="space-y-2 pr-4">
-              {scrollItems.map((item) => (
-                <p key={item} className="text-sm glass-chrome-text-muted">
-                  {item}
-                </p>
-              ))}
-            </div>
-          </ScrollArea>
+          <div ref={scrollAreaRef} className="relative">
+            <ScrollArea variant="chrome" className="h-40 p-4">
+              <div className="space-y-2 pr-4">
+                {scrollItems.map((item) => (
+                  <p key={item} className="text-sm glass-chrome-text-muted">
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </ScrollArea>
+            <ScrollToTop withinRef={scrollAreaRef} threshold={48} />
+          </div>
         </div>
       </div>
 

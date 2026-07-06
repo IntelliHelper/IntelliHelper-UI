@@ -261,6 +261,11 @@ export {
   type ScrollBarProps,
 } from "./scroll-area";
 export {
+  ScrollToTop,
+  scrollToTopVariants,
+  type ScrollToTopProps,
+} from "./scroll-to-top";
+export {
   RadioGroup,
   RadioGroupItem,
   radioGroupVariants,
