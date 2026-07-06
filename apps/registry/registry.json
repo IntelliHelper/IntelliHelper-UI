@@ -702,6 +702,27 @@
       }
     },
     {
+      "name": "scroll-to-top",
+      "type": "registry:ui",
+      "title": "Scroll To Top",
+      "description": "Floating glass button that appears after scrolling and returns to the top of the page or scroll container.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils", "glass-icon-button"],
+      "files": [
+        {
+          "path": "packages/ui/src/scroll-to-top.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/scroll-to-top.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "ghost", "destructive"],
+        "sizes": ["sm", "default", "lg"],
+        "positions": ["bottom-right", "bottom-left", "bottom-center"],
+        "scopes": ["viewport", "container"]
+      }
+    },
+    {
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
