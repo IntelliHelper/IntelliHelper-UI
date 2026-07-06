@@ -16,6 +16,7 @@ import {
 } from "react";
 import { cn } from "@intelli/utils";
 import { GlassIconButton } from "./glass-icon-button";
+import { Kbd, KbdShortcut } from "./kbd";
 import { MarkdownViewer } from "./markdown-viewer";
 import {
   ResizableHandle,
@@ -381,11 +382,9 @@ function ToolbarButton({
           <ToolbarIcon>{children}</ToolbarIcon>
         </GlassIconButton>
       </TooltipTrigger>
-      <TooltipContent variant="chrome">
+      <TooltipContent variant="chrome" className="inline-flex items-center gap-2">
         <span>{label}</span>
-        {shortcut ? (
-          <span className="ml-2 text-muted-foreground">{shortcut}</span>
-        ) : null}
+        {shortcut ? <KbdShortcut shortcut={shortcut} size="sm" /> : null}
       </TooltipContent>
     </Tooltip>
   );
@@ -938,10 +937,31 @@ const MarkdownEditor = forwardRef(function MarkdownEditor(
             {stats.words} words · {stats.characters} characters · {stats.lines}{" "}
             lines
           </span>
-          <span>
-            {isRichText
-              ? "Visual editing · ⌘B bold · ⌘I italic · ⌘K link"
-              : "Tab to indent · ⌘B bold · ⌘K link · ⌘⇧K code block"}
+          <span className="inline-flex flex-wrap items-center justify-end gap-x-1 gap-y-0.5">
+            {isRichText ? (
+              <>
+                <span>Visual editing ·</span>
+                <KbdShortcut shortcut="⌘B" size="sm" variant="muted" />
+                <span>bold ·</span>
+                <KbdShortcut shortcut="⌘I" size="sm" variant="muted" />
+                <span>italic ·</span>
+                <KbdShortcut shortcut="⌘K" size="sm" variant="muted" />
+                <span>link</span>
+              </>
+            ) : (
+              <>
+                <Kbd size="sm" variant="muted">
+                  Tab
+                </Kbd>
+                <span>to indent ·</span>
+                <KbdShortcut shortcut="⌘B" size="sm" variant="muted" />
+                <span>bold ·</span>
+                <KbdShortcut shortcut="⌘K" size="sm" variant="muted" />
+                <span>link ·</span>
+                <KbdShortcut shortcut="⌘⇧K" size="sm" variant="muted" />
+                <span>code block</span>
+              </>
+            )}
           </span>
         </div>
       ) : null}

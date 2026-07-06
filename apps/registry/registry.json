@@ -312,6 +312,85 @@
       }
     },
     {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "Glass-styled keyboard key labels for shortcuts in tooltips, hints, and menus.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/kbd.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/kbd.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "muted"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Glass status alerts with icon slot, semantic tints, and fade-in mount animation.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/alert.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["default", "destructive", "success", "chrome", "outline"]
+      }
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "Embla-powered slide carousel with glass viewport variants and frosted prev/next controls.",
+      "dependencies": ["embla-carousel-react", "class-variance-authority"],
+      "registryDependencies": ["utils", "button"],
+      "files": [
+        {
+          "path": "packages/ui/src/carousel.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/carousel.tsx"
+        }
+      ],
+      "meta": {
+        "contentVariants": ["default", "chrome", "outline"],
+        "orientations": ["horizontal", "vertical"]
+      }
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Standalone glass expand/collapse panel with rotating chevron and accordion-style motion.",
+      "dependencies": [
+        "@radix-ui/react-collapsible",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/collapsible.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/collapsible.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline"],
+        "layouts": ["default", "tree"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
