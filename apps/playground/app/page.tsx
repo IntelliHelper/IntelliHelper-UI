@@ -8,6 +8,7 @@ import { MarkdownViewerDemo } from "../components/markdown-viewer-demo";
 import { DialogDemo } from "../components/dialog-demo";
 import { CustomizationDemo } from "../components/customization-demo";
 import { AccordionSliderDemo } from "../components/accordion-slider-demo";
+import { CarouselDemo } from "../components/carousel-demo";
 import { FormComponentsDemo } from "../components/form-components-demo";
 import { CalendarDemo } from "../components/calendar-demo";
 import { SheetHoverCardDemo } from "../components/sheet-hover-card-demo";
@@ -148,10 +149,17 @@ export default function Home() {
         </GlassSection>
 
         <GlassSection
-          title="Accordion & Slider"
-          description="Expandable chrome panels and frosted range controls with spring-animated thumbs"
+          title="Accordion, Collapsible & Slider"
+          description="Expandable chrome panels, nested file tree via collapsible folders, and frosted range controls with spring-animated thumbs"
         >
           <AccordionSliderDemo />
+        </GlassSection>
+
+        <GlassSection
+          title="Carousel"
+          description="Embla-powered slide carousel with glass viewport chrome and frosted prev/next controls"
+        >
+          <CarouselDemo />
         </GlassSection>
 
         <GlassSection
@@ -177,7 +185,7 @@ export default function Home() {
 
         <GlassSection
           title="Card, Tabs, Table & Data States"
-          description="Chrome-layer surfaces with premium motion — rise-in cards, sliding tab indicator, skeleton loading, empty states, and pagination"
+          description="Chrome-layer surfaces with premium motion — rise-in cards, sliding tab indicator, semantic alerts, skeleton loading, empty states, and pagination"
         >
           <DataComponentsDemo />
         </GlassSection>

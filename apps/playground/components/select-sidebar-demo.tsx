@@ -1,5 +1,6 @@
 "use client";
 
+import { KbdShortcut } from "@intelli/ui";
 import {
   Select,
   SelectContent,
@@ -168,8 +169,9 @@ export function SelectSidebarDemo() {
                 </SidebarGroup>
               </SidebarContent>
               <SidebarFooter>
-                <p className="px-2 text-xs glass-chrome-text-muted group-data-[state=collapsed]/sidebar:hidden">
-                  ⌘B to collapse
+                <p className="inline-flex items-center gap-1 px-2 text-xs glass-chrome-text-muted group-data-[state=collapsed]/sidebar:hidden">
+                  <KbdShortcut shortcut="⌘B" size="sm" variant="muted" />
+                  <span>to collapse</span>
                 </p>
               </SidebarFooter>
             </Sidebar>

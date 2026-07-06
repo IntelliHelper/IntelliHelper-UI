@@ -10,6 +10,7 @@ import {
   Slider,
 } from "@intelli/ui";
 import { cn } from "@intelli/utils";
+import { FileTreeDemo } from "./file-tree-demo";
 
 export function AccordionSliderDemo() {
   const [volume, setVolume] = useState([65]);
@@ -64,6 +65,14 @@ export function AccordionSliderDemo() {
             </AccordionContent>
           </AccordionItem>
         </Accordion>
+
+        <p className="pt-2 text-sm font-medium text-foreground">File tree</p>
+        <p className="text-xs glass-chrome-text-muted">
+          Nested folders built with recursive <code className="text-foreground">Collapsible</code>{" "}
+          nodes and the compact <code className="text-foreground">layout=&quot;tree&quot;</code>{" "}
+          trigger.
+        </p>
+        <FileTreeDemo />
       </div>
 
       <div className="space-y-6">

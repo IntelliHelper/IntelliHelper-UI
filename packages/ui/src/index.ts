@@ -101,6 +101,32 @@ export {
   type AccordionContentProps,
 } from "./accordion";
 export {
+  Alert,
+  AlertTitle,
+  AlertDescription,
+  alertVariants,
+  type AlertProps,
+} from "./alert";
+export {
+  type CarouselApi,
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+  carouselContentVariants,
+  type CarouselContentProps,
+} from "./carousel";
+export {
+  Collapsible,
+  CollapsibleTrigger,
+  CollapsibleContent,
+  collapsibleVariants,
+  collapsibleTriggerVariants,
+  type CollapsibleTriggerProps,
+  type CollapsibleContentProps,
+} from "./collapsible";
+export {
   Slider,
   sliderVariants,
   sliderTrackVariants,
@@ -123,6 +149,18 @@ export {
   type CheckboxProps,
 } from "./checkbox";
 export { Badge, badgeVariants, type BadgeProps } from "./badge";
+export {
+  Kbd,
+  KbdGroup,
+  KbdShortcut,
+  kbdVariants,
+  formatShortcutForPlatform,
+  parseShortcutKeys,
+  useIsMac,
+  type KbdProps,
+  type KbdGroupProps,
+  type KbdShortcutProps,
+} from "./kbd";
 export {
   Select,
   SelectGroup,

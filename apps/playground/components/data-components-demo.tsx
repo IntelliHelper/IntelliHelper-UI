@@ -1,6 +1,9 @@
 "use client";
 
 import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
   Button,
   Card,
   CardContent,
@@ -43,6 +46,62 @@ const invoices = [
 
 const contentGradient =
   "linear-gradient(135deg, color-mix(in oklch, var(--mesh-1) 85%, black) 0%, color-mix(in oklch, var(--mesh-2) 75%, black) 100%)";
+
+function InfoIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="M12 16v-4" />
+      <path d="M12 8h.01" />
+    </svg>
+  );
+}
+
+function AlertTriangleIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" />
+      <path d="M12 9v4" />
+      <path d="M12 17h.01" />
+    </svg>
+  );
+}
+
+function CheckCircleIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <circle cx="12" cy="12" r="10" />
+      <path d="m9 12 2 2 4-4" />
+    </svg>
+  );
+}
 
 function InboxIcon() {
   return (
@@ -148,6 +207,46 @@ export function DataComponentsDemo() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      <div className="space-y-3">
+        <div>
+          <h3 className="text-sm font-semibold text-foreground">Alerts</h3>
+          <p className="text-sm glass-chrome-text-muted">
+            Status feedback with semantic tints and optional leading icons.
+          </p>
+        </div>
+        <div className="grid gap-3">
+          <Alert>
+            <InfoIcon />
+            <AlertTitle>Heads up</AlertTitle>
+            <AlertDescription>
+              New invoice templates are available in your workspace settings.
+            </AlertDescription>
+          </Alert>
+          <Alert variant="destructive">
+            <AlertTriangleIcon />
+            <AlertTitle>Payment failed</AlertTitle>
+            <AlertDescription>
+              We could not process your last transaction. Update your billing
+              method to retry.
+            </AlertDescription>
+          </Alert>
+          <Alert variant="success">
+            <CheckCircleIcon />
+            <AlertTitle>Invoice sent</AlertTitle>
+            <AlertDescription>
+              INV-004 was delivered to the customer inbox successfully.
+            </AlertDescription>
+          </Alert>
+          <Alert variant="chrome">
+            <InfoIcon />
+            <AlertTitle>Chrome alert</AlertTitle>
+            <AlertDescription>
+              Frosted glass surface for inline notices inside chrome panels.
+            </AlertDescription>
+          </Alert>
+        </div>
+      </div>
 
       <div className="space-y-3">
         <div>
