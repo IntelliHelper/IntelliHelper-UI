@@ -73,7 +73,7 @@ function MusicBrand() {
   );
 }
 
-export function LiquidGlassDemo() {
+export function GlassContentCardDemo() {
   return (
     <div className="mx-auto max-w-lg">
       <GlassContentCard className="h-56">
@@ -89,7 +89,6 @@ export function LiquidGlassDemo() {
               Mix
             </p>
           </GlassContentPanel>
-
           <GlassContentPanel
             className="flex-[2]"
             gradient="linear-gradient(160deg, oklch(0.72 0.2 55), oklch(0.58 0.22 25))"
@@ -102,48 +101,64 @@ export function LiquidGlassDemo() {
             </p>
           </GlassContentPanel>
         </div>
-
         <div className="absolute inset-x-4 bottom-4">
-          <GlassBar>
-            <GlassIconButton aria-label="Home">
-              <HomeIcon />
-            </GlassIconButton>
-
-            <GlassBarMedia
-              className="bg-gradient-to-br from-neutral-700 to-neutral-900"
-              aria-hidden="true"
-            />
-
-            <GlassBarInfo title="All Of Me" subtitle="Nao" />
-
-            <GlassBarControls>
-              <GlassIconButton aria-label="Play">
-                <PlayIcon />
-              </GlassIconButton>
-              <GlassIconButton aria-label="Next track">
-                <NextIcon />
-              </GlassIconButton>
-            </GlassBarControls>
-
-            <GlassIconButton aria-label="Search">
-              <SearchIcon />
-            </GlassIconButton>
-          </GlassBar>
+          <GlassBarDemo />
         </div>
       </GlassContentCard>
+    </div>
+  );
+}
 
-      <div className="mt-6 flex items-center justify-center gap-2">
-        <GlassIconButton size="sm" aria-label="Small">
-          <SearchIcon />
+export function GlassBarDemo() {
+  return (
+    <GlassBar>
+      <GlassIconButton aria-label="Home">
+        <HomeIcon />
+      </GlassIconButton>
+      <GlassBarMedia
+        className="bg-gradient-to-br from-neutral-700 to-neutral-900"
+        aria-hidden="true"
+      />
+      <GlassBarInfo title="All Of Me" subtitle="Nao" />
+      <GlassBarControls>
+        <GlassIconButton aria-label="Play">
+          <PlayIcon />
         </GlassIconButton>
-        <GlassIconButton aria-label="Default">
-          <SearchIcon />
+        <GlassIconButton aria-label="Next track">
+          <NextIcon />
         </GlassIconButton>
-        <GlassIconButton size="lg" aria-label="Large">
-          <SearchIcon />
-        </GlassIconButton>
+      </GlassBarControls>
+      <GlassIconButton aria-label="Search">
+        <SearchIcon />
+      </GlassIconButton>
+    </GlassBar>
+  );
+}
+
+export function GlassIconButtonDemo() {
+  return (
+    <div className="flex items-center justify-center gap-2">
+      <GlassIconButton size="sm" aria-label="Small">
+        <SearchIcon />
+      </GlassIconButton>
+      <GlassIconButton aria-label="Default">
+        <SearchIcon />
+      </GlassIconButton>
+      <GlassIconButton size="lg" aria-label="Large">
+        <SearchIcon />
+      </GlassIconButton>
+    </div>
+  );
+}
+
+/** Combined showcase — not used in per-component examples. */
+export function LiquidGlassDemo() {
+  return (
+    <div className="mx-auto max-w-lg">
+      <GlassContentCardDemo />
+      <div className="mt-6">
+        <GlassIconButtonDemo />
       </div>
-
       <p className="mt-4 text-center text-xs text-muted-foreground">
         Content layer (saturated) + chrome layer (neutral glass) — icons adapt in
         light/dark

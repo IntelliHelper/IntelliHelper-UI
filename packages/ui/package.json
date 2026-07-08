@@ -46,7 +46,8 @@
     "./native-select": "./src/native-select.tsx",
     "./typography": "./src/typography.tsx",
     "./markdown-viewer": "./src/markdown-viewer.tsx",
-    "./markdown-editor": "./src/markdown-editor.tsx"
+    "./markdown-editor": "./src/markdown-editor.tsx",
+    "./component-preview": "./src/component-preview.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

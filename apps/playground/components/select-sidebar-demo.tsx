@@ -81,13 +81,12 @@ function SettingsIcon() {
   );
 }
 
-export function SelectSidebarDemo() {
+export function SelectDemo() {
   return (
-    <div className="space-y-8">
-      <div className="grid gap-6 md:grid-cols-2">
-        <div className="space-y-3">
-          <label className="text-sm font-medium">Chrome select</label>
-          <Select defaultValue="glass">
+    <div className="grid gap-6 md:grid-cols-2">
+      <div className="space-y-3">
+        <label className="text-sm font-medium">Chrome select</label>
+        <Select defaultValue="glass">
             <SelectTrigger>
               <SelectValue placeholder="Choose a theme" />
             </SelectTrigger>
@@ -122,9 +121,13 @@ export function SelectSidebarDemo() {
             </SelectContent>
           </Select>
         </div>
-      </div>
+    </div>
+  );
+}
 
-      <div className="overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]">
+export function SidebarDemo() {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]">
         <SidebarProvider defaultOpen>
           <div className="flex min-h-[320px] w-full min-w-0">
             <Sidebar collapsible="icon">
@@ -194,7 +197,16 @@ export function SelectSidebarDemo() {
             </SidebarInset>
           </div>
         </SidebarProvider>
-      </div>
+    </div>
+  );
+}
+
+/** Combined showcase — not used in per-component examples. */
+export function SelectSidebarDemo() {
+  return (
+    <div className="space-y-8">
+      <SelectDemo />
+      <SidebarDemo />
     </div>
   );
 }

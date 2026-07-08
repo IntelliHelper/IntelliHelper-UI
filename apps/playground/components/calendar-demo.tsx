@@ -6,15 +6,58 @@ import { Calendar, type DateRange } from "@intelli/ui";
 const DEMO_REFERENCE_DATE = new Date(2026, 6, 6);
 const DEMO_RANGE_END = new Date(2026, 6, 10);
 
-export function CalendarDemo() {
-  const [singleDate, setSingleDate] = useState<Date | undefined>(
-    DEMO_REFERENCE_DATE,
+export function CalendarSingleDemo() {
+  const [date, setDate] = useState<Date | undefined>(DEMO_REFERENCE_DATE);
+
+  return (
+    <Calendar
+      mode="single"
+      selected={date}
+      onSelect={setDate}
+      variant="chrome"
+      defaultMonth={DEMO_REFERENCE_DATE}
+    />
   );
+}
+
+export function CalendarRangeDemo() {
   const [range, setRange] = useState<DateRange | undefined>({
     from: DEMO_REFERENCE_DATE,
     to: DEMO_RANGE_END,
   });
 
+  return (
+    <Calendar
+      mode="range"
+      selected={range}
+      onSelect={setRange}
+      numberOfMonths={1}
+      variant="elevated"
+      defaultMonth={DEMO_REFERENCE_DATE}
+    />
+  );
+}
+
+export function CalendarDropdownDemo() {
+  const [date, setDate] = useState<Date | undefined>(DEMO_REFERENCE_DATE);
+
+  return (
+    <Calendar
+      mode="single"
+      selected={date}
+      onSelect={setDate}
+      captionLayout="dropdown"
+      startMonth={new Date(2024, 0)}
+      endMonth={new Date(2028, 11)}
+      defaultMonth={DEMO_REFERENCE_DATE}
+      variant="outline"
+      size="lg"
+    />
+  );
+}
+
+/** Combined showcase — used only where a full overview is needed. */
+export function CalendarDemo() {
   return (
     <div className="flex flex-col gap-10">
       <div className="flex flex-wrap items-start gap-10">
@@ -23,13 +66,7 @@ export function CalendarDemo() {
           <p className="text-xs text-muted-foreground">
             Chrome panel with primary glass selection
           </p>
-          <Calendar
-            mode="single"
-            selected={singleDate}
-            onSelect={setSingleDate}
-            variant="chrome"
-            defaultMonth={DEMO_REFERENCE_DATE}
-          />
+          <CalendarSingleDemo />
         </div>
 
         <div className="space-y-3">
@@ -37,14 +74,7 @@ export function CalendarDemo() {
           <p className="text-xs text-muted-foreground">
             Range start, middle, and end highlighting
           </p>
-          <Calendar
-            mode="range"
-            selected={range}
-            onSelect={setRange}
-            numberOfMonths={1}
-            variant="elevated"
-            defaultMonth={DEMO_REFERENCE_DATE}
-          />
+          <CalendarRangeDemo />
         </div>
       </div>
 
@@ -53,17 +83,7 @@ export function CalendarDemo() {
         <p className="text-xs text-muted-foreground">
           Outline variant with month/year dropdowns
         </p>
-        <Calendar
-          mode="single"
-          selected={singleDate}
-          onSelect={setSingleDate}
-          captionLayout="dropdown"
-          startMonth={new Date(2024, 0)}
-          endMonth={new Date(2028, 11)}
-          defaultMonth={DEMO_REFERENCE_DATE}
-          variant="outline"
-          size="lg"
-        />
+        <CalendarDropdownDemo />
       </div>
     </div>
   );

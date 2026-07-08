@@ -70,6 +70,9 @@
   --glass-button-ui-bg-hover: color-mix(in oklch, white 58%, transparent);
   --glass-button-ui-fg: oklch(0.14 0 0);
   --glass-button-ui-border: color-mix(in oklch, oklch(0.13 0 0) 18%, transparent);
+  --glass-scroll-thumb: color-mix(in oklch, oklch(0.45 0 0) 52%, transparent);
+  --glass-scroll-thumb-hover: color-mix(in oklch, oklch(0.35 0 0) 62%, transparent);
+  --glass-scroll-track: transparent;
 }
 
 :root.dark {
@@ -100,6 +103,36 @@
   --glass-button-ui-bg-hover: color-mix(in oklch, oklch(0.38 0.02 270) 58%, transparent);
   --glass-button-ui-fg: oklch(0.97 0 0);
   --glass-button-ui-border: color-mix(in oklch, white 22%, transparent);
+  --glass-scroll-thumb: color-mix(in oklch, oklch(0.75 0.01 270) 52%, transparent);
+  --glass-scroll-thumb-hover: color-mix(in oklch, oklch(0.85 0.01 270) 62%, transparent);
+  --glass-scroll-track: transparent;
+}
+
+@layer base {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--glass-scroll-thumb) var(--glass-scroll-track);
+  }
+
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: var(--glass-scroll-track);
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background: var(--glass-scroll-thumb);
+    border-radius: var(--radius-full);
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  *::-webkit-scrollbar-thumb:hover {
+    background: var(--glass-scroll-thumb-hover);
+  }
 }
 
 /* Apple Liquid Glass: blur + saturation + specular edge, background set per variant */

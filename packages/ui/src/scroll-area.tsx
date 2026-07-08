@@ -40,18 +40,11 @@ const scrollBarVariants = cva(
   },
 );
 
-const scrollThumbVariants = cva("relative flex-1 rounded-full", {
-  variants: {
-    variant: {
-      default: "bg-[var(--glass-chrome-border)]",
-      chrome:
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
-    },
-  },
-  defaultVariants: {
-    variant: "default",
-  },
-});
+const scrollThumbClassName = cn(
+  "relative flex-1 rounded-full",
+  "bg-[var(--glass-scroll-thumb)]",
+  "hover:bg-[var(--glass-scroll-thumb-hover)]",
+);
 
 export interface ScrollAreaProps
   extends ComponentPropsWithoutRef<typeof ScrollAreaPrimitive.Root>,
@@ -73,22 +66,20 @@ const ScrollArea = forwardRef<
     >
       {children}
     </ScrollAreaPrimitive.Viewport>
-    <ScrollBar variant={variant === "chrome" ? "chrome" : "default"} />
+    <ScrollBar />
     <ScrollAreaPrimitive.Corner />
   </ScrollAreaPrimitive.Root>
 ));
 ScrollArea.displayName = ScrollAreaPrimitive.Root.displayName;
 
-export interface ScrollBarProps
-  extends ComponentPropsWithoutRef<
-    typeof ScrollAreaPrimitive.ScrollAreaScrollbar
-  >,
-    VariantProps<typeof scrollThumbVariants> {}
+export type ScrollBarProps = ComponentPropsWithoutRef<
+  typeof ScrollAreaPrimitive.ScrollAreaScrollbar
+>;
 
 const ScrollBar = forwardRef<
   ElementRef<typeof ScrollAreaPrimitive.ScrollAreaScrollbar>,
   ScrollBarProps
->(({ className, orientation = "vertical", variant, ...props }, ref) => (
+>(({ className, orientation = "vertical", ...props }, ref) => (
   <ScrollAreaPrimitive.ScrollAreaScrollbar
     ref={ref}
     data-slot="scroll-area-scrollbar"
@@ -100,7 +91,7 @@ const ScrollBar = forwardRef<
   >
     <ScrollAreaPrimitive.ScrollAreaThumb
       data-slot="scroll-area-thumb"
-      className={cn(scrollThumbVariants({ variant }))}
+      className={scrollThumbClassName}
     />
   </ScrollAreaPrimitive.ScrollAreaScrollbar>
 ));
@@ -111,5 +102,4 @@ export {
   ScrollBar,
   scrollAreaVariants,
   scrollBarVariants,
-  scrollThumbVariants,
 };
