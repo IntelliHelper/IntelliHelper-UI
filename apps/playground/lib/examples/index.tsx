@@ -8,6 +8,7 @@ import {
   CalendarDropdownDemo,
   CalendarRangeDemo,
   CalendarSingleDemo,
+  CalendarSizesDemo,
 } from "../../components/calendar-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
@@ -520,8 +521,17 @@ const [date, setDate] = useState<Date | undefined>(new Date())
   startMonth={new Date(2024, 0)}
   endMonth={new Date(2028, 11)}
   variant="outline"
-  size="lg"
 />`,
+    },
+    {
+      title: "Sizes",
+      description: "Compact, default, and large footprints via the size prop.",
+      preview: <CalendarSizesDemo />,
+      code: `import { Calendar } from "@/components/ui/calendar"
+
+<Calendar mode="single" size="sm" />
+<Calendar mode="single" />
+<Calendar mode="single" size="lg" />`,
     },
   ],
   dialog: [
