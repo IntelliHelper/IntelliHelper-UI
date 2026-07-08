@@ -6,7 +6,6 @@ import { Button } from "@intelli/ui";
 import {
   CATALOG,
   CATEGORY_META,
-  getCatalogByCategory,
   type ComponentCategory,
 } from "../lib/catalog";
 
@@ -17,8 +16,6 @@ export function ComponentCatalogGrid() {
     "all",
   );
   const [query, setQuery] = useState("");
-
-  const grouped = getCatalogByCategory();
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
