@@ -13,6 +13,10 @@ import {
   Toggle,
   ToggleGroup,
   ToggleGroupItem,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
 } from "@intelli/ui";
 
 function BoldIcon() {
@@ -127,131 +131,151 @@ function AlignRightIcon() {
   );
 }
 
-export function TogglePopoverDemo() {
+export function ToggleDemo() {
+  return (
+    <div className="flex items-center gap-1">
+      <Toggle aria-label="Toggle bold" defaultPressed>
+        <BoldIcon />
+      </Toggle>
+      <Toggle aria-label="Toggle italic">
+        <ItalicIcon />
+      </Toggle>
+      <Toggle aria-label="Toggle underline" variant="outline">
+        <UnderlineIcon />
+      </Toggle>
+    </div>
+  );
+}
+
+export function ToggleGroupDemo() {
   const [alignment, setAlignment] = useState("left");
 
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <ToggleGroup type="single" value={alignment} onValueChange={setAlignment}>
+        <ToggleGroupItem value="left" aria-label="Align left">
+          <AlignLeftIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="center" aria-label="Align center">
+          <AlignCenterIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="right" aria-label="Align right">
+          <AlignRightIcon />
+        </ToggleGroupItem>
+      </ToggleGroup>
+      <ToggleGroup type="single" variant="plain" size="sm" defaultValue="left">
+        <ToggleGroupItem value="left" aria-label="Align left">
+          <AlignLeftIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="center" aria-label="Align center">
+          <AlignCenterIcon />
+        </ToggleGroupItem>
+        <ToggleGroupItem value="right" aria-label="Align right">
+          <AlignRightIcon />
+        </ToggleGroupItem>
+      </ToggleGroup>
+    </div>
+  );
+}
+
+export function PopoverDemo() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="outline">Open popover</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <PopoverHeader>
+            <PopoverTitle>Dimensions</PopoverTitle>
+            <PopoverDescription>Set the dimensions for the layer.</PopoverDescription>
+          </PopoverHeader>
+          <div className="grid gap-3">
+            <div className="grid grid-cols-3 items-center gap-3">
+              <label htmlFor="popover-width" className="text-xs font-medium">
+                Width
+              </label>
+              <Input
+                id="popover-width"
+                defaultValue="100%"
+                className="col-span-2 h-8"
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-3">
+              <label htmlFor="popover-height" className="text-xs font-medium">
+                Height
+              </label>
+              <Input
+                id="popover-height"
+                defaultValue="25px"
+                className="col-span-2 h-8"
+              />
+            </div>
+          </div>
+        </PopoverContent>
+      </Popover>
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button variant="secondary">Elevated</Button>
+        </PopoverTrigger>
+        <PopoverContent variant="elevated" size="lg" align="start">
+          <PopoverHeader>
+            <PopoverTitle>Quick actions</PopoverTitle>
+            <PopoverDescription>Elevated variant with larger panel size.</PopoverDescription>
+          </PopoverHeader>
+          <div className="flex flex-col gap-1">
+            <button
+              type="button"
+              className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]"
+            >
+              Duplicate
+            </button>
+            <button
+              type="button"
+              className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]"
+            >
+              Move to folder
+            </button>
+            <button
+              type="button"
+              className="rounded-lg px-2 py-1.5 text-left text-sm text-destructive transition-colors hover:bg-destructive/10"
+            >
+              Delete
+            </button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    </div>
+  );
+}
+
+export function TooltipDemo() {
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <Button variant="outline">Hover me</Button>
+        </TooltipTrigger>
+        <TooltipContent>Add to library</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+/** Combined showcase — not used in per-component examples. */
+export function TogglePopoverDemo() {
   return (
     <div className="flex flex-col gap-10">
       <div className="space-y-3">
         <p className="text-sm font-medium text-foreground">Toggle</p>
-        <p className="text-xs text-muted-foreground">
-          Pressable glass controls with pressed-state chrome fill
-        </p>
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-1">
-            <Toggle aria-label="Toggle bold" defaultPressed>
-              <BoldIcon />
-            </Toggle>
-            <Toggle aria-label="Toggle italic">
-              <ItalicIcon />
-            </Toggle>
-            <Toggle aria-label="Toggle underline" variant="outline">
-              <UnderlineIcon />
-            </Toggle>
-          </div>
-
-          <ToggleGroup type="single" value={alignment} onValueChange={setAlignment}>
-            <ToggleGroupItem value="left" aria-label="Align left">
-              <AlignLeftIcon />
-            </ToggleGroupItem>
-            <ToggleGroupItem value="center" aria-label="Align center">
-              <AlignCenterIcon />
-            </ToggleGroupItem>
-            <ToggleGroupItem value="right" aria-label="Align right">
-              <AlignRightIcon />
-            </ToggleGroupItem>
-          </ToggleGroup>
-
-          <ToggleGroup type="single" variant="plain" size="sm" defaultValue="left">
-            <ToggleGroupItem value="left" aria-label="Align left">
-              <AlignLeftIcon />
-            </ToggleGroupItem>
-            <ToggleGroupItem value="center" aria-label="Align center">
-              <AlignCenterIcon />
-            </ToggleGroupItem>
-            <ToggleGroupItem value="right" aria-label="Align right">
-              <AlignRightIcon />
-            </ToggleGroupItem>
-          </ToggleGroup>
+          <ToggleDemo />
+          <ToggleGroupDemo />
         </div>
       </div>
-
       <div className="space-y-3">
         <p className="text-sm font-medium text-foreground">Popover</p>
-        <p className="text-xs text-muted-foreground">
-          Click-triggered frosted panels with spring scale-in animation
-        </p>
-        <div className="flex flex-wrap gap-3">
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="outline">Open popover</Button>
-            </PopoverTrigger>
-            <PopoverContent>
-              <PopoverHeader>
-                <PopoverTitle>Dimensions</PopoverTitle>
-                <PopoverDescription>
-                  Set the dimensions for the layer.
-                </PopoverDescription>
-              </PopoverHeader>
-              <div className="grid gap-3">
-                <div className="grid grid-cols-3 items-center gap-3">
-                  <label htmlFor="popover-width" className="text-xs font-medium">
-                    Width
-                  </label>
-                  <Input
-                    id="popover-width"
-                    defaultValue="100%"
-                    className="col-span-2 h-8"
-                  />
-                </div>
-                <div className="grid grid-cols-3 items-center gap-3">
-                  <label htmlFor="popover-height" className="text-xs font-medium">
-                    Height
-                  </label>
-                  <Input
-                    id="popover-height"
-                    defaultValue="25px"
-                    className="col-span-2 h-8"
-                  />
-                </div>
-              </div>
-            </PopoverContent>
-          </Popover>
-
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="secondary">Elevated</Button>
-            </PopoverTrigger>
-            <PopoverContent variant="elevated" size="lg" align="start">
-              <PopoverHeader>
-                <PopoverTitle>Quick actions</PopoverTitle>
-                <PopoverDescription>
-                  Elevated variant with larger panel size.
-                </PopoverDescription>
-              </PopoverHeader>
-              <div className="flex flex-col gap-1">
-                <button
-                  type="button"
-                  className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]"
-                >
-                  Duplicate
-                </button>
-                <button
-                  type="button"
-                  className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]"
-                >
-                  Move to folder
-                </button>
-                <button
-                  type="button"
-                  className="rounded-lg px-2 py-1.5 text-left text-sm text-destructive transition-colors hover:bg-destructive/10"
-                >
-                  Delete
-                </button>
-              </div>
-            </PopoverContent>
-          </Popover>
-        </div>
+        <PopoverDemo />
       </div>
     </div>
   );

@@ -3,19 +3,26 @@
 import { BackgroundPicturePicker } from "@intelli/ui";
 import { usePlaygroundBackground } from "./playground-background-provider";
 
-export function BackgroundPictureDemo() {
+type BackgroundPictureDemoProps = {
+  compact?: boolean;
+};
+
+export function BackgroundPictureDemo({ compact = false }: BackgroundPictureDemoProps) {
   const { background, setBackground } = usePlaygroundBackground();
 
   return (
     <div className="space-y-3">
-      <p className="text-xs text-muted-foreground">
-        Pick a preset, upload your own image, or select none. Your choice
-        applies to the entire playground behind the glass components.
-      </p>
+      {!compact ? (
+        <p className="text-xs text-muted-foreground">
+          Pick a preset, upload your own image, or select none. Your choice
+          applies to the entire playground behind the glass components.
+        </p>
+      ) : null}
       <BackgroundPicturePicker
         value={background}
         onValueChange={setBackground}
-        columns={4}
+        columns={compact ? 3 : 4}
+        size={compact ? "sm" : "default"}
       />
       <p className="text-xs text-muted-foreground">
         Current:{" "}

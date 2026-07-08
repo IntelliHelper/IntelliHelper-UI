@@ -992,6 +992,32 @@
       }
     },
     {
+      "name": "component-preview",
+      "type": "registry:ui",
+      "title": "Component Preview",
+      "description": "Live component preview with collapsible Shiki-highlighted source, copy button, and optional editable code panel.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "button",
+        "textarea",
+        "markdown-viewer"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/component-preview.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/component-preview.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline"],
+        "features": ["preview", "code-only", "editable", "copy", "view-code-toggle"]
+      }
+    },
+    {
       "name": "utils",
       "type": "registry:lib",
       "title": "Utils",

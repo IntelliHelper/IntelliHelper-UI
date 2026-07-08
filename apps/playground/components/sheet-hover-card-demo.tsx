@@ -32,15 +32,9 @@ function UserAvatar({ name }: { name: string }) {
   );
 }
 
-export function SheetHoverCardDemo() {
+export function SheetDemo() {
   return (
-    <div className="flex flex-col gap-10">
-      <div className="space-y-3">
-        <p className="text-sm font-medium text-foreground">Sheet</p>
-        <p className="text-xs text-muted-foreground">
-          Slide-in glass panels from any edge with frosted overlay
-        </p>
-        <div className="flex flex-wrap gap-3">
+    <div className="flex flex-wrap gap-3">
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="outline">Open right</Button>
@@ -122,15 +116,13 @@ export function SheetHoverCardDemo() {
               </div>
             </SheetContent>
           </Sheet>
-        </div>
-      </div>
+    </div>
+  );
+}
 
-      <div className="space-y-3">
-        <p className="text-sm font-medium text-foreground">Hover Card</p>
-        <p className="text-xs text-muted-foreground">
-          Rich contextual previews on hover with spring scale-in
-        </p>
-        <div className="flex flex-wrap items-center gap-6">
+export function HoverCardDemo() {
+  return (
+    <div className="flex flex-wrap items-center gap-6">
           <HoverCard openDelay={200} closeDelay={100}>
             <HoverCardTrigger asChild>
               <button
@@ -197,7 +189,27 @@ export function SheetHoverCardDemo() {
               </p>
             </HoverCardContent>
           </HoverCard>
-        </div>
+    </div>
+  );
+}
+
+/** Combined showcase — not used in per-component examples. */
+export function SheetHoverCardDemo() {
+  return (
+    <div className="flex flex-col gap-10">
+      <div className="space-y-3">
+        <p className="text-sm font-medium text-foreground">Sheet</p>
+        <p className="text-xs text-muted-foreground">
+          Slide-in glass panels from any edge with frosted overlay
+        </p>
+        <SheetDemo />
+      </div>
+      <div className="space-y-3">
+        <p className="text-sm font-medium text-foreground">Hover Card</p>
+        <p className="text-xs text-muted-foreground">
+          Rich contextual previews on hover with spring scale-in
+        </p>
+        <HoverCardDemo />
       </div>
     </div>
   );

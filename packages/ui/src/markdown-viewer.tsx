@@ -27,7 +27,7 @@ import {
   TypographyP,
 } from "./typography";
 
-const markdownViewerVariants = cva("w-full text-sm leading-relaxed", {
+const markdownViewerVariants = cva("min-w-0 w-full text-sm leading-relaxed", {
   variants: {
     variant: {
       default: "",
@@ -141,7 +141,16 @@ function createMarkdownComponents(
       </a>
     ),
     strong: ({ children }) => (
-      <strong className="font-semibold text-foreground">{children}</strong>
+      <strong
+        className={cn(
+          "font-semibold",
+          tone === "chrome" && "glass-chrome-text",
+          tone === "muted" && "text-muted-foreground",
+          tone === "default" && "text-foreground",
+        )}
+      >
+        {children}
+      </strong>
     ),
     em: ({ children }) => <em className="italic">{children}</em>,
     hr: () => <Separator className="my-8" />,
@@ -280,13 +289,18 @@ const MarkdownViewer = forwardRef<HTMLDivElement, MarkdownViewerProps>(
 
     const remarkPlugins = gfm ? [remarkGfm] : [];
 
+    const markdownBodyClassName =
+      "[&>*:first-child]:mt-0 [&>*:last-child]:mb-0 [&_[data-slot=markdown-viewer-code]:first-child]:mt-0";
+
     const markdown = (
-      <ReactMarkdown
-        remarkPlugins={remarkPlugins}
-        components={markdownComponents}
-      >
-        {content}
-      </ReactMarkdown>
+      <div className={markdownBodyClassName}>
+        <ReactMarkdown
+          remarkPlugins={remarkPlugins}
+          components={markdownComponents}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
     );
 
     return (
@@ -294,16 +308,20 @@ const MarkdownViewer = forwardRef<HTMLDivElement, MarkdownViewerProps>(
         ref={ref}
         data-slot="markdown-viewer"
         data-variant={variant}
-        className={cn(markdownViewerVariants({ variant, tone: resolvedTone, className }))}
+        className={cn(
+          markdownViewerVariants({ variant, tone: resolvedTone }),
+          scrollable && "flex flex-col overflow-hidden p-0",
+          className,
+        )}
+        style={scrollable && maxHeight ? { maxHeight } : undefined}
         {...props}
       >
         {scrollable ? (
           <ScrollArea
-            variant={variant === "default" ? "default" : "chrome"}
-            style={maxHeight ? { maxHeight } : undefined}
-            className={cn(variant === "default" && "rounded-xl")}
+            variant="default"
+            className="h-full min-h-0 w-full flex-1"
           >
-            <div className="pr-4">{markdown}</div>
+            <div className="p-6 pr-4">{markdown}</div>
           </ScrollArea>
         ) : (
           markdown

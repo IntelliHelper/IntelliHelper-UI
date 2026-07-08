@@ -24,11 +24,6 @@ import { MarkdownViewer } from "@intelli/ui";
 <MarkdownViewer content={markdown} variant="chrome" gfm highlight />
 \`\`\`
 
-\`\`\`python
-def greet(name: str) -> str:
-    return f"Hello, {name}!"
-\`\`\`
-
 ### Task list
 
 - [x] Typography-mapped headings
@@ -39,7 +34,6 @@ def greet(name: str) -> str:
 | --- | --- | --- |
 | Starter | Free | Basic glass components |
 | Pro | $12 | Full registry access |
-| Team | $29 | Shared workspace controls |
 `;
 
 const editorSeed = `Write like a normal document — no markdown knowledge required.
@@ -56,46 +50,49 @@ Use the toolbar to make text **bold**, add headings, lists, links, and more. Swi
 > Visual mode stores everything as markdown behind the scenes, so your content stays portable.
 `;
 
-export function MarkdownViewerDemo() {
+export function MarkdownViewerOnlyDemo() {
+  return (
+    <MarkdownViewer
+      content={sampleMarkdown}
+      variant="chrome"
+      gfm
+      highlight
+      scrollable
+      maxHeight="min(400px, 52vh)"
+      className="w-full"
+    />
+  );
+}
+
+export function MarkdownEditorDemo() {
   const [markdown, setMarkdown] = useState(editorSeed);
 
+  return (
+    <MarkdownEditor
+      value={markdown}
+      onChange={setMarkdown}
+      variant="chrome"
+      defaultEditorMode="rich-text"
+      gfm
+      highlight
+      editorMinHeight={200}
+      previewMinHeight={200}
+      className="w-full"
+    />
+  );
+}
+
+/** Combined showcase — not used in per-component examples. */
+export function MarkdownViewerDemo() {
   return (
     <div className="space-y-8">
       <div className="space-y-3">
         <p className="text-sm font-medium text-foreground">Markdown Editor</p>
-        <p className="text-sm text-muted-foreground">
-          Visual mode for everyday writing, or Markdown mode for power users.
-          Both share the same toolbar, undo/redo, and live stats.
-        </p>
-        <MarkdownEditor
-          value={markdown}
-          onChange={setMarkdown}
-          variant="chrome"
-          defaultEditorMode="rich-text"
-          defaultView="split"
-          gfm
-          highlight
-          editorMinHeight={280}
-          previewMinHeight={280}
-        />
+        <MarkdownEditorDemo />
       </div>
-
-      <div className="grid gap-6 lg:grid-cols-2">
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-foreground">Chrome container</p>
-          <MarkdownViewer content={sampleMarkdown} variant="chrome" gfm />
-        </div>
-
-        <div className="space-y-3">
-          <p className="text-sm font-medium text-foreground">Scrollable outline</p>
-          <MarkdownViewer
-            content={sampleMarkdown}
-            variant="outline"
-            gfm
-            scrollable
-            maxHeight={360}
-          />
-        </div>
+      <div className="space-y-3">
+        <p className="text-sm font-medium text-foreground">Markdown Viewer</p>
+        <MarkdownViewerOnlyDemo />
       </div>
     </div>
   );

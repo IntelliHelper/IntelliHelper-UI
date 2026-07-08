@@ -799,7 +799,7 @@ const MarkdownEditor = forwardRef(function MarkdownEditor(
   const preview = (
     <div
       data-slot="markdown-editor-preview"
-      className="h-full p-4"
+      className="h-full min-w-0 p-4"
       style={{ minHeight: previewMinHeight }}
     >
       {value.trim() ? (
@@ -808,6 +808,7 @@ const MarkdownEditor = forwardRef(function MarkdownEditor(
           variant={previewVariant}
           gfm={gfm}
           highlight={highlight}
+          className="min-w-0"
         />
       ) : (
         <p className="text-sm text-muted-foreground">
@@ -822,23 +823,23 @@ const MarkdownEditor = forwardRef(function MarkdownEditor(
       data-slot="markdown-editor"
       data-view={resolvedView}
       data-editor-mode={editorMode}
-      className={cn(markdownEditorVariants({ variant, className }))}
+      className={cn(markdownEditorVariants({ variant, className }), "min-w-0")}
     >
       {(showToolbar || resolvedShowViewToggle || showEditorModeToggle) && (
-        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--glass-chrome-border)]">
+        <div className="flex flex-col gap-2 border-b border-[var(--glass-chrome-border)] sm:flex-row sm:items-center sm:justify-between">
           {showToolbar ? (
             <MarkdownEditorToolbar
               disabled={!isEditable}
               canUndo={history.canUndo}
               canRedo={history.canRedo}
               onAction={runAction}
-              className="border-b-0"
+              className="min-w-0 border-b-0 sm:flex-1"
             />
           ) : (
             <div />
           )}
 
-          <div className="flex items-center gap-2 px-2">
+          <div className="flex shrink-0 items-center justify-end gap-2 px-2 pb-2 sm:pb-0">
             {showEditorModeToggle ? (
               <ToggleGroup
                 type="single"
@@ -902,7 +903,8 @@ const MarkdownEditor = forwardRef(function MarkdownEditor(
       {resolvedView === "split" ? (
         <ResizablePanelGroup
           variant={variant === "default" ? "default" : "chrome"}
-          className="min-h-[320px]"
+          className="min-h-0 w-full"
+          style={{ minHeight: Math.max(editorMinHeight, previewMinHeight) }}
         >
           <ResizablePanel defaultSize={50} minSize={30}>
             <ScrollArea

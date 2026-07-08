@@ -294,7 +294,6 @@ export {
   ScrollBar,
   scrollAreaVariants,
   scrollBarVariants,
-  scrollThumbVariants,
   type ScrollAreaProps,
   type ScrollBarProps,
 } from "./scroll-area";
@@ -383,6 +382,12 @@ export {
   htmlToMarkdown,
 } from "./markdown-editor-convert";
 export { applyRichTextAction } from "./markdown-rich-text-utils";
+export {
+  ComponentPreview,
+  componentPreviewVariants,
+  previewAreaVariants,
+  type ComponentPreviewProps,
+} from "./component-preview";
 export {
   BackgroundPicturePicker,
   BackgroundPictureSurface,

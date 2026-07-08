@@ -121,93 +121,248 @@ function InboxIcon() {
   );
 }
 
+export function CardDemo() {
+  return (
+    <div className="grid gap-4 md:grid-cols-2">
+      <Card>
+        <CardHeader>
+          <CardTitle>Chrome Card</CardTitle>
+          <CardDescription>
+            Neutral frosted glass panel for functional content.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            Chrome layer surfaces adapt to light and dark mode with readable
+            contrast.
+          </p>
+        </CardContent>
+        <CardFooter className="gap-2">
+          <Button size="sm">Action</Button>
+          <Button size="sm" variant="outline">
+            Cancel
+          </Button>
+        </CardFooter>
+      </Card>
+
+      <Card variant="content" gradient={contentGradient}>
+        <CardHeader>
+          <CardTitle>Content Card</CardTitle>
+          <CardDescription>
+            Expressive saturated surface with white display type.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <p className="text-sm content-text-muted">
+            Use on gradient backgrounds beneath floating chrome controls.
+          </p>
+        </CardContent>
+        <CardFooter>
+          <Button size="sm">Get Started</Button>
+        </CardFooter>
+      </Card>
+    </div>
+  );
+}
+
+export function TabsDemo() {
+  return (
+    <Tabs defaultValue="overview" className="w-full">
+      <TabsList>
+        <TabsTrigger value="overview">Overview</TabsTrigger>
+        <TabsTrigger value="analytics">Analytics</TabsTrigger>
+        <TabsTrigger value="settings">Settings</TabsTrigger>
+      </TabsList>
+      <TabsContent value="overview">
+        <Card variant="outline">
+          <CardHeader>
+            <CardTitle>Overview</CardTitle>
+            <CardDescription>
+              Glass capsule tabs with a sliding chrome indicator.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            Switch tabs to see the spring-animated indicator slide and content
+            panels fade in with a subtle blur dissolve.
+          </CardContent>
+        </Card>
+      </TabsContent>
+      <TabsContent value="analytics">
+        <Card variant="outline">
+          <CardHeader>
+            <CardTitle>Analytics</CardTitle>
+            <CardDescription>Track performance metrics here.</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            Place charts, KPIs, or data visualizations in this panel.
+          </CardContent>
+        </Card>
+      </TabsContent>
+      <TabsContent value="settings">
+        <Card variant="outline">
+          <CardHeader>
+            <CardTitle>Settings</CardTitle>
+            <CardDescription>Configure your preferences.</CardDescription>
+          </CardHeader>
+          <CardContent className="text-sm text-muted-foreground">
+            Form fields and toggles pair well with chrome-layer cards.
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
+  );
+}
+
+export function AlertDemo() {
+  return (
+    <div className="grid gap-3">
+      <Alert>
+        <InfoIcon />
+        <AlertTitle>Heads up</AlertTitle>
+        <AlertDescription>
+          New invoice templates are available in your workspace settings.
+        </AlertDescription>
+      </Alert>
+      <Alert variant="destructive">
+        <AlertTriangleIcon />
+        <AlertTitle>Payment failed</AlertTitle>
+        <AlertDescription>
+          We could not process your last transaction. Update your billing method
+          to retry.
+        </AlertDescription>
+      </Alert>
+      <Alert variant="success">
+        <CheckCircleIcon />
+        <AlertTitle>Invoice sent</AlertTitle>
+        <AlertDescription>
+          INV-004 was delivered to the customer inbox successfully.
+        </AlertDescription>
+      </Alert>
+      <Alert variant="chrome">
+        <InfoIcon />
+        <AlertTitle>Chrome alert</AlertTitle>
+        <AlertDescription>
+          Frosted glass surface for inline notices inside chrome panels.
+        </AlertDescription>
+      </Alert>
+    </div>
+  );
+}
+
+export function SkeletonDemo() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Invoice</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Method</TableHead>
+          <TableHead className="text-right">Amount</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {Array.from({ length: 4 }).map((_, index) => (
+          <TableRow key={index}>
+            <TableCell>
+              <Skeleton className="h-4 w-20" />
+            </TableCell>
+            <TableCell>
+              <Skeleton className="h-4 w-16" />
+            </TableCell>
+            <TableCell>
+              <Skeleton className="h-4 w-24" />
+            </TableCell>
+            <TableCell className="text-right">
+              <Skeleton className="ml-auto h-4 w-14" />
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+export function EmptyDemo() {
+  return (
+    <Card variant="outline">
+      <CardContent className="pt-6">
+        <Empty variant="outline" animated={false}>
+          <EmptyHeader>
+            <EmptyMedia variant="icon">
+              <InboxIcon />
+            </EmptyMedia>
+            <EmptyTitle>No invoices found</EmptyTitle>
+            <EmptyDescription>
+              Try adjusting your filters or create a new invoice to get started.
+            </EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Button size="sm">Create invoice</Button>
+          </EmptyContent>
+        </Empty>
+      </CardContent>
+    </Card>
+  );
+}
+
+export function TableDemo() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>Invoice</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Method</TableHead>
+          <TableHead className="text-right">Amount</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {invoices.map((invoice) => (
+          <TableRow key={invoice.id}>
+            <TableCell className="font-medium">{invoice.id}</TableCell>
+            <TableCell>{invoice.status}</TableCell>
+            <TableCell>{invoice.method}</TableCell>
+            <TableCell className="text-right">{invoice.amount}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  );
+}
+
+export function PaginationDemo() {
+  return (
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink>1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink isActive>2</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink>3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+}
+
+/** Combined showcase — not used in per-component examples. */
 export function DataComponentsDemo() {
   return (
     <div className="space-y-8">
-      <div className="grid gap-4 md:grid-cols-2">
-        <Card>
-          <CardHeader>
-            <CardTitle>Chrome Card</CardTitle>
-            <CardDescription>
-              Neutral frosted glass panel for functional content.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm text-muted-foreground">
-              Chrome layer surfaces adapt to light and dark mode with readable
-              contrast.
-            </p>
-          </CardContent>
-          <CardFooter className="gap-2">
-            <Button size="sm">Action</Button>
-            <Button size="sm" variant="outline">
-              Cancel
-            </Button>
-          </CardFooter>
-        </Card>
-
-        <Card variant="content" gradient={contentGradient}>
-          <CardHeader>
-            <CardTitle>Content Card</CardTitle>
-            <CardDescription>
-              Expressive saturated surface with white display type.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p className="text-sm content-text-muted">
-              Use on gradient backgrounds beneath floating chrome controls.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Button size="sm">Get Started</Button>
-          </CardFooter>
-        </Card>
-      </div>
-
-      <Tabs defaultValue="overview" className="w-full">
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
-          <TabsTrigger value="settings">Settings</TabsTrigger>
-        </TabsList>
-        <TabsContent value="overview">
-          <Card variant="outline">
-            <CardHeader>
-              <CardTitle>Overview</CardTitle>
-              <CardDescription>
-                Glass capsule tabs with a sliding chrome indicator.
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              Switch tabs to see the spring-animated indicator slide and content
-              panels fade in with a subtle blur dissolve.
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="analytics">
-          <Card variant="outline">
-            <CardHeader>
-              <CardTitle>Analytics</CardTitle>
-              <CardDescription>Track performance metrics here.</CardDescription>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              Place charts, KPIs, or data visualizations in this panel.
-            </CardContent>
-          </Card>
-        </TabsContent>
-        <TabsContent value="settings">
-          <Card variant="outline">
-            <CardHeader>
-              <CardTitle>Settings</CardTitle>
-              <CardDescription>Configure your preferences.</CardDescription>
-            </CardHeader>
-            <CardContent className="text-sm text-muted-foreground">
-              Form fields and toggles pair well with chrome-layer cards.
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-
+      <CardDemo />
+      <TabsDemo />
       <div className="space-y-3">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Alerts</h3>
@@ -215,39 +370,8 @@ export function DataComponentsDemo() {
             Status feedback with semantic tints and optional leading icons.
           </p>
         </div>
-        <div className="grid gap-3">
-          <Alert>
-            <InfoIcon />
-            <AlertTitle>Heads up</AlertTitle>
-            <AlertDescription>
-              New invoice templates are available in your workspace settings.
-            </AlertDescription>
-          </Alert>
-          <Alert variant="destructive">
-            <AlertTriangleIcon />
-            <AlertTitle>Payment failed</AlertTitle>
-            <AlertDescription>
-              We could not process your last transaction. Update your billing
-              method to retry.
-            </AlertDescription>
-          </Alert>
-          <Alert variant="success">
-            <CheckCircleIcon />
-            <AlertTitle>Invoice sent</AlertTitle>
-            <AlertDescription>
-              INV-004 was delivered to the customer inbox successfully.
-            </AlertDescription>
-          </Alert>
-          <Alert variant="chrome">
-            <InfoIcon />
-            <AlertTitle>Chrome alert</AlertTitle>
-            <AlertDescription>
-              Frosted glass surface for inline notices inside chrome panels.
-            </AlertDescription>
-          </Alert>
-        </div>
+        <AlertDemo />
       </div>
-
       <div className="space-y-3">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Loading state</h3>
@@ -255,36 +379,8 @@ export function DataComponentsDemo() {
             Skeleton placeholders pulse with glass chrome while data loads.
           </p>
         </div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {Array.from({ length: 4 }).map((_, index) => (
-              <TableRow key={index}>
-                <TableCell>
-                  <Skeleton className="h-4 w-20" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton className="h-4 w-16" />
-                </TableCell>
-                <TableCell>
-                  <Skeleton className="h-4 w-24" />
-                </TableCell>
-                <TableCell className="text-right">
-                  <Skeleton className="ml-auto h-4 w-14" />
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+        <SkeletonDemo />
       </div>
-
       <div className="space-y-3">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Empty state</h3>
@@ -292,27 +388,8 @@ export function DataComponentsDemo() {
             Compound empty layout for zero-result views inside chrome cards.
           </p>
         </div>
-        <Card variant="outline">
-          <CardContent className="pt-6">
-            <Empty variant="outline" animated={false}>
-              <EmptyHeader>
-                <EmptyMedia variant="icon">
-                  <InboxIcon />
-                </EmptyMedia>
-                <EmptyTitle>No invoices found</EmptyTitle>
-                <EmptyDescription>
-                  Try adjusting your filters or create a new invoice to get
-                  started.
-                </EmptyDescription>
-              </EmptyHeader>
-              <EmptyContent>
-                <Button size="sm">Create invoice</Button>
-              </EmptyContent>
-            </Empty>
-          </CardContent>
-        </Card>
+        <EmptyDemo />
       </div>
-
       <div className="space-y-3">
         <div>
           <h3 className="text-sm font-semibold text-foreground">Data table</h3>
@@ -320,48 +397,8 @@ export function DataComponentsDemo() {
             Live rows with glass pagination controls below.
           </p>
         </div>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Invoice</TableHead>
-              <TableHead>Status</TableHead>
-              <TableHead>Method</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {invoices.map((invoice) => (
-              <TableRow key={invoice.id}>
-                <TableCell className="font-medium">{invoice.id}</TableCell>
-                <TableCell>{invoice.status}</TableCell>
-                <TableCell>{invoice.method}</TableCell>
-                <TableCell className="text-right">{invoice.amount}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink>1</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink isActive>2</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink>3</PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <TableDemo />
+        <PaginationDemo />
       </div>
     </div>
   );

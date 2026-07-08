@@ -34,11 +34,22 @@ const themePreviews: Record<
   },
 };
 
-export function ThemeSwitcher() {
+type ThemeSwitcherProps = {
+  variant?: "default" | "compact";
+};
+
+export function ThemeSwitcher({ variant = "default" }: ThemeSwitcherProps) {
   const { theme, setTheme, availableThemes } = useTheme();
+  const isCompact = variant === "compact";
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    <div
+      className={cn(
+        isCompact
+          ? "flex gap-2 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          : "grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5",
+      )}
+    >
       {availableThemes.map((t) => {
         const preview = themePreviews[t.id as ThemeId];
         if (!preview) return null;
@@ -51,9 +62,11 @@ export function ThemeSwitcher() {
             onClick={() => setTheme(t.id)}
             aria-pressed={isActive}
             aria-label={`Switch to ${t.label} theme`}
+            title={t.description}
             className={cn(
-              "group relative flex flex-col overflow-hidden rounded-xl p-3 text-left transition-all duration-200",
+              "group relative flex shrink-0 flex-col overflow-hidden rounded-xl text-left transition-all duration-200",
               "glass-interactive",
+              isCompact ? "w-[8.5rem] p-2.5" : "p-3",
               isActive
                 ? "ring-2 ring-primary ring-offset-2 ring-offset-background"
                 : "opacity-90 hover:opacity-100",
@@ -70,23 +83,33 @@ export function ThemeSwitcher() {
             }}
           >
             <div
-              className="mb-3 h-10 w-full rounded-lg"
+              className={cn(
+                "w-full rounded-lg",
+                isCompact ? "mb-2 h-8" : "mb-3 h-10",
+              )}
               style={{ background: preview.gradient }}
               aria-hidden="true"
             />
-            <span className="text-sm font-semibold text-foreground">
+            <span
+              className={cn(
+                "font-semibold text-foreground",
+                isCompact ? "text-xs leading-tight" : "text-sm",
+              )}
+            >
               {t.label}
             </span>
-            <span className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
-              {t.description}
-            </span>
-            {isActive && (
+            {!isCompact ? (
+              <span className="mt-0.5 line-clamp-2 text-xs text-muted-foreground">
+                {t.description}
+              </span>
+            ) : null}
+            {isActive ? (
               <span
                 className="absolute right-2 top-2 size-2 rounded-full"
                 style={{ background: preview.accent }}
                 aria-hidden="true"
               />
-            )}
+            ) : null}
           </button>
         );
       })}
