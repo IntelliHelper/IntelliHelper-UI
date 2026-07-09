@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element -- ImageResponse/Satori requires native img elements */
 import { readFileSync } from "fs";
 import { join } from "path";
 
