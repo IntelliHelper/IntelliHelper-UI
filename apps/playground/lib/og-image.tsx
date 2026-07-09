@@ -1,3 +1,10 @@
+import { readFileSync } from "fs";
+import { join } from "path";
+
+const logoSrc = `data:image/png;base64,${readFileSync(
+  join(process.cwd(), "public/intellihelper.png"),
+).toString("base64")}`;
+
 type OgImageProps = {
   title: string;
   subtitle?: string;
@@ -69,7 +76,16 @@ export function OgImageLayout({ title, subtitle, badge }: OgImageProps) {
           justifyContent: "space-between",
         }}
       >
-        <div style={{ fontSize: "34px", fontWeight: 600 }}>Intelli UI</div>
+        <div style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+          <img
+            src={logoSrc}
+            alt=""
+            width={56}
+            height={56}
+            style={{ borderRadius: "12px" }}
+          />
+          <div style={{ fontSize: "34px", fontWeight: 600 }}>Intelli UI</div>
+        </div>
         <div style={{ fontSize: "24px", color: "rgba(248,250,252,0.65)" }}>
           ui.intellihelper.in
         </div>

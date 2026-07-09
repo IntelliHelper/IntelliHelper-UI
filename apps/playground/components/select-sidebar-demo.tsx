@@ -1,5 +1,6 @@
 "use client";
 
+import { BrandLogo } from "./brand-logo";
 import { KbdShortcut } from "@intelli/ui";
 import {
   Select,
@@ -133,9 +134,7 @@ export function SidebarDemo() {
             <Sidebar collapsible="icon">
               <SidebarHeader>
                 <div className="flex w-full min-w-0 items-center gap-2 px-2 group-data-[state=collapsed]/sidebar:justify-center group-data-[state=collapsed]/sidebar:px-0">
-                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-primary/20 text-primary">
-                    <LayersIcon />
-                  </div>
+                  <BrandLogo size={32} className="shrink-0" />
                   <div className="min-w-0 group-data-[state=collapsed]/sidebar:hidden">
                     <p className="truncate text-sm font-semibold">Intelli UI</p>
                     <p className="truncate text-xs glass-chrome-text-muted">
