@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IntelliHelper/Intelli-UI.git",
+    "url": "https://github.com/IntelliHelper/IntelliHelper-UI.git",
     "directory": "packages/cli"
   },
   "homepage": "https://ui.intellihelper.in",
