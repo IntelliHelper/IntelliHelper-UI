@@ -7,6 +7,7 @@ export const SITE_URL =
 
 export const SITE_NAME = "Intelli UI";
 export const BRAND_NAME = "IntelliHelper";
+export const LOGO_PATH = "/intellihelper.png";
 
 export const DEFAULT_TITLE =
   "Intelli UI — Liquid Glass Component Library for React & Next.js";

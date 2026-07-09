@@ -23,6 +23,11 @@ export default function manifest(): MetadataRoute.Manifest {
         sizes: "180x180",
         type: "image/png",
       },
+      {
+        src: "/intellihelper.png",
+        sizes: "500x500",
+        type: "image/png",
+      },
     ],
   };
 }

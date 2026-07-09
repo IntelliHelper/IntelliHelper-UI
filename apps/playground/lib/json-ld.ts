@@ -15,7 +15,7 @@ export function organizationJsonLd(): JsonLd {
     "@type": "Organization",
     name: BRAND_NAME,
     url: SITE_URL,
-    logo: absoluteUrl("/icon"),
+    logo: absoluteUrl("/intellihelper.png"),
     sameAs: [],
   };
 }
