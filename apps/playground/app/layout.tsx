@@ -55,6 +55,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: SITE_URL,
+    types: {
+      "application/xml": "/sitemap.xml",
+    },
   },
 };
 
