@@ -59,6 +59,9 @@ export const metadata: Metadata = {
       "application/xml": "/sitemap.xml",
     },
   },
+  verification: {
+    google: "ydblhwmBVeU7fxt8ZY8uM7vcWttTeQbsyOty41RS10M",
+  },
 };
 
 export const viewport: Viewport = {
