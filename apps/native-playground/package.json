@@ -1,0 +1,33 @@
+{
+  "name": "native-playground",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.ts",
+  "scripts": {
+    "dev": "expo start",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "check-types": "tsc --noEmit",
+    "lint": "echo \"no lint configured\""
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.28.4",
+    "@expo/dom-webview": "~56.0.6",
+    "@expo/metro-runtime": "~56.0.16",
+    "@intelli/ui-native": "workspace:*",
+    "expo": "~56.0.15",
+    "expo-blur": "~56.0.3",
+    "expo-status-bar": "~56.0.4",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "react-native": "0.85.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-web": "~0.21.0"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.17",
+    "typescript": "~6.0.3"
+  }
+}

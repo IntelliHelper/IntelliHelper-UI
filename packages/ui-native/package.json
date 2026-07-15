@@ -1,0 +1,81 @@
+{
+  "name": "@intelli/ui-native",
+  "version": "0.0.0",
+  "private": true,
+  "description": "React Native component library for Intelli UI (glass design system)",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme": "./src/theme/index.ts",
+    "./button": "./src/components/button.tsx",
+    "./card": "./src/components/card.tsx",
+    "./input": "./src/components/input.tsx",
+    "./textarea": "./src/components/textarea.tsx",
+    "./badge": "./src/components/badge.tsx",
+    "./alert": "./src/components/alert.tsx",
+    "./skeleton": "./src/components/skeleton.tsx",
+    "./separator": "./src/components/separator.tsx",
+    "./spinner": "./src/components/spinner.tsx",
+    "./progress": "./src/components/progress.tsx",
+    "./switch": "./src/components/switch.tsx",
+    "./checkbox": "./src/components/checkbox.tsx",
+    "./radio-group": "./src/components/radio-group.tsx",
+    "./toggle": "./src/components/toggle.tsx",
+    "./toggle-group": "./src/components/toggle-group.tsx",
+    "./typography": "./src/components/typography.tsx",
+    "./empty": "./src/components/empty.tsx",
+    "./tabs": "./src/components/tabs.tsx",
+    "./accordion": "./src/components/accordion.tsx",
+    "./collapsible": "./src/components/collapsible.tsx",
+    "./slider": "./src/components/slider.tsx",
+    "./dialog": "./src/components/dialog.tsx",
+    "./sheet": "./src/components/sheet.tsx",
+    "./select": "./src/components/select.tsx",
+    "./popover": "./src/components/popover.tsx",
+    "./tooltip": "./src/components/tooltip.tsx",
+    "./scroll-area": "./src/components/scroll-area.tsx",
+    "./pagination": "./src/components/pagination.tsx",
+    "./table": "./src/components/table.tsx",
+    "./carousel": "./src/components/carousel.tsx",
+    "./calendar": "./src/components/calendar.tsx",
+    "./sidebar": "./src/components/sidebar.tsx",
+    "./glass-bar": "./src/components/glass-bar.tsx",
+    "./glass-icon-button": "./src/components/glass-icon-button.tsx",
+    "./glass-content-card": "./src/components/glass-content-card.tsx",
+    "./markdown-viewer": "./src/components/markdown-viewer.tsx",
+    "./scroll-to-top": "./src/components/scroll-to-top.tsx"
+  },
+  "scripts": {
+    "lint": "eslint . --max-warnings 0",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "date-fns": "^4.4.0"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-native": ">=0.74"
+  },
+  "peerDependenciesMeta": {
+    "expo-blur": {
+      "optional": true
+    },
+    "react-native-reanimated": {
+      "optional": true
+    },
+    "react-native-gesture-handler": {
+      "optional": true
+    },
+    "react-native-safe-area-context": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/react": "~19.2.2",
+    "eslint": "^9.39.1",
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "typescript": "5.9.2"
+  }
+}
