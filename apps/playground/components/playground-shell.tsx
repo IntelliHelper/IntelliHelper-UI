@@ -41,8 +41,14 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
             Getting started
           </Link>
           <Link
-            href="/sitemap"
+            href="/getting-started#plugin"
             className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_24%,transparent)] hover:text-foreground lg:inline-block"
+          >
+            Agent plugin
+          </Link>
+          <Link
+            href="/sitemap"
+            className="hidden rounded-lg px-3 py-1.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_24%,transparent)] hover:text-foreground xl:inline-block"
           >
             Sitemap
           </Link>

@@ -159,6 +159,56 @@ export function PluginGettingStarted() {
         </p>
       </div>
 
+      <div className="rounded-xl border border-border/50 bg-background/30 p-4">
+        <p className="text-sm font-medium text-foreground">Marketplace status</p>
+        <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
+          <li>
+            <strong className="font-medium text-foreground">Install now</strong>
+            {" — "}
+            add{" "}
+            <code className="font-mono text-foreground/90">
+              {AGENT_SKILLS_REPO}
+            </code>{" "}
+            as a marketplace (commands below). Works today on Claude Code, Grok,
+            Codex, Gemini, and skills.sh.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">
+              xAI Official (Grok)
+            </strong>
+            {" — "}
+            submitted to{" "}
+            <a
+              href="https://github.com/xai-org/plugin-marketplace/pull/86"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              xai-org/plugin-marketplace#86
+            </a>
+            . After merge, install from the xAI Official tab in{" "}
+            <code className="font-mono">/marketplace</code>.
+          </li>
+          <li>
+            <strong className="font-medium text-foreground">
+              Claude community
+            </strong>
+            {" — "}
+            submit via{" "}
+            <a
+              href="https://clau.de/plugin-directory-submission"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              clau.de/plugin-directory-submission
+            </a>{" "}
+            (Anthropic review). Until listed, use the marketplace add command
+            below.
+          </li>
+        </ul>
+      </div>
+
       <div className="space-y-3">
         <h3 className="text-sm font-semibold text-foreground">
           1. Install the plugin
