@@ -191,6 +191,12 @@ export const CATALOG: CatalogItem[] = [
     category: "forms",
   },
   {
+    slug: "event-calendar",
+    title: "Event Calendar",
+    description: "Month event grid with color chips, agenda sidebar, and day selection.",
+    category: "data",
+  },
+  {
     slug: "dialog",
     title: "Dialog",
     description: "Highly transparent modal with frosted overlay and rise-in content.",

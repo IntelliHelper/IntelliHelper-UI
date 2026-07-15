@@ -58,7 +58,7 @@ export function MarkdownViewerOnlyDemo() {
       gfm
       highlight
       scrollable
-      maxHeight="min(400px, 52vh)"
+      maxHeight="min(480px, 60vh)"
       className="w-full"
     />
   );

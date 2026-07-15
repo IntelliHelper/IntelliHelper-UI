@@ -10,6 +10,11 @@ import {
   CalendarSingleDemo,
   CalendarSizesDemo,
 } from "../../components/calendar-demo";
+import {
+  EventCalendarCompactDemo,
+  EventCalendarDemo,
+  EventCalendarOutlineDemo,
+} from "../../components/event-calendar-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
   LoginCardPreview,
@@ -532,6 +537,78 @@ const [date, setDate] = useState<Date | undefined>(new Date())
 <Calendar mode="single" size="sm" />
 <Calendar mode="single" />
 <Calendar mode="single" size="lg" />`,
+    },
+  ],
+  "event-calendar": [
+    {
+      title: "Month + agenda",
+      description:
+        "Full event calendar with color chips, day selection, and agenda sidebar.",
+      preview: <EventCalendarDemo />,
+      code: `import { useState } from "react"
+import {
+  EventCalendar,
+  type CalendarEvent,
+} from "@/components/ui/event-calendar"
+
+const events: CalendarEvent[] = [
+  {
+    id: "1",
+    title: "Sprint planning",
+    start: new Date(2026, 6, 6, 9, 30),
+    end: new Date(2026, 6, 6, 11, 0),
+    color: "info",
+    location: "Main room",
+  },
+  {
+    id: "2",
+    title: "Launch week",
+    start: new Date(2026, 6, 13),
+    end: new Date(2026, 6, 15),
+    allDay: true,
+    color: "primary",
+  },
+]
+
+const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+
+<EventCalendar
+  events={events}
+  selectedDate={selectedDate}
+  onSelectedDateChange={setSelectedDate}
+  onEventClick={(event) => console.log(event)}
+  variant="chrome"
+  showAgenda
+/>`,
+    },
+    {
+      title: "Compact grid",
+      description:
+        "Small elevated month grid without agenda — Monday week start.",
+      preview: <EventCalendarCompactDemo />,
+      code: `import { EventCalendar } from "@/components/ui/event-calendar"
+
+<EventCalendar
+  events={events}
+  size="sm"
+  variant="elevated"
+  maxEventsPerDay={2}
+  showAgenda={false}
+  weekStartsOn={1}
+/>`,
+    },
+    {
+      title: "Outline product calendar",
+      description: "Outline surface with a custom header title and agenda.",
+      preview: <EventCalendarOutlineDemo />,
+      code: `import { EventCalendar } from "@/components/ui/event-calendar"
+
+<EventCalendar
+  events={events}
+  variant="outline"
+  title="Product calendar"
+  defaultSelectedDate={new Date()}
+/>`,
     },
   ],
   dialog: [

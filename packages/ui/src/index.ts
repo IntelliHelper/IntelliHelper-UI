@@ -217,6 +217,20 @@ export {
   type DateRange,
 } from "./calendar";
 export {
+  EventCalendar,
+  EventCalendarChip,
+  EventCalendarEventRow,
+  eventCalendarVariants,
+  eventChipVariants,
+  eventsForDay,
+  eventOccursOnDay,
+  type CalendarEvent,
+  type EventCalendarColor,
+  type EventCalendarProps,
+  type EventCalendarChipProps,
+  type EventCalendarEventRowProps,
+} from "./event-calendar";
+export {
   Sheet,
   SheetPortal,
   SheetTrigger,

@@ -27,6 +27,7 @@
     "./sidebar": "./src/sidebar.tsx",
     "./tooltip": "./src/tooltip.tsx",
     "./calendar": "./src/calendar.tsx",
+    "./event-calendar": "./src/event-calendar.tsx",
     "./sheet": "./src/sheet.tsx",
     "./hover-card": "./src/hover-card.tsx",
     "./toggle": "./src/toggle.tsx",

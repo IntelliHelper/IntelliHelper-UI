@@ -84,53 +84,53 @@ function SettingsIcon() {
 
 export function SelectDemo() {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <div className="space-y-3">
+    <div className="grid w-full max-w-2xl gap-6 sm:grid-cols-2">
+      <div className="min-w-0 space-y-3">
         <label className="text-sm font-medium">Chrome select</label>
         <Select defaultValue="glass">
-            <SelectTrigger>
-              <SelectValue placeholder="Choose a theme" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectLabel>Themes</SelectLabel>
-                <SelectItem value="mono">Mono Basic</SelectItem>
-                <SelectItem value="frost">Frost</SelectItem>
-                <SelectItem value="glass">Liquid Glass</SelectItem>
-                <SelectItem value="aurora">Aurora</SelectItem>
-              </SelectGroup>
-              <SelectSeparator />
-              <SelectGroup>
-                <SelectLabel>Accent</SelectLabel>
-                <SelectItem value="ocean">Ocean</SelectItem>
-                <SelectItem value="sunset">Sunset</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+          <SelectTrigger className="w-full">
+            <SelectValue placeholder="Choose a theme" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Themes</SelectLabel>
+              <SelectItem value="mono">Mono Basic</SelectItem>
+              <SelectItem value="frost">Frost</SelectItem>
+              <SelectItem value="glass">Liquid Glass</SelectItem>
+              <SelectItem value="aurora">Aurora</SelectItem>
+            </SelectGroup>
+            <SelectSeparator />
+            <SelectGroup>
+              <SelectLabel>Accent</SelectLabel>
+              <SelectItem value="ocean">Ocean</SelectItem>
+              <SelectItem value="sunset">Sunset</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </div>
 
-        <div className="space-y-3">
-          <label className="text-sm font-medium">Outline select</label>
-          <Select defaultValue="default">
-            <SelectTrigger variant="outline">
-              <SelectValue placeholder="Select size" />
-            </SelectTrigger>
-            <SelectContent variant="outline">
-              <SelectItem value="sm">Small</SelectItem>
-              <SelectItem value="default">Default</SelectItem>
-              <SelectItem value="lg">Large</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      <div className="min-w-0 space-y-3">
+        <label className="text-sm font-medium">Outline select</label>
+        <Select defaultValue="default">
+          <SelectTrigger variant="outline" className="w-full">
+            <SelectValue placeholder="Select size" />
+          </SelectTrigger>
+          <SelectContent variant="outline">
+            <SelectItem value="sm">Small</SelectItem>
+            <SelectItem value="default">Default</SelectItem>
+            <SelectItem value="lg">Large</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
     </div>
   );
 }
 
 export function SidebarDemo() {
   return (
-    <div className="overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]">
+    <div className="w-full min-w-0 overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]">
         <SidebarProvider defaultOpen>
-          <div className="flex min-h-[320px] w-full min-w-0">
+          <div className="flex min-h-[360px] w-full min-w-0">
             <Sidebar collapsible="icon">
               <SidebarHeader>
                 <div className="flex w-full min-w-0 items-center gap-2 px-2 group-data-[state=collapsed]/sidebar:justify-center group-data-[state=collapsed]/sidebar:px-0">

@@ -80,7 +80,7 @@ export function ProgressDemo() {
   const [progress, setProgress] = useState(62);
 
   return (
-    <div className="space-y-3">
+    <div className="w-full max-w-md space-y-3">
       <div className="flex items-center justify-between text-sm">
         <span>Upload progress</span>
         <span className="glass-chrome-text-muted">{progress}%</span>
@@ -136,7 +136,7 @@ export function NativeSelectDemo() {
 
 export function ScrollAreaDemo() {
   return (
-    <ScrollArea variant="chrome" className="h-40 p-4">
+    <ScrollArea variant="chrome" className="h-48 w-full max-w-md p-4">
       <div className="space-y-2 pr-4">
         {scrollItems.map((item) => (
           <p key={item} className="text-sm glass-chrome-text-muted">
@@ -152,8 +152,8 @@ export function ScrollToTopDemo() {
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={scrollAreaRef} className="relative">
-      <ScrollArea variant="chrome" className="h-40 p-4">
+    <div ref={scrollAreaRef} className="relative w-full max-w-md">
+      <ScrollArea variant="chrome" className="h-48 p-4">
         <div className="space-y-2 pr-4">
           {scrollItems.map((item) => (
             <p key={item} className="text-sm glass-chrome-text-muted">
@@ -169,7 +169,7 @@ export function ScrollToTopDemo() {
 
 export function ResizableDemo() {
   return (
-    <ResizablePanelGroup variant="chrome" className="min-h-48 max-w-3xl">
+    <ResizablePanelGroup variant="chrome" className="min-h-48 w-full">
       <ResizablePanel defaultSize={35} minSize={20}>
         <div className="flex h-full items-center justify-center p-6 text-sm glass-chrome-text-muted">
           Sidebar

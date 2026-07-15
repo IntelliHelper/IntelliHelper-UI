@@ -38,7 +38,7 @@ const slides = [
 
 export function CarouselDemo() {
   return (
-    <div className="mx-auto max-w-xl">
+    <div className="mx-auto w-full max-w-2xl px-10 sm:px-12">
       <Carousel className="w-full">
         <CarouselContent variant="chrome" className="px-1 py-1">
           {slides.map((slide) => (

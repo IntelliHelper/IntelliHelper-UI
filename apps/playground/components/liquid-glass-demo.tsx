@@ -75,7 +75,7 @@ function MusicBrand() {
 
 export function GlassContentCardDemo() {
   return (
-    <div className="mx-auto max-w-lg">
+    <div className="mx-auto w-full max-w-xl">
       <GlassContentCard className="h-56">
         <div className="flex h-full">
           <GlassContentPanel
