@@ -411,7 +411,8 @@ export function homeGraphJsonLd(): JsonLd {
       }),
       itemListJsonLd(),
     ].map((node) => {
-      const { "@context": _ctx, ...rest } = node;
+      const rest = { ...node };
+      delete rest["@context"];
       return rest;
     }),
   };
