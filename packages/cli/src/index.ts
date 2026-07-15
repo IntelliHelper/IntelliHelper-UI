@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import { createRequire } from "node:module";
 import { Command } from "commander";
 import { runAdd } from "./commands/add.js";
 import { runInit } from "./commands/init.js";
@@ -8,12 +9,17 @@ import { createMcpCommand } from "./commands/mcp.js";
 import { runDiff, runUpdate } from "./commands/update.js";
 import { logger } from "./lib/logger.js";
 
+const require = createRequire(import.meta.url);
+const { version } = require("../package.json") as { version: string };
+
 const program = new Command();
 
 program
   .name("intellihelper-ui")
-  .description("Add and update IntelliHelper UI components in your project")
-  .version("0.1.0");
+  .description(
+    "Add and update IntelliHelper UI Liquid Glass components, and run the MCP server for AI agents",
+  )
+  .version(version);
 
 program
   .command("init")
