@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-07-15 (seven demand components: combobox → copy-button)
+> **Last updated:** 2026-07-15 (Tier 1 complete + Tier 2 AI kit + code surfaces)
 
 ---
 
@@ -76,6 +76,31 @@
 | Theme Toggle | `theme-toggle` | actions | `packages/ui/src/theme-toggle.tsx` | ✅ Done |
 | Copy Button | `copy-button` | actions | `packages/ui/src/copy-button.tsx` | ✅ Done |
 
+### Built — remaining Tier 1 + Tier 2
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Multi Select | `multi-select` | forms | `packages/ui/src/multi-select.tsx` | ✅ Done |
+| Notification Center | `notification-center` | feedback | `packages/ui/src/notification-center.tsx` | ✅ Done |
+| Code Viewer | `code-viewer` | content | `packages/ui/src/code-viewer.tsx` | ✅ Done |
+| Terminal Block | `terminal-block` | content | `packages/ui/src/terminal-block.tsx` | ✅ Done |
+| JSON Viewer | `json-viewer` | content | `packages/ui/src/json-viewer.tsx` | ✅ Done |
+| Aspect Ratio | `aspect-ratio` | surfaces | `packages/ui/src/aspect-ratio.tsx` | ✅ Done |
+| AI Chat (+ bubbles / messages) | `ai-chat` | content | `packages/ui/src/ai-chat.tsx` | ✅ Done |
+| Prompt Input | `prompt-input` | forms | `packages/ui/src/prompt-input.tsx` | ✅ Done |
+| Streaming Text | `streaming-text` | content | `packages/ui/src/streaming-text.tsx` | ✅ Done |
+| Typing Indicator | `typing-indicator` | feedback | `packages/ui/src/typing-indicator.tsx` | ✅ Done |
+| Thinking Animation | `thinking-animation` | feedback | `packages/ui/src/thinking-animation.tsx` | ✅ Done |
+| Reasoning Block | `reasoning-block` | content | `packages/ui/src/reasoning-block.tsx` | ✅ Done |
+| Citation Card | `citation-card` | content | `packages/ui/src/citation-card.tsx` | ✅ Done |
+| Token Counter | `token-counter` | feedback | `packages/ui/src/token-counter.tsx` | ✅ Done |
+| Prompt Suggestions | `prompt-suggestions` | forms | `packages/ui/src/prompt-suggestions.tsx` | ✅ Done |
+| Agent Card | `agent-card` | data | `packages/ui/src/agent-card.tsx` | ✅ Done |
+| Tool Call Viewer | `tool-call-viewer` | data | `packages/ui/src/tool-call-viewer.tsx` | ✅ Done |
+| MCP Server Card | `mcp-server-card` | data | `packages/ui/src/mcp-server-card.tsx` | ✅ Done |
+| AI Model Selector | `ai-model-selector` | forms | `packages/ui/src/ai-model-selector.tsx` | ✅ Done |
+| Conversation Sidebar | `conversation-sidebar` | navigation | `packages/ui/src/conversation-sidebar.tsx` | ✅ Done |
+
 ---
 
 ## Next up (priority order)
@@ -96,7 +121,7 @@ Ship in this order for maximum demand. Check items off as you go.
 | 10 | ~~Stepper~~ | `stepper` | | ✅ |
 | 11 | ~~Theme Toggle~~ | `theme-toggle` | | ✅ |
 | 12 | ~~Copy Button~~ | `copy-button` | | ✅ |
-| 13 | AI Chat kit (Prompt Input, Messages, Streaming) | `ai-chat`… | Brand differentiation | L |
+| 13 | ~~AI Chat kit (full Tier 2 AI surfaces)~~ | `ai-chat`… | Brand differentiation | ✅ |
 | 14 | Data Grid or Kanban | `data-grid` / `kanban` | Marketing visual + admin apps | L |
 
 ---
@@ -115,21 +140,21 @@ Ship in this order for maximum demand. Check items off as you go.
 - [x] File Upload / Image Upload / Drag & Drop Upload
 - [x] Navigation Menu / Navbar
 - [x] Stepper
-- [ ] Multi Select
-- [ ] Notification Center (inbox-style; toast is done)
+- [x] Multi Select
+- [x] Notification Center (inbox-style; toast is done)
 
 ### Tier 2 — Differentiation & virality
 
 - [x] Theme Toggle
 - [x] Copy Button
-- [ ] Code Viewer / Terminal Block / JSON Viewer
-- [ ] Aspect Ratio
-- [ ] AI Chat, Chat Bubble, User/AI Message
-- [ ] Prompt Input, Streaming Text, Typing Indicator
-- [ ] Reasoning Block, Citation Card, Thinking Animation
-- [ ] Token Counter, Prompt Suggestions
-- [ ] Agent Card, Tool Call Viewer, MCP Server Card
-- [ ] AI Model Selector, Conversation Sidebar
+- [x] Code Viewer / Terminal Block / JSON Viewer
+- [x] Aspect Ratio
+- [x] AI Chat, Chat Bubble, User/AI Message
+- [x] Prompt Input, Streaming Text, Typing Indicator
+- [x] Reasoning Block, Citation Card, Thinking Animation
+- [x] Token Counter, Prompt Suggestions
+- [x] Agent Card, Tool Call Viewer, MCP Server Card
+- [x] AI Model Selector, Conversation Sidebar
 
 ### Tier 3 — Product surfaces
 

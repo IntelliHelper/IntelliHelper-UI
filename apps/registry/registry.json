@@ -12,7 +12,9 @@
         "@radix-ui/react-slot",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/button.tsx",
@@ -21,9 +23,25 @@
         }
       ],
       "meta": {
-        "variants": ["default", "destructive", "outline", "secondary", "ghost", "link"],
-        "shapes": ["rounded", "pill", "rectangular"],
-        "sizes": ["sm", "default", "lg", "icon"]
+        "variants": [
+          "default",
+          "destructive",
+          "outline",
+          "secondary",
+          "ghost",
+          "link"
+        ],
+        "shapes": [
+          "rounded",
+          "pill",
+          "rectangular"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg",
+          "icon"
+        ]
       }
     },
     {
@@ -31,8 +49,13 @@
       "type": "registry:ui",
       "title": "Glass Bar",
       "description": "Neutral Liquid Glass capsule for grouped controls above content.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils", "glass-icon-button"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "glass-icon-button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/glass-bar.tsx",
@@ -41,8 +64,15 @@
         }
       ],
       "meta": {
-        "sizes": ["sm", "default", "lg"],
-        "slots": ["titleClassName", "subtitleClassName"]
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "slots": [
+          "titleClassName",
+          "subtitleClassName"
+        ]
       }
     },
     {
@@ -54,7 +84,9 @@
         "@radix-ui/react-slot",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/glass-icon-button.tsx",
@@ -63,8 +95,16 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "ghost", "destructive"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "ghost",
+          "destructive"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -72,7 +112,9 @@
       "type": "registry:ui",
       "title": "Glass Content Card",
       "description": "Expressive content container for saturated backgrounds beneath glass chrome.",
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/glass-content-card.tsx",
@@ -81,8 +123,13 @@
         }
       ],
       "meta": {
-        "variants": ["content", "outline"],
-        "slots": ["panelClassName"]
+        "variants": [
+          "content",
+          "outline"
+        ],
+        "slots": [
+          "panelClassName"
+        ]
       }
     },
     {
@@ -90,8 +137,12 @@
       "type": "registry:ui",
       "title": "Card",
       "description": "Liquid Glass card with chrome, elevated, content, and outline variants.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/card.tsx",
@@ -100,7 +151,12 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "content", "outline"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "content",
+          "outline"
+        ]
       }
     },
     {
@@ -112,7 +168,9 @@
         "@radix-ui/react-tabs",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/tabs.tsx",
@@ -121,9 +179,18 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "plain"],
-        "sizes": ["sm", "default", "lg"],
-        "slots": ["indicatorClassName"]
+        "variants": [
+          "chrome",
+          "plain"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "slots": [
+          "indicatorClassName"
+        ]
       }
     },
     {
@@ -131,8 +198,12 @@
       "type": "registry:ui",
       "title": "Input",
       "description": "Translucent glass text input with chrome and outline variants.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/field-variants.ts",
@@ -146,9 +217,20 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "states": ["default", "error", "success"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "states": [
+          "default",
+          "error",
+          "success"
+        ]
       }
     },
     {
@@ -156,8 +238,12 @@
       "type": "registry:ui",
       "title": "Textarea",
       "description": "Translucent glass multiline input with chrome and outline variants.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/field-variants.ts",
@@ -171,9 +257,20 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "states": ["default", "error", "success"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "states": [
+          "default",
+          "error",
+          "success"
+        ]
       }
     },
     {
@@ -185,7 +282,9 @@
         "@radix-ui/react-dialog",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/dialog.tsx",
@@ -194,11 +293,37 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated"],
-        "sizes": ["sm", "default", "lg", "xl", "full"],
-        "overlayBlur": ["none", "sm", "default", "lg", "xl", "heavy"],
-        "overlayDim": ["none", "light", "default", "heavy"],
-        "slots": ["overlayClassName", "closeClassName", "closeIcon", "closeLabel"]
+        "variants": [
+          "chrome",
+          "elevated"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg",
+          "xl",
+          "full"
+        ],
+        "overlayBlur": [
+          "none",
+          "sm",
+          "default",
+          "lg",
+          "xl",
+          "heavy"
+        ],
+        "overlayDim": [
+          "none",
+          "light",
+          "default",
+          "heavy"
+        ],
+        "slots": [
+          "overlayClassName",
+          "closeClassName",
+          "closeIcon",
+          "closeLabel"
+        ]
       }
     },
     {
@@ -210,7 +335,9 @@
         "@radix-ui/react-accordion",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/accordion.tsx",
@@ -219,8 +346,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -232,7 +366,9 @@
         "@radix-ui/react-slider",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/slider.tsx",
@@ -241,8 +377,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -254,7 +397,9 @@
         "@radix-ui/react-switch",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/switch.tsx",
@@ -263,8 +408,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -276,7 +428,9 @@
         "@radix-ui/react-checkbox",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/checkbox.tsx",
@@ -285,8 +439,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -298,7 +459,9 @@
         "@radix-ui/react-slot",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/badge.tsx",
@@ -307,8 +470,19 @@
         }
       ],
       "meta": {
-        "variants": ["default", "secondary", "outline", "destructive", "chrome", "success"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "default",
+          "secondary",
+          "outline",
+          "destructive",
+          "chrome",
+          "success"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -316,8 +490,12 @@
       "type": "registry:ui",
       "title": "Kbd",
       "description": "Glass-styled keyboard key labels for shortcuts in tooltips, hints, and menus.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/kbd.tsx",
@@ -326,8 +504,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "muted"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "muted"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -335,8 +520,12 @@
       "type": "registry:ui",
       "title": "Alert",
       "description": "Glass status alerts with icon slot, semantic tints, and fade-in mount animation.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/alert.tsx",
@@ -345,7 +534,13 @@
         }
       ],
       "meta": {
-        "variants": ["default", "destructive", "success", "chrome", "outline"]
+        "variants": [
+          "default",
+          "destructive",
+          "success",
+          "chrome",
+          "outline"
+        ]
       }
     },
     {
@@ -353,8 +548,12 @@
       "type": "registry:ui",
       "title": "Toast",
       "description": "Liquid Glass toast notifications with imperative API, semantic variants, stacking, swipe dismiss, and progress auto-close.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/toast.tsx",
@@ -381,9 +580,30 @@
           "bottom-center",
           "bottom-right"
         ],
-        "scopes": ["viewport", "container"],
-        "slots": ["title", "description", "action", "close", "icon", "progress"],
-        "api": ["toast", "toast.success", "toast.error", "toast.warning", "toast.info", "toast.loading", "toast.promise", "toast.dismiss", "useToast", "Toaster"]
+        "scopes": [
+          "viewport",
+          "container"
+        ],
+        "slots": [
+          "title",
+          "description",
+          "action",
+          "close",
+          "icon",
+          "progress"
+        ],
+        "api": [
+          "toast",
+          "toast.success",
+          "toast.error",
+          "toast.warning",
+          "toast.info",
+          "toast.loading",
+          "toast.promise",
+          "toast.dismiss",
+          "useToast",
+          "Toaster"
+        ]
       }
     },
     {
@@ -395,7 +615,9 @@
         "@radix-ui/react-avatar",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/avatar.tsx",
@@ -404,9 +626,23 @@
         }
       ],
       "meta": {
-        "sizes": ["xs", "sm", "default", "lg", "xl"],
-        "shapes": ["circle", "rounded", "square"],
-        "slots": ["image", "fallback", "group"]
+        "sizes": [
+          "xs",
+          "sm",
+          "default",
+          "lg",
+          "xl"
+        ],
+        "shapes": [
+          "circle",
+          "rounded",
+          "square"
+        ],
+        "slots": [
+          "image",
+          "fallback",
+          "group"
+        ]
       }
     },
     {
@@ -418,7 +654,9 @@
         "@radix-ui/react-dropdown-menu",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/dropdown-menu.tsx",
@@ -427,8 +665,19 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "slots": ["item", "checkbox", "radio", "label", "separator", "sub"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "slots": [
+          "item",
+          "checkbox",
+          "radio",
+          "label",
+          "separator",
+          "sub"
+        ]
       }
     },
     {
@@ -440,7 +689,10 @@
         "@radix-ui/react-alert-dialog",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "button"],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/alert-dialog.tsx",
@@ -449,8 +701,16 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "destructive"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "destructive"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -462,7 +722,9 @@
         "@radix-ui/react-slot",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/breadcrumb.tsx",
@@ -471,8 +733,19 @@
         }
       ],
       "meta": {
-        "sizes": ["sm", "default", "lg"],
-        "slots": ["list", "item", "link", "page", "separator", "ellipsis"]
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "slots": [
+          "list",
+          "item",
+          "link",
+          "page",
+          "separator",
+          "ellipsis"
+        ]
       }
     },
     {
@@ -484,7 +757,9 @@
         "@radix-ui/react-context-menu",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/context-menu.tsx",
@@ -493,8 +768,19 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "slots": ["item", "checkbox", "radio", "label", "separator", "sub"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "slots": [
+          "item",
+          "checkbox",
+          "radio",
+          "label",
+          "separator",
+          "sub"
+        ]
       }
     },
     {
@@ -506,7 +792,10 @@
         "@radix-ui/react-popover",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "popover"],
+      "registryDependencies": [
+        "utils",
+        "popover"
+      ],
       "files": [
         {
           "path": "packages/ui/src/filter-items.ts",
@@ -525,7 +814,11 @@
         }
       ],
       "meta": {
-        "api": ["Combobox", "filterItems", "resolveItemLabel"]
+        "api": [
+          "Combobox",
+          "filterItems",
+          "resolveItemLabel"
+        ]
       }
     },
     {
@@ -537,7 +830,10 @@
         "@radix-ui/react-dialog",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "dialog"],
+      "registryDependencies": [
+        "utils",
+        "dialog"
+      ],
       "files": [
         {
           "path": "packages/ui/src/filter-items.ts",
@@ -556,8 +852,19 @@
         }
       ],
       "meta": {
-        "api": ["Command", "CommandDialog", "CommandInput", "CommandList", "filterItems", "orderCommandItemsByGroup"],
-        "variants": ["chrome", "elevated", "outline"]
+        "api": [
+          "Command",
+          "CommandDialog",
+          "CommandInput",
+          "CommandList",
+          "filterItems",
+          "orderCommandItemsByGroup"
+        ],
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ]
       }
     },
     {
@@ -565,8 +872,12 @@
       "type": "registry:ui",
       "title": "File Upload",
       "description": "Glass drag-and-drop file upload with browse button, accept filters, and selected file list.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/file-upload-utils.ts",
@@ -580,8 +891,16 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline", "elevated"],
-        "api": ["FileUpload", "filterAcceptedFiles", "formatFileSize"]
+        "variants": [
+          "chrome",
+          "outline",
+          "elevated"
+        ],
+        "api": [
+          "FileUpload",
+          "filterAcceptedFiles",
+          "formatFileSize"
+        ]
       }
     },
     {
@@ -593,7 +912,9 @@
         "@radix-ui/react-navigation-menu",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/navigation-menu.tsx",
@@ -602,8 +923,20 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "ghost", "outline", "elevated"],
-        "slots": ["list", "item", "trigger", "content", "link", "viewport"]
+        "variants": [
+          "chrome",
+          "ghost",
+          "outline",
+          "elevated"
+        ],
+        "slots": [
+          "list",
+          "item",
+          "trigger",
+          "content",
+          "link",
+          "viewport"
+        ]
       }
     },
     {
@@ -611,8 +944,12 @@
       "type": "registry:ui",
       "title": "Stepper",
       "description": "Ordered multi-step indicator with completed, active, and upcoming states.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/stepper-utils.ts",
@@ -626,8 +963,15 @@
         }
       ],
       "meta": {
-        "orientations": ["horizontal", "vertical"],
-        "statuses": ["completed", "active", "upcoming"]
+        "orientations": [
+          "horizontal",
+          "vertical"
+        ],
+        "statuses": [
+          "completed",
+          "active",
+          "upcoming"
+        ]
       }
     },
     {
@@ -635,8 +979,12 @@
       "type": "registry:ui",
       "title": "Theme Toggle",
       "description": "Light/dark mode toggle button that integrates with document theme classes.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/theme-mode.ts",
@@ -650,9 +998,20 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "ghost", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "modes": ["light", "dark"]
+        "variants": [
+          "chrome",
+          "ghost",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "modes": [
+          "light",
+          "dark"
+        ]
       }
     },
     {
@@ -660,8 +1019,12 @@
       "type": "registry:ui",
       "title": "Copy Button",
       "description": "Clipboard copy control with temporary copied feedback for docs and code samples.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/copy-text.ts",
@@ -675,8 +1038,18 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline", "ghost", "glass"],
-        "sizes": ["sm", "default", "lg", "icon"]
+        "variants": [
+          "chrome",
+          "outline",
+          "ghost",
+          "glass"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg",
+          "icon"
+        ]
       }
     },
     {
@@ -684,8 +1057,14 @@
       "type": "registry:ui",
       "title": "Carousel",
       "description": "Embla-powered slide carousel with glass viewport variants and frosted prev/next controls.",
-      "dependencies": ["embla-carousel-react", "class-variance-authority"],
-      "registryDependencies": ["utils", "button"],
+      "dependencies": [
+        "embla-carousel-react",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/carousel.tsx",
@@ -694,8 +1073,15 @@
         }
       ],
       "meta": {
-        "contentVariants": ["default", "chrome", "outline"],
-        "orientations": ["horizontal", "vertical"]
+        "contentVariants": [
+          "default",
+          "chrome",
+          "outline"
+        ],
+        "orientations": [
+          "horizontal",
+          "vertical"
+        ]
       }
     },
     {
@@ -707,7 +1093,9 @@
         "@radix-ui/react-collapsible",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/collapsible.tsx",
@@ -716,9 +1104,19 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "layouts": ["default", "tree"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "layouts": [
+          "default",
+          "tree"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -730,7 +1128,10 @@
         "@radix-ui/react-select",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "input"],
+      "registryDependencies": [
+        "utils",
+        "input"
+      ],
       "files": [
         {
           "path": "packages/ui/src/field-variants.ts",
@@ -744,9 +1145,21 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "states": ["default", "error", "success"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "states": [
+          "default",
+          "error",
+          "success"
+        ]
       }
     },
     {
@@ -758,7 +1171,9 @@
         "@radix-ui/react-tooltip",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/tooltip.tsx",
@@ -767,7 +1182,11 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ]
       }
     },
     {
@@ -779,7 +1198,10 @@
         "@radix-ui/react-slot",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "tooltip"],
+      "registryDependencies": [
+        "utils",
+        "tooltip"
+      ],
       "files": [
         {
           "path": "packages/ui/src/sidebar.tsx",
@@ -788,9 +1210,20 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "collapsible": ["none", "icon", "offcanvas"],
-        "sides": ["left", "right"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "collapsible": [
+          "none",
+          "icon",
+          "offcanvas"
+        ],
+        "sides": [
+          "left",
+          "right"
+        ]
       }
     },
     {
@@ -803,7 +1236,10 @@
         "date-fns",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "button"],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/calendar.tsx",
@@ -812,9 +1248,21 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "modes": ["single", "multiple", "range"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "modes": [
+          "single",
+          "multiple",
+          "range"
+        ]
       }
     },
     {
@@ -826,7 +1274,10 @@
         "date-fns",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "button"],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/event-calendar.tsx",
@@ -835,10 +1286,30 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "colors": ["default", "primary", "success", "warning", "destructive", "info"],
-        "features": ["month-grid", "agenda-sidebar", "event-chips", "overflow"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "colors": [
+          "default",
+          "primary",
+          "success",
+          "warning",
+          "destructive",
+          "info"
+        ],
+        "features": [
+          "month-grid",
+          "agenda-sidebar",
+          "event-chips",
+          "overflow"
+        ]
       }
     },
     {
@@ -850,7 +1321,10 @@
         "@radix-ui/react-dialog",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "dialog"],
+      "registryDependencies": [
+        "utils",
+        "dialog"
+      ],
       "files": [
         {
           "path": "packages/ui/src/sheet.tsx",
@@ -859,12 +1333,43 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "sides": ["top", "right", "bottom", "left"],
-        "sizes": ["sm", "default", "lg", "full"],
-        "overlayBlur": ["none", "sm", "default", "lg", "xl", "heavy"],
-        "overlayDim": ["none", "light", "default", "heavy"],
-        "slots": ["overlayClassName", "closeClassName", "closeIcon", "closeLabel"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sides": [
+          "top",
+          "right",
+          "bottom",
+          "left"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg",
+          "full"
+        ],
+        "overlayBlur": [
+          "none",
+          "sm",
+          "default",
+          "lg",
+          "xl",
+          "heavy"
+        ],
+        "overlayDim": [
+          "none",
+          "light",
+          "default",
+          "heavy"
+        ],
+        "slots": [
+          "overlayClassName",
+          "closeClassName",
+          "closeIcon",
+          "closeLabel"
+        ]
       }
     },
     {
@@ -876,7 +1381,9 @@
         "@radix-ui/react-hover-card",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/hover-card.tsx",
@@ -885,8 +1392,16 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -898,7 +1413,9 @@
         "@radix-ui/react-toggle",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/toggle.tsx",
@@ -907,8 +1424,16 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline", "ghost"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline",
+          "ghost"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -920,7 +1445,10 @@
         "@radix-ui/react-toggle-group",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils", "toggle"],
+      "registryDependencies": [
+        "utils",
+        "toggle"
+      ],
       "files": [
         {
           "path": "packages/ui/src/toggle-group.tsx",
@@ -929,8 +1457,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "plain"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "plain"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -942,7 +1477,9 @@
         "@radix-ui/react-popover",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/popover.tsx",
@@ -951,8 +1488,16 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -960,8 +1505,12 @@
       "type": "registry:ui",
       "title": "Background Picture Picker",
       "description": "Select a preset background, upload a custom image, or choose none for a transparent surface.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/background-picture-picker.tsx",
@@ -970,9 +1519,19 @@
         }
       ],
       "meta": {
-        "sizes": ["sm", "default", "lg"],
-        "sources": ["none", "preset", "custom"],
-        "slots": ["overlayClassName"]
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "sources": [
+          "none",
+          "preset",
+          "custom"
+        ],
+        "slots": [
+          "overlayClassName"
+        ]
       }
     },
     {
@@ -980,8 +1539,12 @@
       "type": "registry:ui",
       "title": "Table",
       "description": "Glass-styled data table with chrome container and hover rows.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/table.tsx",
@@ -990,9 +1553,19 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "plain"],
-        "density": ["compact", "default", "comfortable"],
-        "slots": ["containerClassName"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "plain"
+        ],
+        "density": [
+          "compact",
+          "default",
+          "comfortable"
+        ],
+        "slots": [
+          "containerClassName"
+        ]
       }
     },
     {
@@ -1000,8 +1573,12 @@
       "type": "registry:ui",
       "title": "Empty",
       "description": "Compound empty-state layout with frosted dashed chrome container and icon media slot.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/empty.tsx",
@@ -1010,8 +1587,14 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "mediaVariants": ["default", "icon"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "mediaVariants": [
+          "default",
+          "icon"
+        ]
       }
     },
     {
@@ -1019,8 +1602,12 @@
       "type": "registry:ui",
       "title": "Skeleton",
       "description": "Glass pulse loading placeholder with default, chrome, and text variants.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/skeleton.tsx",
@@ -1029,8 +1616,18 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome", "text"],
-        "rounded": ["none", "sm", "md", "lg", "full"]
+        "variants": [
+          "default",
+          "chrome",
+          "text"
+        ],
+        "rounded": [
+          "none",
+          "sm",
+          "md",
+          "lg",
+          "full"
+        ]
       }
     },
     {
@@ -1038,8 +1635,13 @@
       "type": "registry:ui",
       "title": "Pagination",
       "description": "Accessible pagination nav composing glass button variants for page links.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils", "button"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/pagination.tsx",
@@ -1048,7 +1650,12 @@
         }
       ],
       "meta": {
-        "slots": ["PaginationLink", "PaginationPrevious", "PaginationNext", "PaginationEllipsis"]
+        "slots": [
+          "PaginationLink",
+          "PaginationPrevious",
+          "PaginationNext",
+          "PaginationEllipsis"
+        ]
       }
     },
     {
@@ -1060,7 +1667,9 @@
         "@radix-ui/react-separator",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/separator.tsx",
@@ -1069,8 +1678,15 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome", "subtle"],
-        "orientations": ["horizontal", "vertical"]
+        "variants": [
+          "default",
+          "chrome",
+          "subtle"
+        ],
+        "orientations": [
+          "horizontal",
+          "vertical"
+        ]
       }
     },
     {
@@ -1078,8 +1694,12 @@
       "type": "registry:ui",
       "title": "Spinner",
       "description": "Accessible loading spinner with chrome, primary, and muted variants.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/spinner.tsx",
@@ -1088,8 +1708,18 @@
         }
       ],
       "meta": {
-        "variants": ["default", "primary", "muted", "chrome"],
-        "sizes": ["sm", "default", "lg", "xl"]
+        "variants": [
+          "default",
+          "primary",
+          "muted",
+          "chrome"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg",
+          "xl"
+        ]
       }
     },
     {
@@ -1101,7 +1731,9 @@
         "@radix-ui/react-progress",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/progress.tsx",
@@ -1110,8 +1742,15 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
       }
     },
     {
@@ -1123,7 +1762,9 @@
         "@radix-ui/react-scroll-area",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/scroll-area.tsx",
@@ -1132,7 +1773,11 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome", "outline"]
+        "variants": [
+          "default",
+          "chrome",
+          "outline"
+        ]
       }
     },
     {
@@ -1140,8 +1785,13 @@
       "type": "registry:ui",
       "title": "Scroll To Top",
       "description": "Floating glass button that appears after scrolling and returns to the top of the page or scroll container.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils", "glass-icon-button"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "glass-icon-button"
+      ],
       "files": [
         {
           "path": "packages/ui/src/scroll-to-top.tsx",
@@ -1150,10 +1800,25 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "ghost", "destructive"],
-        "sizes": ["sm", "default", "lg"],
-        "positions": ["bottom-right", "bottom-left", "bottom-center"],
-        "scopes": ["viewport", "container"]
+        "variants": [
+          "chrome",
+          "ghost",
+          "destructive"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "positions": [
+          "bottom-right",
+          "bottom-left",
+          "bottom-center"
+        ],
+        "scopes": [
+          "viewport",
+          "container"
+        ]
       }
     },
     {
@@ -1165,7 +1830,9 @@
         "@radix-ui/react-dialog",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/floating-widget.tsx",
@@ -1174,11 +1841,36 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "elevated", "outline", "primary", "ghost"],
-        "sizes": ["sm", "default", "lg"],
-        "positions": ["bottom-right", "bottom-left", "top-right", "top-left"],
-        "scopes": ["viewport", "container"],
-        "slots": ["trigger", "content", "header", "body", "footer", "badge"]
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline",
+          "primary",
+          "ghost"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "positions": [
+          "bottom-right",
+          "bottom-left",
+          "top-right",
+          "top-left"
+        ],
+        "scopes": [
+          "viewport",
+          "container"
+        ],
+        "slots": [
+          "trigger",
+          "content",
+          "header",
+          "body",
+          "footer",
+          "badge"
+        ]
       }
     },
     {
@@ -1190,7 +1882,9 @@
         "@radix-ui/react-radio-group",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/radio-group.tsx",
@@ -1199,9 +1893,19 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "orientations": ["vertical", "horizontal"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "orientations": [
+          "vertical",
+          "horizontal"
+        ]
       }
     },
     {
@@ -1213,7 +1917,9 @@
         "react-resizable-panels",
         "class-variance-authority"
       ],
-      "registryDependencies": ["utils"],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/resizable.tsx",
@@ -1222,8 +1928,13 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome"],
-        "slots": ["ResizableHandle"]
+        "variants": [
+          "default",
+          "chrome"
+        ],
+        "slots": [
+          "ResizableHandle"
+        ]
       }
     },
     {
@@ -1231,8 +1942,13 @@
       "type": "registry:ui",
       "title": "Native Select",
       "description": "Styled native HTML select with glass field variants and chevron icon.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils", "input"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "input"
+      ],
       "files": [
         {
           "path": "packages/ui/src/field-variants.ts",
@@ -1246,9 +1962,19 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "sizes": ["sm", "default", "lg"],
-        "widths": ["fit", "full"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "widths": [
+          "fit",
+          "full"
+        ]
       }
     },
     {
@@ -1256,8 +1982,12 @@
       "type": "registry:ui",
       "title": "Typography",
       "description": "Semantic text primitives for headings, body copy, quotes, and inline code.",
-      "dependencies": ["class-variance-authority"],
-      "registryDependencies": ["utils"],
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
       "files": [
         {
           "path": "packages/ui/src/typography.tsx",
@@ -1266,8 +1996,25 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome", "muted"],
-        "elements": ["h1", "h2", "h3", "h4", "p", "blockquote", "code", "lead", "large", "small", "muted", "list"]
+        "variants": [
+          "default",
+          "chrome",
+          "muted"
+        ],
+        "elements": [
+          "h1",
+          "h2",
+          "h3",
+          "h4",
+          "p",
+          "blockquote",
+          "code",
+          "lead",
+          "large",
+          "small",
+          "muted",
+          "list"
+        ]
       }
     },
     {
@@ -1281,7 +2028,12 @@
         "remark-gfm",
         "shiki"
       ],
-      "registryDependencies": ["utils", "typography", "scroll-area", "separator"],
+      "registryDependencies": [
+        "utils",
+        "typography",
+        "scroll-area",
+        "separator"
+      ],
       "files": [
         {
           "path": "packages/ui/src/markdown-highlight.ts",
@@ -1300,9 +2052,21 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome", "outline"],
-        "tones": ["default", "chrome", "muted"],
-        "features": ["gfm", "highlight", "scrollable"]
+        "variants": [
+          "default",
+          "chrome",
+          "outline"
+        ],
+        "tones": [
+          "default",
+          "chrome",
+          "muted"
+        ],
+        "features": [
+          "gfm",
+          "highlight",
+          "scrollable"
+        ]
       }
     },
     {
@@ -1358,9 +2122,20 @@
         }
       ],
       "meta": {
-        "variants": ["default", "chrome", "outline"],
-        "editorModes": ["rich-text", "markdown"],
-        "views": ["edit", "split", "preview"],
+        "variants": [
+          "default",
+          "chrome",
+          "outline"
+        ],
+        "editorModes": [
+          "rich-text",
+          "markdown"
+        ],
+        "views": [
+          "edit",
+          "split",
+          "preview"
+        ],
         "features": [
           "rich-text",
           "toolbar",
@@ -1393,8 +2168,17 @@
         }
       ],
       "meta": {
-        "variants": ["chrome", "outline"],
-        "features": ["preview", "code-only", "editable", "copy", "view-code-toggle"]
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "features": [
+          "preview",
+          "code-only",
+          "editable",
+          "copy",
+          "view-code-toggle"
+        ]
       }
     },
     {
@@ -1402,7 +2186,10 @@
       "type": "registry:lib",
       "title": "Utils",
       "description": "Utility functions for class name merging.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
           "path": "packages/utils/src/cn.ts",
@@ -1413,6 +2200,470 @@
           "path": "packages/utils/src/focus-ring.ts",
           "type": "registry:lib",
           "target": "lib/focus-ring.ts"
+        }
+      ]
+    },
+    {
+      "name": "multi-select",
+      "type": "registry:ui",
+      "title": "Multi Select",
+      "description": "Searchable multi-value glass select with chips, keyboard navigation, and optional max selections.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/multi-select-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/multi-select-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/filter-items.ts",
+          "type": "registry:lib",
+          "target": "components/ui/filter-items.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:lib",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/multi-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/multi-select.tsx"
+        }
+      ],
+      "meta": {
+        "multi": true
+      }
+    },
+    {
+      "name": "notification-center",
+      "type": "registry:ui",
+      "title": "Notification Center",
+      "description": "Inbox-style notification list with unread counts, mark-read, and dismiss — distinct from toast.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/notification-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/notification-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/notification-center.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/notification-center.tsx"
+        }
+      ],
+      "meta": {
+        "styles": [
+          "inbox"
+        ]
+      }
+    },
+    {
+      "name": "code-viewer",
+      "type": "registry:ui",
+      "title": "Code Viewer",
+      "description": "Glass code surface with language badge, line numbers, and copy control.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "copy-button"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/code-format.ts",
+          "type": "registry:lib",
+          "target": "components/ui/code-format.ts"
+        },
+        {
+          "path": "packages/ui/src/code-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/code-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "terminal-block",
+      "type": "registry:ui",
+      "title": "Terminal Block",
+      "description": "Styled terminal transcript with prompt, input/output, and error lines.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/code-format.ts",
+          "type": "registry:lib",
+          "target": "components/ui/code-format.ts"
+        },
+        {
+          "path": "packages/ui/src/terminal-block.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/terminal-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "json-viewer",
+      "type": "registry:ui",
+      "title": "JSON Viewer",
+      "description": "Pretty-print and validate JSON with line numbers and copy.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "copy-button"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/code-format.ts",
+          "type": "registry:lib",
+          "target": "components/ui/code-format.ts"
+        },
+        {
+          "path": "packages/ui/src/json-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/json-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "aspect-ratio",
+      "type": "registry:ui",
+      "title": "Aspect Ratio",
+      "description": "Container that maintains a consistent width/height ratio for media and previews.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/aspect-ratio.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/aspect-ratio.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-chat",
+      "type": "registry:ui",
+      "title": "AI Chat",
+      "description": "Composable chat shell with user/assistant bubbles and message roles.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/ai-chat.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/ai-chat.tsx"
+        }
+      ],
+      "meta": {
+        "roles": [
+          "user",
+          "assistant",
+          "system"
+        ]
+      }
+    },
+    {
+      "name": "prompt-input",
+      "type": "registry:ui",
+      "title": "Prompt Input",
+      "description": "Composer textarea with Enter-to-send, token estimate, and loading state.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/ai-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/ai-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/prompt-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/prompt-input.tsx"
+        }
+      ]
+    },
+    {
+      "name": "streaming-text",
+      "type": "registry:ui",
+      "title": "Streaming Text",
+      "description": "Progressive text reveal with caret for model streaming responses.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/ai-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/ai-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/streaming-text.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/streaming-text.tsx"
+        }
+      ]
+    },
+    {
+      "name": "typing-indicator",
+      "type": "registry:ui",
+      "title": "Typing Indicator",
+      "description": "Animated dots indicating the assistant is composing a reply.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/typing-indicator.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/typing-indicator.tsx"
+        }
+      ]
+    },
+    {
+      "name": "thinking-animation",
+      "type": "registry:ui",
+      "title": "Thinking Animation",
+      "description": "Subtle thinking/processing status for agent and chat UIs.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/thinking-animation.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/thinking-animation.tsx"
+        }
+      ]
+    },
+    {
+      "name": "reasoning-block",
+      "type": "registry:ui",
+      "title": "Reasoning Block",
+      "description": "Collapsible chain-of-thought / reasoning panel for AI responses.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/reasoning-block.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/reasoning-block.tsx"
+        }
+      ]
+    },
+    {
+      "name": "citation-card",
+      "type": "registry:ui",
+      "title": "Citation Card",
+      "description": "Source citation chip/card with index, excerpt, and optional link.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/citation-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/citation-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "token-counter",
+      "type": "registry:ui",
+      "title": "Token Counter",
+      "description": "Token usage badge with estimate helpers and soft limit states.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/ai-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/ai-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/token-counter.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/token-counter.tsx"
+        }
+      ]
+    },
+    {
+      "name": "prompt-suggestions",
+      "type": "registry:ui",
+      "title": "Prompt Suggestions",
+      "description": "Filterable quick-start prompt chips for empty chat states.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/ai-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/ai-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/prompt-suggestions.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/prompt-suggestions.tsx"
+        }
+      ]
+    },
+    {
+      "name": "agent-card",
+      "type": "registry:ui",
+      "title": "Agent Card",
+      "description": "Agent identity card with status, tools strip, and footer actions.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/agent-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/agent-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "tool-call-viewer",
+      "type": "registry:ui",
+      "title": "Tool Call Viewer",
+      "description": "Expandable viewer for tool name, args, result, and error states.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tool-call-viewer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tool-call-viewer.tsx"
+        }
+      ]
+    },
+    {
+      "name": "mcp-server-card",
+      "type": "registry:ui",
+      "title": "MCP Server Card",
+      "description": "Model Context Protocol server status card with tools and resources counts.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/mcp-server-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/mcp-server-card.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-model-selector",
+      "type": "registry:ui",
+      "title": "AI Model Selector",
+      "description": "Popover model picker with provider and description metadata.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:lib",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/ai-model-selector.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/ai-model-selector.tsx"
+        }
+      ]
+    },
+    {
+      "name": "conversation-sidebar",
+      "type": "registry:ui",
+      "title": "Conversation Sidebar",
+      "description": "Pinned-aware conversation list with active state and new-chat action.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/ai-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/ai-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/conversation-sidebar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/conversation-sidebar.tsx"
         }
       ]
     }
