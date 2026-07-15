@@ -1,159 +1,215 @@
-# Turborepo starter
+# Intelli UI
 
-This Turborepo starter is maintained by the Turborepo core team.
+**Liquid Glass component library for React & Next.js** — copy-paste Tailwind components you own, install with a CLI, and wire into AI coding agents via MCP.
 
-## Using this example
+| | |
+| --- | --- |
+| **Docs & playground** | [ui.intellihelper.in](https://ui.intellihelper.in) |
+| **Getting started** | [ui.intellihelper.in/getting-started](https://ui.intellihelper.in/getting-started) |
+| **Registry** | [ui.intellihelper.in/r/registry.json](https://ui.intellihelper.in/r/registry.json) |
+| **CLI** | [`@intellihelper/cli`](./packages/cli) |
+| **SEO playbook** | [docs/SEO-PLAYBOOK.md](./docs/SEO-PLAYBOOK.md) |
+| **Repository** | [github.com/IntelliHelper/IntelliHelper-UI](https://github.com/IntelliHelper/IntelliHelper-UI) |
 
-Run the following command:
+---
 
-```sh
-npx create-turbo@latest
+## What is Intelli UI?
+
+Intelli UI (by **IntelliHelper**) is a **Liquid Glass** design system and component library:
+
+- **40+ React components** built with TypeScript and Tailwind CSS  
+- **Copy-paste workflow** — components land in *your* codebase (shadcn-style ownership)  
+- **CLI** — `npx @intellihelper/cli` to init, add, update, and list components  
+- **MCP server** (`intellihelper-ui`) — Cursor, Claude Code, VS Code, Codex, OpenCode, Grok  
+- **Live playground** — previews, source, and install commands at [ui.intellihelper.in](https://ui.intellihelper.in)  
+- **Themes** — mono, aurora, sunset, frost, ocean  
+
+---
+
+## Quick start (consumers)
+
+Use this in any React + Tailwind project (Next.js App Router recommended):
+
+```bash
+npx @intellihelper/cli@latest init
+npx @intellihelper/cli@latest add button card dialog
 ```
 
-## What's inside?
+```tsx
+import { Button } from "@/components/ui/button";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 
-This Turborepo includes the following packages/apps:
-
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo build
+export function Example() {
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle>Hello</CardTitle>
+      </CardHeader>
+      <Button>Continue</Button>
+    </Card>
+  );
+}
 ```
 
-Without global `turbo`, use your package manager:
+**MCP for AI agents:**
 
-```sh
-cd my-turborepo
-npx turbo build
-pnpm dlx turbo build
-pnpm exec turbo build
+```bash
+npx @intellihelper/cli@latest mcp init --client cursor
+# or: claude | vscode | codex | opencode
 ```
 
-You can build a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+Full CLI docs: [packages/cli/README.md](./packages/cli/README.md)
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+---
 
-```sh
-turbo build --filter=docs
+## Monorepo structure
+
+This repository is a **pnpm + Turborepo** workspace.
+
+```
+apps/
+  playground/          # Next.js docs site & component registry host (ui.intellihelper.in)
+  native-playground/   # React Native playground for @intelli/ui-native
+  registry/            # Registry metadata packaging
+packages/
+  ui/                  # Web React components (@intelli/ui)
+  ui-native/           # React Native components (@intelli/ui-native)
+  cli/                 # @intellihelper/cli + MCP server
+  themes/              # Theme CSS + ThemeProvider
+  tokens/              # Design tokens
+  animations/          # Shared animation utilities
+  utils/               # Shared utils (cn, focus-ring, …)
+  config/              # Shared PostCSS / global CSS entry
+  eslint-config/       # Shared ESLint configs
+  typescript-config/   # Shared TSConfigs
+docs/
+  SEO-PLAYBOOK.md      # Keyword map, content calendar, technical SEO ops
 ```
 
-Without global `turbo`:
+### Apps
 
-```sh
-npx turbo build --filter=docs
-pnpm exec turbo build --filter=docs
-pnpm exec turbo build --filter=docs
+| App | Package name | Description |
+| --- | --- | --- |
+| **playground** | `playground` | Public docs, demos, OG images, sitemap, `llms.txt`, RSS, `/r/*` registry |
+| **native-playground** | `native-playground` | Expo-style playground for native components |
+| **registry** | — | Registry source / packaging helpers |
+
+### Packages
+
+| Package | Role |
+| --- | --- |
+| `@intelli/ui` | Liquid Glass web components |
+| `@intelli/ui-native` | Native component set |
+| `@intellihelper/cli` | Install CLI + MCP (`intellihelper-ui`) |
+| `@intelli/themes` | Theme styles and provider |
+| `@intelli/tokens` | Design tokens |
+| `@intelli/utils` | Shared utilities |
+| `@intelli/config` | Shared frontend config |
+| `@intelli/animations` | Animation CSS |
+
+---
+
+## Develop this repo
+
+### Requirements
+
+- **Node.js** ≥ 18  
+- **pnpm** 9 (`packageManager`: `pnpm@9.0.0`)
+
+### Install
+
+```bash
+pnpm install
 ```
 
-### Develop
+### Scripts (root)
 
-To develop all apps and packages, run the following command:
-
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
-
-```sh
-cd my-turborepo
-turbo dev
+```bash
+pnpm dev            # turbo dev (all packages with a dev task)
+pnpm build          # turbo build
+pnpm lint           # turbo lint
+pnpm check-types    # turbo typecheck
+pnpm format         # prettier write
+pnpm native         # native playground only
 ```
 
-Without global `turbo`, use your package manager:
+### Playground (docs site)
 
-```sh
-cd my-turborepo
-npx turbo dev
-pnpm exec turbo dev
-pnpm exec turbo dev
+```bash
+pnpm --filter playground dev      # http://localhost:3000
+pnpm --filter playground build
+pnpm --filter playground check-types
 ```
 
-You can develop a specific package by using a [filter](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters):
+The playground `prebuild` step bundles the public registry into `apps/playground/public/r/`.
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+### CLI (local)
 
-```sh
-turbo dev --filter=web
+```bash
+pnpm --filter @intellihelper/cli build
+# then exercise via node packages/cli/dist/index.js … or published npx package
 ```
 
-Without global `turbo`:
+---
 
-```sh
-npx turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-pnpm exec turbo dev --filter=web
-```
+## Public SEO & discovery endpoints
 
-### Remote Caching
+Served by the playground app (production: `https://ui.intellihelper.in`):
 
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
+| Endpoint | Purpose |
+| --- | --- |
+| `/sitemap.xml` | Machine sitemap |
+| `/sitemap` | HTML sitemap |
+| `/robots.txt` | Crawl rules |
+| `/llms.txt` | AI / LLM site summary |
+| `/rss.xml` | Component & docs feed |
+| `/manifest.webmanifest` | PWA manifest |
+| `/r/registry.json` | Component registry |
+| `/categories/{category}` | Category landings |
+| `/components/{slug}` | Component docs |
 
-Turborepo can use a technique known as [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
+Strategy, keyword map, and 12-week content calendar: **[docs/SEO-PLAYBOOK.md](./docs/SEO-PLAYBOOK.md)**.
 
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed (recommended):
+## Themes
 
-```sh
-cd my-turborepo
-turbo login
-```
+Intelli UI ships multiple Liquid Glass themes (e.g. **mono**, **aurora**, **sunset**, **frost**, **ocean**). Theme CSS and the React `ThemeProvider` live in [`packages/themes`](./packages/themes). The playground exposes a theme switcher for live previews.
 
-Without global `turbo`, use your package manager:
+---
 
-```sh
-cd my-turborepo
-npx turbo login
-pnpm exec turbo login
-pnpm exec turbo login
-```
+## Tech stack
 
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
+- **React 19** / **Next.js 16** (playground)  
+- **Tailwind CSS 4**  
+- **TypeScript 5.9**  
+- **Turborepo** + **pnpm** workspaces  
+- **Radix-style** accessible primitives (where applicable)  
 
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
+---
 
-With [global `turbo`](https://turborepo.dev/docs/getting-started/installation#global-installation) installed:
+## Contributing
 
-```sh
-turbo link
-```
+1. Fork / branch from the active feature branch  
+2. `pnpm install`  
+3. Run `pnpm --filter playground dev` for UI work  
+4. Keep component catalog + registry in sync when adding UI  
+5. New public components should ship with: catalog entry, examples, install path, and (for docs) FAQ/related links  
 
-Without global `turbo`:
+For CLI behavior details, see [packages/cli/README.md](./packages/cli/README.md).
 
-```sh
-npx turbo link
-pnpm exec turbo link
-pnpm exec turbo link
-```
+---
 
-## Useful Links
+## License
 
-Learn more about the power of Turborepo:
+MIT (see package licenses; CLI is published as MIT under `@intellihelper/cli`).
 
-- [Tasks](https://turborepo.dev/docs/crafting-your-repository/running-tasks)
-- [Caching](https://turborepo.dev/docs/crafting-your-repository/caching)
-- [Remote Caching](https://turborepo.dev/docs/core-concepts/remote-caching)
-- [Filtering](https://turborepo.dev/docs/crafting-your-repository/running-tasks#using-filters)
-- [Configuration Options](https://turborepo.dev/docs/reference/configuration)
-- [CLI Usage](https://turborepo.dev/docs/reference/command-line-reference)
+---
+
+## Links
+
+- [Documentation](https://ui.intellihelper.in)  
+- [Getting started](https://ui.intellihelper.in/getting-started)  
+- [SEO playbook](./docs/SEO-PLAYBOOK.md)  
+- [CLI package](./packages/cli)  
+- [GitHub](https://github.com/IntelliHelper/IntelliHelper-UI)  

@@ -11,11 +11,17 @@ import {
 
 const CATEGORY_ORDER = Object.keys(CATEGORY_META) as ComponentCategory[];
 
-export function ComponentCatalogGrid() {
+type ComponentCatalogGridProps = {
+  initialQuery?: string;
+};
+
+export function ComponentCatalogGrid({
+  initialQuery = "",
+}: ComponentCatalogGridProps) {
   const [activeCategory, setActiveCategory] = useState<ComponentCategory | "all">(
     "all",
   );
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState(initialQuery);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();
