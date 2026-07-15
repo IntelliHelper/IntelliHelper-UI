@@ -11,7 +11,7 @@ import { createPageMetadata } from "../../lib/seo";
 export const metadata: Metadata = createPageMetadata({
   title: "Browse Liquid Glass React Components",
   description:
-    "Browse, preview, and copy every Intelli UI Liquid Glass component. Free React + Next.js + Tailwind primitives with CLI install, MCP for AI agents, live previews, and full source ownership — a modern shadcn-style workflow.",
+    "Browse, preview, and copy every Intelli UI Liquid Glass component. Free React + Next.js + Tailwind primitives with CLI install, agent plugin + MCP for AI agents, live previews, and full source ownership — a modern shadcn-style workflow.",
   path: "/",
   keywords: [
     "component playground",
@@ -20,6 +20,9 @@ export const metadata: Metadata = createPageMetadata({
     "tailwind ui components",
     "liquid glass playground",
     "free react components",
+    "agent plugin",
+    "claude code plugin",
+    "grok plugin",
   ],
   absoluteTitle: false,
 });
@@ -48,13 +51,24 @@ export default async function HomePage({ searchParams }: HomePageProps) {
               Intelli UI is a Liquid Glass component library with{" "}
               {CATALOG.length}+ React components for Next.js and Tailwind.
               Each page ships a live preview beside the source. Install with
-              the CLI, paste into your project, and customize variants you own.
+              the CLI, paste into your project, and customize variants you own
+              — or wire Claude, Grok, and other coding agents with the official{" "}
+              <Link
+                href="/getting-started#plugin"
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+              >
+                agent plugin
+              </Link>
+              .
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <Button asChild>
                 <Link href="/getting-started">Get started</Link>
               </Button>
               <Button asChild variant="outline">
+                <Link href="/getting-started#plugin">Install agent plugin</Link>
+              </Button>
+              <Button asChild variant="ghost">
                 <Link href="/components/button">Start with Button</Link>
               </Button>
             </div>

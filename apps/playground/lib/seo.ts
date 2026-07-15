@@ -10,6 +10,9 @@ export const BRAND_NAME = "IntelliHelper";
 export const LOGO_PATH = "/intellihelper.png";
 export const OG_IMAGE_PATH = "/opengraph-image";
 export const GITHUB_URL = "https://github.com/IntelliHelper/IntelliHelper-UI";
+export const AGENT_SKILLS_URL =
+  "https://github.com/IntelliHelper/agent-skills";
+export const AGENT_SKILLS_REPO = "IntelliHelper/agent-skills";
 export const REGISTRY_URL = "https://ui.intellihelper.in/r/registry.json";
 export const CLI_PACKAGE = "@intellihelper/cli";
 
@@ -17,7 +20,7 @@ export const DEFAULT_TITLE =
   "Intelli UI — Liquid Glass React Components for Next.js & Tailwind";
 
 export const DEFAULT_DESCRIPTION =
-  "Intelli UI is a Liquid Glass component library for React and Next.js. Copy-paste 40+ Tailwind components with live previews, CLI install (npx @intellihelper/cli), MCP for AI agents, and full source ownership — a modern shadcn-style workflow with glass design.";
+  "Intelli UI is a Liquid Glass component library for React and Next.js. Copy-paste 40+ Tailwind components with live previews, CLI install (npx @intellihelper/cli), official agent plugin + MCP for AI agents, and full source ownership — a modern shadcn-style workflow with glass design.";
 
 export const DEFAULT_KEYWORDS = [
   "IntelliHelper",
@@ -37,6 +40,9 @@ export const DEFAULT_KEYWORDS = [
   "design system",
   "radix ui components",
   "mcp ui components",
+  "agent skills",
+  "claude code plugin",
+  "grok plugin",
   "intellihelper-ui",
   "npx @intellihelper/cli",
   "react 19 components",
@@ -207,17 +213,20 @@ export function buildLlmsText(): string {
 
   return `# ${SITE_NAME}
 
-> ${SITE_NAME} by ${BRAND_NAME} is a Liquid Glass component library for React and Next.js. Copy-paste accessible Tailwind components you own in your codebase. Includes a CLI (\`${CLI_PACKAGE}\`), shadcn-compatible registry, and an MCP server (\`intellihelper-ui\`) for AI coding agents. Open source. Open code. AI-ready.
+> ${SITE_NAME} by ${BRAND_NAME} is a Liquid Glass component library for React and Next.js. Copy-paste accessible Tailwind components you own in your codebase. Includes a CLI (\`${CLI_PACKAGE}\`), shadcn-compatible registry, an official agent plugin (\`${AGENT_SKILLS_REPO}\`), and an MCP server (\`intellihelper-ui\`) for AI coding agents. Open source. Open code. AI-ready.
 
 ## Overview
 
 - [Home](${absoluteUrl("/")}): Browse the full component catalog with live previews.
-- [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI or connect MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
+- [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI, agent plugin, or MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
+- [Agent plugin](${absoluteUrl("/getting-started#plugin")}): One-step install for Claude Code, Grok, Codex, Gemini (skills + MCP + commands).
+- [MCP](${absoluteUrl("/getting-started#mcp")}): Tools-only setup for coding agents.
 - [HTML sitemap](${absoluteUrl("/sitemap")}): Human-readable index of every public page.
 - [XML sitemap](${absoluteUrl("/sitemap.xml")}): Machine-readable sitemap for crawlers.
 - [RSS feed](${absoluteUrl("/rss.xml")}): Component and docs feed.
 - [Registry](${REGISTRY_URL}): JSON registry of installable components.
 - [GitHub](${GITHUB_URL}): Source repository.
+- [Agent skills](${AGENT_SKILLS_URL}): Official agent plugin repository.
 
 ## Installation
 
@@ -225,6 +234,10 @@ export function buildLlmsText(): string {
 npx ${CLI_PACKAGE}@latest init
 npx ${CLI_PACKAGE}@latest add button card dialog
 npx ${CLI_PACKAGE}@latest mcp init --client cursor
+
+# Agent plugin (skills + MCP + slash commands)
+claude plugin marketplace add ${AGENT_SKILLS_REPO}
+grok plugin install ${AGENT_SKILLS_REPO} --trust
 \`\`\`
 
 ## Categories
@@ -243,7 +256,8 @@ ${grouped}
 ## Optional
 
 - Prefer \`llms-full.txt\` style depth: each component page includes install command, description, category, and live demo.
+- Agent plugin: \`${AGENT_SKILLS_REPO}\` (plugin id \`intellihelper-ui\`)
 - MCP server name: \`intellihelper-ui\`
-- Primary keywords: liquid glass, glass morphism, React UI, Next.js components, Tailwind, shadcn alternative
+- Primary keywords: liquid glass, glass morphism, React UI, Next.js components, Tailwind, shadcn alternative, agent skills, MCP
 `;
 }

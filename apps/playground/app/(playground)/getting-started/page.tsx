@@ -4,6 +4,7 @@ import { CliGettingStarted } from "../../../components/cli-getting-started";
 import { CustomizationDemo } from "../../../components/customization-demo";
 import { JsonLd } from "../../../components/json-ld";
 import { McpGettingStarted } from "../../../components/mcp-getting-started";
+import { PluginGettingStarted } from "../../../components/plugin-getting-started";
 import {
   CATEGORY_META,
   CATEGORY_ORDER,
@@ -19,7 +20,7 @@ import { createPageMetadata } from "../../../lib/seo";
 export const metadata: Metadata = createPageMetadata({
   title: "Getting Started — Install Liquid Glass React Components",
   description:
-    "Install IntelliHelper UI Liquid Glass components with npx @intellihelper/cli, or connect Cursor, Claude, VS Code, Grok, and other agents via the intellihelper-ui MCP server. Free for Next.js + Tailwind.",
+    "Install IntelliHelper UI Liquid Glass components with npx @intellihelper/cli, or wire Cursor, Claude, VS Code, Grok, and other agents via the official agent plugin and intellihelper-ui MCP server. Free for Next.js + Tailwind.",
   path: "/getting-started",
   keywords: [
     "intellihelper cli",
@@ -32,6 +33,10 @@ export const metadata: Metadata = createPageMetadata({
     "cursor mcp",
     "claude code mcp",
     "grok mcp",
+    "agent skills",
+    "claude plugin",
+    "grok plugin",
+    "intellihelper agent-skills",
     "shadcn alternative install",
   ],
   type: "article",
@@ -50,11 +55,15 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is Intelli UI a shadcn/ui alternative?",
-    a: "Yes. It follows a copy-paste registry workflow similar to shadcn/ui, with a Liquid Glass visual system, CLI, and an MCP server for AI coding agents.",
+    a: "Yes. It follows a copy-paste registry workflow similar to shadcn/ui, with a Liquid Glass visual system, CLI, MCP, and an official agent plugin for coding agents.",
   },
   {
     q: "Does it support AI coding agents?",
-    a: "Yes. The intellihelper-ui MCP server works with Cursor, Claude Code, VS Code, Codex, OpenCode, and Grok so agents can browse, search, and install components.",
+    a: "Yes. Install the official plugin from github.com/IntelliHelper/agent-skills (skills + MCP + slash commands), or wire MCP only with npx @intellihelper/cli mcp init. Works with Claude Code, Grok, Cursor, Codex, OpenCode, and more.",
+  },
+  {
+    q: "Plugin vs MCP — which should I use?",
+    a: "Use the agent plugin for one-step install with skills, slash commands, and MCP. Use MCP-only if you already manage skills yourself and only need registry tools.",
   },
   {
     q: "Is it free?",
@@ -74,7 +83,7 @@ export default function GettingStartedPage() {
           webPageJsonLd({
             name: "Getting Started with Intelli UI",
             description:
-              "Install Liquid Glass components with the CLI or connect AI agents via MCP.",
+              "Install Liquid Glass components with the CLI, agent plugin, or MCP for AI coding agents.",
             path: "/getting-started",
             type: "WebPage",
           }),
@@ -95,7 +104,21 @@ export default function GettingStartedPage() {
             Copy Liquid Glass components into any Next.js + Tailwind project with
             the IntelliHelper UI CLI. Components live in your codebase — fully
             owned and customizable. Wire the same registry into coding agents
-            with the MCP server.
+            with the official{" "}
+            <a
+              href="#plugin"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              agent plugin
+            </a>{" "}
+            or{" "}
+            <a
+              href="#mcp"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
+            >
+              MCP server
+            </a>
+            .
           </p>
         </header>
 
@@ -110,14 +133,40 @@ export default function GettingStartedPage() {
           <CliGettingStarted />
         </section>
 
+        <section
+          id="plugin"
+          className="glass-panel scroll-mt-24 rounded-2xl p-6"
+        >
+          <div className="mb-5">
+            <h2 className="text-lg font-semibold text-foreground">
+              Agent plugin
+            </h2>
+            <p className="mt-1 text-sm text-muted-foreground">
+              One install for Claude Code, Grok, Codex, Gemini, and more —
+              skills, slash commands, and MCP bundled. Repo:{" "}
+              <a
+                href="https://github.com/IntelliHelper/agent-skills"
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+                target="_blank"
+                rel="noreferrer"
+              >
+                IntelliHelper/agent-skills
+              </a>
+              .
+            </p>
+          </div>
+          <PluginGettingStarted />
+        </section>
+
         <section id="mcp" className="glass-panel scroll-mt-24 rounded-2xl p-6">
           <div className="mb-5">
             <h2 className="text-lg font-semibold text-foreground">
               MCP for AI agents
             </h2>
             <p className="mt-1 text-sm text-muted-foreground">
-              Browse, search, and install IntelliHelper UI from Cursor, Claude
-              Code, VS Code, Codex, OpenCode, or Grok.
+              Prefer tools only? Wire the intellihelper-ui MCP server into
+              Cursor, Claude Code, VS Code, Codex, OpenCode, or Grok without the
+              full plugin.
             </p>
           </div>
           <McpGettingStarted />

@@ -88,6 +88,7 @@ export function softwareApplicationJsonLd(): JsonLd {
       `${CATALOG.length}+ React components`,
       "Next.js and Tailwind CSS",
       `CLI install with npx ${CLI_PACKAGE}`,
+      "Agent plugin for coding agents (IntelliHelper/agent-skills)",
       "MCP server for AI coding agents (intellihelper-ui)",
       "Live component previews and source",
       "Copy-paste ownership of component code",
@@ -135,7 +136,7 @@ export function gettingStartedJsonLd(): JsonLd {
     "@type": "HowTo",
     name: "Install IntelliHelper UI components",
     description:
-      "Add Liquid Glass components to a Next.js project using the IntelliHelper CLI, or connect AI agents via the intellihelper-ui MCP server.",
+      "Add Liquid Glass components to a Next.js project using the IntelliHelper CLI, install the official agent plugin, or connect AI agents via the intellihelper-ui MCP server.",
     totalTime: "PT5M",
     estimatedCost: {
       "@type": "MonetaryAmount",
@@ -144,6 +145,10 @@ export function gettingStartedJsonLd(): JsonLd {
     },
     tool: [
       { "@type": "HowToTool", name: "IntelliHelper CLI" },
+      {
+        "@type": "HowToTool",
+        name: "IntelliHelper agent plugin (IntelliHelper/agent-skills)",
+      },
       { "@type": "HowToTool", name: "IntelliHelper UI MCP (intellihelper-ui)" },
       { "@type": "HowToTool", name: "Next.js" },
       { "@type": "HowToTool", name: "Tailwind CSS" },
@@ -167,13 +172,20 @@ export function gettingStartedJsonLd(): JsonLd {
       {
         "@type": "HowToStep",
         position: 3,
-        name: "Connect MCP for AI agents",
-        text: `Run npx ${CLI_PACKAGE}@latest mcp init --client cursor (or claude, vscode, codex, opencode) to wire the intellihelper-ui MCP server into your coding agent.`,
-        url: absoluteUrl("/getting-started#mcp"),
+        name: "Install the agent plugin",
+        text: "Install from github.com/IntelliHelper/agent-skills for Claude Code, Grok, Codex, or Gemini to get skills, slash commands, and the intellihelper-ui MCP server in one step.",
+        url: absoluteUrl("/getting-started#plugin"),
       },
       {
         "@type": "HowToStep",
         position: 4,
+        name: "Or connect MCP only",
+        text: `Run npx ${CLI_PACKAGE}@latest mcp init --client cursor (or claude, vscode, codex, opencode) to wire the intellihelper-ui MCP server without the full plugin.`,
+        url: absoluteUrl("/getting-started#mcp"),
+      },
+      {
+        "@type": "HowToStep",
+        position: 5,
         name: "Customize variants",
         text: "Edit the copied source files and use exported CVA helpers, className slots, and data-slot hooks.",
         url: absoluteUrl("/getting-started"),
@@ -208,7 +220,7 @@ export function gettingStartedFaqJsonLd(): JsonLd {
         name: "Is Intelli UI a shadcn/ui alternative?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Intelli UI follows a copy-paste registry workflow similar to shadcn/ui, with a Liquid Glass visual system, CLI, and an MCP server for AI coding agents.",
+          text: "Yes. Intelli UI follows a copy-paste registry workflow similar to shadcn/ui, with a Liquid Glass visual system, CLI, MCP, and an official agent plugin for coding agents.",
         },
       },
       {
@@ -216,7 +228,15 @@ export function gettingStartedFaqJsonLd(): JsonLd {
         name: "Does Intelli UI support AI coding agents?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. The intellihelper-ui MCP server works with Cursor, Claude Code, VS Code, Codex, OpenCode, and Grok so agents can browse, search, and install components.",
+          text: "Yes. Install the official plugin from github.com/IntelliHelper/agent-skills (skills, slash commands, and MCP), or wire the intellihelper-ui MCP server alone. Works with Claude Code, Grok, Cursor, Codex, OpenCode, and more.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Plugin vs MCP — which should I use?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Use the agent plugin for one-step install with skills, slash commands, and MCP. Use MCP-only if you already manage skills yourself and only need registry tools.",
         },
       },
       {

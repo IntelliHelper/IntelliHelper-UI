@@ -14,13 +14,13 @@
 | **Brand** | Intelli UI by IntelliHelper |
 | **Category** | Liquid Glass React component library |
 | **Stack** | React · Next.js · Tailwind CSS · TypeScript |
-| **Workflow** | Copy-paste registry (own the source) + CLI + MCP |
-| **Differentiator vs shadcn** | Same install ownership model, **Liquid Glass** visual system, **MCP-native** for AI agents |
-| **CTA** | `npx @intellihelper/cli@latest init` → `add <component>` |
+| **Workflow** | Copy-paste registry (own the source) + CLI + agent plugin + MCP |
+| **Differentiator vs shadcn** | Same install ownership model, **Liquid Glass** visual system, **agent plugin** (`IntelliHelper/agent-skills`) + **MCP-native** for AI agents |
+| **CTA** | `npx @intellihelper/cli@latest init` → `add <component>` · agents: install `intellihelper-ui` plugin |
 
 **One-liner for social / meta:**
 
-> Free Liquid Glass React components for Next.js & Tailwind. Install with CLI or MCP. You own the code.
+> Free Liquid Glass React components for Next.js & Tailwind. Install with CLI, agent plugin, or MCP. You own the code.
 
 ---
 
@@ -35,6 +35,7 @@
 | **P1** | Competitor | `shadcn alternative`, `shadcn ui alternative liquid glass`, `shadcn mcp` | `/`, `/getting-started` | Attack |
 | **P1** | Stack | `next.js tailwind components`, `react component library copy paste` | `/`, `/getting-started` | Attack |
 | **P1** | AI agents | `mcp ui components`, `cursor mcp components`, `claude code ui library` | `/getting-started#mcp` | Attack |
+| **P1** | Agent plugin | `claude code plugin ui`, `grok plugin components`, `agent skills ui library`, `intellihelper agent-skills` | `/getting-started#plugin` | Attack |
 | **P2** | Component | `{name} react component`, `{name} tailwind`, `{name} next.js` | `/components/{slug}` | Scale |
 | **P2** | Category | `react form components`, `react overlay components` | `/categories/{category}` | Scale |
 | **P3** | Long-tail how-to | `how to install liquid glass button next.js` | Blog / guides (future) | Expand |
@@ -44,7 +45,7 @@
 | Page | Primary keyword | Secondary keywords | Title pattern | Meta description focus |
 |------|-----------------|--------------------|---------------|------------------------|
 | `/` | liquid glass react components | next.js ui, tailwind component library, shadcn alternative | Browse Liquid Glass React Components \| Intelli UI | Catalog + CLI + live previews |
-| `/getting-started` | install intellihelper ui / intellihelper cli | mcp server cursor, shadcn alternative install | Getting Started — Install… | CLI steps + MCP clients |
+| `/getting-started` | install intellihelper ui / intellihelper cli | mcp server cursor, agent plugin, claude code plugin, grok plugin, shadcn alternative install | Getting Started — Install… | CLI + agent plugin + MCP clients |
 | `/sitemap` | (supporting) | site index | Sitemap | Crawl aid, not ranking target |
 
 ### 2.3 Category → keyword map
@@ -133,7 +134,7 @@ Cadence: **1 pillar or comparison every 2 weeks** + **weekly micro-update** (com
 
 | Week | Ship | Keyword focus | Channel |
 |------|------|---------------|---------|
-| **5** | MCP guide: “Wire Intelli UI into Cursor / Claude Code” | mcp ui components, cursor mcp | Getting started + short video |
+| **5** | Agent plugin + MCP guide: “Wire Intelli UI into Claude Code / Grok / Cursor” | agent plugin, claude code plugin, grok plugin, mcp ui components | `/getting-started#plugin` + `#mcp` + short video |
 | **6** | Category deep-dives: Forms + Overlays (use cases, when to pick which component) | react form / dialog components | Category pages |
 | **7** | CLI cookbook: init, add, update, monorepo tips | intellihelper cli | Getting started |
 | **8** | Showcase: 3 demo screens (dashboard, settings, chat) built with Intelli UI | liquid glass dashboard | Homepage / GitHub README |
@@ -201,10 +202,15 @@ Cadence: **1 pillar or comparison every 2 weeks** + **weekly micro-update** (com
 |-------|---------|
 | `/llms.txt` | Canonical machine summary of product + all components |
 | Component pages | Install command + plain-language purpose (models quote this) |
-| MCP server `intellihelper-ui` | Agent discovery beyond web search |
+| Agent plugin `IntelliHelper/agent-skills` | One-step install for Claude / Grok / Codex / Gemini (skills + MCP) |
+| MCP server `intellihelper-ui` | Agent discovery beyond web search (tools-only path) |
 | GitHub README | Second source of truth; keep install commands in sync |
+| xAI Official marketplace | Pending PR — list when merged ([plugin-marketplace#86](https://github.com/xai-org/plugin-marketplace/pull/86)) |
+| Claude community marketplace | Submit via [plugin directory form](https://clau.de/plugin-directory-submission) |
 
 **When adding a component:** update catalog → page → registry → `llms.txt` (auto from catalog) → RSS.
+
+**When changing agent tooling:** update `agent-skills` repo, playground `/getting-started#plugin`, CLI README, and monorepo README in the same release.
 
 ---
 
@@ -220,7 +226,7 @@ Cadence: **1 pillar or comparison every 2 weeks** + **weekly micro-update** (com
 | CWV “Good” URLs | GSC | All key templates |
 | Referring domains | Ahrefs / free alternatives | +N quality links from weeks 9–11 push |
 
-**Primary conversion (product SEO):** user copies `npx @intellihelper/cli … add …` or completes getting-started.
+**Primary conversion (product SEO):** user copies `npx @intellihelper/cli … add …`, installs the agent plugin, or completes getting-started.
 
 ---
 
