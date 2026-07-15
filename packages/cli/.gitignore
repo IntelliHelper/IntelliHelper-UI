@@ -1,2 +1,5 @@
 dist/
 src/registry/bundled.json
+src/registry/catalog.json
+src/registry/examples.json
+src/registry/themes.json

@@ -4,15 +4,16 @@ import { Command } from "commander";
 import { runAdd } from "./commands/add.js";
 import { runInit } from "./commands/init.js";
 import { runList } from "./commands/list.js";
+import { createMcpCommand } from "./commands/mcp.js";
 import { runDiff, runUpdate } from "./commands/update.js";
 import { logger } from "./lib/logger.js";
 
 const program = new Command();
 
 program
-  .name("intelli-ui")
-  .description("Add and update Intelli UI components in your project")
-  .version("0.0.1");
+  .name("intellihelper-ui")
+  .description("Add and update IntelliHelper UI components in your project")
+  .version("0.1.0");
 
 program
   .command("init")
@@ -98,5 +99,7 @@ program
       process.exit(1);
     }
   });
+
+program.addCommand(createMcpCommand());
 
 program.parse();

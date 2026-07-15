@@ -61,6 +61,7 @@ export function softwareApplicationJsonLd(): JsonLd {
       "40+ React components",
       "Next.js and Tailwind CSS",
       "CLI install with npx @intellihelper/cli",
+      "MCP server for AI coding agents (intellihelper-ui)",
       "Live component previews",
     ],
   };
@@ -70,19 +71,24 @@ export function gettingStartedJsonLd(): JsonLd {
   return {
     "@context": "https://schema.org",
     "@type": "HowTo",
-    name: "Install Intelli UI components",
+    name: "Install IntelliHelper UI components",
     description:
-      "Add Liquid Glass components to a Next.js project using the IntelliHelper CLI.",
+      "Add Liquid Glass components to a Next.js project using the IntelliHelper CLI, or connect AI agents via the intellihelper-ui MCP server.",
     step: [
       {
         "@type": "HowToStep",
-        name: "Initialize Intelli UI",
+        name: "Initialize IntelliHelper UI",
         text: "Run npx @intellihelper/cli@latest init in your Next.js project.",
       },
       {
         "@type": "HowToStep",
         name: "Add components",
         text: "Run npx @intellihelper/cli@latest add followed by component names such as button, card, or tabs.",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Connect MCP for AI agents",
+        text: "Run npx @intellihelper/cli@latest mcp init --client cursor (or claude, vscode, codex, opencode) to wire the intellihelper-ui MCP server into your coding agent.",
       },
       {
         "@type": "HowToStep",
@@ -94,6 +100,10 @@ export function gettingStartedJsonLd(): JsonLd {
       {
         "@type": "HowToTool",
         name: "IntelliHelper CLI",
+      },
+      {
+        "@type": "HowToTool",
+        name: "IntelliHelper UI MCP (intellihelper-ui)",
       },
       {
         "@type": "HowToTool",

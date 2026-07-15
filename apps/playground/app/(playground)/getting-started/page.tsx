@@ -3,6 +3,7 @@ import Link from "next/link";
 import { CliGettingStarted } from "../../../components/cli-getting-started";
 import { CustomizationDemo } from "../../../components/customization-demo";
 import { JsonLd } from "../../../components/json-ld";
+import { McpGettingStarted } from "../../../components/mcp-getting-started";
 import { CATEGORY_META, getCatalogByCategory } from "../../../lib/catalog";
 import { gettingStartedJsonLd } from "../../../lib/json-ld";
 import { createPageMetadata } from "../../../lib/seo";
@@ -10,14 +11,19 @@ import { createPageMetadata } from "../../../lib/seo";
 export const metadata: Metadata = createPageMetadata({
   title: "Getting Started",
   description:
-    "Install Intelli UI Liquid Glass components with the IntelliHelper CLI. Initialize your project, add button, card, tabs, and 40+ components, then customize variants in your codebase.",
+    "Install IntelliHelper UI Liquid Glass components with the CLI, or connect Cursor, Claude, VS Code, Grok, and other agents via the intellihelper-ui MCP server.",
   path: "/getting-started",
   keywords: [
     "intellihelper cli",
+    "intellihelper-ui",
     "npx @intellihelper/cli",
     "install react components",
     "next.js setup",
     "tailwind setup",
+    "mcp server",
+    "cursor mcp",
+    "claude code mcp",
+    "grok mcp",
   ],
   type: "article",
 });
@@ -41,13 +47,34 @@ export default function GettingStartedPage() {
         </h1>
         <p className="text-sm leading-relaxed text-muted-foreground">
           Copy Liquid Glass components into any Next.js + Tailwind project with
-          the Intelli UI CLI. Components live in your codebase — fully owned and
-          customizable.
+          the IntelliHelper UI CLI. Components live in your codebase — fully
+          owned and customizable. Wire the same registry into coding agents
+          with the MCP server.
         </p>
       </header>
 
       <section className="glass-panel rounded-2xl p-6">
+        <div className="mb-5">
+          <h2 className="text-lg font-semibold text-foreground">CLI</h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Initialize your project and add components with{" "}
+            <code className="font-mono text-xs">@intellihelper/cli</code>.
+          </p>
+        </div>
         <CliGettingStarted />
+      </section>
+
+      <section id="mcp" className="glass-panel scroll-mt-24 rounded-2xl p-6">
+        <div className="mb-5">
+          <h2 className="text-lg font-semibold text-foreground">
+            MCP for AI agents
+          </h2>
+          <p className="mt-1 text-sm text-muted-foreground">
+            Browse, search, and install IntelliHelper UI from Cursor, Claude
+            Code, VS Code, Codex, OpenCode, or Grok.
+          </p>
+        </div>
+        <McpGettingStarted />
       </section>
 
       <section className="glass-panel rounded-2xl p-6">
