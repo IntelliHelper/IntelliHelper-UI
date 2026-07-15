@@ -11,7 +11,7 @@ import { createPageMetadata } from "../../lib/seo";
 export const metadata: Metadata = createPageMetadata({
   title: "Browse Liquid Glass React Components",
   description:
-    "Browse, preview, and copy every Intelli UI Liquid Glass component. Free React + Next.js + Tailwind primitives with CLI install, MCP for AI agents, live previews, and full source ownership — a modern shadcn-style workflow.",
+    "Browse, preview, and copy every Intelli UI Liquid Glass component. Free React + Next.js + Tailwind primitives with CLI install, agent plugin + MCP for AI agents, live previews, and full source ownership — a modern shadcn-style workflow.",
   path: "/",
   keywords: [
     "component playground",

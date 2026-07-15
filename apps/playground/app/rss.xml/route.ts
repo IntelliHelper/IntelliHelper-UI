@@ -26,7 +26,7 @@ export function GET() {
       title: "Getting started with Intelli UI",
       link: absoluteUrl("/getting-started"),
       description:
-        "Install Liquid Glass components with the CLI or connect AI agents via MCP.",
+        "Install Liquid Glass components with the CLI, agent plugin, or MCP for AI agents.",
       pubDate: buildDate,
     },
     ...CATALOG.map((item) => ({

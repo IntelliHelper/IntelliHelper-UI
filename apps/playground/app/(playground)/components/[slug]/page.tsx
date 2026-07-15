@@ -133,7 +133,14 @@ export default async function ComponentPage({ params }: PageProps) {
               and behavior without fighting a locked package.
             </p>
             <p>
-              Prefer AI-assisted install? Connect the{" "}
+              Prefer AI-assisted install? Install the official{" "}
+              <Link
+                href="/getting-started#plugin"
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+              >
+                agent plugin
+              </Link>{" "}
+              or connect the{" "}
               <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs text-foreground">
                 intellihelper-ui
               </code>{" "}

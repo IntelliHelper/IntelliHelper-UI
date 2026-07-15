@@ -11,7 +11,7 @@ export default function GettingStartedOpenGraphImage() {
       <OgImageLayout
         badge="Docs"
         title="Getting started"
-        subtitle="Install Liquid Glass components with the CLI or connect AI agents via MCP."
+        subtitle="Install Liquid Glass components with the CLI, agent plugin, or MCP."
       />
     ),
     { ...size },

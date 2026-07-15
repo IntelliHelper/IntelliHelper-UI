@@ -65,7 +65,8 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
               </div>
               <p className="text-sm leading-relaxed text-muted-foreground">
                 Liquid Glass React components for Next.js and Tailwind. Copy,
-                customize, and ship — with CLI and MCP for AI agents.
+                customize, and ship — with CLI, agent plugin, and MCP for AI
+                agents.
               </p>
             </div>
 
@@ -86,6 +87,22 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                     className="transition-colors hover:text-foreground"
                   >
                     Getting started
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/getting-started#plugin"
+                    className="transition-colors hover:text-foreground"
+                  >
+                    Agent plugin
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/getting-started#mcp"
+                    className="transition-colors hover:text-foreground"
+                  >
+                    MCP for agents
                   </Link>
                 </li>
                 <li>

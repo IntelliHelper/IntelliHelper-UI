@@ -20,6 +20,7 @@ Intelli UI (by **IntelliHelper**) is a **Liquid Glass** design system and compon
 - **40+ React components** built with TypeScript and Tailwind CSS  
 - **Copy-paste workflow** — components land in *your* codebase (shadcn-style ownership)  
 - **CLI** — `npx @intellihelper/cli` to init, add, update, and list components  
+- **Agent plugin** ([IntelliHelper/agent-skills](https://github.com/IntelliHelper/agent-skills)) — skills + MCP + slash commands for Claude, Grok, Codex, Gemini  
 - **MCP server** (`intellihelper-ui`) — Cursor, Claude Code, VS Code, Codex, OpenCode, Grok  
 - **Live playground** — previews, source, and install commands at [ui.intellihelper.in](https://ui.intellihelper.in)  
 - **Themes** — mono, aurora, sunset, frost, ocean  
@@ -51,14 +52,23 @@ export function Example() {
 }
 ```
 
-**MCP for AI agents:**
+**Agent plugin (recommended for coding agents):**
+
+```bash
+claude plugin marketplace add IntelliHelper/agent-skills
+claude plugin install intellihelper-ui@intellihelper
+
+grok plugin install IntelliHelper/agent-skills --trust
+```
+
+**MCP only:**
 
 ```bash
 npx @intellihelper/cli@latest mcp init --client cursor
 # or: claude | vscode | codex | opencode
 ```
 
-Full CLI docs: [packages/cli/README.md](./packages/cli/README.md)
+Plugin: [IntelliHelper/agent-skills](https://github.com/IntelliHelper/agent-skills) · CLI docs: [packages/cli/README.md](./packages/cli/README.md)
 
 ---
 

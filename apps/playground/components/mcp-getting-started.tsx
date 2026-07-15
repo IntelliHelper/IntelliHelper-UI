@@ -143,7 +143,14 @@ export function McpGettingStarted() {
           >
             shadcn MCP
           </a>{" "}
-          works.
+          works. For skills + slash commands in one install, use the{" "}
+          <a
+            href="#plugin"
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            agent plugin
+          </a>{" "}
+          instead.
         </p>
         <p className="text-xs text-muted-foreground">
           Server name:{" "}

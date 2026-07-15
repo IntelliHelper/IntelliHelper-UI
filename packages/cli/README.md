@@ -265,7 +265,14 @@ Restart the agent after writing config. Example prompts:
 - “Show me usage examples for the sheet component”
 - “Search IntelliHelper UI for form inputs”
 
-More detail: [Getting started → MCP](https://ui.intellihelper.in/getting-started#mcp)
+**Agent plugin (skills + MCP + commands):** [IntelliHelper/agent-skills](https://github.com/IntelliHelper/agent-skills)
+
+```bash
+claude plugin marketplace add IntelliHelper/agent-skills
+grok plugin install IntelliHelper/agent-skills --trust
+```
+
+More detail: [Getting started → Plugin](https://ui.intellihelper.in/getting-started#plugin) · [MCP](https://ui.intellihelper.in/getting-started#mcp)
 
 ---
 
