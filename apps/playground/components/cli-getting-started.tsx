@@ -54,8 +54,8 @@ export function CliGettingStarted() {
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Copy source into your app with the Intelli UI CLI. Components are fetched
-        from{" "}
+        Copy source into your app with the IntelliHelper UI CLI. Components are
+        fetched from{" "}
         <a
           href="https://ui.intellihelper.in/r/registry.json"
           className="font-medium text-foreground underline-offset-4 hover:underline"
