@@ -217,6 +217,20 @@ export {
   type DateRange,
 } from "./calendar";
 export {
+  EventCalendar,
+  EventCalendarChip,
+  EventCalendarEventRow,
+  eventCalendarVariants,
+  eventChipVariants,
+  eventsForDay,
+  eventOccursOnDay,
+  type CalendarEvent,
+  type EventCalendarColor,
+  type EventCalendarProps,
+  type EventCalendarChipProps,
+  type EventCalendarEventRowProps,
+} from "./event-calendar";
+export {
   Sheet,
   SheetPortal,
   SheetTrigger,
@@ -302,6 +316,30 @@ export {
   scrollToTopVariants,
   type ScrollToTopProps,
 } from "./scroll-to-top";
+export {
+  FloatingWidget,
+  FloatingWidgetPortal,
+  FloatingWidgetOverlay,
+  FloatingWidgetClose,
+  FloatingWidgetTrigger,
+  FloatingWidgetContent,
+  FloatingWidgetHeader,
+  FloatingWidgetTitle,
+  FloatingWidgetDescription,
+  FloatingWidgetBody,
+  FloatingWidgetFooter,
+  floatingWidgetTriggerVariants,
+  floatingWidgetContentVariants,
+  floatingWidgetOverlayVariants,
+  type FloatingWidgetTriggerProps,
+  type FloatingWidgetContentProps,
+  type FloatingWidgetOverlayProps,
+  type FloatingWidgetHeaderProps,
+  type FloatingWidgetTitleProps,
+  type FloatingWidgetDescriptionProps,
+  type FloatingWidgetBodyProps,
+  type FloatingWidgetFooterProps,
+} from "./floating-widget";
 export {
   RadioGroup,
   RadioGroupItem,

@@ -60,7 +60,7 @@ export default async function ComponentPage({ params }: PageProps) {
           componentFaqJsonLd(item),
         ]}
       />
-      <article className="mx-auto min-w-0 max-w-4xl pb-4">
+      <article className="mx-auto min-w-0 max-w-6xl pb-4">
         <header className="mb-8 space-y-4">
           <nav
             aria-label="Breadcrumb"

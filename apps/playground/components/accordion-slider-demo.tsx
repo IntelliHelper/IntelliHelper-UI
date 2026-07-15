@@ -13,7 +13,7 @@ import { cn } from "@intelli/utils";
 
 export function AccordionDemo() {
   return (
-    <div className="space-y-4">
+    <div className="w-full max-w-2xl space-y-4">
       <Accordion
         type="single"
         collapsible
@@ -67,7 +67,7 @@ export function SliderDemo() {
   const [brightnessRange, setBrightnessRange] = useState([25, 75]);
 
   return (
-    <div className="space-y-6">
+    <div className="w-full max-w-md space-y-6">
       <div className="space-y-3">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">Volume</span>

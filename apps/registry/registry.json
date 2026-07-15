@@ -487,6 +487,30 @@
       }
     },
     {
+      "name": "event-calendar",
+      "type": "registry:ui",
+      "title": "Event Calendar",
+      "description": "Liquid Glass month event calendar with color-coded event chips, day agenda panel, and keyboard-accessible day cells.",
+      "dependencies": [
+        "date-fns",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "button"],
+      "files": [
+        {
+          "path": "packages/ui/src/event-calendar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/event-calendar.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "sizes": ["sm", "default", "lg"],
+        "colors": ["default", "primary", "success", "warning", "destructive", "info"],
+        "features": ["month-grid", "agenda-sidebar", "event-chips", "overflow"]
+      }
+    },
+    {
       "name": "sheet",
       "type": "registry:ui",
       "title": "Sheet",
@@ -799,6 +823,31 @@
         "sizes": ["sm", "default", "lg"],
         "positions": ["bottom-right", "bottom-left", "bottom-center"],
         "scopes": ["viewport", "container"]
+      }
+    },
+    {
+      "name": "floating-widget",
+      "type": "registry:ui",
+      "title": "Floating Widget",
+      "description": "Corner chat-style bubble that opens a compact floating panel for feedback, help, or messaging content.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/floating-widget.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/floating-widget.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline", "primary", "ghost"],
+        "sizes": ["sm", "default", "lg"],
+        "positions": ["bottom-right", "bottom-left", "top-right", "top-left"],
+        "scopes": ["viewport", "container"],
+        "slots": ["trigger", "content", "header", "body", "footer", "badge"]
       }
     },
     {

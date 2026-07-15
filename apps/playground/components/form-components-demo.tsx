@@ -4,7 +4,7 @@ import { Input, Textarea } from "@intelli/ui";
 
 export function InputDemo() {
   return (
-    <div className="space-y-4">
+    <div className="w-full max-w-md space-y-4">
       <div className="space-y-2">
         <label htmlFor="input-chrome" className="text-sm font-medium">
           Chrome input
@@ -42,7 +42,7 @@ export function InputDemo() {
 
 export function TextareaDemo() {
   return (
-    <div className="space-y-4">
+    <div className="w-full max-w-md space-y-4">
       <div className="space-y-2">
         <label htmlFor="textarea-chrome" className="text-sm font-medium">
           Chrome textarea

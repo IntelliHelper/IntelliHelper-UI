@@ -191,6 +191,12 @@ export const CATALOG: CatalogItem[] = [
     category: "forms",
   },
   {
+    slug: "event-calendar",
+    title: "Event Calendar",
+    description: "Month event grid with color chips, agenda sidebar, and day selection.",
+    category: "data",
+  },
+  {
     slug: "dialog",
     title: "Dialog",
     description: "Highly transparent modal with frosted overlay and rise-in content.",
@@ -237,6 +243,12 @@ export const CATALOG: CatalogItem[] = [
     title: "Scroll To Top",
     description: "Floating glass button that appears after scrolling.",
     category: "navigation",
+  },
+  {
+    slug: "floating-widget",
+    title: "Floating Widget",
+    description: "Chat-style corner bubble with a compact panel for feedback or messaging.",
+    category: "overlays",
   },
   {
     slug: "table",

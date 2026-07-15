@@ -10,6 +10,15 @@ import {
   CalendarSingleDemo,
   CalendarSizesDemo,
 } from "../../components/calendar-demo";
+import {
+  EventCalendarCompactDemo,
+  EventCalendarDemo,
+  EventCalendarOutlineDemo,
+} from "../../components/event-calendar-demo";
+import {
+  FloatingWidgetChromeDemo,
+  FloatingWidgetDemo,
+} from "../../components/floating-widget-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
   LoginCardPreview,
@@ -534,6 +543,78 @@ const [date, setDate] = useState<Date | undefined>(new Date())
 <Calendar mode="single" size="lg" />`,
     },
   ],
+  "event-calendar": [
+    {
+      title: "Month + agenda",
+      description:
+        "Full event calendar with color chips, day selection, and agenda sidebar.",
+      preview: <EventCalendarDemo />,
+      code: `import { useState } from "react"
+import {
+  EventCalendar,
+  type CalendarEvent,
+} from "@/components/ui/event-calendar"
+
+const events: CalendarEvent[] = [
+  {
+    id: "1",
+    title: "Sprint planning",
+    start: new Date(2026, 6, 6, 9, 30),
+    end: new Date(2026, 6, 6, 11, 0),
+    color: "info",
+    location: "Main room",
+  },
+  {
+    id: "2",
+    title: "Launch week",
+    start: new Date(2026, 6, 13),
+    end: new Date(2026, 6, 15),
+    allDay: true,
+    color: "primary",
+  },
+]
+
+const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+
+<EventCalendar
+  events={events}
+  selectedDate={selectedDate}
+  onSelectedDateChange={setSelectedDate}
+  onEventClick={(event) => console.log(event)}
+  variant="chrome"
+  showAgenda
+/>`,
+    },
+    {
+      title: "Compact grid",
+      description:
+        "Small elevated month grid without agenda — Monday week start.",
+      preview: <EventCalendarCompactDemo />,
+      code: `import { EventCalendar } from "@/components/ui/event-calendar"
+
+<EventCalendar
+  events={events}
+  size="sm"
+  variant="elevated"
+  maxEventsPerDay={2}
+  showAgenda={false}
+  weekStartsOn={1}
+/>`,
+    },
+    {
+      title: "Outline product calendar",
+      description: "Outline surface with a custom header title and agenda.",
+      preview: <EventCalendarOutlineDemo />,
+      code: `import { EventCalendar } from "@/components/ui/event-calendar"
+
+<EventCalendar
+  events={events}
+  variant="outline"
+  title="Product calendar"
+  defaultSelectedDate={new Date()}
+/>`,
+    },
+  ],
   dialog: [
     {
       title: "Modal dialogs",
@@ -707,6 +788,98 @@ const [date, setDate] = useState<Date | undefined>(new Date())
       code: `import { ScrollToTop } from "@/components/ui/scroll-to-top"
 
 <ScrollToTop threshold={200} position="bottom-right" />`,
+    },
+  ],
+  "floating-widget": [
+    {
+      title: "Feedback bubble",
+      description:
+        "Corner chat-style bubble with a compact panel for custom feedback logic.",
+      preview: <FloatingWidgetDemo />,
+      code: `import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import {
+  FloatingWidget,
+  FloatingWidgetBody,
+  FloatingWidgetClose,
+  FloatingWidgetContent,
+  FloatingWidgetDescription,
+  FloatingWidgetFooter,
+  FloatingWidgetHeader,
+  FloatingWidgetTitle,
+  FloatingWidgetTrigger,
+} from "@/components/ui/floating-widget"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
+export function FeedbackWidget() {
+  const [message, setMessage] = useState("")
+
+  return (
+    <FloatingWidget position="bottom-right">
+      <FloatingWidgetTrigger label="Open feedback" badge={1} />
+      <FloatingWidgetContent>
+        <FloatingWidgetHeader>
+          <FloatingWidgetTitle>Send feedback</FloatingWidgetTitle>
+          <FloatingWidgetDescription>
+            Tell us what is working and what we should improve.
+          </FloatingWidgetDescription>
+        </FloatingWidgetHeader>
+        <FloatingWidgetBody className="space-y-3">
+          <Input type="email" placeholder="you@company.com" />
+          <Textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="What should we know?"
+          />
+        </FloatingWidgetBody>
+        <FloatingWidgetFooter>
+          <FloatingWidgetClose asChild>
+            <Button variant="ghost" size="sm">Cancel</Button>
+          </FloatingWidgetClose>
+          <Button size="sm" onClick={() => { /* your submit logic */ }}>
+            Send feedback
+          </Button>
+        </FloatingWidgetFooter>
+      </FloatingWidgetContent>
+    </FloatingWidget>
+  )
+}`,
+    },
+    {
+      title: "Help menu",
+      description: "Chrome trigger with an elevated action panel.",
+      preview: <FloatingWidgetChromeDemo />,
+      code: `import { Button } from "@/components/ui/button"
+import {
+  FloatingWidget,
+  FloatingWidgetBody,
+  FloatingWidgetContent,
+  FloatingWidgetDescription,
+  FloatingWidgetHeader,
+  FloatingWidgetTitle,
+  FloatingWidgetTrigger,
+} from "@/components/ui/floating-widget"
+
+<FloatingWidget position="bottom-left">
+  <FloatingWidgetTrigger variant="chrome" label="Open help" />
+  <FloatingWidgetContent variant="elevated" size="sm">
+    <FloatingWidgetHeader>
+      <FloatingWidgetTitle>Need help?</FloatingWidgetTitle>
+      <FloatingWidgetDescription>
+        Quick links for support and docs.
+      </FloatingWidgetDescription>
+    </FloatingWidgetHeader>
+    <FloatingWidgetBody className="space-y-2">
+      <Button variant="outline" size="sm" className="w-full justify-start">
+        Browse docs
+      </Button>
+      <Button variant="outline" size="sm" className="w-full justify-start">
+        Contact support
+      </Button>
+    </FloatingWidgetBody>
+  </FloatingWidgetContent>
+</FloatingWidget>`,
     },
   ],
   table: [

@@ -72,7 +72,7 @@ export function ComponentDock({ slug }: ComponentDockProps) {
   return (
     <nav
       aria-label="Component navigation"
-      className="glass-panel sticky bottom-4 z-[var(--z-sticky)] mx-auto mt-10 flex max-w-4xl items-stretch gap-1 rounded-2xl p-1.5 shadow-lg"
+      className="glass-panel sticky bottom-4 z-[var(--z-sticky)] mx-auto mt-10 flex max-w-6xl items-stretch gap-1 rounded-2xl p-1.5 shadow-lg"
     >
       {prev ? (
         <DockLink item={prev} direction="prev" />
