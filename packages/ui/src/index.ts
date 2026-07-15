@@ -633,3 +633,150 @@ export {
   type BackgroundPictureSurfaceProps,
   type BackgroundPictureValue,
 } from "./background-picture-picker";
+/* ── Tier 1 remaining ── */
+export {
+  MultiSelect,
+  multiSelectTriggerVariants,
+  toggleMultiSelectValue,
+  removeMultiSelectValue,
+  clearMultiSelectValues,
+  resolveMultiSelectLabels,
+  type MultiSelectProps,
+  type MultiSelectOption,
+} from "./multi-select";
+export {
+  NotificationCenter,
+  notificationCenterVariants,
+  countUnread,
+  markNotificationRead,
+  markAllNotificationsRead,
+  dismissNotification,
+  dismissAllNotifications,
+  sortNotifications,
+  filterNotifications,
+  type NotificationCenterProps,
+  type NotificationItem,
+  type NotificationStatus,
+} from "./notification-center";
+
+/* ── Tier 2 code surfaces ── */
+export {
+  CodeViewer,
+  codeViewerVariants,
+  type CodeViewerProps,
+} from "./code-viewer";
+export {
+  TerminalBlock,
+  terminalBlockVariants,
+  type TerminalBlockProps,
+  type TerminalLine,
+} from "./terminal-block";
+export {
+  JsonViewer,
+  jsonViewerVariants,
+  formatJson,
+  parseAndFormatJson,
+  isValidJson,
+  type JsonViewerProps,
+} from "./json-viewer";
+export {
+  formatLineNumber,
+  splitCodeLines,
+  normalizeLanguage,
+  type JsonParseResult,
+} from "./code-format";
+export { AspectRatio, type AspectRatioProps } from "./aspect-ratio";
+
+/* ── Tier 2 AI kit ── */
+export {
+  AIChat,
+  ChatBubble,
+  UserMessage,
+  AssistantMessage,
+  aiChatVariants,
+  chatBubbleVariants,
+  type AIChatProps,
+  type ChatBubbleProps,
+  type UserMessageProps,
+  type AssistantMessageProps,
+  type ChatRole,
+} from "./ai-chat";
+export {
+  PromptInput,
+  promptInputVariants,
+  type PromptInputProps,
+} from "./prompt-input";
+export {
+  StreamingText,
+  streamingTextVariants,
+  appendStreamChunk,
+  type StreamingTextProps,
+} from "./streaming-text";
+export {
+  TypingIndicator,
+  typingIndicatorVariants,
+  type TypingIndicatorProps,
+} from "./typing-indicator";
+export {
+  ThinkingAnimation,
+  thinkingAnimationVariants,
+  type ThinkingAnimationProps,
+} from "./thinking-animation";
+export {
+  ReasoningBlock,
+  reasoningBlockVariants,
+  type ReasoningBlockProps,
+} from "./reasoning-block";
+export {
+  CitationCard,
+  citationCardVariants,
+  type CitationCardProps,
+} from "./citation-card";
+export {
+  TokenCounter,
+  tokenCounterVariants,
+  estimateTokens,
+  formatTokenCount,
+  type TokenCounterProps,
+} from "./token-counter";
+export {
+  PromptSuggestions,
+  promptSuggestionsVariants,
+  filterPromptSuggestions,
+  type PromptSuggestionsProps,
+  type PromptSuggestion,
+} from "./prompt-suggestions";
+export {
+  AgentCard,
+  agentCardVariants,
+  type AgentCardProps,
+  type AgentStatus,
+} from "./agent-card";
+export {
+  ToolCallViewer,
+  toolCallViewerVariants,
+  type ToolCallViewerProps,
+  type ToolCallStatus,
+} from "./tool-call-viewer";
+export {
+  McpServerCard,
+  mcpServerCardVariants,
+  type McpServerCardProps,
+  type McpServerStatus,
+} from "./mcp-server-card";
+export {
+  AIModelSelector,
+  aiModelSelectorVariants,
+  type AIModelSelectorProps,
+  type AIModelOption,
+} from "./ai-model-selector";
+export {
+  ConversationSidebar,
+  conversationSidebarVariants,
+  sortConversations,
+  type ConversationSidebarProps,
+  type ConversationItem,
+} from "./conversation-sidebar";
+export {
+  joinStreamChunks,
+} from "./ai-utils";

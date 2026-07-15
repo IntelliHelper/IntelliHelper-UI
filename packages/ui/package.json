@@ -62,12 +62,32 @@
     "./typography": "./src/typography.tsx",
     "./markdown-viewer": "./src/markdown-viewer.tsx",
     "./markdown-editor": "./src/markdown-editor.tsx",
-    "./component-preview": "./src/component-preview.tsx"
+    "./component-preview": "./src/component-preview.tsx",
+    "./multi-select": "./src/multi-select.tsx",
+    "./notification-center": "./src/notification-center.tsx",
+    "./code-viewer": "./src/code-viewer.tsx",
+    "./terminal-block": "./src/terminal-block.tsx",
+    "./json-viewer": "./src/json-viewer.tsx",
+    "./aspect-ratio": "./src/aspect-ratio.tsx",
+    "./ai-chat": "./src/ai-chat.tsx",
+    "./prompt-input": "./src/prompt-input.tsx",
+    "./streaming-text": "./src/streaming-text.tsx",
+    "./typing-indicator": "./src/typing-indicator.tsx",
+    "./thinking-animation": "./src/thinking-animation.tsx",
+    "./reasoning-block": "./src/reasoning-block.tsx",
+    "./citation-card": "./src/citation-card.tsx",
+    "./token-counter": "./src/token-counter.tsx",
+    "./prompt-suggestions": "./src/prompt-suggestions.tsx",
+    "./agent-card": "./src/agent-card.tsx",
+    "./tool-call-viewer": "./src/tool-call-viewer.tsx",
+    "./mcp-server-card": "./src/mcp-server-card.tsx",
+    "./ai-model-selector": "./src/ai-model-selector.tsx",
+    "./conversation-sidebar": "./src/conversation-sidebar.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",
     "check-types": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test src/__tests__/roadmap-seven-utils.test.mts"
+    "test": "node --experimental-strip-types --test src/__tests__/*.test.mts"
   },
   "dependencies": {
     "@intelli/utils": "workspace:*",

@@ -41,6 +41,28 @@ import {
   StepperDemo,
   ThemeToggleDemo,
 } from "../../components/roadmap-seven-demo";
+import {
+  AgentCardDemo,
+  AIChatDemo,
+  AIModelSelectorDemo,
+  AspectRatioDemo,
+  CitationCardDemo,
+  CodeViewerDemo,
+  ConversationSidebarDemo,
+  JsonViewerDemo,
+  McpServerCardDemo,
+  MultiSelectDemo,
+  NotificationCenterDemo,
+  PromptInputDemo,
+  PromptSuggestionsDemo,
+  ReasoningBlockDemo,
+  StreamingTextDemo,
+  TerminalBlockDemo,
+  ThinkingAnimationDemo,
+  TokenCounterDemo,
+  ToolCallViewerDemo,
+  TypingIndicatorDemo,
+} from "../../components/tier12-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
   LoginCardPreview,
@@ -1520,6 +1542,209 @@ const { mode, setMode } = useTheme()
 <MarkdownEditor
   defaultValue="# Notes\\n\\nStart writing..."
   defaultView="split"
+/>`,
+    },
+  ],
+  "multi-select": [
+    {
+      title: "Multi value select",
+      preview: <MultiSelectDemo />,
+      code: `import { MultiSelect } from "@/components/ui/multi-select"
+
+<MultiSelect
+  options={options}
+  value={value}
+  onValueChange={setValue}
+  placeholder="Select languages"
+/>`,
+    },
+  ],
+  "notification-center": [
+    {
+      title: "Inbox notifications",
+      preview: <NotificationCenterDemo />,
+      code: `import { NotificationCenter } from "@/components/ui/notification-center"
+
+<NotificationCenter
+  items={items}
+  onItemsChange={setItems}
+/>`,
+    },
+  ],
+  "code-viewer": [
+    {
+      title: "Source viewer",
+      preview: <CodeViewerDemo />,
+      code: `import { CodeViewer } from "@/components/ui/code-viewer"
+
+<CodeViewer code={source} language="ts" title="greet.ts" />`,
+    },
+  ],
+  "terminal-block": [
+    {
+      title: "Terminal transcript",
+      preview: <TerminalBlockDemo />,
+      code: `import { TerminalBlock } from "@/components/ui/terminal-block"
+
+<TerminalBlock lines={[
+  { type: "input", content: "pnpm dev" },
+  { type: "output", content: "ready" },
+]} />`,
+    },
+  ],
+  "json-viewer": [
+    {
+      title: "JSON pretty print",
+      preview: <JsonViewerDemo />,
+      code: `import { JsonViewer } from "@/components/ui/json-viewer"
+
+<JsonViewer data={jsonString} title="payload" />`,
+    },
+  ],
+  "aspect-ratio": [
+    {
+      title: "16:9 frame",
+      preview: <AspectRatioDemo />,
+      code: `import { AspectRatio } from "@/components/ui/aspect-ratio"
+
+<AspectRatio ratio={16 / 9}>
+  <img src="/hero.png" alt="" />
+</AspectRatio>`,
+    },
+  ],
+  "ai-chat": [
+    {
+      title: "Chat transcript",
+      preview: <AIChatDemo />,
+      code: `import { AIChat, UserMessage, AssistantMessage } from "@/components/ui/ai-chat"
+
+<AIChat>
+  <UserMessage>Hello</UserMessage>
+  <AssistantMessage>Hi there!</AssistantMessage>
+</AIChat>`,
+    },
+  ],
+  "prompt-input": [
+    {
+      title: "Composer",
+      preview: <PromptInputDemo />,
+      code: `import { PromptInput } from "@/components/ui/prompt-input"
+
+<PromptInput value={value} onValueChange={setValue} onSubmit={send} />`,
+    },
+  ],
+  "streaming-text": [
+    {
+      title: "Progressive reveal",
+      preview: <StreamingTextDemo />,
+      code: `import { StreamingText } from "@/components/ui/streaming-text"
+
+<StreamingText text={reply} isStreaming streamRate={2} />`,
+    },
+  ],
+  "typing-indicator": [
+    {
+      title: "Typing dots",
+      preview: <TypingIndicatorDemo />,
+      code: `import { TypingIndicator } from "@/components/ui/typing-indicator"
+
+<TypingIndicator />`,
+    },
+  ],
+  "thinking-animation": [
+    {
+      title: "Thinking status",
+      preview: <ThinkingAnimationDemo />,
+      code: `import { ThinkingAnimation } from "@/components/ui/thinking-animation"
+
+<ThinkingAnimation label="Reasoning" />`,
+    },
+  ],
+  "reasoning-block": [
+    {
+      title: "Collapsible reasoning",
+      preview: <ReasoningBlockDemo />,
+      code: `import { ReasoningBlock } from "@/components/ui/reasoning-block"
+
+<ReasoningBlock defaultOpen title="Reasoning">
+  Step-by-step notes…
+</ReasoningBlock>`,
+    },
+  ],
+  "citation-card": [
+    {
+      title: "Source citation",
+      preview: <CitationCardDemo />,
+      code: `import { CitationCard } from "@/components/ui/citation-card"
+
+<CitationCard index={1} title="Docs" source="example.com" excerpt="…" />`,
+    },
+  ],
+  "token-counter": [
+    {
+      title: "Token badge",
+      preview: <TokenCounterDemo />,
+      code: `import { TokenCounter } from "@/components/ui/token-counter"
+
+<TokenCounter text={prompt} limit={1000} />`,
+    },
+  ],
+  "prompt-suggestions": [
+    {
+      title: "Suggestion chips",
+      preview: <PromptSuggestionsDemo />,
+      code: `import { PromptSuggestions } from "@/components/ui/prompt-suggestions"
+
+<PromptSuggestions suggestions={items} onSelect={apply} />`,
+    },
+  ],
+  "agent-card": [
+    {
+      title: "Agent profile",
+      preview: <AgentCardDemo />,
+      code: `import { AgentCard } from "@/components/ui/agent-card"
+
+<AgentCard name="Research Agent" status="running" description="…" />`,
+    },
+  ],
+  "tool-call-viewer": [
+    {
+      title: "Tool call",
+      preview: <ToolCallViewerDemo />,
+      code: `import { ToolCallViewer } from "@/components/ui/tool-call-viewer"
+
+<ToolCallViewer name="web_search" status="success" args={args} result={result} />`,
+    },
+  ],
+  "mcp-server-card": [
+    {
+      title: "MCP server",
+      preview: <McpServerCardDemo />,
+      code: `import { McpServerCard } from "@/components/ui/mcp-server-card"
+
+<McpServerCard name="filesystem" status="connected" toolsCount={8} />`,
+    },
+  ],
+  "ai-model-selector": [
+    {
+      title: "Model picker",
+      preview: <AIModelSelectorDemo />,
+      code: `import { AIModelSelector } from "@/components/ui/ai-model-selector"
+
+<AIModelSelector models={models} value={model} onValueChange={setModel} />`,
+    },
+  ],
+  "conversation-sidebar": [
+    {
+      title: "Conversation list",
+      preview: <ConversationSidebarDemo />,
+      code: `import { ConversationSidebar } from "@/components/ui/conversation-sidebar"
+
+<ConversationSidebar
+  conversations={items}
+  activeId={activeId}
+  onSelect={select}
+  onNewChat={create}
 />`,
     },
   ],
