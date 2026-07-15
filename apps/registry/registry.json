@@ -349,6 +349,337 @@
       }
     },
     {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Liquid Glass toast notifications with imperative API, semantic variants, stacking, swipe dismiss, and progress auto-close.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/toast.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/toast.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "default",
+          "destructive",
+          "success",
+          "warning",
+          "info",
+          "chrome",
+          "outline",
+          "loading"
+        ],
+        "positions": [
+          "top-left",
+          "top-center",
+          "top-right",
+          "bottom-left",
+          "bottom-center",
+          "bottom-right"
+        ],
+        "scopes": ["viewport", "container"],
+        "slots": ["title", "description", "action", "close", "icon", "progress"],
+        "api": ["toast", "toast.success", "toast.error", "toast.warning", "toast.info", "toast.loading", "toast.promise", "toast.dismiss", "useToast", "Toaster"]
+      }
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "Liquid Glass avatar with image, initials fallback, size/shape variants, and stacked AvatarGroup.",
+      "dependencies": [
+        "@radix-ui/react-avatar",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/avatar.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/avatar.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": ["xs", "sm", "default", "lg", "xl"],
+        "shapes": ["circle", "rounded", "square"],
+        "slots": ["image", "fallback", "group"]
+      }
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "Frosted dropdown menus with items, checkboxes, radios, shortcuts, and nested submenus.",
+      "dependencies": [
+        "@radix-ui/react-dropdown-menu",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/dropdown-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dropdown-menu.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "slots": ["item", "checkbox", "radio", "label", "separator", "sub"]
+      }
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "Accessible confirmation dialog for destructive and irreversible actions with glass chrome.",
+      "dependencies": [
+        "@radix-ui/react-alert-dialog",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "button"],
+      "files": [
+        {
+          "path": "packages/ui/src/alert-dialog.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/alert-dialog.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "destructive"],
+        "sizes": ["sm", "default", "lg"]
+      }
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Accessible hierarchical path navigation with separators and ellipsis overflow.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/breadcrumb.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/breadcrumb.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": ["sm", "default", "lg"],
+        "slots": ["list", "item", "link", "page", "separator", "ellipsis"]
+      }
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "Right-click glass context menus with items, checkboxes, radios, and nested submenus.",
+      "dependencies": [
+        "@radix-ui/react-context-menu",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/context-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/context-menu.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline"],
+        "slots": ["item", "checkbox", "radio", "label", "separator", "sub"]
+      }
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Searchable glass select with filterable options, keyboard navigation, and popover list.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "popover"],
+      "files": [
+        {
+          "path": "packages/ui/src/filter-items.ts",
+          "type": "registry:lib",
+          "target": "components/ui/filter-items.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:lib",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/combobox.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/combobox.tsx"
+        }
+      ],
+      "meta": {
+        "api": ["Combobox", "filterItems", "resolveItemLabel"]
+      }
+    },
+    {
+      "name": "command",
+      "type": "registry:ui",
+      "title": "Command",
+      "description": "Filterable command palette with dialog mode, keyboard navigation, and grouped items.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils", "dialog"],
+      "files": [
+        {
+          "path": "packages/ui/src/filter-items.ts",
+          "type": "registry:lib",
+          "target": "components/ui/filter-items.ts"
+        },
+        {
+          "path": "packages/ui/src/command-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/command-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/command.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/command.tsx"
+        }
+      ],
+      "meta": {
+        "api": ["Command", "CommandDialog", "CommandInput", "CommandList", "filterItems", "orderCommandItemsByGroup"],
+        "variants": ["chrome", "elevated", "outline"]
+      }
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File Upload",
+      "description": "Glass drag-and-drop file upload with browse button, accept filters, and selected file list.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/file-upload-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/file-upload-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/file-upload.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/file-upload.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline", "elevated"],
+        "api": ["FileUpload", "filterAcceptedFiles", "formatFileSize"]
+      }
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation Menu",
+      "description": "Accessible multi-level site header navigation with glass viewport panels.",
+      "dependencies": [
+        "@radix-ui/react-navigation-menu",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/navigation-menu.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/navigation-menu.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "ghost", "outline", "elevated"],
+        "slots": ["list", "item", "trigger", "content", "link", "viewport"]
+      }
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "Ordered multi-step indicator with completed, active, and upcoming states.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/stepper-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/stepper-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/stepper.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stepper.tsx"
+        }
+      ],
+      "meta": {
+        "orientations": ["horizontal", "vertical"],
+        "statuses": ["completed", "active", "upcoming"]
+      }
+    },
+    {
+      "name": "theme-toggle",
+      "type": "registry:ui",
+      "title": "Theme Toggle",
+      "description": "Light/dark mode toggle button that integrates with document theme classes.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/theme-mode.ts",
+          "type": "registry:lib",
+          "target": "components/ui/theme-mode.ts"
+        },
+        {
+          "path": "packages/ui/src/theme-toggle.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/theme-toggle.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "ghost", "outline"],
+        "sizes": ["sm", "default", "lg"],
+        "modes": ["light", "dark"]
+      }
+    },
+    {
+      "name": "copy-button",
+      "type": "registry:ui",
+      "title": "Copy Button",
+      "description": "Clipboard copy control with temporary copied feedback for docs and code samples.",
+      "dependencies": ["class-variance-authority"],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/copy-text.ts",
+          "type": "registry:lib",
+          "target": "components/ui/copy-text.ts"
+        },
+        {
+          "path": "packages/ui/src/copy-button.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/copy-button.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "outline", "ghost", "glass"],
+        "sizes": ["sm", "default", "lg", "icon"]
+      }
+    },
+    {
       "name": "carousel",
       "type": "registry:ui",
       "title": "Carousel",

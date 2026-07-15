@@ -51,7 +51,7 @@ export const CATEGORY_META: Record<
   },
   feedback: {
     label: "Feedback",
-    description: "Alerts, badges, spinners, and progress",
+    description: "Alerts, toasts, badges, spinners, and progress",
   },
   interactive: {
     label: "Interactive",
@@ -98,6 +98,18 @@ export const CATALOG: CatalogItem[] = [
     slug: "button",
     title: "Button",
     description: "Chrome and content layer variants with shapes and sizes.",
+    category: "actions",
+  },
+  {
+    slug: "copy-button",
+    title: "Copy Button",
+    description: "Clipboard copy control with temporary copied feedback.",
+    category: "actions",
+  },
+  {
+    slug: "theme-toggle",
+    title: "Theme Toggle",
+    description: "Light and dark mode switch for app chrome and docs.",
     category: "actions",
   },
   {
@@ -161,6 +173,18 @@ export const CATALOG: CatalogItem[] = [
     category: "forms",
   },
   {
+    slug: "combobox",
+    title: "Combobox",
+    description: "Searchable select with filterable options and keyboard navigation.",
+    category: "forms",
+  },
+  {
+    slug: "file-upload",
+    title: "File Upload",
+    description: "Drag-and-drop glass uploader with browse and selected file list.",
+    category: "forms",
+  },
+  {
     slug: "native-select",
     title: "Native Select",
     description: "Styled native HTML select with glass field styling.",
@@ -203,6 +227,12 @@ export const CATALOG: CatalogItem[] = [
     category: "overlays",
   },
   {
+    slug: "alert-dialog",
+    title: "Alert Dialog",
+    description: "Confirmation modal for destructive and irreversible actions.",
+    category: "overlays",
+  },
+  {
     slug: "sheet",
     title: "Sheet",
     description: "Edge slide-in glass panel with spring animation.",
@@ -212,6 +242,18 @@ export const CATALOG: CatalogItem[] = [
     slug: "popover",
     title: "Popover",
     description: "Click-triggered frosted panel for contextual actions.",
+    category: "overlays",
+  },
+  {
+    slug: "dropdown-menu",
+    title: "Dropdown Menu",
+    description: "Glass action menus with checkboxes, radios, and nested submenus.",
+    category: "overlays",
+  },
+  {
+    slug: "context-menu",
+    title: "Context Menu",
+    description: "Right-click glass menus for lists, tables, and canvases.",
     category: "overlays",
   },
   {
@@ -227,9 +269,27 @@ export const CATALOG: CatalogItem[] = [
     category: "overlays",
   },
   {
+    slug: "command",
+    title: "Command",
+    description: "Filterable command palette with dialog mode and keyboard nav.",
+    category: "overlays",
+  },
+  {
     slug: "sidebar",
     title: "Sidebar",
     description: "Collapsible glass sidebar with mobile sheet and icon rail.",
+    category: "navigation",
+  },
+  {
+    slug: "navigation-menu",
+    title: "Navigation Menu",
+    description: "Multi-level header navigation with glass content panels.",
+    category: "navigation",
+  },
+  {
+    slug: "breadcrumb",
+    title: "Breadcrumb",
+    description: "Hierarchical path navigation with separators and ellipsis.",
     category: "navigation",
   },
   {
@@ -272,6 +332,18 @@ export const CATALOG: CatalogItem[] = [
     slug: "alert",
     title: "Alert",
     description: "Status alerts with semantic tints and optional icons.",
+    category: "feedback",
+  },
+  {
+    slug: "toast",
+    title: "Toast",
+    description: "Transient Liquid Glass notifications with imperative API and stacking.",
+    category: "feedback",
+  },
+  {
+    slug: "avatar",
+    title: "Avatar",
+    description: "Glass avatars with image, fallback initials, and stacked groups.",
     category: "feedback",
   },
   {
@@ -320,6 +392,12 @@ export const CATALOG: CatalogItem[] = [
     slug: "carousel",
     title: "Carousel",
     description: "Embla-powered slides with glass viewport chrome.",
+    category: "interactive",
+  },
+  {
+    slug: "stepper",
+    title: "Stepper",
+    description: "Ordered steps with completed, active, and upcoming states.",
     category: "interactive",
   },
   {

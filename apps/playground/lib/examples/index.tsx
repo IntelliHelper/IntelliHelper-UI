@@ -19,6 +19,28 @@ import {
   FloatingWidgetChromeDemo,
   FloatingWidgetDemo,
 } from "../../components/floating-widget-demo";
+import {
+  ToastActionDemo,
+  ToastDemo,
+  ToastPositionDemo,
+  ToastStaticDemo,
+} from "../../components/toast-demo";
+import {
+  AlertDialogDemo,
+  AvatarDemo,
+  BreadcrumbDemo,
+  ContextMenuDemo,
+  DropdownMenuDemo,
+} from "../../components/app-shell-demo";
+import {
+  ComboboxDemo,
+  CommandDemo,
+  CopyButtonDemo,
+  FileUploadDemo,
+  NavigationMenuDemo,
+  StepperDemo,
+  ThemeToggleDemo,
+} from "../../components/roadmap-seven-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
   LoginCardPreview,
@@ -959,6 +981,380 @@ import {
 </Alert>
 <Alert variant="destructive">...</Alert>
 <Alert variant="success">...</Alert>`,
+    },
+  ],
+  toast: [
+    {
+      title: "Imperative toasts",
+      description: "Mount Toaster once, then call toast() from anywhere.",
+      preview: <ToastDemo />,
+      code: `import { Button } from "@/components/ui/button"
+import { Toaster, toast } from "@/components/ui/toast"
+
+// Mount once near the app root (or a local container with scope="container")
+export function App() {
+  return (
+    <>
+      <Button
+        onClick={() =>
+          toast.success("Saved", {
+            description: "Your workspace settings were updated.",
+          })
+        }
+      >
+        Show toast
+      </Button>
+      <Toaster position="bottom-right" />
+    </>
+  )
+}
+
+// Variants
+toast("Default")
+toast.success("Saved")
+toast.error("Something went wrong")
+toast.warning("Almost full")
+toast.info("New feature")
+toast.message("Chrome notice")
+toast.loading("Uploading…")
+toast.dismiss()`,
+    },
+    {
+      title: "Actions & promises",
+      description: "Undo actions, loading → success updates, and toast.promise.",
+      preview: <ToastActionDemo />,
+      code: `import { toast } from "@/components/ui/toast"
+
+toast("File deleted", {
+  description: "invoice-april.pdf was moved to trash.",
+  action: {
+    label: "Undo",
+    onClick: () => toast.success("Restored"),
+  },
+})
+
+const id = toast.loading("Uploading…")
+// later:
+toast.success("Upload complete", { id })
+
+await toast.promise(syncContacts(), {
+  loading: "Syncing contacts…",
+  success: (data) => ({
+    title: "Sync complete",
+    description: \`\${data.rows} contacts updated.\`,
+  }),
+  error: "Sync failed",
+})`,
+    },
+    {
+      title: "Positions",
+      description: "Six viewport anchors — top/bottom × left/center/right.",
+      preview: <ToastPositionDemo />,
+      code: `import { Toaster, toast } from "@/components/ui/toast"
+
+<Toaster position="top-right" />
+toast("Pinned to the top-right")`,
+    },
+    {
+      title: "Static surfaces",
+      description: "Compose Toast primitives without the imperative store.",
+      preview: <ToastStaticDemo />,
+      code: `import {
+  Toast,
+  ToastDescription,
+  ToastIcon,
+  ToastTitle,
+} from "@/components/ui/toast"
+
+<Toast variant="success">
+  <ToastIcon>{/* icon */}</ToastIcon>
+  <div className="grid gap-1">
+    <ToastTitle>Invoice sent</ToastTitle>
+    <ToastDescription>
+      INV-004 was delivered to the customer inbox.
+    </ToastDescription>
+  </div>
+</Toast>`,
+    },
+  ],
+  avatar: [
+    {
+      title: "Avatar & group",
+      preview: <AvatarDemo />,
+      code: `import {
+  Avatar,
+  AvatarFallback,
+  AvatarGroup,
+  AvatarImage,
+} from "@/components/ui/avatar"
+
+<Avatar>
+  <AvatarImage src="/me.jpg" alt="Ava" />
+  <AvatarFallback>AV</AvatarFallback>
+</Avatar>
+
+<AvatarGroup max={3}>
+  <Avatar><AvatarFallback>A</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>B</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>C</AvatarFallback></Avatar>
+  <Avatar><AvatarFallback>D</AvatarFallback></Avatar>
+</AvatarGroup>`,
+    },
+  ],
+  "dropdown-menu": [
+    {
+      title: "Workspace menu",
+      preview: <DropdownMenuDemo />,
+      code: `import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="outline">Open menu</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>Workspace</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Billing</DropdownMenuItem>
+    <DropdownMenuItem destructive>Log out</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>`,
+    },
+  ],
+  "alert-dialog": [
+    {
+      title: "Destructive confirm",
+      preview: <AlertDialogDemo />,
+      code: `import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+
+<AlertDialog>
+  <AlertDialogTrigger asChild>
+    <Button variant="destructive">Delete project</Button>
+  </AlertDialogTrigger>
+  <AlertDialogContent variant="destructive">
+    <AlertDialogHeader>
+      <AlertDialogTitle>Delete this project?</AlertDialogTitle>
+      <AlertDialogDescription>
+        This action cannot be undone.
+      </AlertDialogDescription>
+    </AlertDialogHeader>
+    <AlertDialogFooter>
+      <AlertDialogCancel>Cancel</AlertDialogCancel>
+      <AlertDialogAction variant="destructive">Delete</AlertDialogAction>
+    </AlertDialogFooter>
+  </AlertDialogContent>
+</AlertDialog>`,
+    },
+  ],
+  breadcrumb: [
+    {
+      title: "Path navigation",
+      preview: <BreadcrumbDemo />,
+      code: `import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
+
+<Breadcrumb>
+  <BreadcrumbList>
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbLink href="/components">Components</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+      <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+    </BreadcrumbItem>
+  </BreadcrumbList>
+</Breadcrumb>`,
+    },
+  ],
+  "context-menu": [
+    {
+      title: "Right-click surface",
+      preview: <ContextMenuDemo />,
+      code: `import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu"
+
+<ContextMenu>
+  <ContextMenuTrigger className="flex h-32 items-center justify-center rounded-xl border border-dashed">
+    Right-click here
+  </ContextMenuTrigger>
+  <ContextMenuContent>
+    <ContextMenuItem>Open</ContextMenuItem>
+    <ContextMenuItem>Rename</ContextMenuItem>
+    <ContextMenuSeparator />
+    <ContextMenuItem destructive>Delete</ContextMenuItem>
+  </ContextMenuContent>
+</ContextMenu>`,
+    },
+  ],
+  combobox: [
+    {
+      title: "Searchable select",
+      preview: <ComboboxDemo />,
+      code: `import { Combobox } from "@/components/ui/combobox"
+
+const options = [
+  { value: "next", label: "Next.js" },
+  { value: "remix", label: "Remix" },
+]
+
+<Combobox
+  options={options}
+  value={value}
+  onValueChange={setValue}
+  placeholder="Select framework"
+  searchPlaceholder="Filter…"
+/>`,
+    },
+  ],
+  command: [
+    {
+      title: "Command palette",
+      preview: <CommandDemo />,
+      code: `import {
+  Command,
+  CommandDialog,
+  CommandInput,
+  CommandList,
+} from "@/components/ui/command"
+
+const items = [
+  { value: "new-file", label: "New file", group: "File" },
+  { value: "settings", label: "Open settings", group: "File" },
+]
+
+<Command items={items}>
+  <CommandInput placeholder="Type a command…" />
+  <CommandList />
+</Command>
+
+<CommandDialog open={open} onOpenChange={setOpen} items={items} />`,
+    },
+  ],
+  "file-upload": [
+    {
+      title: "Dropzone upload",
+      preview: <FileUploadDemo />,
+      code: `import { FileUpload } from "@/components/ui/file-upload"
+
+<FileUpload
+  accept={[".png", ".jpg", "image/*", ".pdf"]}
+  multiple
+  onValueChange={setFiles}
+  label="Drop images or PDFs"
+/>`,
+    },
+  ],
+  "navigation-menu": [
+    {
+      title: "Header navigation",
+      preview: <NavigationMenuDemo />,
+      code: `import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from "@/components/ui/navigation-menu"
+
+<NavigationMenu>
+  <NavigationMenuList>
+    <NavigationMenuItem>
+      <NavigationMenuTrigger>Products</NavigationMenuTrigger>
+      <NavigationMenuContent>
+        <NavigationMenuLink href="/ui">UI Kit</NavigationMenuLink>
+      </NavigationMenuContent>
+    </NavigationMenuItem>
+  </NavigationMenuList>
+</NavigationMenu>`,
+    },
+  ],
+  stepper: [
+    {
+      title: "Onboarding steps",
+      preview: <StepperDemo />,
+      code: `import {
+  Stepper,
+  Step,
+  StepIndicator,
+  StepContent,
+  StepTitle,
+  StepDescription,
+} from "@/components/ui/stepper"
+
+<Stepper activeStep={1}>
+  <Step>
+    <StepIndicator />
+    <StepContent>
+      <StepTitle>Account</StepTitle>
+      <StepDescription>Email & password</StepDescription>
+    </StepContent>
+  </Step>
+  <Step>
+    <StepIndicator />
+    <StepContent>
+      <StepTitle>Profile</StepTitle>
+    </StepContent>
+  </Step>
+</Stepper>`,
+    },
+  ],
+  "theme-toggle": [
+    {
+      title: "Light / dark switch",
+      preview: <ThemeToggleDemo />,
+      code: `import { ThemeToggle } from "@/components/ui/theme-toggle"
+
+// Uncontrolled — toggles documentElement dark/light classes
+<ThemeToggle />
+
+// Controlled with @intelli/themes
+const { mode, setMode } = useTheme()
+<ThemeToggle mode={mode} onModeChange={setMode} applyToDocument={false} />`,
+    },
+  ],
+  "copy-button": [
+    {
+      title: "Copy to clipboard",
+      preview: <CopyButtonDemo />,
+      code: `import { CopyButton } from "@/components/ui/copy-button"
+
+<CopyButton value="npx @intellihelper/cli@latest add button -y" />
+<CopyButton value={code} label="Copy import" variant="outline" />`,
     },
   ],
   badge: [
