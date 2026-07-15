@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CATEGORY_META, getCatalogByCategory } from "../../../lib/catalog";
+import {
+  CATEGORY_META,
+  CATEGORY_ORDER,
+  getCatalogByCategory,
+} from "../../../lib/catalog";
 import { createPageMetadata } from "../../../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Sitemap",
+  title: "Sitemap — All Intelli UI Pages",
   description:
-    "Browse every page on Intelli UI — the homepage, getting started guide, and all Liquid Glass component documentation.",
+    "Browse every page on Intelli UI — homepage, getting started, categories, and all Liquid Glass component documentation for React and Next.js.",
   path: "/sitemap",
-  keywords: ["sitemap", "site map", "all pages", "component index"],
+  keywords: ["sitemap", "site map", "all pages", "component index", "HTML sitemap"],
 });
 
 export default function SitemapPage() {
@@ -34,6 +38,20 @@ export default function SitemapPage() {
           >
             XML sitemap
           </Link>
+          ,{" "}
+          <Link
+            href="/rss.xml"
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            RSS feed
+          </Link>
+          , and{" "}
+          <a
+            href="/llms.txt"
+            className="font-medium text-foreground underline-offset-4 hover:underline"
+          >
+            llms.txt
+          </a>
           .
         </p>
       </header>
@@ -61,13 +79,36 @@ export default function SitemapPage() {
       </section>
 
       <section className="glass-panel rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-foreground">Categories</h2>
+        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
+          {CATEGORY_ORDER.map((category) => (
+            <li key={category}>
+              <Link
+                href={`/categories/${category}`}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {CATEGORY_META[category].label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section className="glass-panel rounded-2xl p-6">
         <h2 className="text-lg font-semibold text-foreground">Components</h2>
         <ul className="mt-5 space-y-6">
-          {Object.entries(grouped).map(([category, items]) =>
-            items.length > 0 ? (
+          {CATEGORY_ORDER.map((category) => {
+            const items = grouped[category];
+            if (!items.length) return null;
+            return (
               <li key={category}>
                 <p className="text-sm font-medium text-foreground">
-                  {CATEGORY_META[category as keyof typeof CATEGORY_META].label}
+                  <Link
+                    href={`/categories/${category}`}
+                    className="transition-colors hover:text-primary"
+                  >
+                    {CATEGORY_META[category].label}
+                  </Link>
                 </p>
                 <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
                   {items.map((item) => (
@@ -82,8 +123,8 @@ export default function SitemapPage() {
                   ))}
                 </ul>
               </li>
-            ) : null,
-          )}
+            );
+          })}
         </ul>
       </section>
     </div>

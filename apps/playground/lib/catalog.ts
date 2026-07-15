@@ -362,3 +362,23 @@ export function getAdjacentItems(slug: string): {
     next: index < CATALOG.length - 1 ? (CATALOG[index + 1] ?? null) : null,
   };
 }
+
+export function getCategoryItems(category: ComponentCategory): CatalogItem[] {
+  return CATALOG.filter((item) => item.category === category);
+}
+
+export function isComponentCategory(value: string): value is ComponentCategory {
+  return value in CATEGORY_META;
+}
+
+/** Related components in the same category (excluding self), capped for SEO modules */
+export function getRelatedItems(slug: string, limit = 4): CatalogItem[] {
+  const current = getCatalogItem(slug);
+  if (!current) return [];
+
+  return CATALOG.filter(
+    (item) => item.category === current.category && item.slug !== slug,
+  ).slice(0, limit);
+}
+
+export const CATEGORY_ORDER = Object.keys(CATEGORY_META) as ComponentCategory[];
