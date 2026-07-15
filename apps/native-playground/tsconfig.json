@@ -1,0 +1,18 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@intelli/ui-native": [
+        "../../packages/ui-native/src/index.ts"
+      ],
+      "@intelli/ui-native/*": [
+        "../../packages/ui-native/src/*"
+      ]
+    }
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
+}

@@ -40,3 +40,6 @@ yarn-error.log*
 
 # Grok local config
 .grok/
+
+# Expo
+.expo/
