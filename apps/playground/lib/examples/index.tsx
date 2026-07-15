@@ -15,6 +15,10 @@ import {
   EventCalendarDemo,
   EventCalendarOutlineDemo,
 } from "../../components/event-calendar-demo";
+import {
+  FloatingWidgetChromeDemo,
+  FloatingWidgetDemo,
+} from "../../components/floating-widget-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
   LoginCardPreview,
@@ -784,6 +788,98 @@ const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
       code: `import { ScrollToTop } from "@/components/ui/scroll-to-top"
 
 <ScrollToTop threshold={200} position="bottom-right" />`,
+    },
+  ],
+  "floating-widget": [
+    {
+      title: "Feedback bubble",
+      description:
+        "Corner chat-style bubble with a compact panel for custom feedback logic.",
+      preview: <FloatingWidgetDemo />,
+      code: `import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import {
+  FloatingWidget,
+  FloatingWidgetBody,
+  FloatingWidgetClose,
+  FloatingWidgetContent,
+  FloatingWidgetDescription,
+  FloatingWidgetFooter,
+  FloatingWidgetHeader,
+  FloatingWidgetTitle,
+  FloatingWidgetTrigger,
+} from "@/components/ui/floating-widget"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+
+export function FeedbackWidget() {
+  const [message, setMessage] = useState("")
+
+  return (
+    <FloatingWidget position="bottom-right">
+      <FloatingWidgetTrigger label="Open feedback" badge={1} />
+      <FloatingWidgetContent>
+        <FloatingWidgetHeader>
+          <FloatingWidgetTitle>Send feedback</FloatingWidgetTitle>
+          <FloatingWidgetDescription>
+            Tell us what is working and what we should improve.
+          </FloatingWidgetDescription>
+        </FloatingWidgetHeader>
+        <FloatingWidgetBody className="space-y-3">
+          <Input type="email" placeholder="you@company.com" />
+          <Textarea
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="What should we know?"
+          />
+        </FloatingWidgetBody>
+        <FloatingWidgetFooter>
+          <FloatingWidgetClose asChild>
+            <Button variant="ghost" size="sm">Cancel</Button>
+          </FloatingWidgetClose>
+          <Button size="sm" onClick={() => { /* your submit logic */ }}>
+            Send feedback
+          </Button>
+        </FloatingWidgetFooter>
+      </FloatingWidgetContent>
+    </FloatingWidget>
+  )
+}`,
+    },
+    {
+      title: "Help menu",
+      description: "Chrome trigger with an elevated action panel.",
+      preview: <FloatingWidgetChromeDemo />,
+      code: `import { Button } from "@/components/ui/button"
+import {
+  FloatingWidget,
+  FloatingWidgetBody,
+  FloatingWidgetContent,
+  FloatingWidgetDescription,
+  FloatingWidgetHeader,
+  FloatingWidgetTitle,
+  FloatingWidgetTrigger,
+} from "@/components/ui/floating-widget"
+
+<FloatingWidget position="bottom-left">
+  <FloatingWidgetTrigger variant="chrome" label="Open help" />
+  <FloatingWidgetContent variant="elevated" size="sm">
+    <FloatingWidgetHeader>
+      <FloatingWidgetTitle>Need help?</FloatingWidgetTitle>
+      <FloatingWidgetDescription>
+        Quick links for support and docs.
+      </FloatingWidgetDescription>
+    </FloatingWidgetHeader>
+    <FloatingWidgetBody className="space-y-2">
+      <Button variant="outline" size="sm" className="w-full justify-start">
+        Browse docs
+      </Button>
+      <Button variant="outline" size="sm" className="w-full justify-start">
+        Contact support
+      </Button>
+    </FloatingWidgetBody>
+  </FloatingWidgetContent>
+</FloatingWidget>`,
     },
   ],
   table: [

@@ -42,6 +42,7 @@
     "./progress": "./src/progress.tsx",
     "./scroll-area": "./src/scroll-area.tsx",
     "./scroll-to-top": "./src/scroll-to-top.tsx",
+    "./floating-widget": "./src/floating-widget.tsx",
     "./radio-group": "./src/radio-group.tsx",
     "./resizable": "./src/resizable.tsx",
     "./native-select": "./src/native-select.tsx",

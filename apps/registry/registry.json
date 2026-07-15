@@ -826,6 +826,31 @@
       }
     },
     {
+      "name": "floating-widget",
+      "type": "registry:ui",
+      "title": "Floating Widget",
+      "description": "Corner chat-style bubble that opens a compact floating panel for feedback, help, or messaging content.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority"
+      ],
+      "registryDependencies": ["utils"],
+      "files": [
+        {
+          "path": "packages/ui/src/floating-widget.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/floating-widget.tsx"
+        }
+      ],
+      "meta": {
+        "variants": ["chrome", "elevated", "outline", "primary", "ghost"],
+        "sizes": ["sm", "default", "lg"],
+        "positions": ["bottom-right", "bottom-left", "top-right", "top-left"],
+        "scopes": ["viewport", "container"],
+        "slots": ["trigger", "content", "header", "body", "footer", "badge"]
+      }
+    },
+    {
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",

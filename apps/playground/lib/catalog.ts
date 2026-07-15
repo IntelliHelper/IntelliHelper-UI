@@ -245,6 +245,12 @@ export const CATALOG: CatalogItem[] = [
     category: "navigation",
   },
   {
+    slug: "floating-widget",
+    title: "Floating Widget",
+    description: "Chat-style corner bubble with a compact panel for feedback or messaging.",
+    category: "overlays",
+  },
+  {
     slug: "table",
     title: "Table",
     description: "Glass-styled data table with chrome container and hover rows.",
