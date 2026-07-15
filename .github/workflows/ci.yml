@@ -124,7 +124,8 @@ jobs:
       - name: Deploy preview to Vercel
         id: deploy
         run: |
-          url=$(pnpm dlx vercel@latest deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})
+          # --archive=tgz uploads one tarball (avoids free-tier api-upload-free 5k file limit)
+          url=$(pnpm dlx vercel@latest deploy --prebuilt --archive=tgz --token=${{ secrets.VERCEL_TOKEN }})
           echo "url=$url" >> "$GITHUB_OUTPUT"
 
       - name: Comment preview URL on PR
@@ -196,4 +197,5 @@ jobs:
         run: pnpm dlx vercel@latest build --prod --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: Deploy production to Vercel
-        run: pnpm dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+        # --archive=tgz uploads one tarball (avoids free-tier api-upload-free 5k file limit)
+        run: pnpm dlx vercel@latest deploy --prebuilt --prod --archive=tgz --token=${{ secrets.VERCEL_TOKEN }}
