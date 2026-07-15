@@ -179,8 +179,8 @@ export interface TabsContentProps extends ViewProps {
 export const TabsContent = forwardRef<View, TabsContentProps>(
   ({ value, style, children, ...props }, ref) => {
     const ctx = useContext(TabsContext);
-    if (ctx.value !== value) return null;
     const { theme } = useTheme();
+    if (ctx.value !== value) return null;
     return (
       <View
         ref={ref}
