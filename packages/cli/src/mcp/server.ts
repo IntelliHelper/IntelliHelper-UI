@@ -1,3 +1,4 @@
+import { createRequire } from "node:module";
 import { Server } from "@modelcontextprotocol/sdk/server/index.js";
 import {
   CallToolRequestSchema,
@@ -35,7 +36,10 @@ import {
   searchComponentsSchema,
 } from "./tools.js";
 
-const PACKAGE_VERSION = "0.1.0";
+const require = createRequire(import.meta.url);
+const { version: PACKAGE_VERSION } = require("../../package.json") as {
+  version: string;
+};
 
 function textResult(text: string, isError = false) {
   return {

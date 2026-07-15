@@ -1,33 +1,44 @@
 {
   "name": "@intellihelper/cli",
-  "version": "0.1.0",
-  "description": "Add and update IntelliHelper UI Liquid Glass components, plus an MCP server for AI coding agents",
+  "version": "0.2.0",
+  "description": "CLI and MCP server for IntelliHelper UI — add, update, and explore Liquid Glass React components",
   "type": "module",
   "license": "MIT",
+  "author": "IntelliHelper",
   "repository": {
     "type": "git",
-    "url": "https://github.com/IntelliHelper/IntelliHelper-UI.git",
+    "url": "git+https://github.com/IntelliHelper/IntelliHelper-UI.git",
     "directory": "packages/cli"
   },
-  "homepage": "https://ui.intellihelper.in",
+  "bugs": {
+    "url": "https://github.com/IntelliHelper/IntelliHelper-UI/issues"
+  },
+  "homepage": "https://ui.intellihelper.in/getting-started",
   "keywords": [
+    "intellihelper",
     "intellihelper-ui",
     "intelli-ui",
     "cli",
     "components",
     "react",
+    "nextjs",
     "tailwind",
+    "tailwindcss",
     "liquid-glass",
     "shadcn",
+    "ui",
     "mcp",
-    "model-context-protocol"
+    "model-context-protocol",
+    "cursor",
+    "claude"
   ],
   "bin": {
     "intellihelper-ui": "dist/index.js",
     "intelli-ui": "dist/index.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md"
   ],
   "publishConfig": {
     "access": "public"
