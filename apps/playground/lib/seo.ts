@@ -17,10 +17,11 @@ export const REGISTRY_URL = "https://ui.intellihelper.in/r/registry.json";
 export const CLI_PACKAGE = "@intellihelper/cli";
 
 export const DEFAULT_TITLE =
-  "Intelli UI — Liquid Glass React Components for Next.js & Tailwind";
+  "Intelli UI — Free Liquid Glass React Components for Next.js & Tailwind CSS";
 
+/** ~155 chars: value prop + proof + CTA for SERP CTR */
 export const DEFAULT_DESCRIPTION =
-  "Intelli UI is a Liquid Glass component library for React and Next.js. Copy-paste 40+ Tailwind components with live previews, CLI install (npx @intellihelper/cli), official agent plugin + MCP for AI agents, and full source ownership — a modern shadcn-style workflow with glass design.";
+  "80+ free Liquid Glass React components for Next.js & Tailwind CSS. Live previews, copy-paste source, CLI install. Build glassmorphism UIs you own — shadcn-style workflow.";
 
 export const DEFAULT_KEYWORDS = [
   "IntelliHelper",
@@ -137,8 +138,10 @@ export function createPageMetadata({
 export function createComponentMetadata(item: CatalogItem): Metadata {
   const category = CATEGORY_META[item.category];
   const path = `/components/${item.slug}`;
-  const title = `${item.title} React Component — Liquid Glass UI`;
-  const description = `${item.description} Free ${item.title} component for React & Next.js with Tailwind CSS. Install via npx ${CLI_PACKAGE} add ${item.slug}. Live preview, source code, and Liquid Glass variants.`;
+  const title = `${item.title} React Component — Free Liquid Glass UI for Next.js`;
+  const description = trimMetaDescription(
+    `${item.description} Free ${item.title} React component for Next.js & Tailwind CSS. Live preview + source. Install: npx ${CLI_PACKAGE} add ${item.slug}.`,
+  );
 
   return createPageMetadata({
     title,
@@ -155,6 +158,7 @@ export function createComponentMetadata(item: CatalogItem): Metadata {
       `${item.slug} shadcn alternative`,
       "liquid glass",
       "glass morphism",
+      "free react component",
       "next.js component",
       "radix ui",
       "copy paste component",
@@ -169,8 +173,10 @@ export function createCategoryMetadata(category: ComponentCategory): Metadata {
   const meta = CATEGORY_META[category];
   const count = CATALOG.filter((item) => item.category === category).length;
   const path = `/categories/${category}`;
-  const title = `${meta.label} Components — Liquid Glass React UI`;
-  const description = `${meta.description}. Browse ${count} ${meta.label.toLowerCase()} components in Intelli UI — free React + Next.js + Tailwind components with CLI install and live previews.`;
+  const title = `${meta.label} React Components — Free Liquid Glass UI`;
+  const description = trimMetaDescription(
+    `${meta.description}. Browse ${count} free ${meta.label.toLowerCase()} Liquid Glass components for React, Next.js & Tailwind — CLI install, live previews, full source ownership.`,
+  );
 
   return createPageMetadata({
     title,
@@ -182,13 +188,24 @@ export function createCategoryMetadata(category: ComponentCategory): Metadata {
       `${meta.label.toLowerCase()} react components`,
       `${meta.label.toLowerCase()} next.js`,
       `${meta.label.toLowerCase()} tailwind`,
+      `glassmorphism ${meta.label.toLowerCase()}`,
       "liquid glass ui",
+      "free react components",
       "component category",
     ],
     type: "website",
     imagePath: `/categories/${category}/opengraph-image`,
     imageAlt: `${meta.label} components — Intelli UI`,
   });
+}
+
+/** Keep SERP snippets in the high-CTR 150–160 char band when possible. */
+export function trimMetaDescription(text: string, max = 160): string {
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= max) return normalized;
+  const sliced = normalized.slice(0, max - 1);
+  const lastSpace = sliced.lastIndexOf(" ");
+  return `${(lastSpace > 120 ? sliced.slice(0, lastSpace) : sliced).trimEnd()}…`;
 }
 
 export function createComponentDescription(item: CatalogItem): string {
@@ -219,11 +236,12 @@ export function buildLlmsText(): string {
 
 - [Home](${absoluteUrl("/")}): Browse the full component catalog with live previews.
 - [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI, agent plugin, or MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
+- [Guides](${absoluteUrl("/guides")}): Liquid Glass tutorials and shadcn comparison articles.
 - [Agent plugin](${absoluteUrl("/getting-started#plugin")}): One-step install for Claude Code, Grok, Codex, Gemini (skills + MCP + commands).
 - [MCP](${absoluteUrl("/getting-started#mcp")}): Tools-only setup for coding agents.
 - [HTML sitemap](${absoluteUrl("/sitemap")}): Human-readable index of every public page.
 - [XML sitemap](${absoluteUrl("/sitemap.xml")}): Machine-readable sitemap for crawlers.
-- [RSS feed](${absoluteUrl("/rss.xml")}): Component and docs feed.
+- [RSS feed](${absoluteUrl("/rss.xml")}): Component, guides, and docs feed.
 - [Registry](${REGISTRY_URL}): JSON registry of installable components.
 - [GitHub](${GITHUB_URL}): Source repository.
 - [Agent skills](${AGENT_SKILLS_URL}): Official agent plugin repository.

@@ -9,9 +9,10 @@ import { homeGraphJsonLd } from "../../lib/json-ld";
 import { createPageMetadata } from "../../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
-  title: "Browse Liquid Glass React Components",
+  title:
+    "Intelli UI — Free Liquid Glass React Components for Next.js & Tailwind CSS",
   description:
-    "Browse, preview, and copy every Intelli UI Liquid Glass component. Free React + Next.js + Tailwind primitives with CLI install, agent plugin + MCP for AI agents, live previews, and full source ownership — a modern shadcn-style workflow.",
+    "80+ free Liquid Glass React components for Next.js & Tailwind CSS. Live previews, copy-paste source, CLI install. Build stunning glassmorphism UIs you own.",
   path: "/",
   keywords: [
     "component playground",
@@ -20,11 +21,13 @@ export const metadata: Metadata = createPageMetadata({
     "tailwind ui components",
     "liquid glass playground",
     "free react components",
+    "free liquid glass components",
+    "glassmorphism react",
     "agent plugin",
     "claude code plugin",
     "grok plugin",
   ],
-  absoluteTitle: false,
+  absoluteTitle: true,
 });
 
 type HomePageProps = {
@@ -42,14 +45,17 @@ export default async function HomePage({ searchParams }: HomePageProps) {
         <section className="glass-panel rounded-2xl p-6 md:p-8">
           <div className="max-w-2xl space-y-3">
             <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-              Liquid Glass · React · Next.js
+              Liquid Glass · React · Next.js · Tailwind
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Browse, preview, and copy every component
+              Free Liquid Glass React Components for Next.js &amp; Tailwind CSS
             </h1>
+            <p className="text-base font-medium text-foreground/90 md:text-lg">
+              Browse, preview, and copy every component
+            </p>
             <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
-              Intelli UI is a Liquid Glass component library with{" "}
-              {CATALOG.length}+ React components for Next.js and Tailwind.
+              Intelli UI is a free Liquid Glass component library with{" "}
+              {CATALOG.length}+ React components for Next.js and Tailwind CSS.
               Each page ships a live preview beside the source. Install with
               the CLI, paste into your project, and customize variants you own
               — or wire Claude, Grok, and other coding agents with the official{" "}
@@ -58,6 +64,13 @@ export default async function HomePage({ searchParams }: HomePageProps) {
                 className="font-medium text-foreground underline-offset-4 hover:underline"
               >
                 agent plugin
+              </Link>
+              . Prefer guides? Read{" "}
+              <Link
+                href="/guides"
+                className="font-medium text-foreground underline-offset-4 hover:underline"
+              >
+                Liquid Glass tutorials
               </Link>
               .
             </p>

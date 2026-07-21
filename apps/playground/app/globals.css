@@ -54,3 +54,10 @@ html {
   background: var(--mesh-3);
   animation: mesh-drift 22s ease-in-out infinite 5s;
 }
+
+/* Core Web Vitals / a11y: pause decorative mesh motion */
+@media (prefers-reduced-motion: reduce) {
+  .mesh-blob {
+    animation: none !important;
+  }
+}

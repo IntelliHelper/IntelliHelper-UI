@@ -5,12 +5,13 @@ import {
   CATEGORY_ORDER,
   getCatalogByCategory,
 } from "../../../lib/catalog";
+import { GUIDES } from "../../../lib/guides";
 import { createPageMetadata } from "../../../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Sitemap — All Intelli UI Pages",
   description:
-    "Browse every page on Intelli UI — homepage, getting started, categories, and all Liquid Glass component documentation for React and Next.js.",
+    "Browse every page on Intelli UI — homepage, getting started, guides, categories, and all Liquid Glass component documentation for React and Next.js.",
   path: "/sitemap",
   keywords: ["sitemap", "site map", "all pages", "component index", "HTML sitemap"],
 });
@@ -75,6 +76,30 @@ export default function SitemapPage() {
               Getting started
             </Link>
           </li>
+          <li>
+            <Link
+              href="/guides"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Guides
+            </Link>
+          </li>
+        </ul>
+      </section>
+
+      <section className="glass-panel rounded-2xl p-6">
+        <h2 className="text-lg font-semibold text-foreground">Guides</h2>
+        <ul className="mt-4 space-y-2">
+          {GUIDES.map((guide) => (
+            <li key={guide.slug}>
+              <Link
+                href={`/guides/${guide.slug}`}
+                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {guide.title}
+              </Link>
+            </li>
+          ))}
         </ul>
       </section>
 

@@ -1,4 +1,5 @@
 import { CATALOG, CATEGORY_META } from "../../lib/catalog";
+import { GUIDES } from "../../lib/guides";
 import {
   absoluteUrl,
   BRAND_NAME,
@@ -29,6 +30,12 @@ export function GET() {
         "Install Liquid Glass components with the CLI, agent plugin, or MCP for AI agents.",
       pubDate: buildDate,
     },
+    ...GUIDES.map((guide) => ({
+      title: guide.title,
+      link: absoluteUrl(`/guides/${guide.slug}`),
+      description: guide.description,
+      pubDate: new Date(guide.datePublished).toUTCString(),
+    })),
     ...CATALOG.map((item) => ({
       title: `${item.title} Component`,
       link: absoluteUrl(`/components/${item.slug}`),
