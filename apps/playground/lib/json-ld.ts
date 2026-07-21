@@ -105,6 +105,32 @@ export function softwareApplicationJsonLd(): JsonLd {
   };
 }
 
+/** Library / SoftwareSourceCode for homepage rich understanding */
+export function softwareSourceCodeJsonLd(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareSourceCode",
+    "@id": `${SITE_URL}/#source`,
+    name: `${SITE_NAME} component library`,
+    description: DEFAULT_DESCRIPTION,
+    url: SITE_URL,
+    codeRepository: GITHUB_URL,
+    programmingLanguage: ["TypeScript", "JavaScript", "CSS"],
+    runtimePlatform: "React, Next.js, Tailwind CSS",
+    license: "https://opensource.org/licenses/MIT",
+    author: { "@id": `${SITE_URL}/#organization` },
+    targetProduct: { "@id": `${SITE_URL}/#software` },
+    keywords: [
+      "liquid glass",
+      "glassmorphism",
+      "react component library",
+      "next.js",
+      "tailwind css",
+      "shadcn alternative",
+    ].join(", "),
+  };
+}
+
 export function webPageJsonLd({
   name,
   description,
@@ -312,7 +338,7 @@ export function componentPageJsonLd(item: CatalogItem): JsonLd {
     "@type": "TechArticle",
     "@id": `${url}#article`,
     headline: `${item.title} React Component`,
-    alternativeHeadline: `${item.title} — Liquid Glass UI for Next.js`,
+    alternativeHeadline: `Free ${item.title} — Liquid Glass UI for Next.js & Tailwind`,
     description: item.description,
     url,
     mainEntityOfPage: url,
@@ -423,8 +449,9 @@ export function homeGraphJsonLd(): JsonLd {
       organizationJsonLd(),
       websiteJsonLd(),
       softwareApplicationJsonLd(),
+      softwareSourceCodeJsonLd(),
       webPageJsonLd({
-        name: "Browse Liquid Glass React Components",
+        name: "Free Liquid Glass React Components for Next.js & Tailwind CSS",
         description: DEFAULT_DESCRIPTION,
         path: "/",
         type: "CollectionPage",
@@ -435,5 +462,61 @@ export function homeGraphJsonLd(): JsonLd {
       delete rest["@context"];
       return rest;
     }),
+  };
+}
+
+export function guideArticleJsonLd(guide: {
+  slug: string;
+  title: string;
+  description: string;
+  datePublished: string;
+  dateModified?: string;
+}): JsonLd {
+  const url = absoluteUrl(`/guides/${guide.slug}`);
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "@id": `${url}#article`,
+    headline: guide.title,
+    description: guide.description,
+    url,
+    mainEntityOfPage: url,
+    datePublished: guide.datePublished,
+    dateModified: guide.dateModified ?? guide.datePublished,
+    inLanguage: "en-US",
+    isAccessibleForFree: true,
+    author: { "@id": `${SITE_URL}/#organization` },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    image: absoluteUrl("/opengraph-image"),
+  };
+}
+
+export function guideBreadcrumbJsonLd(guide: {
+  slug: string;
+  title: string;
+}): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Guides",
+        item: absoluteUrl("/guides"),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: guide.title,
+        item: absoluteUrl(`/guides/${guide.slug}`),
+      },
+    ],
   };
 }

@@ -2,7 +2,7 @@
 
 **Owner:** Growth / Product marketing  
 **Site:** [https://ui.intellihelper.in](https://ui.intellihelper.in)  
-**Last updated:** 2026-07-15  
+**Last updated:** 2026-07-21  
 **Goal:** Outrank generic component-library SERPs on *intent* keywords (Liquid Glass, glassmorphism, shadcn alternative, MCP UI) and win AI citation via `llms.txt` + structured data.
 
 ---
@@ -44,8 +44,9 @@
 
 | Page | Primary keyword | Secondary keywords | Title pattern | Meta description focus |
 |------|-----------------|--------------------|---------------|------------------------|
-| `/` | liquid glass react components | next.js ui, tailwind component library, shadcn alternative | Browse Liquid Glass React Components \| Intelli UI | Catalog + CLI + live previews |
+| `/` | free liquid glass react components | next.js ui, tailwind component library, shadcn alternative | Intelli UI — Free Liquid Glass React Components for Next.js & Tailwind CSS | Catalog + CLI + live previews + free |
 | `/getting-started` | install intellihelper ui / intellihelper cli | mcp server cursor, agent plugin, claude code plugin, grok plugin, shadcn alternative install | Getting Started — Install… | CLI + agent plugin + MCP clients |
+| `/guides` | liquid glass tutorial / shadcn vs intelli | glassmorphism react, shadcn alternative | Guides — Liquid Glass React UI Tutorials | Topical authority / TOFU |
 | `/sitemap` | (supporting) | site index | Sitemap | Crawl aid, not ranking target |
 
 ### 2.3 Category → keyword map

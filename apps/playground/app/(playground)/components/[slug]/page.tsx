@@ -88,12 +88,12 @@ export default async function ComponentPage({ params }: PageProps) {
               {category.label}
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              {item.title}
+              {item.title} React Component
             </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-              {item.description} Built as a Liquid Glass React component for
-              Next.js and Tailwind CSS — copy the source into your app and own
-              every variant.
+              Free Liquid Glass {item.title} for Next.js and Tailwind CSS.{" "}
+              {item.description} Copy the source into your app and own every
+              variant — or install with the CLI below.
             </p>
           </div>
 

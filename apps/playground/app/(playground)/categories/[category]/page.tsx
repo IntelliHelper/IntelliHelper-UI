@@ -14,6 +14,7 @@ import {
   categoryItemListJsonLd,
   webPageJsonLd,
 } from "../../../../lib/json-ld";
+import { CATEGORY_SEO_INTRO } from "../../../../lib/category-seo";
 import { CLI_PACKAGE, createCategoryMetadata } from "../../../../lib/seo";
 
 type PageProps = {
@@ -55,8 +56,8 @@ export default async function CategoryPage({ params }: PageProps) {
           categoryBreadcrumbJsonLd(category),
           categoryItemListJsonLd(category),
           webPageJsonLd({
-            name: `${meta.label} Components`,
-            description: meta.description,
+            name: `Free ${meta.label} React Components for Next.js`,
+            description: `${meta.description}. ${items.length} free Liquid Glass components for React, Next.js, and Tailwind CSS.`,
             path: `/categories/${category}`,
             type: "CollectionPage",
           }),
@@ -80,10 +81,10 @@ export default async function CategoryPage({ params }: PageProps) {
 
           <div className="space-y-2">
             <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Category
+              Category · Free React UI
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              {meta.label} components
+              Free {meta.label} React Components for Next.js
             </h1>
             <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
               {meta.description}. {items.length} Liquid Glass React component
@@ -96,6 +97,23 @@ export default async function CategoryPage({ params }: PageProps) {
             </p>
           </div>
         </header>
+
+        <section
+          className="glass-panel rounded-2xl p-6 md:p-8"
+          aria-labelledby="category-seo-intro"
+        >
+          <h2
+            id="category-seo-intro"
+            className="text-lg font-semibold text-foreground"
+          >
+            About {meta.label.toLowerCase()} in Liquid Glass
+          </h2>
+          <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+            {CATEGORY_SEO_INTRO[category].split("\n\n").map((paragraph) => (
+              <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+            ))}
+          </div>
+        </section>
 
         <section className="glass-panel rounded-2xl p-6" aria-labelledby="category-list">
           <h2 id="category-list" className="text-lg font-semibold text-foreground">
