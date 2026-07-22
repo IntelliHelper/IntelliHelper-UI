@@ -12,9 +12,8 @@
 name: "CodeQL Advanced"
 
 on:
+  # Only analyze after merges land on main (not on every pull request).
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
   schedule:
     - cron: '37 7 * * 1'
