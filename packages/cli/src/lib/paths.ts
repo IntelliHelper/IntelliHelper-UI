@@ -62,7 +62,8 @@ function resolveAliasPath(
         continue;
       }
 
-      const resolvedTarget = target.replace("*", matched);
+      // replaceAll: path mappings may include multiple "*" segments.
+      const resolvedTarget = target.replaceAll("*", matched);
       return resolve(tsconfigDir, baseUrl, resolvedTarget);
     }
   }

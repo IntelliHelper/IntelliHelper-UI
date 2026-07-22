@@ -368,7 +368,7 @@ export const CATALOG: CatalogItem[] = [
   {
     slug: "spinner",
     title: "Spinner",
-    description: "Accessible loading spinner with chrome variants.",
+    description: "Loading spinner with arc, ring, dots, bars, pulse, and apple types.",
     category: "feedback",
   },
   {

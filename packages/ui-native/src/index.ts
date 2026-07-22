@@ -102,6 +102,7 @@ export {
   type SpinnerProps,
   type SpinnerVariant,
   type SpinnerSize,
+  type SpinnerType,
 } from "./components/spinner";
 export {
   Progress,

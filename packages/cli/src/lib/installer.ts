@@ -1,4 +1,4 @@
-import { execSync } from "node:child_process";
+import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
 import type {
@@ -19,6 +19,47 @@ import {
 import { resolveTargetPath } from "./paths.js";
 import { getRegistryUrl } from "./registry.js";
 import { transformImports } from "./transform.js";
+
+/**
+ * npm package name with optional version/tag/range.
+ * Rejects URLs, paths, and shell metacharacters so registry JSON cannot inject commands.
+ */
+const NPM_PACKAGE_SPEC =
+  /^(?:@[a-z0-9][\w.~-]*\/)?[a-z0-9][\w.~-]*(?:@[\w.^~>=<*|\s-]+)?$/i;
+
+type PackageManager = {
+  command: string;
+  args: string[];
+};
+
+function assertSafePackageSpecs(deps: string[]): string[] {
+  for (const dep of deps) {
+    if (
+      typeof dep !== "string" ||
+      dep.length === 0 ||
+      dep.length > 214 ||
+      !NPM_PACKAGE_SPEC.test(dep)
+    ) {
+      throw new Error(
+        `Refusing to install unsafe package specifier from registry: ${JSON.stringify(dep)}`,
+      );
+    }
+  }
+  return deps;
+}
+
+function detectPackageManager(cwd: string): PackageManager {
+  if (existsSync(`${cwd}/pnpm-lock.yaml`)) {
+    return { command: "pnpm", args: ["add"] };
+  }
+  if (existsSync(`${cwd}/yarn.lock`)) {
+    return { command: "yarn", args: ["add"] };
+  }
+  if (existsSync(`${cwd}/bun.lockb`) || existsSync(`${cwd}/bun.lock`)) {
+    return { command: "bun", args: ["add"] };
+  }
+  return { command: "npm", args: ["install"] };
+}
 
 export type InstallOptions = {
   cwd: string;
@@ -213,32 +254,34 @@ export function installDependencies(
   cwd: string,
   dryRun?: boolean,
 ): void {
-  const deps = item.dependencies ?? [];
+  const deps = assertSafePackageSpecs(item.dependencies ?? []);
   if (deps.length === 0) {
     return;
   }
 
   const packageManager = detectPackageManager(cwd);
-  const installCmd = `${packageManager} add ${deps.join(" ")}`;
+  const args = [...packageManager.args, ...deps];
+  const displayCmd = `${packageManager.command} ${args.join(" ")}`;
 
   if (dryRun) {
-    logger.info(`[dry-run] Would run: ${installCmd}`);
+    logger.info(`[dry-run] Would run: ${displayCmd}`);
     return;
   }
 
   logger.info(`Installing dependencies: ${deps.join(", ")}`);
-  execSync(installCmd, { cwd, stdio: "inherit" });
-}
+  // shell: false + argv array — dependency names never reach a shell.
+  const result = spawnSync(packageManager.command, args, {
+    cwd,
+    stdio: "inherit",
+    shell: false,
+  });
 
-function detectPackageManager(cwd: string): string {
-  if (existsSync(`${cwd}/pnpm-lock.yaml`)) {
-    return "pnpm add";
+  if (result.error) {
+    throw result.error;
   }
-  if (existsSync(`${cwd}/yarn.lock`)) {
-    return "yarn add";
+  if (result.status !== 0) {
+    throw new Error(
+      `Failed to install dependencies (exit ${result.status ?? "unknown"}): ${displayCmd}`,
+    );
   }
-  if (existsSync(`${cwd}/bun.lockb`) || existsSync(`${cwd}/bun.lock`)) {
-    return "bun add";
-  }
-  return "npm install";
 }

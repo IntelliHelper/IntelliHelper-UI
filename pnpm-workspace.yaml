@@ -1,3 +1,12 @@
 packages:
   - "apps/*"
   - "packages/*"
+
+# Force patched transitive versions (Dependabot / pnpm audit).
+# On pnpm 10+, overrides belong here (not package.json "pnpm" field).
+overrides:
+  fast-uri: "3.1.4"
+  postcss: "8.5.10"
+  uuid: "11.1.1"
+  sharp: "0.35.3"
+  "@hono/node-server": "2.0.11"
