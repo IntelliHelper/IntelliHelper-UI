@@ -37,6 +37,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
+  Link,
 } from "@intelli/ui";
 
 export function AvatarDemo() {
@@ -174,6 +175,55 @@ export function BreadcrumbDemo() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
+  );
+}
+
+export function LinkDemo() {
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-wrap items-center gap-4">
+        <Link href="#default">Default</Link>
+        <Link href="#muted" variant="muted">
+          Muted
+        </Link>
+        <Link href="#chrome" variant="chrome">
+          Chrome
+        </Link>
+        <Link href="#underline" variant="underline">
+          Underline
+        </Link>
+      </div>
+      <div className="flex flex-wrap items-center gap-4">
+        <Link href="#sm" size="sm">
+          Small
+        </Link>
+        <Link href="#default-size" size="default">
+          Default size
+        </Link>
+        <Link href="#lg" size="lg">
+          Large
+        </Link>
+      </div>
+      <div className="flex flex-wrap items-center gap-4">
+        <Link
+          href="https://github.com/IntelliHelper/IntelliHelper-UI"
+          external
+        >
+          External with icon
+        </Link>
+        <Link
+          href="https://ui.intellihelper.in"
+          external
+          showExternalIcon={false}
+          variant="muted"
+        >
+          External, no icon
+        </Link>
+        <Button asChild variant="outline" size="sm">
+          <Link href="#as-button">Button-styled link</Link>
+        </Button>
+      </div>
+    </div>
   );
 }
 

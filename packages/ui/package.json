@@ -21,6 +21,7 @@
     "./dropdown-menu": "./src/dropdown-menu.tsx",
     "./alert-dialog": "./src/alert-dialog.tsx",
     "./breadcrumb": "./src/breadcrumb.tsx",
+    "./link": "./src/link.tsx",
     "./context-menu": "./src/context-menu.tsx",
     "./combobox": "./src/combobox.tsx",
     "./command": "./src/command.tsx",

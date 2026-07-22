@@ -293,6 +293,13 @@ export const CATALOG: CatalogItem[] = [
     category: "navigation",
   },
   {
+    slug: "link",
+    title: "Link",
+    description:
+      "Styled anchors with variants, sizes, external safety defaults, and asChild for Next.js.",
+    category: "navigation",
+  },
+  {
     slug: "pagination",
     title: "Pagination",
     description: "Accessible page navigation with glass button links.",

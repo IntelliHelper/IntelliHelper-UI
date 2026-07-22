@@ -749,6 +749,46 @@
       }
     },
     {
+      "name": "link",
+      "type": "registry:ui",
+      "title": "Link",
+      "description": "Styled anchor with variants (default, muted, chrome, underline), sizes, external safety defaults, and asChild for Next.js Link.",
+      "dependencies": [
+        "@radix-ui/react-slot",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/link.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/link.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "default",
+          "muted",
+          "chrome",
+          "underline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "props": [
+          "asChild",
+          "external",
+          "showExternalIcon",
+          "startIcon",
+          "endIcon"
+        ]
+      }
+    },
+    {
       "name": "context-menu",
       "type": "registry:ui",
       "title": "Context Menu",

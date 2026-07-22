@@ -31,6 +31,7 @@ import {
   BreadcrumbDemo,
   ContextMenuDemo,
   DropdownMenuDemo,
+  LinkDemo,
 } from "../../components/app-shell-demo";
 import {
   ComboboxDemo,
@@ -1215,6 +1216,39 @@ import { Button } from "@/components/ui/button"
     </BreadcrumbItem>
   </BreadcrumbList>
 </Breadcrumb>`,
+    },
+  ],
+  link: [
+    {
+      title: "Variants, sizes & external",
+      preview: <LinkDemo />,
+      code: `import { Button, Link } from "@intelli/ui"
+
+// Variants
+<Link href="/docs">Default</Link>
+<Link href="/docs" variant="muted">Muted</Link>
+<Link href="/docs" variant="chrome">Chrome</Link>
+<Link href="/docs" variant="underline">Underline</Link>
+
+// Sizes
+<Link href="/docs" size="sm">Small</Link>
+<Link href="/docs" size="lg">Large</Link>
+
+// External (new tab + noopener + icon)
+<Link href="https://github.com/IntelliHelper/IntelliHelper-UI" external>
+  GitHub
+</Link>
+
+// Look like a button, behave like a link
+<Button asChild variant="outline" size="sm">
+  <Link href="/getting-started">Get started</Link>
+</Button>
+
+// Next.js App Router (client navigation)
+import NextLink from "next/link"
+<Link asChild>
+  <NextLink href="/components">Browse catalog</NextLink>
+</Link>`,
     },
   ],
   "context-menu": [

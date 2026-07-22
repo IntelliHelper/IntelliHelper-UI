@@ -199,6 +199,12 @@ export {
   type BreadcrumbLinkProps,
 } from "./breadcrumb";
 export {
+  Link,
+  linkVariants,
+  ExternalIcon,
+  type LinkProps,
+} from "./link";
+export {
   ContextMenu,
   ContextMenuTrigger,
   ContextMenuContent,
