@@ -1,0 +1,54 @@
+name: Feature request
+description: Suggest a new component, API, CLI capability, or docs improvement.
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem first — solutions follow.  
+        Large API changes work best after a short design discussion in the issue.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - New component
+        - Existing component API
+        - Themes / design tokens
+        - CLI
+        - MCP / agents
+        - Playground / docs
+        - Native
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What pain point or gap does this address?
+      placeholder: As a developer building …, I need …
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: API sketch, UX, or CLI surface you have in mind.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds, other libraries, or simpler APIs.
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Mockups, related issues, prior art (e.g. shadcn, Radix).
+    validations:
+      required: false

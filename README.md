@@ -1,6 +1,15 @@
 # Intelli UI
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![CI/CD](https://github.com/IntelliHelper/IntelliHelper-UI/actions/workflows/ci.yml/badge.svg)](https://github.com/IntelliHelper/IntelliHelper-UI/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-ui.intellihelper.in-0ea5e9)](https://ui.intellihelper.in)
+[![npm](https://img.shields.io/npm/v/@intellihelper/cli?label=%40intellihelper%2Fcli)](https://www.npmjs.com/package/@intellihelper/cli)
+
 **Liquid Glass component library for React & Next.js** — copy-paste Tailwind components you own, install with a CLI, and wire into AI coding agents via MCP.
+
+## About
+
+**Intelli UI** (by [IntelliHelper](https://github.com/IntelliHelper)) is an open-source **Liquid Glass** design system: frosted chrome, expressive content panels, and a shadcn-style workflow so components land in *your* repo. Interactive primitives build on **[Radix UI](https://www.radix-ui.com/)** for accessibility and behavior; Liquid Glass styling, themes, and ownership stay with you. Use it to build product UI with Next.js + Tailwind, or drive installs from coding agents through the official CLI, plugin, and MCP server.
 
 | | |
 | --- | --- |
@@ -10,6 +19,11 @@
 | **CLI** | [`@intellihelper/cli`](./packages/cli) |
 | **SEO playbook** | [docs/SEO-PLAYBOOK.md](./docs/SEO-PLAYBOOK.md) |
 | **Repository** | [github.com/IntelliHelper/IntelliHelper-UI](https://github.com/IntelliHelper/IntelliHelper-UI) |
+| **License** | [MIT](./LICENSE) |
+| **Contributing** | [CONTRIBUTING.md](./CONTRIBUTING.md) |
+| **Security** | [SECURITY.md](./SECURITY.md) |
+| **Code of conduct** | [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) |
+| **Support** | [SUPPORT.md](./SUPPORT.md) |
 
 ---
 
@@ -17,7 +31,8 @@
 
 Intelli UI (by **IntelliHelper**) is a **Liquid Glass** design system and component library:
 
-- **40+ React components** built with TypeScript and Tailwind CSS  
+- **80+ React components** built with TypeScript and Tailwind CSS  
+- **Radix UI** under the hood for dialogs, menus, tabs, and other accessible primitives  
 - **Copy-paste workflow** — components land in *your* codebase (shadcn-style ownership)  
 - **CLI** — `npx @intellihelper/cli` to init, add, update, and list components  
 - **Agent plugin** ([IntelliHelper/agent-skills](https://github.com/IntelliHelper/agent-skills)) — skills + MCP + slash commands for Claude, Grok, Codex, Gemini  
@@ -190,29 +205,62 @@ Intelli UI ships multiple Liquid Glass themes (e.g. **mono**, **aurora**, **suns
 
 ## Tech stack
 
-- **React 19** / **Next.js 16** (playground)  
-- **Tailwind CSS 4**  
-- **TypeScript 5.9**  
-- **Turborepo** + **pnpm** workspaces  
-- **Radix-style** accessible primitives (where applicable)  
+| Layer | Stack |
+| --- | --- |
+| **UI components** | React 19, TypeScript, Tailwind CSS 4 |
+| **Primitives** | [Radix UI](https://www.radix-ui.com/) (`@radix-ui/react-*`) for a11y, focus, and interaction |
+| **Styling system** | Liquid Glass tokens + themes (`@intelli/themes`, `@intelli/tokens`) |
+| **Docs / playground** | Next.js 16 |
+| **Tooling** | Turborepo, pnpm workspaces, `@intellihelper/cli`, MCP |
+
+Interactive components (dialog, select, dropdown, tabs, accordion, and similar) wrap Radix primitives and layer Liquid Glass chrome/content styles on top. Some surfaces (glass bar, markdown, data tables, AI chat, etc.) are custom-built without Radix.
+
+When you `npx @intellihelper/cli add …`, the registry installs the matching `@radix-ui/*` packages into **your** project alongside the component source.
+
+---
+
+## Acknowledgments
+
+Intelli UI stands on excellent open-source work:
+
+- **[Radix UI](https://www.radix-ui.com/)** ([radix-ui/primitives](https://github.com/radix-ui/primitives)) — unstyled, accessible React primitives (MIT). Behavior and ARIA patterns for many components come from these packages; visual design is IntelliHelper Liquid Glass.
+- **[shadcn/ui](https://ui.shadcn.com/)** — inspiration for the copy-paste registry / CLI ownership model (not a fork of their component source).
+- **React**, **Next.js**, **Tailwind CSS**, and the rest of the JS tooling ecosystem.
+
+Third-party packages keep their own licenses; they are declared in each package’s `package.json` and ship via npm. This repository’s own code is MIT — see [License](#license).
 
 ---
 
 ## Contributing
 
-1. Fork / branch from the active feature branch  
-2. `pnpm install`  
-3. Run `pnpm --filter playground dev` for UI work  
-4. Keep component catalog + registry in sync when adding UI  
-5. New public components should ship with: catalog entry, examples, install path, and (for docs) FAQ/related links  
+We welcome issues and pull requests. Please read:
 
-For CLI behavior details, see [packages/cli/README.md](./packages/cli/README.md).
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — setup, workflow, component checklist  
+- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** — community standards  
+- **[SECURITY.md](./SECURITY.md)** — private vulnerability reporting  
+
+Quick start for contributors:
+
+```bash
+pnpm install
+pnpm --filter playground dev
+```
+
+1. Branch from `main`  
+2. Keep component catalog + registry in sync when adding UI  
+3. New public components should ship with: catalog entry, examples, install path, and (for docs) FAQ/related links  
+4. Run `pnpm lint` and `pnpm check-types` before opening a PR  
+
+For CLI behavior details, see [packages/cli/README.md](./packages/cli/README.md). Support options: [SUPPORT.md](./SUPPORT.md).
 
 ---
 
 ## License
 
-MIT (see package licenses; CLI is published as MIT under `@intellihelper/cli`).
+This project is licensed under the **[MIT License](./LICENSE)**.
+
+Copyright © 2025–2026 IntelliHelper.  
+Published packages (including `@intellihelper/cli`) use the same MIT terms unless a package file states otherwise.
 
 ---
 
@@ -222,4 +270,8 @@ MIT (see package licenses; CLI is published as MIT under `@intellihelper/cli`).
 - [Getting started](https://ui.intellihelper.in/getting-started)  
 - [SEO playbook](./docs/SEO-PLAYBOOK.md)  
 - [CLI package](./packages/cli)  
+- [Agent skills](https://github.com/IntelliHelper/agent-skills)  
+- [Radix UI](https://www.radix-ui.com/)  
 - [GitHub](https://github.com/IntelliHelper/IntelliHelper-UI)  
+- [Issues](https://github.com/IntelliHelper/IntelliHelper-UI/issues)  
+- [Security advisories](https://github.com/IntelliHelper/IntelliHelper-UI/security)  

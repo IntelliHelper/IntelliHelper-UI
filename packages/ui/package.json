@@ -134,5 +134,6 @@
     "@types/turndown": "^5.0.6",
     "eslint": "^9.39.1",
     "typescript": "5.9.2"
-  }
+  },
+  "license": "MIT"
 }
