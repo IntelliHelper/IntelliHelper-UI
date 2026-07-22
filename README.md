@@ -9,7 +9,7 @@
 
 ## About
 
-**Intelli UI** (by [IntelliHelper](https://github.com/IntelliHelper)) is an open-source **Liquid Glass** design system: frosted chrome, expressive content panels, and a shadcn-style workflow so components land in *your* repo. Use it to build product UI with Next.js + Tailwind, or drive installs from coding agents through the official CLI, plugin, and MCP server.
+**Intelli UI** (by [IntelliHelper](https://github.com/IntelliHelper)) is an open-source **Liquid Glass** design system: frosted chrome, expressive content panels, and a shadcn-style workflow so components land in *your* repo. Interactive primitives build on **[Radix UI](https://www.radix-ui.com/)** for accessibility and behavior; Liquid Glass styling, themes, and ownership stay with you. Use it to build product UI with Next.js + Tailwind, or drive installs from coding agents through the official CLI, plugin, and MCP server.
 
 | | |
 | --- | --- |
@@ -31,7 +31,8 @@
 
 Intelli UI (by **IntelliHelper**) is a **Liquid Glass** design system and component library:
 
-- **40+ React components** built with TypeScript and Tailwind CSS  
+- **80+ React components** built with TypeScript and Tailwind CSS  
+- **Radix UI** under the hood for dialogs, menus, tabs, and other accessible primitives  
 - **Copy-paste workflow** — components land in *your* codebase (shadcn-style ownership)  
 - **CLI** — `npx @intellihelper/cli` to init, add, update, and list components  
 - **Agent plugin** ([IntelliHelper/agent-skills](https://github.com/IntelliHelper/agent-skills)) — skills + MCP + slash commands for Claude, Grok, Codex, Gemini  
@@ -204,11 +205,29 @@ Intelli UI ships multiple Liquid Glass themes (e.g. **mono**, **aurora**, **suns
 
 ## Tech stack
 
-- **React 19** / **Next.js 16** (playground)  
-- **Tailwind CSS 4**  
-- **TypeScript 5.9**  
-- **Turborepo** + **pnpm** workspaces  
-- **Radix-style** accessible primitives (where applicable)  
+| Layer | Stack |
+| --- | --- |
+| **UI components** | React 19, TypeScript, Tailwind CSS 4 |
+| **Primitives** | [Radix UI](https://www.radix-ui.com/) (`@radix-ui/react-*`) for a11y, focus, and interaction |
+| **Styling system** | Liquid Glass tokens + themes (`@intelli/themes`, `@intelli/tokens`) |
+| **Docs / playground** | Next.js 16 |
+| **Tooling** | Turborepo, pnpm workspaces, `@intellihelper/cli`, MCP |
+
+Interactive components (dialog, select, dropdown, tabs, accordion, and similar) wrap Radix primitives and layer Liquid Glass chrome/content styles on top. Some surfaces (glass bar, markdown, data tables, AI chat, etc.) are custom-built without Radix.
+
+When you `npx @intellihelper/cli add …`, the registry installs the matching `@radix-ui/*` packages into **your** project alongside the component source.
+
+---
+
+## Acknowledgments
+
+Intelli UI stands on excellent open-source work:
+
+- **[Radix UI](https://www.radix-ui.com/)** ([radix-ui/primitives](https://github.com/radix-ui/primitives)) — unstyled, accessible React primitives (MIT). Behavior and ARIA patterns for many components come from these packages; visual design is IntelliHelper Liquid Glass.
+- **[shadcn/ui](https://ui.shadcn.com/)** — inspiration for the copy-paste registry / CLI ownership model (not a fork of their component source).
+- **React**, **Next.js**, **Tailwind CSS**, and the rest of the JS tooling ecosystem.
+
+Third-party packages keep their own licenses; they are declared in each package’s `package.json` and ship via npm. This repository’s own code is MIT — see [License](#license).
 
 ---
 
@@ -252,6 +271,7 @@ Published packages (including `@intellihelper/cli`) use the same MIT terms unles
 - [SEO playbook](./docs/SEO-PLAYBOOK.md)  
 - [CLI package](./packages/cli)  
 - [Agent skills](https://github.com/IntelliHelper/agent-skills)  
+- [Radix UI](https://www.radix-ui.com/)  
 - [GitHub](https://github.com/IntelliHelper/IntelliHelper-UI)  
 - [Issues](https://github.com/IntelliHelper/IntelliHelper-UI/issues)  
 - [Security advisories](https://github.com/IntelliHelper/IntelliHelper-UI/security)  
