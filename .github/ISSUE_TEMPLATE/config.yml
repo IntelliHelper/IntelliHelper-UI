@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation & playground
+    url: https://ui.intellihelper.in
+    about: Browse components, install guides, and live previews.
+  - name: Getting started
+    url: https://ui.intellihelper.in/getting-started
+    about: CLI, agent plugin, and MCP setup.
+  - name: Security vulnerability
+    url: https://github.com/IntelliHelper/IntelliHelper-UI/security/advisories/new
+    about: Privately report a security issue (do not open a public issue).
+  - name: Agent skills (separate repo)
+    url: https://github.com/IntelliHelper/agent-skills
+    about: Plugin skills, MCP packaging, and agent install docs.

@@ -1,6 +1,29 @@
 {
   "name": "intelli-ui",
   "private": true,
+  "description": "Intelli UI — Liquid Glass React component library for Next.js & Tailwind (CLI, registry, MCP, playground)",
+  "license": "MIT",
+  "author": "IntelliHelper",
+  "homepage": "https://ui.intellihelper.in",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IntelliHelper/IntelliHelper-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/IntelliHelper/IntelliHelper-UI/issues"
+  },
+  "keywords": [
+    "intellihelper",
+    "intelli-ui",
+    "liquid-glass",
+    "react",
+    "nextjs",
+    "tailwindcss",
+    "component-library",
+    "design-system",
+    "shadcn-alternative",
+    "mcp"
+  ],
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",

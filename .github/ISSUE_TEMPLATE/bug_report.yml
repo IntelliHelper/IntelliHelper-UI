@@ -1,0 +1,77 @@
+name: Bug report
+description: Report a bug in Intelli UI components, CLI, MCP, or the playground.
+title: "bug: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve Intelli UI.  
+        Security issues must go through [SECURITY.md](https://github.com/IntelliHelper/IntelliHelper-UI/blob/main/SECURITY.md) — do not file them here.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      description: Where does the bug show up?
+      options:
+        - Component (packages/ui)
+        - Native (packages/ui-native)
+        - CLI (@intellihelper/cli)
+        - MCP server
+        - Playground / docs site
+        - Themes / tokens
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear summary of what is wrong.
+      placeholder: When I …, then …
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Minimal steps or a small code snippet.
+      placeholder: |
+        1. Run …
+        2. Click …
+        3. See error …
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: Include stack traces, screenshots, or recordings if useful.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Node, package versions, browser (if relevant).
+      placeholder: |
+        - OS:
+        - Node:
+        - pnpm:
+        - @intellihelper/cli:
+        - Browser (if UI):
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version / commit
+      description: npm version, git SHA, or playground deploy URL.
+    validations:
+      required: false

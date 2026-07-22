@@ -1,6 +1,15 @@
 # Intelli UI
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
+[![CI/CD](https://github.com/IntelliHelper/IntelliHelper-UI/actions/workflows/ci.yml/badge.svg)](https://github.com/IntelliHelper/IntelliHelper-UI/actions/workflows/ci.yml)
+[![Docs](https://img.shields.io/badge/docs-ui.intellihelper.in-0ea5e9)](https://ui.intellihelper.in)
+[![npm](https://img.shields.io/npm/v/@intellihelper/cli?label=%40intellihelper%2Fcli)](https://www.npmjs.com/package/@intellihelper/cli)
+
 **Liquid Glass component library for React & Next.js** — copy-paste Tailwind components you own, install with a CLI, and wire into AI coding agents via MCP.
+
+## About
+
+**Intelli UI** (by [IntelliHelper](https://github.com/IntelliHelper)) is an open-source **Liquid Glass** design system: frosted chrome, expressive content panels, and a shadcn-style workflow so components land in *your* repo. Use it to build product UI with Next.js + Tailwind, or drive installs from coding agents through the official CLI, plugin, and MCP server.
 
 | | |
 | --- | --- |
@@ -10,6 +19,11 @@
 | **CLI** | [`@intellihelper/cli`](./packages/cli) |
 | **SEO playbook** | [docs/SEO-PLAYBOOK.md](./docs/SEO-PLAYBOOK.md) |
 | **Repository** | [github.com/IntelliHelper/IntelliHelper-UI](https://github.com/IntelliHelper/IntelliHelper-UI) |
+| **License** | [MIT](./LICENSE) |
+| **Contributing** | [CONTRIBUTING.md](./CONTRIBUTING.md) |
+| **Security** | [SECURITY.md](./SECURITY.md) |
+| **Code of conduct** | [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md) |
+| **Support** | [SUPPORT.md](./SUPPORT.md) |
 
 ---
 
@@ -200,19 +214,34 @@ Intelli UI ships multiple Liquid Glass themes (e.g. **mono**, **aurora**, **suns
 
 ## Contributing
 
-1. Fork / branch from the active feature branch  
-2. `pnpm install`  
-3. Run `pnpm --filter playground dev` for UI work  
-4. Keep component catalog + registry in sync when adding UI  
-5. New public components should ship with: catalog entry, examples, install path, and (for docs) FAQ/related links  
+We welcome issues and pull requests. Please read:
 
-For CLI behavior details, see [packages/cli/README.md](./packages/cli/README.md).
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** — setup, workflow, component checklist  
+- **[CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)** — community standards  
+- **[SECURITY.md](./SECURITY.md)** — private vulnerability reporting  
+
+Quick start for contributors:
+
+```bash
+pnpm install
+pnpm --filter playground dev
+```
+
+1. Branch from `main`  
+2. Keep component catalog + registry in sync when adding UI  
+3. New public components should ship with: catalog entry, examples, install path, and (for docs) FAQ/related links  
+4. Run `pnpm lint` and `pnpm check-types` before opening a PR  
+
+For CLI behavior details, see [packages/cli/README.md](./packages/cli/README.md). Support options: [SUPPORT.md](./SUPPORT.md).
 
 ---
 
 ## License
 
-MIT (see package licenses; CLI is published as MIT under `@intellihelper/cli`).
+This project is licensed under the **[MIT License](./LICENSE)**.
+
+Copyright © 2025–2026 IntelliHelper.  
+Published packages (including `@intellihelper/cli`) use the same MIT terms unless a package file states otherwise.
 
 ---
 
@@ -222,4 +251,7 @@ MIT (see package licenses; CLI is published as MIT under `@intellihelper/cli`).
 - [Getting started](https://ui.intellihelper.in/getting-started)  
 - [SEO playbook](./docs/SEO-PLAYBOOK.md)  
 - [CLI package](./packages/cli)  
+- [Agent skills](https://github.com/IntelliHelper/agent-skills)  
 - [GitHub](https://github.com/IntelliHelper/IntelliHelper-UI)  
+- [Issues](https://github.com/IntelliHelper/IntelliHelper-UI/issues)  
+- [Security advisories](https://github.com/IntelliHelper/IntelliHelper-UI/security)  
