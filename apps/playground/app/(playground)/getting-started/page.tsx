@@ -1,9 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+} from "@intelli/ui";
 import { CliGettingStarted } from "../../../components/cli-getting-started";
 import { CustomizationDemo } from "../../../components/customization-demo";
+import { DocsFaq } from "../../../components/docs-faq";
 import { JsonLd } from "../../../components/json-ld";
 import { McpGettingStarted } from "../../../components/mcp-getting-started";
+import { PageHeader } from "../../../components/page-header";
 import { PluginGettingStarted } from "../../../components/plugin-getting-started";
 import {
   CATEGORY_META,
@@ -71,8 +83,17 @@ const FAQ_ITEMS = [
   },
 ] as const;
 
+const TOC = [
+  { id: "cli", label: "CLI" },
+  { id: "plugin", label: "Agent plugin" },
+  { id: "mcp", label: "MCP" },
+  { id: "customization", label: "Customization" },
+  { id: "faq", label: "FAQ" },
+] as const;
+
 export default function GettingStartedPage() {
   const grouped = getCatalogByCategory();
+  const total = Object.values(grouped).flat().length;
 
   return (
     <>
@@ -90,58 +111,68 @@ export default function GettingStartedPage() {
         ]}
       />
       <div className="mx-auto max-w-3xl space-y-8 pb-8">
-        <header className="space-y-2">
-          <Link
-            href="/"
-            className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-          >
-            ← All components
-          </Link>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground">
-            Getting started
-          </h1>
-          <p className="text-sm leading-relaxed text-muted-foreground">
-            Copy Liquid Glass components into any Next.js + Tailwind project with
-            the IntelliHelper UI CLI. Components live in your codebase — fully
-            owned and customizable. Wire the same registry into coding agents
-            with the official{" "}
-            <a
-              href="#plugin"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              agent plugin
-            </a>{" "}
-            or{" "}
-            <a
-              href="#mcp"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              MCP server
-            </a>
-            .
-          </p>
-        </header>
+        <PageHeader
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Getting started" },
+          ]}
+          meta={
+            <span className="inline-flex items-center gap-2">
+              <Badge variant="secondary" size="sm">
+                Docs
+              </Badge>
+              <span>
+                {total} components · {CATEGORY_ORDER.length} categories
+              </span>
+            </span>
+          }
+          title="Getting started"
+          description="Install Liquid Glass components into any Next.js + Tailwind project. Own the source, customize freely, and optionally wire coding agents with the plugin or MCP."
+          actions={
+            <Button asChild variant="outline" size="sm">
+              <Link href="/components">Browse catalog</Link>
+            </Button>
+          }
+        />
 
-        <section className="glass-panel rounded-2xl p-6">
-          <div className="mb-5">
-            <h2 className="text-lg font-semibold text-foreground">CLI</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
+        {/* On-page TOC — product docs pattern */}
+        <nav
+          aria-label="On this page"
+          className="flex flex-wrap gap-1.5 rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] p-1.5"
+        >
+          {TOC.map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className="rounded-lg px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%,transparent)] hover:text-foreground"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <Card id="cli" className="scroll-mt-24" variant="chrome" animated={false}>
+          <CardHeader>
+            <CardTitle>CLI</CardTitle>
+            <CardDescription>
               Initialize your project and add components with{" "}
               <code className="font-mono text-xs">@intellihelper/cli</code>.
-            </p>
-          </div>
-          <CliGettingStarted />
-        </section>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CliGettingStarted />
+          </CardContent>
+        </Card>
 
-        <section
+        <Card
           id="plugin"
-          className="glass-panel scroll-mt-24 rounded-2xl p-6"
+          className="scroll-mt-24"
+          variant="chrome"
+          animated={false}
         >
-          <div className="mb-5">
-            <h2 className="text-lg font-semibold text-foreground">
-              Agent plugin
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
+          <CardHeader>
+            <CardTitle>Agent plugin</CardTitle>
+            <CardDescription>
               One install for Claude Code, Grok, Codex, Gemini, and more —
               skills, slash commands, and MCP bundled. Repo:{" "}
               <a
@@ -153,78 +184,87 @@ export default function GettingStartedPage() {
                 IntelliHelper/agent-skills
               </a>
               .
-            </p>
-          </div>
-          <PluginGettingStarted />
-        </section>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <PluginGettingStarted />
+          </CardContent>
+        </Card>
 
-        <section id="mcp" className="glass-panel scroll-mt-24 rounded-2xl p-6">
-          <div className="mb-5">
-            <h2 className="text-lg font-semibold text-foreground">
-              MCP for AI agents
-            </h2>
-            <p className="mt-1 text-sm text-muted-foreground">
+        <Card id="mcp" className="scroll-mt-24" variant="chrome" animated={false}>
+          <CardHeader>
+            <CardTitle>MCP for AI agents</CardTitle>
+            <CardDescription>
               Prefer tools only? Wire the intellihelper-ui MCP server into
               Cursor, Claude Code, VS Code, Codex, OpenCode, or Grok without the
               full plugin.
-            </p>
-          </div>
-          <McpGettingStarted />
-        </section>
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <McpGettingStarted />
+          </CardContent>
+        </Card>
 
-        <section className="glass-panel rounded-2xl p-6">
-          <div className="mb-5">
-            <h2 className="text-lg font-semibold text-foreground">Customization</h2>
-            <p className="mt-1 text-sm text-muted-foreground">
-              Variants, className slots, data-slot hooks, and exported CVA helpers
-              on every component.
-            </p>
-          </div>
-          <CustomizationDemo />
-        </section>
+        <Card
+          id="customization"
+          className="scroll-mt-24"
+          variant="chrome"
+          animated={false}
+        >
+          <CardHeader>
+            <CardTitle>Customization</CardTitle>
+            <CardDescription>
+              Variants, className slots, data-slot hooks, and exported CVA
+              helpers on every component.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <CustomizationDemo />
+          </CardContent>
+        </Card>
 
-        <section className="glass-panel rounded-2xl p-6" aria-labelledby="faq">
-          <h2 id="faq" className="text-lg font-semibold text-foreground">
+        <section id="faq" className="scroll-mt-24 space-y-4" aria-labelledby="faq-heading">
+          <h2
+            id="faq-heading"
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
             Frequently asked questions
           </h2>
-          <dl className="mt-5 space-y-5">
-            {FAQ_ITEMS.map((item) => (
-              <div key={item.q}>
-                <dt className="font-medium text-foreground">{item.q}</dt>
-                <dd className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                  {item.a}
-                </dd>
-              </div>
-            ))}
-          </dl>
+          <DocsFaq items={FAQ_ITEMS} />
         </section>
 
-        <section className="glass-panel rounded-2xl p-6">
-          <h2 className="text-lg font-semibold text-foreground">What&apos;s included</h2>
-          <p className="mt-1 text-sm text-muted-foreground">
-            {Object.values(grouped).flat().length} components across{" "}
-            {CATEGORY_ORDER.length} categories.
-          </p>
-          <ul className="mt-5 space-y-4">
-            {CATEGORY_ORDER.map((category) => {
+        <Card variant="chrome" animated={false}>
+          <CardHeader>
+            <CardTitle className="text-base">What&apos;s included</CardTitle>
+            <CardDescription>
+              {total} components across {CATEGORY_ORDER.length} categories.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-0">
+            {CATEGORY_ORDER.map((category, index) => {
               const items = grouped[category];
               if (!items.length) return null;
               return (
-                <li key={category}>
-                  <Link
-                    href={`/categories/${category}`}
-                    className="text-sm font-medium text-foreground transition-colors hover:text-primary"
-                  >
-                    {CATEGORY_META[category].label}
-                  </Link>
-                  <p className="mt-1 text-xs text-muted-foreground">
-                    {items.map((item) => item.title).join(", ")}
-                  </p>
-                </li>
+                <div key={category}>
+                  {index > 0 ? (
+                    <Separator className="my-4" variant="subtle" />
+                  ) : null}
+                  <div>
+                    <Link
+                      href={`/categories/${category}`}
+                      className="text-sm font-medium text-foreground transition-colors hover:text-primary"
+                    >
+                      {CATEGORY_META[category].label}
+                    </Link>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                      {items.map((item) => item.title).join(" · ")}
+                    </p>
+                  </div>
+                </div>
               );
             })}
-          </ul>
-        </section>
+          </CardContent>
+        </Card>
       </div>
     </>
   );

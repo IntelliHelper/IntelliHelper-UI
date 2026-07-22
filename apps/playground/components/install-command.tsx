@@ -1,43 +1,31 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
-import { Button } from "@intelli/ui";
+import { CopyButton } from "@intelli/ui";
+import { cn } from "@intelli/utils";
 
 type InstallCommandProps = {
   slug: string;
+  className?: string;
 };
 
-export function InstallCommand({ slug }: InstallCommandProps) {
+export function InstallCommand({ slug, className }: InstallCommandProps) {
   const command = `npx @intellihelper/cli@latest add ${slug}`;
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = useCallback(async () => {
-    if (typeof navigator === "undefined") return;
-    try {
-      await navigator.clipboard.writeText(command);
-      setCopied(true);
-    } catch {
-      setCopied(false);
-    }
-  }, [command]);
-
-  useEffect(() => {
-    if (!copied) return;
-    const timeout = window.setTimeout(() => setCopied(false), 2000);
-    return () => window.clearTimeout(timeout);
-  }, [copied]);
 
   return (
-    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] px-4 py-3">
-      <span className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+    <div
+      className={cn(
+        "flex min-w-0 items-center gap-3 rounded-xl border border-[var(--glass-chrome-border)]",
+        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] px-3 py-2.5 sm:px-4",
+        className,
+      )}
+    >
+      <span className="hidden shrink-0 text-[11px] font-medium text-muted-foreground sm:inline">
         Install
       </span>
-      <code className="min-w-0 flex-1 truncate font-mono text-sm text-foreground">
+      <code className="min-w-0 flex-1 truncate font-mono text-[13px] text-foreground sm:text-sm">
         {command}
       </code>
-      <Button type="button" variant="outline" size="sm" onClick={handleCopy}>
-        {copied ? "Copied" : "Copy"}
-      </Button>
+      <CopyButton value={command} size="sm" variant="outline" />
     </div>
   );
 }

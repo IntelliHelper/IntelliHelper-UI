@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Empty,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyTitle,
+} from "@intelli/ui";
 import { DocWorkspace } from "./doc-workspace";
 import { getExamples } from "../lib/examples";
 
@@ -12,9 +18,15 @@ export function ComponentExamples({ slug }: ComponentExamplesProps) {
 
   if (examples.length === 0) {
     return (
-      <p className="rounded-xl border border-dashed border-[var(--glass-chrome-border)] px-6 py-12 text-center text-sm text-muted-foreground">
-        Examples for this component are coming soon.
-      </p>
+      <Empty variant="outline" animated={false} className="py-14">
+        <EmptyHeader>
+          <EmptyTitle>Examples coming soon</EmptyTitle>
+          <EmptyDescription>
+            Live previews for this component are still being prepared. You can
+            still install it with the CLI above.
+          </EmptyDescription>
+        </EmptyHeader>
+      </Empty>
     );
   }
 

@@ -51,7 +51,7 @@ export function websiteJsonLd(): JsonLd {
       "@type": "SearchAction",
       target: {
         "@type": "EntryPoint",
-        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+        urlTemplate: `${SITE_URL}/components?q={search_term_string}`,
       },
       "query-input": "required name=search_term_string",
     },
@@ -441,7 +441,7 @@ export function categoryItemListJsonLd(category: ComponentCategory): JsonLd {
   };
 }
 
-/** Root graph for homepage — one script, cleaner crawler parsing */
+/** Root graph for marketing homepage — one script, cleaner crawler parsing */
 export function homeGraphJsonLd(): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -454,6 +454,25 @@ export function homeGraphJsonLd(): JsonLd {
         name: "Free Liquid Glass React Components for Next.js & Tailwind CSS",
         description: DEFAULT_DESCRIPTION,
         path: "/",
+        type: "WebPage",
+      }),
+    ].map((node) => {
+      const rest = { ...node };
+      delete rest["@context"];
+      return rest;
+    }),
+  };
+}
+
+/** Catalog index at /components */
+export function catalogGraphJsonLd(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@graph": [
+      webPageJsonLd({
+        name: `${SITE_NAME} Component Catalog`,
+        description: `Complete catalog of ${CATALOG.length} Liquid Glass React components for Next.js and Tailwind CSS.`,
+        path: "/components",
         type: "CollectionPage",
       }),
       itemListJsonLd(),

@@ -100,7 +100,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="mono" className="light" suppressHydrationWarning>
-      <body className="min-h-screen antialiased px-4 pt-4">
+      <body className="min-h-screen antialiased px-3 pt-2 sm:px-4 sm:pt-3">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-background focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-foreground focus:shadow-lg"

@@ -1,7 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+} from "@intelli/ui";
 import { JsonLd } from "../../../../components/json-ld";
+import { PageHeader } from "../../../../components/page-header";
 import { getAllGuideSlugs, getGuide, GUIDES } from "../../../../lib/guides";
 import {
   guideArticleJsonLd,
@@ -55,50 +66,29 @@ export default async function GuidePage({ params }: PageProps) {
   return (
     <>
       <JsonLd
-        data={[
-          guideBreadcrumbJsonLd(guide),
-          guideArticleJsonLd(guide),
-        ]}
+        data={[guideBreadcrumbJsonLd(guide), guideArticleJsonLd(guide)]}
       />
       <article className="mx-auto max-w-3xl space-y-8 pb-8">
-        <header className="space-y-4">
-          <nav
-            aria-label="Breadcrumb"
-            className="flex flex-wrap items-center gap-2 text-sm"
-          >
-            <Link
-              href="/"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Home
-            </Link>
-            <span className="text-muted-foreground/50">/</span>
-            <Link
-              href="/guides"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Guides
-            </Link>
-            <span className="text-muted-foreground/50">/</span>
-            <span className="font-medium text-foreground line-clamp-1">
-              {guide.title}
+        <PageHeader
+          breadcrumbs={[
+            { label: "Home", href: "/" },
+            { label: "Guides", href: "/guides" },
+            { label: guide.title },
+          ]}
+          meta={
+            <span className="inline-flex flex-wrap items-center gap-2">
+              <Badge variant="secondary" size="sm">
+                {guide.readingMinutes} min read
+              </Badge>
+              <span>Updated {guide.dateModified}</span>
             </span>
-          </nav>
-
-          <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-            Guide · {guide.readingMinutes} min read · Updated{" "}
-            {guide.dateModified}
-          </p>
-          <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-            {guide.title}
-          </h1>
-          <p className="text-base leading-relaxed text-muted-foreground">
-            {guide.description}
-          </p>
-        </header>
+          }
+          title={guide.title}
+          description={guide.description}
+        />
 
         <div className="space-y-10">
-          {guide.sections.map((section) => (
+          {guide.sections.map((section, index) => (
             <section
               key={section.heading}
               className="space-y-3"
@@ -106,6 +96,9 @@ export default async function GuidePage({ params }: PageProps) {
                 .toLowerCase()
                 .replace(/[^a-z0-9]+/g, "-")}
             >
+              {index > 0 ? (
+                <Separator variant="subtle" className="mb-8" />
+              ) : null}
               <h2
                 id={section.heading.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
                 className="text-xl font-semibold tracking-tight text-foreground"
@@ -128,7 +121,7 @@ export default async function GuidePage({ params }: PageProps) {
                 </ul>
               ) : null}
               {section.code ? (
-                <pre className="glass-panel overflow-x-auto rounded-xl p-4 text-xs leading-relaxed text-foreground">
+                <pre className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] p-4 text-xs leading-relaxed text-foreground">
                   <code>{section.code}</code>
                 </pre>
               ) : null}
@@ -136,48 +129,55 @@ export default async function GuidePage({ params }: PageProps) {
           ))}
         </div>
 
-        <aside className="glass-panel space-y-3 rounded-2xl p-6 text-sm text-muted-foreground">
-          <p className="font-medium text-foreground">Ship it</p>
-          <p>
-            <Link
-              href="/getting-started"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              Getting started
-            </Link>{" "}
-            ·{" "}
-            <Link
-              href="/"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              Component catalog
-            </Link>{" "}
-            ·{" "}
-            <Link
-              href="/guides"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              All guides
-            </Link>
-          </p>
-        </aside>
+        <Card variant="chrome" animated={false}>
+          <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="text-sm font-medium text-foreground">Ship it</p>
+              <p className="mt-0.5 text-sm text-muted-foreground">
+                Install the library or open the catalog.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button asChild size="sm" variant="primary">
+                <Link href="/getting-started">Getting started</Link>
+              </Button>
+              <Button asChild size="sm" variant="outline">
+                <Link href="/components">Components</Link>
+              </Button>
+              <Button asChild size="sm" variant="ghost">
+                <Link href="/guides">All guides</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
 
         {related.length > 0 ? (
           <section aria-labelledby="related-guides" className="space-y-3">
             <h2
               id="related-guides"
-              className="text-lg font-semibold text-foreground"
+              className="text-base font-semibold text-foreground"
             >
               Related guides
             </h2>
-            <ul className="space-y-2">
+            <ul className="grid gap-3 sm:grid-cols-1">
               {related.map((g) => (
                 <li key={g.slug}>
                   <Link
                     href={`/guides/${g.slug}`}
-                    className="text-sm font-medium text-foreground underline-offset-4 hover:underline"
+                    className="group block rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-ring/40"
                   >
-                    {g.title}
+                    <Card
+                      variant="outline"
+                      animated={false}
+                      className="transition-colors group-hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)]"
+                    >
+                      <CardHeader className="p-4">
+                        <CardTitle className="text-sm">{g.title}</CardTitle>
+                        <CardDescription className="line-clamp-2 text-xs">
+                          {g.description}
+                        </CardDescription>
+                      </CardHeader>
+                    </Card>
                   </Link>
                 </li>
               ))}

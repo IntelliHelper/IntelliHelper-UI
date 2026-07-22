@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { CopyButton } from "@intelli/ui";
 
 const MCP_INIT_COMMANDS = [
   {
@@ -86,40 +86,23 @@ const PROMPTS = [
   "Search IntelliHelper UI for form inputs",
 ] as const;
 
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-
-  async function handleCopy() {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2000);
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="shrink-0 rounded-lg border border-border/60 bg-background/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
-    >
-      {copied ? "Copied" : "Copy"}
-    </button>
-  );
-}
+const blockClass =
+  "rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] p-4";
 
 function CodeBlock({ code, label }: { code: string; label?: string }) {
   return (
-    <div className="rounded-xl border border-border/50 bg-background/30 p-4">
+    <div className={blockClass}>
       {label ? (
         <div className="mb-2 flex items-center justify-between gap-3">
           <p className="text-sm font-medium text-foreground">{label}</p>
-          <CopyButton text={code} />
+          <CopyButton value={code} size="sm" variant="outline" />
         </div>
       ) : (
         <div className="mb-2 flex justify-end">
-          <CopyButton text={code} />
+          <CopyButton value={code} size="sm" variant="outline" />
         </div>
       )}
-      <pre className="overflow-x-auto rounded-lg bg-background/60 px-3 py-2 font-mono text-xs text-foreground whitespace-pre">
+      <pre className="overflow-x-auto rounded-lg bg-[color-mix(in_oklch,var(--background)_55%,transparent)] px-3 py-2 font-mono text-xs text-foreground whitespace-pre">
         <code>{code}</code>
       </pre>
     </div>
@@ -130,7 +113,7 @@ export function McpGettingStarted() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           Connect coding agents to the IntelliHelper UI registry over MCP
           (Model Context Protocol). Agents can browse components, inspect
           source, pull usage examples, and get install commands — the same
@@ -154,12 +137,12 @@ export function McpGettingStarted() {
         </p>
         <p className="text-xs text-muted-foreground">
           Server name:{" "}
-          <code className="rounded bg-background/60 px-1.5 py-0.5 font-mono text-foreground">
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
             intellihelper-ui
           </code>
           {" · "}
           Package:{" "}
-          <code className="rounded bg-background/60 px-1.5 py-0.5 font-mono text-foreground">
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
             @intellihelper/cli
           </code>
         </p>
@@ -175,10 +158,7 @@ export function McpGettingStarted() {
         </p>
         <div className="space-y-3">
           {MCP_INIT_COMMANDS.map((item) => (
-            <div
-              key={item.command}
-              className="rounded-xl border border-border/50 bg-background/30 p-4"
-            >
+            <div key={item.command} className={blockClass}>
               <div className="mb-2 flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm font-medium text-foreground">
@@ -191,9 +171,9 @@ export function McpGettingStarted() {
                     </code>
                   </p>
                 </div>
-                <CopyButton text={item.command} />
+                <CopyButton value={item.command} size="sm" variant="outline" />
               </div>
-              <pre className="overflow-x-auto rounded-lg bg-background/60 px-3 py-2 font-mono text-xs text-foreground">
+              <pre className="overflow-x-auto rounded-lg bg-[color-mix(in_oklch,var(--background)_55%,transparent)] px-3 py-2 font-mono text-xs text-foreground">
                 <code>{item.command}</code>
               </pre>
             </div>
@@ -205,8 +185,14 @@ export function McpGettingStarted() {
         <h3 className="text-sm font-semibold text-foreground">
           2. Manual config examples
         </h3>
-        <CodeBlock label="Cursor / Claude (.cursor/mcp.json or .mcp.json)" code={CURSOR_CONFIG} />
-        <CodeBlock label="Grok Build CLI (~/.grok/config.toml or .grok/config.toml)" code={GROK_CONFIG} />
+        <CodeBlock
+          label="Cursor / Claude (.cursor/mcp.json or .mcp.json)"
+          code={CURSOR_CONFIG}
+        />
+        <CodeBlock
+          label="Grok Build CLI (~/.grok/config.toml or .grok/config.toml)"
+          code={GROK_CONFIG}
+        />
       </div>
 
       <div className="space-y-3">
@@ -217,10 +203,7 @@ export function McpGettingStarted() {
         </p>
         <ul className="space-y-2">
           {MCP_TOOLS.map((tool) => (
-            <li
-              key={tool.name}
-              className="rounded-lg border border-border/40 bg-background/20 px-3 py-2"
-            >
+            <li key={tool.name} className={blockClass + " !p-3"}>
               <code className="text-xs font-medium text-foreground">
                 {tool.name}
               </code>

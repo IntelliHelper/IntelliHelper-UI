@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Button } from "@intelli/ui";
+import {
+  Button,
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "@intelli/ui";
 import { createPageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
@@ -12,26 +20,29 @@ export const metadata: Metadata = createPageMetadata({
 
 export default function NotFound() {
   return (
-    <div className="mx-auto flex min-h-[60vh] max-w-lg flex-col items-center justify-center gap-6 text-center">
-      <div className="space-y-2">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground">
-          404
-        </p>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Page not found
-        </h1>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          This component or page does not exist in the Intelli UI playground.
-        </p>
-      </div>
-      <div className="flex flex-wrap justify-center gap-3">
-        <Button asChild>
-          <Link href="/">Browse components</Link>
-        </Button>
-        <Button asChild variant="outline">
-          <Link href="/getting-started">Getting started</Link>
-        </Button>
-      </div>
+    <div className="mx-auto flex min-h-[70vh] max-w-lg items-center justify-center px-4">
+      <Empty variant="chrome" animated={false} className="w-full">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <span className="text-sm font-semibold tabular-nums">404</span>
+          </EmptyMedia>
+          <EmptyTitle>Page not found</EmptyTitle>
+          <EmptyDescription>
+            This component or page is not in the Intelli UI playground. Check the
+            URL or head back to the catalog.
+          </EmptyDescription>
+        </EmptyHeader>
+        <EmptyContent>
+          <div className="flex flex-wrap justify-center gap-2">
+            <Button asChild variant="primary">
+              <Link href="/components">Browse components</Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/getting-started">Getting started</Link>
+            </Button>
+          </div>
+        </EmptyContent>
+      </Empty>
     </div>
   );
 }

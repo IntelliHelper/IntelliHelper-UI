@@ -1,7 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import {
+  Badge,
+  Button,
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@intelli/ui";
 import { JsonLd } from "../../../../components/json-ld";
+import { PageHeader } from "../../../../components/page-header";
 import {
   CATEGORY_META,
   CATEGORY_ORDER,
@@ -64,99 +74,111 @@ export default async function CategoryPage({ params }: PageProps) {
         ]}
       />
       <div className="mx-auto max-w-4xl space-y-8 pb-8">
-        <header className="space-y-4">
-          <nav
-            aria-label="Breadcrumb"
-            className="flex flex-wrap items-center gap-2 text-sm"
-          >
-            <Link
-              href="/"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Components
-            </Link>
-            <span className="text-muted-foreground/50">/</span>
-            <span className="font-medium text-foreground">{meta.label}</span>
-          </nav>
-
-          <div className="space-y-2">
-            <p className="text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Category · Free React UI
-            </p>
-            <h1 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-              Free {meta.label} React Components for Next.js
-            </h1>
-            <p className="max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-base">
-              {meta.description}. {items.length} Liquid Glass React component
-              {items.length === 1 ? "" : "s"} for Next.js and Tailwind CSS —
-              install with{" "}
-              <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+        <PageHeader
+          breadcrumbs={[
+            { label: "Components", href: "/components" },
+            { label: meta.label },
+          ]}
+          meta={
+            <span className="inline-flex items-center gap-2">
+              <Badge variant="secondary" size="sm">
+                {items.length} component{items.length === 1 ? "" : "s"}
+              </Badge>
+              <span>Category</span>
+            </span>
+          }
+          title={meta.label}
+          description={
+            <>
+              {meta.description}. Install with{" "}
+              <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-xs">
                 npx {CLI_PACKAGE} add
               </code>
               .
-            </p>
-          </div>
-        </header>
+            </>
+          }
+        />
 
-        <section
-          className="glass-panel rounded-2xl p-6 md:p-8"
-          aria-labelledby="category-seo-intro"
-        >
-          <h2
-            id="category-seo-intro"
-            className="text-lg font-semibold text-foreground"
-          >
-            About {meta.label.toLowerCase()} in Liquid Glass
-          </h2>
-          <div className="mt-4 space-y-4 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+        <Card variant="chrome" animated={false}>
+          <CardHeader>
+            <CardTitle className="text-base">
+              About {meta.label.toLowerCase()}
+            </CardTitle>
+            <CardDescription>
+              How this category fits the Liquid Glass system
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
             {CATEGORY_SEO_INTRO[category].split("\n\n").map((paragraph) => (
               <p key={paragraph.slice(0, 48)}>{paragraph}</p>
             ))}
+          </CardContent>
+        </Card>
+
+        <section aria-labelledby="category-list" className="space-y-4">
+          <h2
+            id="category-list"
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
+            Components
+          </h2>
+          <Card variant="outline" animated={false}>
+            <ul className="divide-y divide-[color-mix(in_oklch,var(--glass-chrome-border)_70%,transparent)]">
+              {items.map((item) => (
+                <li key={item.slug}>
+                  <Link
+                    href={`/components/${item.slug}`}
+                    className="group flex flex-col gap-1 px-5 py-4 transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+                  >
+                    <span className="text-sm font-medium text-foreground">
+                      {item.title}
+                    </span>
+                    <span className="text-sm text-muted-foreground sm:max-w-md sm:text-right">
+                      {item.description}
+                    </span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </Card>
+        </section>
+
+        <Card variant="chrome" animated={false}>
+          <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-muted-foreground">
+              Looking for something else?
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <Button asChild size="sm" variant="outline">
+                <Link href="/components">Full catalog</Link>
+              </Button>
+              <Button asChild size="sm" variant="ghost">
+                <Link href="/getting-started">Getting started</Link>
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Other categories */}
+        <section className="space-y-3" aria-labelledby="other-categories">
+          <h2
+            id="other-categories"
+            className="text-sm font-semibold text-foreground"
+          >
+            Other categories
+          </h2>
+          <div className="flex flex-wrap gap-2">
+            {CATEGORY_ORDER.filter((c) => c !== category).map((c) => (
+              <Link
+                key={c}
+                href={`/categories/${c}`}
+                className="inline-flex rounded-full border border-[var(--glass-chrome-border)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {CATEGORY_META[c].label}
+              </Link>
+            ))}
           </div>
         </section>
-
-        <section className="glass-panel rounded-2xl p-6" aria-labelledby="category-list">
-          <h2 id="category-list" className="text-lg font-semibold text-foreground">
-            All {meta.label.toLowerCase()} components
-          </h2>
-          <ul className="mt-5 divide-y divide-border/60">
-            {items.map((item) => (
-              <li key={item.slug}>
-                <Link
-                  href={`/components/${item.slug}`}
-                  className="group flex flex-col gap-1 py-4 transition-colors sm:flex-row sm:items-center sm:justify-between"
-                >
-                  <span className="font-medium text-foreground group-hover:text-primary">
-                    {item.title}
-                  </span>
-                  <span className="text-sm text-muted-foreground sm:max-w-md sm:text-right">
-                    {item.description}
-                  </span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <aside className="glass-panel rounded-2xl p-6 text-sm text-muted-foreground">
-          <p>
-            Looking for something else?{" "}
-            <Link
-              href="/"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              Browse the full catalog
-            </Link>{" "}
-            or read the{" "}
-            <Link
-              href="/getting-started"
-              className="font-medium text-foreground underline-offset-4 hover:underline"
-            >
-              getting started guide
-            </Link>
-            .
-          </p>
-        </aside>
       </div>
     </>
   );
