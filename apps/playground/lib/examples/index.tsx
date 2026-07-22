@@ -1442,13 +1442,17 @@ const { mode, setMode } = useTheme()
   ],
   spinner: [
     {
-      title: "Loading states",
+      title: "Spinner types",
       preview: <SpinnerDemo />,
       code: `import { Spinner } from "@/components/ui/spinner"
 
+{/* Arc (default), ring, dots, bars, pulse, apple */}
 <Spinner />
-<Spinner variant="primary" size="lg" />
-<Spinner variant="chrome" size="xl" />`,
+<Spinner type="ring" variant="primary" />
+<Spinner type="dots" variant="chrome" />
+<Spinner type="bars" variant="muted" />
+<Spinner type="pulse" size="lg" />
+<Spinner type="apple" variant="chrome" size="lg" />`,
     },
   ],
   progress: [

@@ -268,7 +268,11 @@ export function PlaygroundScreen() {
               <Skeleton width={120} height={16} />
               <Skeleton width={48} height={48} rounded="full" />
               <Spinner />
-              <Spinner variant="primary" size="lg" />
+              <Spinner type="ring" variant="primary" />
+              <Spinner type="dots" variant="chrome" />
+              <Spinner type="bars" size="lg" />
+              <Spinner type="pulse" variant="primary" size="lg" />
+              <Spinner type="apple" variant="chrome" size="lg" />
             </Row>
             <Progress value={progress} />
             <Row>

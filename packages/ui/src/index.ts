@@ -493,7 +493,12 @@ export {
   PaginationEllipsis,
 } from "./pagination";
 export { Separator, separatorVariants, type SeparatorProps } from "./separator";
-export { Spinner, spinnerVariants, type SpinnerProps } from "./spinner";
+export {
+  Spinner,
+  spinnerVariants,
+  type SpinnerProps,
+  type SpinnerType,
+} from "./spinner";
 export {
   Progress,
   progressVariants,

@@ -68,10 +68,21 @@ export function SeparatorDemo() {
 
 export function SpinnerDemo() {
   return (
-    <div className="flex items-center gap-4">
-      <Spinner />
-      <Spinner variant="primary" size="lg" />
-      <Spinner variant="chrome" size="xl" />
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap items-center gap-4">
+        <Spinner />
+        <Spinner type="ring" variant="primary" />
+        <Spinner type="dots" variant="chrome" />
+        <Spinner type="bars" variant="muted" />
+        <Spinner type="pulse" variant="primary" size="lg" />
+        <Spinner type="apple" variant="chrome" size="lg" />
+      </div>
+      <div className="flex flex-wrap items-center gap-4">
+        <Spinner size="sm" />
+        <Spinner type="ring" size="default" />
+        <Spinner type="dots" size="lg" />
+        <Spinner type="bars" size="xl" variant="chrome" />
+      </div>
     </div>
   );
 }
