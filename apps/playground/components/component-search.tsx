@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Button } from "@intelli/ui";
+import { Button, Empty, EmptyDescription, EmptyHeader, EmptyTitle, Kbd } from "@intelli/ui";
 import { CATALOG, CATEGORY_META, type CatalogItem } from "../lib/catalog";
 
 function SearchIcon() {
@@ -24,14 +24,6 @@ function SearchIcon() {
   );
 }
 
-function CommandIcon() {
-  return (
-    <kbd className="hidden rounded-md border border-border/60 bg-background/50 px-1.5 py-0.5 font-mono text-[10px] text-muted-foreground sm:inline">
-      ⌘K
-    </kbd>
-  );
-}
-
 type ComponentSearchProps = {
   onNavigate?: () => void;
 };
@@ -39,7 +31,9 @@ type ComponentSearchProps = {
 export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
 
   const results = useMemo(() => {
     const normalized = query.trim().toLowerCase();
@@ -54,6 +48,7 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
     );
   }, [query]);
 
+  const flatResults = results;
   const grouped = useMemo(() => {
     const map = new Map<string, CatalogItem[]>();
     for (const item of results) {
@@ -68,6 +63,7 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
   const close = useCallback(() => {
     setOpen(false);
     setQuery("");
+    setActiveIndex(0);
     onNavigate?.();
   }, [onNavigate]);
 
@@ -77,21 +73,52 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
         event.preventDefault();
         setOpen(true);
       }
-      if (event.key === "Escape") {
+      if (event.key === "Escape" && open) {
         setOpen(false);
         setQuery("");
+        setActiveIndex(0);
       }
     }
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, []);
+  }, [open]);
 
   useEffect(() => {
     if (open) {
       inputRef.current?.focus();
+      setActiveIndex(0);
     }
   }, [open]);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [query]);
+
+  useEffect(() => {
+    if (!open) return;
+    const el = listRef.current?.querySelector<HTMLElement>(
+      `[data-search-index="${activeIndex}"]`,
+    );
+    el?.scrollIntoView({ block: "nearest" });
+  }, [activeIndex, open]);
+
+  function handleInputKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === "ArrowDown") {
+      event.preventDefault();
+      setActiveIndex((i) => Math.min(i + 1, Math.max(flatResults.length - 1, 0)));
+    } else if (event.key === "ArrowUp") {
+      event.preventDefault();
+      setActiveIndex((i) => Math.max(i - 1, 0));
+    } else if (event.key === "Enter" && flatResults[activeIndex]) {
+      event.preventDefault();
+      const item = flatResults[activeIndex];
+      close();
+      window.location.href = `/components/${item.slug}`;
+    }
+  }
+
+  let runningIndex = -1;
 
   return (
     <>
@@ -104,13 +131,13 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
         aria-label="Search components"
       >
         <SearchIcon />
-        <span className="hidden sm:inline">Find a component</span>
-        <CommandIcon />
+        <span className="hidden sm:inline">Search</span>
+        <Kbd className="hidden sm:inline-flex">⌘K</Kbd>
       </Button>
 
       {open ? (
         <div
-          className="fixed inset-0 z-[var(--z-modal)] flex items-start justify-center bg-background/60 p-4 pt-[12vh] backdrop-blur-sm"
+          className="fixed inset-0 z-[var(--z-modal)] flex items-start justify-center bg-background/55 p-4 pt-[10vh] backdrop-blur-sm sm:pt-[12vh]"
           onClick={close}
           role="presentation"
         >
@@ -118,6 +145,7 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
             className="glass-panel w-full max-w-xl overflow-hidden rounded-2xl shadow-2xl"
             onClick={(event) => event.stopPropagation()}
             role="dialog"
+            aria-modal="true"
             aria-label="Search components"
           >
             <div className="flex items-center gap-3 border-b border-[var(--glass-chrome-border)] px-4 py-3">
@@ -126,46 +154,84 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
                 ref={inputRef}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search by name, category, or keyword…"
+                onKeyDown={handleInputKeyDown}
+                placeholder="Search components…"
                 className="min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none placeholder:text-muted-foreground"
+                aria-autocomplete="list"
+                aria-controls="component-search-results"
               />
-              <Button type="button" variant="ghost" size="sm" onClick={close}>
-                Esc
-              </Button>
+              <Kbd>Esc</Kbd>
             </div>
 
-            <div className="max-h-[50vh] overflow-y-auto p-2">
+            <div
+              id="component-search-results"
+              ref={listRef}
+              className="max-h-[min(50vh,22rem)] overflow-y-auto p-2"
+              role="listbox"
+            >
               {results.length === 0 ? (
-                <p className="px-3 py-6 text-center text-sm text-muted-foreground">
-                  No components match &ldquo;{query}&rdquo;
-                </p>
+                <Empty variant="outline" animated={false} className="border-0 py-10">
+                  <EmptyHeader>
+                    <EmptyTitle>No results</EmptyTitle>
+                    <EmptyDescription>
+                      Nothing matches &ldquo;{query}&rdquo;. Try a category name
+                      or slug.
+                    </EmptyDescription>
+                  </EmptyHeader>
+                </Empty>
               ) : (
                 Array.from(grouped.entries()).map(([category, items]) => (
-                  <div key={category} className="mb-2">
-                    <p className="px-3 py-1.5 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                  <div key={category} className="mb-1.5">
+                    <p className="px-3 py-1.5 text-[11px] font-medium text-muted-foreground">
                       {category}
                     </p>
                     <ul>
-                      {items.map((item) => (
-                        <li key={item.slug}>
-                          <Link
-                            href={`/components/${item.slug}`}
-                            onClick={close}
-                            className="flex flex-col gap-0.5 rounded-xl px-3 py-2.5 transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_30%,transparent)]"
-                          >
-                            <span className="text-sm font-medium text-foreground">
-                              {item.title}
-                            </span>
-                            <span className="line-clamp-1 text-xs text-muted-foreground">
-                              {item.description}
-                            </span>
-                          </Link>
-                        </li>
-                      ))}
+                      {items.map((item) => {
+                        runningIndex += 1;
+                        const index = runningIndex;
+                        const isActive = index === activeIndex;
+                        return (
+                          <li key={item.slug} role="option" aria-selected={isActive}>
+                            <Link
+                              href={`/components/${item.slug}`}
+                              data-search-index={index}
+                              onClick={close}
+                              onMouseEnter={() => setActiveIndex(index)}
+                              className={
+                                isActive
+                                  ? "flex flex-col gap-0.5 rounded-xl bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-2.5"
+                                  : "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_24%,transparent)]"
+                              }
+                            >
+                              <span className="text-sm font-medium text-foreground">
+                                {item.title}
+                              </span>
+                              <span className="line-clamp-1 text-xs text-muted-foreground">
+                                {item.description}
+                              </span>
+                            </Link>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 ))
               )}
+            </div>
+
+            <div className="flex items-center gap-3 border-t border-[var(--glass-chrome-border)] px-4 py-2 text-[11px] text-muted-foreground">
+              <span className="inline-flex items-center gap-1">
+                <Kbd>↑</Kbd>
+                <Kbd>↓</Kbd>
+                navigate
+              </span>
+              <span className="inline-flex items-center gap-1">
+                <Kbd>↵</Kbd>
+                open
+              </span>
+              <span className="ml-auto tabular-nums">
+                {results.length} result{results.length === 1 ? "" : "s"}
+              </span>
             </div>
           </div>
         </div>

@@ -115,21 +115,24 @@ export function DocWorkspace({
     <section
       className={cn(
         "isolate min-w-0 overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]",
+        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_10%,transparent)]",
         "shadow-[var(--glass-chrome-shadow)]",
         className,
       )}
     >
-      {/* Header */}
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] px-4 py-3 md:px-5">
+      {/* Header — quiet chrome toolbar */}
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)] px-4 py-3 md:px-5">
         <div className="min-w-0 flex-1">
-          <h3 className="text-sm font-semibold text-foreground">{title}</h3>
+          <h3 className="text-sm font-semibold tracking-tight text-foreground">
+            {title}
+          </h3>
           {description ? (
             <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
               {description}
             </p>
           ) : null}
         </div>
-        <div className="flex shrink-0 items-center gap-2">
+        <div className="flex shrink-0 items-center gap-1.5">
           <Button
             type="button"
             variant="outline"

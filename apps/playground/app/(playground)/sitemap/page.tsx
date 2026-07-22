@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+  Separator,
+} from "@intelli/ui";
+import { PageHeader } from "../../../components/page-header";
+import {
   CATEGORY_META,
   CATEGORY_ORDER,
   getCatalogByCategory,
@@ -21,112 +30,119 @@ export default function SitemapPage() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-8 pb-8">
-      <header className="space-y-2">
-        <Link
-          href="/"
-          className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-        >
-          ← All components
-        </Link>
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">
-          Sitemap
-        </h1>
-        <p className="text-sm leading-relaxed text-muted-foreground">
-          Every public page on Intelli UI. Search engines can also use the{" "}
-          <Link
-            href="/sitemap.xml"
-            className="font-medium text-foreground underline-offset-4 hover:underline"
-          >
-            XML sitemap
-          </Link>
-          ,{" "}
-          <Link
-            href="/rss.xml"
-            className="font-medium text-foreground underline-offset-4 hover:underline"
-          >
-            RSS feed
-          </Link>
-          , and{" "}
-          <a
-            href="/llms.txt"
-            className="font-medium text-foreground underline-offset-4 hover:underline"
-          >
-            llms.txt
-          </a>
-          .
-        </p>
-      </header>
-
-      <section className="glass-panel rounded-2xl p-6">
-        <h2 className="text-lg font-semibold text-foreground">Pages</h2>
-        <ul className="mt-4 space-y-2">
-          <li>
+      <PageHeader
+        breadcrumbs={[
+          { label: "Home", href: "/" },
+          { label: "Sitemap" },
+        ]}
+        title="Sitemap"
+        description={
+          <>
+            Every public page on Intelli UI. Machines can also use the{" "}
             <Link
-              href="/"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              href="/sitemap.xml"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
             >
-              Home
+              XML sitemap
             </Link>
-          </li>
-          <li>
+            ,{" "}
             <Link
-              href="/getting-started"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              href="/rss.xml"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
             >
-              Getting started
+              RSS feed
             </Link>
-          </li>
-          <li>
-            <Link
-              href="/guides"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            , and{" "}
+            <a
+              href="/llms.txt"
+              className="font-medium text-foreground underline-offset-4 hover:underline"
             >
-              Guides
-            </Link>
-          </li>
-        </ul>
-      </section>
+              llms.txt
+            </a>
+            .
+          </>
+        }
+      />
 
-      <section className="glass-panel rounded-2xl p-6">
-        <h2 className="text-lg font-semibold text-foreground">Guides</h2>
-        <ul className="mt-4 space-y-2">
-          {GUIDES.map((guide) => (
-            <li key={guide.slug}>
-              <Link
-                href={`/guides/${guide.slug}`}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {guide.title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Card variant="chrome" animated={false}>
+        <CardHeader>
+          <CardTitle className="text-base">Pages</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2 text-sm">
+            {[
+              { href: "/", label: "Home" },
+              { href: "/components", label: "Components" },
+              { href: "/getting-started", label: "Getting started" },
+              { href: "/guides", label: "Guides" },
+            ].map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
 
-      <section className="glass-panel rounded-2xl p-6">
-        <h2 className="text-lg font-semibold text-foreground">Categories</h2>
-        <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
-          {CATEGORY_ORDER.map((category) => (
-            <li key={category}>
-              <Link
-                href={`/categories/${category}`}
-                className="text-sm text-muted-foreground transition-colors hover:text-foreground"
-              >
-                {CATEGORY_META[category].label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Card variant="chrome" animated={false}>
+        <CardHeader>
+          <CardTitle className="text-base">Guides</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="space-y-2 text-sm">
+            {GUIDES.map((guide) => (
+              <li key={guide.slug}>
+                <Link
+                  href={`/guides/${guide.slug}`}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {guide.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
 
-      <section className="glass-panel rounded-2xl p-6">
-        <h2 className="text-lg font-semibold text-foreground">Components</h2>
-        <ul className="mt-5 space-y-6">
-          {CATEGORY_ORDER.map((category) => {
+      <Card variant="chrome" animated={false}>
+        <CardHeader>
+          <CardTitle className="text-base">Categories</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <ul className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+            {CATEGORY_ORDER.map((category) => (
+              <li key={category}>
+                <Link
+                  href={`/categories/${category}`}
+                  className="text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {CATEGORY_META[category].label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card variant="chrome" animated={false}>
+        <CardHeader>
+          <CardTitle className="text-base">Components</CardTitle>
+          <CardDescription>Grouped by category</CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-0">
+          {CATEGORY_ORDER.map((category, index) => {
             const items = grouped[category];
             if (!items.length) return null;
             return (
-              <li key={category}>
+              <div key={category}>
+                {index > 0 ? (
+                  <Separator className="my-5" variant="subtle" />
+                ) : null}
                 <p className="text-sm font-medium text-foreground">
                   <Link
                     href={`/categories/${category}`}
@@ -135,7 +151,7 @@ export default function SitemapPage() {
                     {CATEGORY_META[category].label}
                   </Link>
                 </p>
-                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-2">
+                <ul className="mt-2 flex flex-wrap gap-x-4 gap-y-1.5">
                   {items.map((item) => (
                     <li key={item.slug}>
                       <Link
@@ -147,11 +163,11 @@ export default function SitemapPage() {
                     </li>
                   ))}
                 </ul>
-              </li>
+              </div>
             );
           })}
-        </ul>
-      </section>
+        </CardContent>
+      </Card>
     </div>
   );
 }

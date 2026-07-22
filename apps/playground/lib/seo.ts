@@ -234,7 +234,8 @@ export function buildLlmsText(): string {
 
 ## Overview
 
-- [Home](${absoluteUrl("/")}): Browse the full component catalog with live previews.
+- [Home](${absoluteUrl("/")}): Marketing landing for Liquid Glass React components, CLI, and agent tooling.
+- [Components](${absoluteUrl("/components")}): Full component catalog with live previews, search, and install commands.
 - [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI, agent plugin, or MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
 - [Guides](${absoluteUrl("/guides")}): Liquid Glass tutorials and shadcn comparison articles.
 - [Agent plugin](${absoluteUrl("/getting-started#plugin")}): One-step install for Claude Code, Grok, Codex, Gemini (skills + MCP + commands).

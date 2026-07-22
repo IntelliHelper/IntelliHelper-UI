@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { CopyButton } from "@intelli/ui";
 import { AGENT_SKILLS_REPO, AGENT_SKILLS_URL } from "../lib/seo";
 
 const PLUGIN_INSTALLS = [
@@ -74,25 +74,8 @@ const PROMPTS = [
   "Audit this project for IntelliHelper setup",
 ] as const;
 
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-
-  async function handleCopy() {
-    await navigator.clipboard.writeText(text);
-    setCopied(true);
-    window.setTimeout(() => setCopied(false), 2000);
-  }
-
-  return (
-    <button
-      type="button"
-      onClick={handleCopy}
-      className="shrink-0 rounded-lg border border-border/60 bg-background/50 px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-background hover:text-foreground"
-    >
-      {copied ? "Copied" : "Copy"}
-    </button>
-  );
-}
+const blockClass =
+  "rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] p-4";
 
 function CommandBlock({
   label,
@@ -105,15 +88,15 @@ function CommandBlock({
 }) {
   const text = commands.join("\n");
   return (
-    <div className="rounded-xl border border-border/50 bg-background/30 p-4">
+    <div className={blockClass}>
       <div className="mb-2 flex items-start justify-between gap-3">
         <div>
           <p className="text-sm font-medium text-foreground">{label}</p>
           <p className="mt-0.5 text-xs text-muted-foreground">{note}</p>
         </div>
-        <CopyButton text={text} />
+        <CopyButton value={text} size="sm" variant="outline" />
       </div>
-      <pre className="overflow-x-auto rounded-lg bg-background/60 px-3 py-2 font-mono text-xs text-foreground whitespace-pre">
+      <pre className="overflow-x-auto rounded-lg bg-[color-mix(in_oklch,var(--background)_55%,transparent)] px-3 py-2 font-mono text-xs text-foreground whitespace-pre">
         <code>{text}</code>
       </pre>
     </div>
@@ -124,7 +107,7 @@ export function PluginGettingStarted() {
   return (
     <div className="space-y-6">
       <div className="space-y-2">
-        <p className="text-sm text-muted-foreground">
+        <p className="text-sm leading-relaxed text-muted-foreground">
           Install the official{" "}
           <strong className="font-medium text-foreground">agent plugin</strong>{" "}
           for one-step setup across coding agents. It bundles{" "}
@@ -150,7 +133,7 @@ export function PluginGettingStarted() {
           </a>
           {" · "}
           Plugin:{" "}
-          <code className="rounded bg-background/60 px-1.5 py-0.5 font-mono text-foreground">
+          <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-foreground">
             intellihelper-ui
           </code>
           {" · "}
@@ -159,7 +142,7 @@ export function PluginGettingStarted() {
         </p>
       </div>
 
-      <div className="rounded-xl border border-border/50 bg-background/30 p-4">
+      <div className={blockClass}>
         <p className="text-sm font-medium text-foreground">Marketplace status</p>
         <ul className="mt-2 space-y-1.5 text-xs text-muted-foreground">
           <li>
@@ -231,15 +214,12 @@ export function PluginGettingStarted() {
         </h3>
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            <p className="mb-2 text-xs font-medium text-muted-foreground">
               Skills
             </p>
             <ul className="space-y-2">
               {PLUGIN_SKILLS.map((skill) => (
-                <li
-                  key={skill.name}
-                  className="rounded-lg border border-border/40 bg-background/20 px-3 py-2"
-                >
+                <li key={skill.name} className={blockClass + " !p-3"}>
                   <code className="text-xs font-medium text-foreground">
                     {skill.name}
                   </code>
@@ -251,15 +231,12 @@ export function PluginGettingStarted() {
             </ul>
           </div>
           <div>
-            <p className="mb-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+            <p className="mb-2 text-xs font-medium text-muted-foreground">
               Slash commands
             </p>
             <ul className="space-y-2">
               {PLUGIN_COMMANDS.map((cmd) => (
-                <li
-                  key={cmd.name}
-                  className="rounded-lg border border-border/40 bg-background/20 px-3 py-2"
-                >
+                <li key={cmd.name} className={blockClass + " !p-3"}>
                   <code className="text-xs font-medium text-foreground">
                     /{cmd.name}
                   </code>
