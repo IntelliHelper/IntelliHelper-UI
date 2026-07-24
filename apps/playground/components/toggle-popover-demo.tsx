@@ -226,13 +226,13 @@ export function PopoverDemo() {
           <div className="flex flex-col gap-1">
             <button
               type="button"
-              className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]"
+              className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]"
             >
               Duplicate
             </button>
             <button
               type="button"
-              className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]"
+              className="rounded-lg px-2 py-1.5 text-left text-sm transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]"
             >
               Move to folder
             </button>

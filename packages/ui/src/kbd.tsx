@@ -92,7 +92,7 @@ const kbdVariants = cva(
         chrome: [
           "rounded-[calc(var(--radius)-2px)] border",
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_75%,transparent)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_50%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
           "text-[var(--glass-chrome-fg)]",
           "shadow-[inset_0_1px_0_color-mix(in_oklch,white_18%,transparent)]",
         ],

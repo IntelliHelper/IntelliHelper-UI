@@ -47,7 +47,7 @@ export default async function ComponentsPage({
     <>
       <JsonLd data={catalogGraphJsonLd()} />
       <div className="space-y-10 pb-8">
-        <section className="relative overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] md:px-8 md:py-10">
+        <section className="relative overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] md:px-8 md:py-10">
           <div className="relative max-w-2xl space-y-5">
             <div className="flex flex-wrap items-center gap-2">
               <Badge variant="secondary" size="sm">
@@ -103,7 +103,7 @@ export default async function ComponentsPage({
               <li key={category}>
                 <Link
                   href={`/categories/${category}`}
-                  className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                  className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                 >
                   {CATEGORY_META[category].label}
                 </Link>

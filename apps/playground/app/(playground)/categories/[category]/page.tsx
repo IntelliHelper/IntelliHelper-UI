@@ -128,7 +128,7 @@ export default async function CategoryPage({ params }: PageProps) {
                 <li key={item.slug}>
                   <Link
                     href={`/components/${item.slug}`}
-                    className="group flex flex-col gap-1 px-5 py-4 transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] sm:flex-row sm:items-center sm:justify-between sm:gap-6"
+                    className="group flex flex-col gap-1 px-5 py-4 transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] sm:flex-row sm:items-center sm:justify-between sm:gap-6"
                   >
                     <span className="text-sm font-medium text-foreground">
                       {item.title}

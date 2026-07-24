@@ -23,7 +23,7 @@ const badgeVariants = cva(
         ],
         secondary: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_70%,transparent)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_42%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
           "text-[var(--glass-chrome-fg)]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-inset)]",

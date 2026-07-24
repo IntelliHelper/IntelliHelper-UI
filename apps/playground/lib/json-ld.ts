@@ -84,8 +84,10 @@ export function softwareApplicationJsonLd(): JsonLd {
     programmingLanguage: ["TypeScript", "JavaScript"],
     runtimePlatform: "React, Next.js",
     featureList: [
-      "Liquid Glass design system",
+      "Liquid Glass design system (chrome vs content layers)",
       `${CATALOG.length}+ React components`,
+      "Five themes: mono, aurora, sunset, frost, ocean",
+      "Glass primitives and AI product components",
       "Next.js and Tailwind CSS",
       `CLI install with npx ${CLI_PACKAGE}`,
       "Agent plugin for coding agents (IntelliHelper/agent-skills)",
@@ -243,10 +245,10 @@ export function gettingStartedFaqJsonLd(): JsonLd {
       },
       {
         "@type": "Question",
-        name: "Is Intelli UI a shadcn/ui alternative?",
+        name: "Is Intelli UI a shadcn/ui alternative? Why is it better?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Yes. Intelli UI follows a copy-paste registry workflow similar to shadcn/ui, with a Liquid Glass visual system, CLI, MCP, and an official agent plugin for coding agents.",
+          text: "Yes — same copy-paste ownership as shadcn/ui, with a stronger product system. Intelli UI ships Liquid Glass chrome vs content layers, five themes, glass primitives, AI product components (chat, streaming, reasoning), plus an official agent plugin and MCP for coding agents. Choose Intelli UI when glass hierarchy and agent-native install matter; choose shadcn when you only need a flat, neutral baseline.",
         },
       },
       {

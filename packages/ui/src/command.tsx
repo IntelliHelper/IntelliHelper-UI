@@ -75,7 +75,7 @@ const commandVariants = cva(
       variant: {
         chrome: "",
         elevated: [
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_58%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "text-foreground",
         ],
         outline: [

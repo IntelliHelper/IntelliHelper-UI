@@ -51,7 +51,7 @@ export function CliGettingStarted() {
         {commands.map((item, index) => (
           <li
             key={item.command}
-            className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] p-4"
+            className="rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-4"
           >
             <div className="mb-3 flex items-start justify-between gap-3">
               <div className="flex min-w-0 items-start gap-3">

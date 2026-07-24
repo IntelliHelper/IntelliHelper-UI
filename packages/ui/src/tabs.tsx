@@ -23,7 +23,7 @@ const tabsListVariants = cva(
         chrome: "glass-chrome glass-chrome-capsule",
         plain: [
           "rounded-2xl border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_25%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
       },

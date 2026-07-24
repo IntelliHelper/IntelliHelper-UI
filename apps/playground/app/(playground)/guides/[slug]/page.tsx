@@ -121,7 +121,7 @@ export default async function GuidePage({ params }: PageProps) {
                 </ul>
               ) : null}
               {section.code ? (
-                <pre className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] p-4 text-xs leading-relaxed text-foreground">
+                <pre className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] p-4 text-xs leading-relaxed text-foreground">
                   <code>{section.code}</code>
                 </pre>
               ) : null}
@@ -169,7 +169,7 @@ export default async function GuidePage({ params }: PageProps) {
                     <Card
                       variant="outline"
                       animated={false}
-                      className="transition-colors group-hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)]"
+                      className="transition-colors group-hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
                     >
                       <CardHeader className="p-4">
                         <CardTitle className="text-sm">{g.title}</CardTitle>

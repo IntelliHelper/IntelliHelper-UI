@@ -41,5 +41,8 @@ yarn-error.log*
 # Grok local config
 .grok/
 
+# Qoder local config
+.qoder/
+
 # Expo
 .expo/

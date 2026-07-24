@@ -38,74 +38,105 @@
   --radius-xl: var(--radius-xl);
 }
 
-/* Chrome layer — neutral functional glass (adapts per color mode) */
+/*
+ * Apple Liquid Glass materials
+ *
+ * CRITICAL: use baked-in alpha (oklch(... / a)), NEVER
+ *   color-mix(in oklch, var(--x) var(--pct), transparent)
+ * Percentage custom-properties in color-mix are unreliable after LightningCSS
+ * and often resolve as fully transparent in browsers.
+ *
+ * Also: do NOT put transform:translateZ(0) on sticky glass — it breaks
+ * backdrop-filter sampling of scrolled content in Chromium.
+ */
 :root.light {
-  --glass-surface-fill: color-mix(in oklch, white 82%, oklch(0.93 0 0) 18%);
-  /* Frosted capsule — same role as dark glass-chrome, tuned for light backgrounds */
-  --glass-chrome-bg: color-mix(in oklch, oklch(0.89 0 0) 82%, transparent);
-  --glass-chrome-bg-env: color-mix(
-    in oklch,
-    var(--glass-chrome-bg) 88%,
-    var(--mesh-1) 12%
-  );
+  /* Opaque base (for components that re-mix carefully) */
+  --glass-surface-fill: oklch(0.99 0 0);
+  /* Ready-to-use frosted fills — alpha baked in (Apple-like milky frost) */
+  --glass-panel-bg: oklch(0.99 0 0 / 0.78);
+  --glass-header-bg: oklch(0.99 0 0 / 0.72);
+  --glass-dialog-bg: oklch(0.99 0 0 / 0.7);
+  --glass-dialog-elevated-bg: oklch(0.99 0 0 / 0.82);
+  --glass-surface-bg: oklch(0.99 0 0 / 0.68);
+  --glass-surface-thin-bg: oklch(0.99 0 0 / 0.55);
+  --glass-surface-subtle-bg: oklch(0.99 0 0 / 0.4);
+  --glass-field-bg: oklch(0.97 0 0 / 0.65);
+  /* Weight tokens kept for ad-hoc Tailwind color-mix (numeric only — never var-in-var) */
+  --glass-fill-thick: 78%;
+  --glass-fill-regular: 72%;
+  --glass-fill-thin: 55%;
+  --glass-fill-ultra-thin: 40%;
+  /* Chrome capsule */
+  --glass-chrome-bg: oklch(0.97 0 0 / 0.75);
+  --glass-chrome-bg-env: oklch(0.97 0 0 / 0.78);
   --glass-chrome-fg: oklch(0.13 0 0);
-  --glass-chrome-fg-muted: oklch(0.42 0 0);
-  --glass-chrome-border: color-mix(in oklch, oklch(0.13 0 0) 14%, transparent);
-  --glass-chrome-blur: 24px;
+  --glass-chrome-fg-muted: oklch(0.4 0 0);
+  --glass-chrome-border: oklch(0.13 0 0 / 0.12);
+  --glass-chrome-blur: 5px;
   --glass-chrome-shadow:
-    0 1px 2px color-mix(in oklch, black 6%, transparent),
-    0 6px 24px color-mix(in oklch, black 10%, transparent);
-  --glass-chrome-inset: inset 0 1px 0 color-mix(in oklch, white 88%, transparent);
-  --glass-chrome-rim: 0 0 0 0.5px color-mix(in oklch, oklch(0.13 0 0) 12%, transparent);
-  /* Active pill — elevated white inside the gray capsule (mirrors dark's darker pill) */
-  --glass-chrome-indicator-bg: color-mix(in oklch, white 97%, transparent);
-  --glass-chrome-indicator-border: color-mix(in oklch, oklch(0.13 0 0) 10%, transparent);
+    0 1px 2px oklch(0 0 0 / 0.05),
+    0 8px 28px oklch(0 0 0 / 0.1);
+  --glass-chrome-inset: inset 0 1px 0 oklch(1 0 0 / 0.92);
+  --glass-chrome-rim: 0 0 0 0.5px oklch(0.13 0 0 / 0.1);
+  --glass-chrome-indicator-bg: oklch(1 0 0 / 0.96);
+  --glass-chrome-indicator-border: oklch(0.13 0 0 / 0.09);
   --glass-chrome-indicator-shadow:
-    0 1px 3px color-mix(in oklch, black 10%, transparent),
-    0 2px 8px color-mix(in oklch, black 8%, transparent),
-    inset 0 1px 0 color-mix(in oklch, white 94%, transparent),
+    0 1px 3px oklch(0 0 0 / 0.09),
+    0 2px 8px oklch(0 0 0 / 0.07),
+    inset 0 1px 0 oklch(1 0 0 / 0.96),
     var(--glass-chrome-rim);
-  /* Glass UI button — translucent frosted, high-contrast text */
-  --glass-button-ui-bg: color-mix(in oklch, white 44%, transparent);
-  --glass-button-ui-bg-hover: color-mix(in oklch, white 58%, transparent);
+  --glass-button-ui-bg: oklch(1 0 0 / 0.68);
+  --glass-button-ui-bg-hover: oklch(1 0 0 / 0.82);
   --glass-button-ui-fg: oklch(0.14 0 0);
-  --glass-button-ui-border: color-mix(in oklch, oklch(0.13 0 0) 18%, transparent);
-  --glass-scroll-thumb: color-mix(in oklch, oklch(0.45 0 0) 52%, transparent);
-  --glass-scroll-thumb-hover: color-mix(in oklch, oklch(0.35 0 0) 62%, transparent);
+  --glass-button-ui-border: oklch(0.13 0 0 / 0.14);
+  --glass-scroll-thumb: oklch(0.45 0 0 / 0.52);
+  --glass-scroll-thumb-hover: oklch(0.35 0 0 / 0.62);
   --glass-scroll-track: transparent;
+  /* Shared frost filter stack */
+  --glass-frost: blur(3px) saturate(180%);
+  --glass-frost-heavy: blur(5px) saturate(190%);
+  --glass-frost-chrome: blur(5px) saturate(180%);
 }
 
 :root.dark {
-  --glass-surface-fill: var(--card);
-  --glass-chrome-bg: color-mix(in oklch, oklch(0.28 0.02 270) 55%, transparent);
-  --glass-chrome-bg-env: color-mix(
-    in oklch,
-    var(--glass-chrome-bg) 90%,
-    var(--mesh-1) 10%
-  );
-  --glass-chrome-fg: oklch(0.95 0 0);
-  --glass-chrome-fg-muted: oklch(0.72 0.01 270);
-  --glass-chrome-border: color-mix(in oklch, white 14%, transparent);
-  --glass-chrome-blur: 28px;
-  --glass-chrome-shadow: 0 8px 36px color-mix(in oklch, black 40%, transparent);
-  --glass-chrome-inset: inset 0 1px 0 color-mix(in oklch, white 12%, transparent);
-  --glass-chrome-rim: 0 0 0 0.5px color-mix(in oklch, white 18%, transparent);
-  /* Active pill — darker inset inside frosted capsule (original dark look) */
-  --glass-chrome-indicator-bg: color-mix(
-    in oklch,
-    var(--glass-chrome-bg-env) 72%,
-    oklch(0.16 0.02 270) 28%
-  );
-  --glass-chrome-indicator-border: color-mix(in oklch, white 12%, transparent);
+  --glass-surface-fill: oklch(0.24 0.015 270);
+  /* Dense smoked glass — readable frost, not clear plastic */
+  --glass-panel-bg: oklch(0.24 0.015 270 / 0.78);
+  --glass-header-bg: oklch(0.24 0.015 270 / 0.72);
+  --glass-dialog-bg: oklch(0.24 0.015 270 / 0.74);
+  --glass-dialog-elevated-bg: oklch(0.26 0.015 270 / 0.84);
+  --glass-surface-bg: oklch(0.24 0.015 270 / 0.68);
+  --glass-surface-thin-bg: oklch(0.26 0.015 270 / 0.55);
+  --glass-surface-subtle-bg: oklch(0.28 0.015 270 / 0.4);
+  --glass-field-bg: oklch(0.28 0.018 270 / 0.62);
+  --glass-fill-thick: 78%;
+  --glass-fill-regular: 72%;
+  --glass-fill-thin: 55%;
+  --glass-fill-ultra-thin: 40%;
+  --glass-chrome-bg: oklch(0.3 0.018 270 / 0.72);
+  --glass-chrome-bg-env: oklch(0.3 0.018 270 / 0.75);
+  --glass-chrome-fg: oklch(0.96 0 0);
+  --glass-chrome-fg-muted: oklch(0.74 0.01 270);
+  --glass-chrome-border: oklch(1 0 0 / 0.16);
+  --glass-chrome-blur: 5px;
+  --glass-chrome-shadow:
+    0 4px 16px oklch(0 0 0 / 0.32),
+    0 12px 40px oklch(0 0 0 / 0.4);
+  --glass-chrome-inset: inset 0 1px 0 oklch(1 0 0 / 0.14);
+  --glass-chrome-rim: 0 0 0 0.5px oklch(1 0 0 / 0.2);
+  --glass-chrome-indicator-bg: oklch(0.18 0.02 270 / 0.9);
+  --glass-chrome-indicator-border: oklch(1 0 0 / 0.14);
   --glass-chrome-indicator-shadow: var(--glass-chrome-inset), var(--glass-chrome-rim);
-  /* Glass UI button — translucent frosted, high-contrast text */
-  --glass-button-ui-bg: color-mix(in oklch, oklch(0.34 0.02 270) 46%, transparent);
-  --glass-button-ui-bg-hover: color-mix(in oklch, oklch(0.38 0.02 270) 58%, transparent);
+  --glass-button-ui-bg: oklch(0.36 0.02 270 / 0.7);
+  --glass-button-ui-bg-hover: oklch(0.4 0.02 270 / 0.82);
   --glass-button-ui-fg: oklch(0.97 0 0);
-  --glass-button-ui-border: color-mix(in oklch, white 22%, transparent);
-  --glass-scroll-thumb: color-mix(in oklch, oklch(0.75 0.01 270) 52%, transparent);
-  --glass-scroll-thumb-hover: color-mix(in oklch, oklch(0.85 0.01 270) 62%, transparent);
+  --glass-button-ui-border: oklch(1 0 0 / 0.2);
+  --glass-scroll-thumb: oklch(0.75 0.01 270 / 0.52);
+  --glass-scroll-thumb-hover: oklch(0.85 0.01 270 / 0.62);
   --glass-scroll-track: transparent;
+  --glass-frost: blur(5px) saturate(180%);
+  --glass-frost-heavy: blur(7px) saturate(190%);
+  --glass-frost-chrome: blur(5px) saturate(180%);
 }
 
 @layer base {
@@ -135,62 +166,71 @@
   }
 }
 
+/*
+ * Frost stacks use LITERAL blur values (not var(--glass-frost)).
+ * Safari/Chromium have intermittent bugs with backdrop-filter: var(--multi-fn).
+ */
+@utility glass-frost {
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
+}
+
 /* Apple Liquid Glass: blur + saturation + specular edge, background set per variant */
 @utility glass-base {
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset);
 }
 
 /* Material filled button — opaque tinted container */
 @utility glass-filled {
-  background: var(--button-filled-bg);
+  background-color: var(--button-filled-bg);
   color: var(--button-filled-text);
   border-color: var(--button-filled-border);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-shadow), var(--glass-inset);
 }
 
 @utility glass-filled-destructive {
-  background: var(--button-destructive-bg);
+  background-color: var(--button-destructive-bg);
   color: var(--button-destructive-text);
   border-color: var(--button-destructive-border);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-shadow), var(--glass-inset);
 }
 
 /* Material tonal button — secondary container */
 @utility glass-tonal {
-  background: var(--button-tonal-bg);
+  background-color: var(--button-tonal-bg);
   color: var(--button-tonal-text);
   border: 1px solid var(--button-tonal-border);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-shadow), var(--glass-inset);
 }
 
 /* Material outlined + Apple vibrancy surface */
 @utility glass-outlined {
-  background: var(--button-outline-bg);
+  background-color: var(--button-outline-bg);
   color: var(--button-outline-text);
   border: 1.5px solid var(--button-outline-border);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-shadow), var(--glass-inset);
 }
 
 @utility glass-ghost-surface {
-  background: transparent;
+  background-color: transparent;
   color: var(--button-ghost-text);
   border: 1px solid transparent;
   box-shadow: none;
 }
 
 @utility glass-interactive {
-  transition-property: transform, box-shadow, border-color, background, color;
+  transition-property: transform, box-shadow, border-color, background-color, color;
   transition-duration: var(--duration-normal);
   transition-timing-function: var(--ease-default);
 
@@ -239,31 +279,30 @@
   text-shadow: var(--button-filled-text-shadow);
 }
 
-/* Apple Liquid Glass panel — Material elevated surface */
+/* Apple Liquid Glass panel — thick frosted surface (cards, footers, search) */
 @utility glass-panel {
-  background: color-mix(in oklch, var(--glass-surface-fill) 82%, transparent);
-  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturation));
+  background-color: var(--glass-panel-bg);
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset), var(--glass-chrome-rim);
 }
 
+/* Sticky / floating headers — milky frost (no transform — breaks sticky blur) */
 @utility glass-header {
-  background: color-mix(in oklch, var(--glass-surface-fill) 70%, transparent);
-  backdrop-filter: blur(calc(var(--glass-blur) + 4px)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 4px))
-    saturate(var(--glass-saturation));
+  background-color: var(--glass-header-bg);
+  -webkit-backdrop-filter: blur(5px) saturate(180%);
+  backdrop-filter: blur(5px) saturate(180%);
   border: 1px solid var(--glass-border);
   box-shadow: var(--glass-shadow), var(--glass-inset), var(--glass-chrome-rim);
 }
 
-/* Modal dialog — highly transparent frosted surface */
+/* Modal / sheet — denser frost + heavy blur */
 @utility glass-dialog {
-  background: color-mix(in oklch, var(--glass-surface-fill) 32%, transparent);
-  backdrop-filter: blur(calc(var(--glass-blur) + 12px)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 12px))
-    saturate(var(--glass-saturation));
-  border: 1px solid color-mix(in oklch, var(--glass-border) 55%, transparent);
+  background-color: var(--glass-dialog-bg);
+  -webkit-backdrop-filter: blur(5px) saturate(190%);
+  backdrop-filter: blur(5px) saturate(190%);
+  border: 1px solid var(--glass-border);
   box-shadow:
     var(--glass-shadow),
     var(--glass-inset),
@@ -271,33 +310,59 @@
 }
 
 @utility glass-dialog-elevated {
-  background: color-mix(in oklch, var(--glass-surface-fill) 42%, transparent);
-  backdrop-filter: blur(calc(var(--glass-blur) + 8px)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(calc(var(--glass-blur) + 8px))
-    saturate(var(--glass-saturation));
-  border: 1px solid color-mix(in oklch, var(--glass-border) 50%, transparent);
+  background-color: var(--glass-dialog-elevated-bg);
+  -webkit-backdrop-filter: blur(5px) saturate(190%);
+  backdrop-filter: blur(5px) saturate(190%);
+  border: 1px solid var(--glass-border);
   box-shadow:
     var(--glass-shadow),
     var(--glass-inset),
     var(--glass-chrome-rim);
 }
 
-/* Form fields — translucent chrome inputs */
+/* Form fields — frosted chrome inputs */
 @utility glass-field {
-  background: color-mix(in oklch, var(--glass-chrome-bg-env) 48%, transparent);
+  background-color: var(--glass-field-bg);
   color: var(--glass-chrome-fg);
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  border: 1px solid color-mix(in oklch, var(--glass-chrome-border) 70%, transparent);
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
+  border: 1px solid var(--glass-chrome-border);
   box-shadow: var(--glass-chrome-inset);
+}
+
+/*
+ * Generic frosted surfaces (prefer over raw color-mix %)
+ * glass-surface / glass-surface-thin / glass-surface-subtle
+ */
+@utility glass-surface {
+  background-color: var(--glass-surface-bg);
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), var(--glass-inset);
+}
+
+@utility glass-surface-thin {
+  background-color: var(--glass-surface-thin-bg);
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inset);
+}
+
+@utility glass-surface-subtle {
+  background-color: var(--glass-surface-subtle-bg);
+  -webkit-backdrop-filter: blur(3px) saturate(170%);
+  backdrop-filter: blur(3px) saturate(170%);
+  border: 1px solid var(--glass-border);
 }
 
 /* Apple Liquid Glass chrome — neutral functional layer above content */
 @utility glass-chrome {
-  background: var(--glass-chrome-bg-env);
+  background-color: var(--glass-chrome-bg-env);
   color: var(--glass-chrome-fg);
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(5px) saturate(180%);
+  backdrop-filter: blur(5px) saturate(180%);
   border: 1px solid var(--glass-chrome-border);
   box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
 }
@@ -316,11 +381,11 @@
 
 /* Sliding chrome indicator — active tab pill inside a glass-chrome capsule */
 @utility glass-chrome-indicator {
-  background: var(--glass-chrome-indicator-bg);
+  background-color: var(--glass-chrome-indicator-bg);
   border: 1px solid var(--glass-chrome-indicator-border);
   box-shadow: var(--glass-chrome-indicator-shadow);
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
 }
 
 @utility glass-chrome-interactive {
@@ -355,80 +420,68 @@
 
 /* Button chrome layer — neutral Liquid Glass controls */
 @utility glass-button-chrome {
-  background: var(--glass-chrome-bg-env);
+  background-color: var(--glass-chrome-bg-env);
   color: var(--glass-chrome-fg);
   border: 1px solid var(--glass-chrome-border);
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
 }
 
 @utility glass-button-chrome-subtle {
-  background: color-mix(
-    in oklch,
-    var(--glass-chrome-bg-env) 85%,
-    var(--secondary) 15%
-  );
+  background-color: var(--glass-chrome-bg-env);
   color: var(--glass-chrome-fg);
   border: 1px solid var(--glass-chrome-border);
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
 }
 
 /* Button content layer — saturated expressive CTAs */
 @utility glass-button-content {
-  background: color-mix(
-    in oklch,
-    var(--primary) 80%,
-    var(--glass-chrome-bg-env) 20%
-  );
+  background-color: color-mix(in oklch, var(--primary) 82%, transparent);
   color: var(--primary-foreground);
-  border: 1px solid color-mix(in oklch, var(--primary) 50%, var(--glass-chrome-border));
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  border: 1px solid color-mix(in oklch, var(--primary) 55%, var(--glass-chrome-border));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
 }
 
 @utility glass-button-content-destructive {
-  background: color-mix(
-    in oklch,
-    var(--destructive) 78%,
-    var(--glass-chrome-bg-env) 22%
-  );
+  background-color: color-mix(in oklch, var(--destructive) 80%, transparent);
   color: var(--destructive-foreground);
-  border: 1px solid color-mix(in oklch, var(--destructive) 48%, var(--glass-chrome-border));
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  border: 1px solid color-mix(in oklch, var(--destructive) 50%, var(--glass-chrome-border));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
 }
 
 @utility glass-button-ghost {
-  background: transparent;
+  background-color: transparent;
   color: var(--glass-chrome-fg);
   border: 1px solid transparent;
   box-shadow: none;
 
   &:hover {
-    background: var(--glass-chrome-bg-env);
+    background-color: var(--glass-chrome-bg-env);
     border-color: var(--glass-chrome-border);
-    backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-    -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+    -webkit-backdrop-filter: blur(3px) saturate(180%);
+    backdrop-filter: blur(3px) saturate(180%);
     box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
   }
 }
 
 /* Glass UI button — rounded frosted control, neutral (not theme-saturated) */
 @utility glass-button-glass {
-  background: var(--glass-button-ui-bg);
+  background-color: var(--glass-button-ui-bg);
   color: var(--glass-button-ui-fg);
   border: 1px solid var(--glass-button-ui-border);
-  backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
-  -webkit-backdrop-filter: blur(var(--glass-chrome-blur)) saturate(var(--glass-saturation));
+  -webkit-backdrop-filter: blur(3px) saturate(180%);
+  backdrop-filter: blur(3px) saturate(180%);
   box-shadow: var(--glass-chrome-shadow), var(--glass-chrome-inset), var(--glass-chrome-rim);
 
   &:hover {
-    background: var(--glass-button-ui-bg-hover);
+    background-color: var(--glass-button-ui-bg-hover);
   }
 }
 

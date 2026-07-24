@@ -15,7 +15,7 @@ const avatarVariants = cva(
   [
     "relative flex shrink-0 overflow-hidden",
     "border border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
     "shadow-[var(--glass-chrome-inset),var(--glass-chrome-rim)]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
   ],

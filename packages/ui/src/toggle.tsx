@@ -27,24 +27,24 @@ const toggleVariants = cva(
       variant: {
         chrome: [
           "rounded-lg",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
           "data-[state=on]:border data-[state=on]:border-[var(--glass-chrome-border)]",
           "data-[state=on]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
           "data-[state=on]:shadow-[var(--glass-chrome-inset)]",
         ],
         outline: [
           "rounded-lg border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
           "data-[state=on]:border-[color-mix(in_oklch,var(--primary)_40%,transparent)]",
           "data-[state=on]:bg-[color-mix(in_oklch,var(--primary)_18%,transparent)]",
           "data-[state=on]:text-primary",
         ],
         ghost: [
           "rounded-lg",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_35%,transparent)]",
-          "data-[state=on]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+          "data-[state=on]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
         ],
       },
       size: {

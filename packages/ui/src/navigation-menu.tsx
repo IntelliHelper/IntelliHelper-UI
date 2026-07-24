@@ -68,8 +68,8 @@ const navigationMenuTriggerVariants = cva(
         ],
         outline: [
           "border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_35%,transparent)]",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
         ],
       },
     },
@@ -159,7 +159,7 @@ const navigationMenuViewportVariants = cva(
         ],
         elevated: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_85%,transparent)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_58%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "text-foreground",
         ],
       },

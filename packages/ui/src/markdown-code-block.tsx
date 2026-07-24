@@ -88,7 +88,7 @@ export function MarkdownCodeBlock({
       className={cn(
         "group relative my-6 overflow-hidden rounded-2xl",
         "border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_24%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
         "backdrop-blur-[var(--glass-chrome-blur)]",
         "shadow-[var(--glass-chrome-shadow)]",
         className,
@@ -97,7 +97,7 @@ export function MarkdownCodeBlock({
       <div
         className={cn(
           "flex items-center gap-2 border-b border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_38%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
           "px-4 py-2.5",
         )}
       >

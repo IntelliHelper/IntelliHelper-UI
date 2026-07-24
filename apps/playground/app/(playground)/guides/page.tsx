@@ -63,7 +63,7 @@ export default function GuidesIndexPage() {
                 <Card
                   variant="outline"
                   animated={false}
-                  className="transition-colors group-hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)]"
+                  className="transition-colors group-hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
                 >
                   <CardHeader className="p-5 md:p-6">
                     <div className="flex flex-wrap items-center gap-2">

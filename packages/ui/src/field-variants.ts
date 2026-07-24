@@ -14,7 +14,7 @@ const fieldVariantStyles = {
   chrome: "glass-field",
   outline: [
     "border border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
     "shadow-[var(--glass-chrome-inset)]",
   ],

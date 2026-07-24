@@ -199,8 +199,8 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
                               onMouseEnter={() => setActiveIndex(index)}
                               className={
                                 isActive
-                                  ? "flex flex-col gap-0.5 rounded-xl bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-2.5"
-                                  : "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_24%,transparent)]"
+                                  ? "flex flex-col gap-0.5 rounded-xl backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] px-3 py-2.5"
+                                  : "flex flex-col gap-0.5 rounded-xl px-3 py-2.5 transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
                               }
                             >
                               <span className="text-sm font-medium text-foreground">

@@ -11,7 +11,7 @@ const typingIndicatorVariants = cva(
       variant: {
         chrome: [
           "border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_50%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
         ghost: "bg-transparent px-1",

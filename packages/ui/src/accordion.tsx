@@ -17,7 +17,7 @@ const accordionVariants = cva("w-full", {
       chrome: "glass-panel rounded-2xl px-4",
       outline: [
         "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_35%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
         "shadow-[var(--glass-chrome-shadow)] px-4",
       ],
     },
