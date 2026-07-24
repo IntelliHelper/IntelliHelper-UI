@@ -13,7 +13,7 @@ const emptyVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_35%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],

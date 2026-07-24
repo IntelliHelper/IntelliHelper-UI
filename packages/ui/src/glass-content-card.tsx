@@ -13,10 +13,7 @@ const glassContentCardVariants = cva("relative overflow-hidden", {
         "ring-1 ring-black/10",
       ],
       outline: [
-        "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_30%,transparent)]",
-        "backdrop-blur-[var(--glass-chrome-blur)]",
-        "shadow-[var(--glass-chrome-shadow)]",
+        "glass-surface-thin rounded-2xl",
       ],
     },
     animated: {

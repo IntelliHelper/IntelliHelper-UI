@@ -158,7 +158,7 @@ export function ComponentCatalogGrid({
                       <Card
                         variant="outline"
                         animated={false}
-                        className="h-full transition-[border-color,background,box-shadow] duration-200 group-hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] group-hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)] group-focus-visible:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))]"
+                        className="h-full transition-[border-color,background,box-shadow] duration-200 group-hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] group-hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] group-focus-visible:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))]"
                       >
                         <CardContent className="flex h-full flex-col p-4">
                           <div className="flex items-start justify-between gap-2">

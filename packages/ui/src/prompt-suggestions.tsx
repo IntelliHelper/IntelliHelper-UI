@@ -72,7 +72,7 @@ const PromptSuggestions = forwardRef<HTMLDivElement, PromptSuggestionsProps>(
               className={cn(
                 "inline-flex max-w-full items-center rounded-full border px-3 py-1.5 text-left text-xs font-medium",
                 "border-[var(--glass-chrome-border)]",
-                "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_45%,transparent)]",
+                "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
                 "text-[var(--glass-chrome-fg)]",
                 "transition-colors hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_65%,transparent)]",
                 focusRing,

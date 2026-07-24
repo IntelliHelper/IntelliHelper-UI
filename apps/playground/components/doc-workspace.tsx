@@ -115,13 +115,13 @@ export function DocWorkspace({
     <section
       className={cn(
         "isolate min-w-0 overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_10%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]",
         "shadow-[var(--glass-chrome-shadow)]",
         className,
       )}
     >
       {/* Header — quiet chrome toolbar */}
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)] px-4 py-3 md:px-5">
+      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-4 py-3 md:px-5">
         <div className="min-w-0 flex-1">
           <h3 className="text-sm font-semibold tracking-tight text-foreground">
             {title}
@@ -165,7 +165,7 @@ export function DocWorkspace({
         data-slot="doc-preview"
         className={cn(
           "relative min-w-0",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_14%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]",
           "border-b border-[var(--glass-chrome-border)]",
         )}
       >
@@ -196,7 +196,7 @@ export function DocWorkspace({
           <div
             className={cn(
               "overflow-auto overscroll-contain",
-              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_24%,transparent)]",
+              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
               "[scrollbar-color:var(--glass-scroll-thumb)_var(--glass-scroll-track)] [scrollbar-width:thin]",
               "[&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[var(--glass-scroll-thumb)] [&::-webkit-scrollbar-track]:bg-transparent",
             )}

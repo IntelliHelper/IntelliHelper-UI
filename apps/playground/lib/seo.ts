@@ -21,7 +21,7 @@ export const DEFAULT_TITLE =
 
 /** ~155 chars: value prop + proof + CTA for SERP CTR */
 export const DEFAULT_DESCRIPTION =
-  "80+ free Liquid Glass React components for Next.js & Tailwind CSS. Live previews, copy-paste source, CLI install. Build glassmorphism UIs you own — shadcn-style workflow.";
+  "80+ free Liquid Glass React components for Next.js & Tailwind — stronger than flat shadcn defaults for glass UI, AI chrome, themes & agents. Live previews, CLI, source you own.";
 
 export const DEFAULT_KEYWORDS = [
   "IntelliHelper",
@@ -35,6 +35,7 @@ export const DEFAULT_KEYWORDS = [
   "next.js tailwind components",
   "tailwind component library",
   "shadcn ui alternative",
+  "better than shadcn",
   "shadcn alternative liquid glass",
   "copy paste react components",
   "ui kit",

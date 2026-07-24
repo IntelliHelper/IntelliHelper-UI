@@ -51,7 +51,7 @@ const calendarVariants = cva(
         elevated: "glass-header rounded-2xl text-foreground",
         outline: [
           "rounded-2xl border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_35%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "shadow-[var(--glass-chrome-shadow)] text-foreground",
         ],
       },
@@ -260,7 +260,7 @@ function Calendar({
         ),
         dropdown_root: cn(
           "relative h-[calc(var(--cell-size)*0.82)] min-w-0 flex-1 rounded-xl border border-[var(--glass-chrome-border)] px-2",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "shadow-[var(--glass-chrome-inset)]",
           "has-focus:border-[color-mix(in_oklch,var(--primary)_50%,transparent)]",
           "has-focus:ring-2 has-focus:ring-primary/20",
@@ -378,7 +378,7 @@ function CalendarDayButton({
       className={cn(
         "aspect-square h-full w-full rounded-xl p-0 text-[length:var(--calendar-text)] font-normal leading-none tabular-nums",
         "hover:translate-y-0 active:scale-100 hover:shadow-none active:shadow-none",
-        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
         "data-[selected-single=true]:bg-[color-mix(in_oklch,var(--primary)_78%,transparent)]",
         "data-[selected-single=true]:text-primary-foreground data-[selected-single=true]:shadow-[var(--glass-chrome-inset)]",
         "data-[selected-single=true]:hover:bg-[color-mix(in_oklch,var(--primary)_82%,transparent)]",

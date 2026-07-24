@@ -75,7 +75,7 @@ const commandVariants = cva(
       variant: {
         chrome: "",
         elevated: [
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_58%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "text-foreground",
         ],
         outline: [
@@ -235,8 +235,13 @@ const CommandInput = forwardRef<HTMLInputElement, CommandInputProps>(
           value={query}
           onChange={(event) => setQuery(event.target.value)}
           className={cn(
-            "h-11 w-full bg-transparent text-sm outline-none placeholder:text-muted-foreground",
-            focusRing,
+            // No focus ring — command palettes use the caret only (ring-offset
+            // draws a nested box that collides with icons / Esc affordances).
+            "h-11 w-full min-w-0 flex-1 bg-transparent text-sm text-foreground",
+            "border-0 shadow-none outline-none ring-0",
+            "placeholder:text-muted-foreground",
+            "focus:border-0 focus:outline-none focus:ring-0",
+            "focus-visible:border-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0",
             className,
           )}
           {...props}

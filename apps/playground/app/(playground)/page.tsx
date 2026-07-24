@@ -12,7 +12,9 @@ import {
 } from "@intelli/ui";
 import { HeroStage } from "../../components/landing/hero-stage";
 import { InstallStrip } from "../../components/landing/install-strip";
+import { WhyBetterSection } from "../../components/landing/why-better-section";
 import { JsonLd } from "../../components/json-ld";
+import { ThemeSwitcher } from "../../components/theme-switcher";
 import {
   CATALOG,
   CATEGORY_META,
@@ -31,13 +33,14 @@ export const metadata: Metadata = createPageMetadata({
   title:
     "Intelli UI — Free Liquid Glass React Components for Next.js & Tailwind CSS",
   description:
-    "80+ free Liquid Glass React components for Next.js & Tailwind CSS. Live previews, copy-paste source, CLI install. Build glassmorphism UIs you own — shadcn-style workflow.",
+    "80+ free Liquid Glass React components for Next.js & Tailwind — better than flat shadcn defaults for glass UI, AI product chrome, themes, and agent install. Live previews, CLI, source you own.",
   path: "/",
   keywords: [
     "liquid glass components",
     "liquid glass ui react",
     "glass morphism react components",
     "shadcn alternative",
+    "better than shadcn",
     "shadcn ui alternative liquid glass",
     "next.js tailwind components",
     "react component library",
@@ -126,9 +129,9 @@ export default function LandingPage() {
                   <span className="text-muted-foreground">you own</span>
                 </h1>
                 <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  Frosted React UI for Next.js and Tailwind — install with a
-                  CLI, keep the source, and wire coding agents when you want
-                  them. Glassmorphism with real product hierarchy.
+                  More than a shadcn clone: Liquid Glass hierarchy, AI product
+                  components, and agent-native install — frosted React UI for
+                  Next.js and Tailwind with source you own.
                 </p>
               </div>
 
@@ -197,6 +200,9 @@ export default function LandingPage() {
           </ul>
         </section>
 
+        {/* ── Why better than shadcn / other libraries ─────────── */}
+        <WhyBetterSection />
+
         {/* ── How it works ─────────────────────────────────────── */}
         <section aria-labelledby="steps-heading" className="space-y-8">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -220,7 +226,7 @@ export default function LandingPage() {
             {STEPS.map((step, index) => (
               <li
                 key={step.title}
-                className="relative flex flex-col rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_14%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)]"
+                className="relative flex flex-col rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)]"
               >
                 <span className="mb-4 flex size-8 items-center justify-center rounded-full border border-[var(--glass-chrome-border)] text-xs font-semibold tabular-nums text-muted-foreground">
                   {index + 1}
@@ -267,7 +273,7 @@ export default function LandingPage() {
               <li key={item.slug}>
                 <Link
                   href={`/components/${item.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] p-5 transition-colors hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)]"
+                  className="group flex h-full flex-col rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 transition-colors hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
                 >
                   <div className="flex items-start justify-between gap-2">
                     <h3 className="text-sm font-semibold text-foreground group-hover:text-foreground">
@@ -297,7 +303,7 @@ export default function LandingPage() {
                 <li key={category}>
                   <Link
                     href={`/categories/${category}`}
-                    className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                    className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                   >
                     {CATEGORY_META[category].label}
                   </Link>
@@ -310,7 +316,7 @@ export default function LandingPage() {
         {/* ── Agents ───────────────────────────────────────────── */}
         <section
           aria-labelledby="agents-heading"
-          className="overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_18%,transparent)] shadow-[var(--glass-chrome-shadow)]"
+          className="overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] shadow-[var(--glass-chrome-shadow)]"
         >
           <div className="grid gap-0 lg:grid-cols-2">
             <div className="space-y-5 p-6 sm:p-8 md:p-10">
@@ -367,7 +373,7 @@ export default function LandingPage() {
                 ].map((row) => (
                   <li
                     key={row.label}
-                    className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_10%,transparent)] p-3.5"
+                    className="rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-3.5"
                   >
                     <p className="mb-1.5 text-xs font-medium text-foreground">
                       {row.label}
@@ -395,61 +401,23 @@ export default function LandingPage() {
               Five Liquid Glass themes
             </h2>
             <p className="text-sm text-muted-foreground">
-              Switch appearance in the playground header — mono, aurora, sunset,
-              frost, and ocean drive CSS variables across every component.
+              Click a theme to apply it site-wide — mono, aurora, sunset, frost,
+              and ocean drive CSS variables across every component on this page.
             </p>
           </div>
-          <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-5">
-            {(
-              [
-                { id: "mono", label: "Mono", swatch: "from-zinc-200 to-zinc-500" },
-                {
-                  id: "aurora",
-                  label: "Aurora",
-                  swatch: "from-cyan-400 to-violet-500",
-                },
-                {
-                  id: "sunset",
-                  label: "Sunset",
-                  swatch: "from-amber-400 to-rose-500",
-                },
-                {
-                  id: "frost",
-                  label: "Frost",
-                  swatch: "from-slate-200 to-sky-400",
-                },
-                {
-                  id: "ocean",
-                  label: "Ocean",
-                  swatch: "from-teal-400 to-blue-600",
-                },
-              ] as const
-            ).map((theme) => (
-              <li
-                key={theme.id}
-                className="flex flex-col items-center gap-2.5 rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] px-3 py-4"
-              >
-                <span
-                  className={`size-10 rounded-full bg-gradient-to-br ${theme.swatch} shadow-md ring-2 ring-white/30`}
-                  aria-hidden
-                />
-                <span className="text-sm font-medium text-foreground">
-                  {theme.label}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <ThemeSwitcher />
         </section>
 
         {/* ── Final CTA ────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_22%,transparent)] px-6 py-10 text-center shadow-[var(--glass-chrome-shadow)] sm:px-10 md:py-14">
+        <section className="rounded-3xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-10 text-center shadow-[var(--glass-chrome-shadow)] sm:px-10 md:py-14">
           <div className="mx-auto max-w-xl space-y-5">
             <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               Start building with Liquid Glass
             </h2>
             <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-              Free components, CLI install, live docs, and agent tooling — all
-              aimed at shipping product UI you control.
+              Free Liquid Glass components, CLI install, live docs, and agent
+              tooling — product UI that looks better than flat defaults, with
+              source you control.
             </p>
             <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
               <Button asChild variant="primary" size="lg">

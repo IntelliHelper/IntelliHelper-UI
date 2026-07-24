@@ -36,7 +36,7 @@ const markdownViewerVariants = cva("min-w-0 w-full text-sm leading-relaxed", {
       ],
       outline: [
         "rounded-xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
         "p-6",
       ],
     },
@@ -188,7 +188,7 @@ function createMarkdownComponents(
           data-slot="markdown-viewer-pre"
           className={cn(
             "my-6 overflow-x-auto rounded-2xl border border-[var(--glass-chrome-border)]",
-            "bg-[color-mix(in_oklch,var(--glass-surface-fill)_24%,transparent)]",
+            "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
             "p-4 font-mono text-[0.8125rem] leading-[1.75] text-foreground",
             "shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-chrome-blur)]",
           )}
@@ -208,7 +208,7 @@ function createMarkdownComponents(
     thead: ({ children }) => (
       <thead
         data-slot="markdown-viewer-thead"
-        className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%,transparent)]"
+        className="border-b border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
       >
         {children}
       </thead>

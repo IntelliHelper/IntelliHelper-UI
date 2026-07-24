@@ -598,7 +598,7 @@ const toastVariants = cva(
         ],
         loading: [
           "border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_55%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "text-foreground [&>[data-slot=toast-icon]]:text-primary",
         ],
       },

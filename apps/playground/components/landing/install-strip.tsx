@@ -15,8 +15,7 @@ export function InstallStrip({
   return (
     <div
       className={cn(
-        "flex min-w-0 max-w-xl items-center gap-3 rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] px-3 py-2.5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-md sm:px-4",
+        "glass-surface-thin flex min-w-0 max-w-xl items-center gap-3 rounded-2xl px-3 py-2.5 shadow-[var(--glass-chrome-shadow)] sm:px-4",
         className,
       )}
     >

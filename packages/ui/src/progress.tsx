@@ -16,12 +16,12 @@ const progressVariants = cva(
       variant: {
         chrome: [
           "border border-[color-mix(in_oklch,var(--glass-chrome-border)_70%,transparent)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
           "shadow-[var(--glass-chrome-inset)]",
         ],
         outline: [
           "border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
         ],
       },
       size: {

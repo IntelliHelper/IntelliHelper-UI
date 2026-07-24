@@ -115,8 +115,8 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
               className={cn(
                 "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                 active
-                  ? "bg-[color-mix(in_oklch,var(--glass-surface-fill)_32%,transparent)] text-foreground"
-                  : "text-muted-foreground hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] hover:text-foreground",
+                  ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] text-foreground shadow-[var(--glass-chrome-inset)]"
+                  : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground",
               )}
             >
               {link.label}
@@ -182,8 +182,8 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
                       className={cn(
                         "rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                         active
-                          ? "bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] text-foreground"
-                          : "text-muted-foreground hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] hover:text-foreground",
+                          ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] text-foreground shadow-[var(--glass-chrome-inset)]"
+                          : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground",
                       )}
                     >
                       {link.label}
@@ -193,7 +193,7 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
                 <Link
                   href="/getting-started#plugin"
                   onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] hover:text-foreground"
+                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
                 >
                   Agent plugin
                 </Link>
@@ -210,7 +210,7 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
                     <Link
                       href={`/categories/${category}`}
                       onClick={() => setMobileOpen(false)}
-                      className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] hover:text-foreground"
+                      className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
                     >
                       {CATEGORY_META[category].label}
                     </Link>
@@ -224,7 +224,7 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
                 href={githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)] hover:text-foreground"
+                className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
               >
                 <GithubIcon />
                 GitHub

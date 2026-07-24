@@ -4,9 +4,9 @@
     --background: oklch(0.98 0.008 250);
     --foreground: oklch(0.24 0.02 250);
     --surface: oklch(1 0.005 250);
-    --card: oklch(1 0.005 250 / 0.68);
+    --card: oklch(1 0.005 250 / 0.9);
     --card-foreground: oklch(0.24 0.02 250);
-    --popover: oklch(1 0.005 250 / 0.9);
+    --popover: oklch(1 0.005 250 / 0.95);
     --popover-foreground: oklch(0.24 0.02 250);
     --primary: oklch(0.52 0.08 250);
     --primary-foreground: oklch(0.99 0 0);
@@ -23,15 +23,16 @@
     --ring: oklch(0.52 0.08 250 / 0.5);
     --shadow-color: oklch(0.35 0.04 250);
 
-    --glass-blur: 24px;
-    --glass-saturation: 140%;
-    --glass-border: color-mix(in oklch, var(--foreground) 12%, transparent);
-    --glass-highlight: color-mix(in oklch, white 80%, transparent);
-    --glass-shadow: 0 2px 20px color-mix(in oklch, var(--shadow-color) 10%, transparent);
-    --glass-shadow-hover: 0 6px 28px color-mix(in oklch, var(--shadow-color) 16%, transparent);
+    --glass-blur: 3px;
+    --glass-saturation: 155%;
+    --glass-blur-heavy: 5px;
+    --glass-border: color-mix(in oklch, var(--foreground) 11%, transparent);
+    --glass-highlight: color-mix(in oklch, white 88%, transparent);
+    --glass-shadow: 0 2px 22px color-mix(in oklch, var(--shadow-color) 11%, transparent);
+    --glass-shadow-hover: 0 6px 30px color-mix(in oklch, var(--shadow-color) 16%, transparent);
     --glass-shadow-pressed: inset 0 2px 5px color-mix(in oklch, var(--shadow-color) 10%, transparent);
     --glass-inset: inset 0 1px 0 var(--glass-highlight);
-    --glass-shimmer: color-mix(in oklch, white 45%, transparent);
+    --glass-shimmer: color-mix(in oklch, white 50%, transparent);
 
     --button-filled-bg: color-mix(in oklch, var(--primary) 88%, transparent);
     --button-filled-text: oklch(0.99 0 0);
@@ -63,9 +64,9 @@
     --background: oklch(0.16 0.015 250);
     --foreground: oklch(0.94 0.01 250);
     --surface: oklch(0.22 0.015 250);
-    --card: oklch(0.22 0.015 250 / 0.5);
+    --card: oklch(0.22 0.015 250 / 0.88);
     --card-foreground: oklch(0.94 0.01 250);
-    --popover: oklch(0.19 0.015 250 / 0.9);
+    --popover: oklch(0.19 0.015 250 / 0.94);
     --popover-foreground: oklch(0.94 0.01 250);
     --primary: oklch(0.78 0.06 250);
     --primary-foreground: oklch(0.16 0.02 250);
@@ -82,15 +83,16 @@
     --ring: oklch(0.78 0.06 250 / 0.45);
     --shadow-color: oklch(0.05 0.01 250);
 
-    --glass-blur: 28px;
-    --glass-saturation: 155%;
-    --glass-border: color-mix(in oklch, var(--foreground) 14%, transparent);
-    --glass-highlight: color-mix(in oklch, white 14%, transparent);
-    --glass-shadow: 0 6px 32px color-mix(in oklch, black 40%, transparent);
-    --glass-shadow-hover: 0 10px 40px color-mix(in oklch, black 50%, transparent);
+    --glass-blur: 5px;
+    --glass-saturation: 165%;
+    --glass-blur-heavy: 5px;
+    --glass-border: color-mix(in oklch, var(--foreground) 15%, transparent);
+    --glass-highlight: color-mix(in oklch, white 16%, transparent);
+    --glass-shadow: 0 6px 34px color-mix(in oklch, black 42%, transparent);
+    --glass-shadow-hover: 0 10px 42px color-mix(in oklch, black 52%, transparent);
     --glass-shadow-pressed: inset 0 2px 8px color-mix(in oklch, black 30%, transparent);
     --glass-inset: inset 0 1px 0 var(--glass-highlight);
-    --glass-shimmer: color-mix(in oklch, white 12%, transparent);
+    --glass-shimmer: color-mix(in oklch, white 14%, transparent);
 
     --button-filled-bg: color-mix(in oklch, var(--primary) 72%, transparent);
     --button-filled-text: oklch(0.12 0.02 250);

@@ -39,7 +39,7 @@ const dropdownMenuContentVariants = cva(
         ],
         elevated: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_85%,transparent)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_58%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "text-foreground",
         ],
         outline: [

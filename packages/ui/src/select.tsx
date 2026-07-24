@@ -101,7 +101,7 @@ const selectContentVariants = cva(
         elevated: "glass-dialog-elevated",
         outline: [
           "border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
           "backdrop-blur-[calc(var(--glass-blur)+12px)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],

@@ -66,8 +66,8 @@ const FAQ_ITEMS = [
     a: "Run npx @intellihelper/cli@latest init, then npx @intellihelper/cli@latest add button card dialog (or any component name from the catalog).",
   },
   {
-    q: "Is Intelli UI a shadcn/ui alternative?",
-    a: "Yes. It follows a copy-paste registry workflow similar to shadcn/ui, with a Liquid Glass visual system, CLI, MCP, and an official agent plugin for coding agents.",
+    q: "Is Intelli UI a shadcn/ui alternative? Why is it better?",
+    a: "Yes — same copy-paste ownership, stronger product system. Intelli UI ships Liquid Glass chrome vs content layers, five themes, glass primitives (glass-bar, content cards), AI surfaces (chat, streaming, reasoning), plus an official agent plugin and MCP. shadcn is excellent for flat/neutral UIs; Intelli UI is built when glass hierarchy and agent-native install matter.",
   },
   {
     q: "Does it support AI coding agents?",
@@ -138,13 +138,13 @@ export default function GettingStartedPage() {
         {/* On-page TOC — product docs pattern */}
         <nav
           aria-label="On this page"
-          className="flex flex-wrap gap-1.5 rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_12%,transparent)] p-1.5"
+          className="flex flex-wrap gap-1.5 rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-1.5"
         >
           {TOC.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="rounded-lg px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%,transparent)] hover:text-foreground"
+              className="rounded-lg px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] hover:text-foreground"
             >
               {item.label}
             </a>

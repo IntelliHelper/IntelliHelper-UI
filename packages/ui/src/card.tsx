@@ -15,9 +15,7 @@ const cardVariants = cva("flex flex-col overflow-hidden", {
         "ring-1 ring-black/10",
       ],
       outline: [
-        "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_35%,transparent)]",
-        "shadow-[var(--glass-chrome-shadow)] text-foreground",
+        "glass-surface-thin rounded-2xl text-foreground",
       ],
     },
     animated: {

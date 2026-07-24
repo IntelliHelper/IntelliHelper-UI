@@ -48,7 +48,7 @@ function DemoStage({
   position?: ToastPosition;
 }) {
   return (
-    <div className="relative h-[22rem] w-full overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_20%,transparent)]">
+    <div className="relative h-[22rem] w-full overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]">
       <div className="absolute inset-0 flex items-start justify-center p-6 pt-8">
         {children}
       </div>

@@ -56,9 +56,7 @@ const carouselContentVariants = cva("overflow-hidden", {
       default: "",
       chrome: "glass-panel rounded-2xl",
       outline: [
-        "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_35%,transparent)]",
-        "shadow-[var(--glass-chrome-shadow)]",
+        "glass-surface-thin rounded-2xl",
       ],
     },
   },
