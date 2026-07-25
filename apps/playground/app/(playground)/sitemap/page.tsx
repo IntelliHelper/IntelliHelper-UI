@@ -75,6 +75,11 @@ export default function SitemapPage() {
               { href: "/components", label: "Components" },
               { href: "/getting-started", label: "Getting started" },
               { href: "/guides", label: "Guides" },
+              {
+                href: "/guides/shadcn-vs-intelli-ui",
+                label: "shadcn vs Intelli UI",
+              },
+              { href: "/about", label: "About" },
             ].map((item) => (
               <li key={item.href}>
                 <Link

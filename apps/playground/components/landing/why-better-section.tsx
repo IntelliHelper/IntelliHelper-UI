@@ -172,14 +172,16 @@ export function WhyBetterSection() {
             agent tooling generic kits do not ship.
           </p>
         </div>
-        <Button
-          asChild
-          variant="ghost"
-          size="sm"
-          className="shrink-0 self-start sm:self-auto"
-        >
-          <Link href="/guides/shadcn-vs-intelli-ui">Full comparison →</Link>
-        </Button>
+        <div className="flex shrink-0 flex-wrap gap-2 self-start sm:self-auto">
+          <Button asChild variant="primary" size="sm">
+            <Link href="/guides/shadcn-vs-intelli-ui">
+              shadcn vs Intelli UI
+            </Link>
+          </Button>
+          <Button asChild variant="outline" size="sm">
+            <Link href="/components">Browse components</Link>
+          </Button>
+        </div>
       </div>
 
       <div className="relative grid gap-4 lg:grid-cols-2 lg:gap-5">
@@ -246,6 +248,14 @@ export function WhyBetterSection() {
               </div>
             </div>
           ))}
+        </div>
+        <div className="flex flex-col gap-3 border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <p className="text-sm text-muted-foreground">
+            Full write-up: when to pick Intelli UI vs shadcn for glass product UI.
+          </p>
+          <Button asChild variant="primary" size="sm" className="shrink-0">
+            <Link href="/guides/shadcn-vs-intelli-ui">Read comparison guide</Link>
+          </Button>
         </div>
       </div>
     </section>

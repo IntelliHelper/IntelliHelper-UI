@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 import {
   Badge,
   Button,
@@ -21,17 +22,20 @@ import {
 
 const CATEGORY_ORDER = Object.keys(CATEGORY_META) as ComponentCategory[];
 
-type ComponentCatalogGridProps = {
-  initialQuery?: string;
-};
-
-export function ComponentCatalogGrid({
-  initialQuery = "",
-}: ComponentCatalogGridProps) {
+export function ComponentCatalogGrid() {
+  const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState<
     ComponentCategory | "all"
   >("all");
-  const [query, setQuery] = useState(initialQuery);
+  const [query, setQuery] = useState("");
+
+  // Read ?q= client-side so the catalog page stays statically prerendered.
+  useEffect(() => {
+    const q = searchParams.get("q");
+    if (typeof q === "string" && q.length > 0) {
+      setQuery(q);
+    }
+  }, [searchParams]);
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLowerCase();

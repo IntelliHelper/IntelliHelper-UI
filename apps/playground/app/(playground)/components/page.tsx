@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 import {
   Badge,
   Button,
@@ -16,33 +17,29 @@ import { CATALOG, CATEGORY_META, CATEGORY_ORDER } from "../../../lib/catalog";
 import { catalogGraphJsonLd } from "../../../lib/json-ld";
 import { createPageMetadata } from "../../../lib/seo";
 
+/** Static catalog HTML for edge caching — filters run client-side. */
+export const dynamic = "force-static";
+
 export const metadata: Metadata = createPageMetadata({
-  title: "Component Catalog — Liquid Glass React UI",
+  title: "Liquid Glass React Components — Free Catalog",
   description:
-    "Browse 80+ free Liquid Glass React components for Next.js & Tailwind CSS. Live previews, copy-paste source, and one-command CLI install for every component.",
+    "Browse 80+ free Liquid Glass React components for Next.js & Tailwind CSS. Live previews, copy-paste source, and one-command CLI install — a glass-first alternative to flat shadcn defaults.",
   path: "/components",
   keywords: [
-    "component catalog",
+    "liquid glass react components",
+    "liquid glass components",
+    "glassmorphism react components",
+    "react component catalog",
     "component playground",
     "ui documentation",
     "react ui kit",
     "tailwind ui components",
-    "liquid glass playground",
     "free react components",
-    "glassmorphism react",
+    "shadcn alternative components",
   ],
 });
 
-type ComponentsPageProps = {
-  searchParams: Promise<{ q?: string; category?: string }>;
-};
-
-export default async function ComponentsPage({
-  searchParams,
-}: ComponentsPageProps) {
-  const params = await searchParams;
-  const initialQuery = typeof params.q === "string" ? params.q : "";
-
+export default function ComponentsPage() {
   return (
     <>
       <JsonLd data={catalogGraphJsonLd()} />
@@ -60,12 +57,12 @@ export default async function ComponentsPage({
 
             <div className="space-y-3">
               <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl md:leading-[1.15]">
-                Component catalog
+                Liquid Glass React components
               </h1>
               <p className="max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-                Browse live previews, copy source, and install with the CLI.
-                Built for product teams who want frosted chrome, clear hierarchy,
-                and files they can actually edit — not a locked package.
+                Free frosted-glass UI for Next.js and Tailwind — live previews,
+                CLI install, and source you own. Built for product chrome, AI
+                interfaces, and teams who want hierarchy instead of flat defaults.
               </p>
             </div>
 
@@ -77,7 +74,7 @@ export default async function ComponentsPage({
                 <Link href="/components/button">Open Button</Link>
               </Button>
               <Button asChild variant="ghost">
-                <Link href="/getting-started#plugin">Agent plugin</Link>
+                <Link href="/guides/shadcn-vs-intelli-ui">vs shadcn</Link>
               </Button>
             </div>
           </div>
@@ -103,7 +100,7 @@ export default async function ComponentsPage({
               <li key={category}>
                 <Link
                   href={`/categories/${category}`}
-                  className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                  className="inline-flex min-h-11 items-center rounded-full border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                 >
                   {CATEGORY_META[category].label}
                 </Link>
@@ -125,7 +122,13 @@ export default async function ComponentsPage({
               and install command.
             </p>
           </div>
-          <ComponentCatalogGrid initialQuery={initialQuery} />
+          <Suspense
+            fallback={
+              <p className="text-sm text-muted-foreground">Loading catalog…</p>
+            }
+          >
+            <ComponentCatalogGrid />
+          </Suspense>
         </section>
 
         <Card variant="chrome" animated={false}>

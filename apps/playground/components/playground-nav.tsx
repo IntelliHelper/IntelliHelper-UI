@@ -38,7 +38,13 @@ const PRIMARY_LINKS = [
   {
     href: "/guides",
     label: "Guides",
-    match: (path: string) => path.startsWith("/guides"),
+    match: (path: string) =>
+      path.startsWith("/guides") && !path.includes("shadcn-vs"),
+  },
+  {
+    href: "/guides/shadcn-vs-intelli-ui",
+    label: "Compare",
+    match: (path: string) => path.includes("shadcn-vs"),
   },
 ] as const;
 
@@ -152,7 +158,7 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
               variant="outline"
               size="icon"
               shape="pill"
-              className="md:hidden"
+              className="min-h-12 min-w-12 md:hidden"
               aria-label="Open menu"
             >
               <MenuIcon />
@@ -190,6 +196,13 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
                     </Link>
                   );
                 })}
+                <Link
+                  href="/about"
+                  onClick={() => setMobileOpen(false)}
+                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
+                >
+                  About
+                </Link>
                 <Link
                   href="/getting-started#plugin"
                   onClick={() => setMobileOpen(false)}

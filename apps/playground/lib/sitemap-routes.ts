@@ -5,76 +5,54 @@ import { absoluteUrl } from "./seo";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
 
-/** Core product components get higher priority than niche utilities. */
-const CORE_COMPONENT_SLUGS = new Set([
-  "button",
-  "card",
-  "dialog",
-  "input",
-  "select",
-  "tabs",
-  "sheet",
-  "sidebar",
-  "table",
-  "toast",
-  "dropdown-menu",
-  "popover",
-  "checkbox",
-  "switch",
-  "textarea",
-  "glass-bar",
-  "glass-content-card",
-  "ai-chat",
-  "command",
-]);
-
+/**
+ * Sitemap entries: real lastmod where we have content dates.
+ * Omit priority/changefreq (deprecated signals Google ignores).
+ * HTML /sitemap stays listed as a human index page (not sitemap.xml self-ref).
+ */
 const STATIC_ROUTES: Array<{
   path: string;
-  changeFrequency: NonNullable<SitemapEntry["changeFrequency"]>;
-  priority: number;
+  lastModified?: Date;
 }> = [
-  { path: "/", changeFrequency: "weekly", priority: 1 },
-  { path: "/components", changeFrequency: "weekly", priority: 0.98 },
-  { path: "/getting-started", changeFrequency: "monthly", priority: 0.95 },
-  { path: "/guides", changeFrequency: "weekly", priority: 0.9 },
-  { path: "/sitemap", changeFrequency: "monthly", priority: 0.3 },
+  { path: "/" },
+  { path: "/components" },
+  { path: "/getting-started" },
+  { path: "/guides" },
+  { path: "/about" },
+  { path: "/sitemap" },
 ];
 
+function startOfUtcDay(date = new Date()): Date {
+  const d = new Date(date);
+  d.setUTCHours(0, 0, 0, 0);
+  return d;
+}
+
 export function getSitemapEntries(): MetadataRoute.Sitemap {
-  // Stable lastModified day for better crawl budget signals vs always-now churn
-  const lastModified = new Date();
-  lastModified.setUTCHours(0, 0, 0, 0);
+  const buildDay = startOfUtcDay();
 
   const staticRoutes: MetadataRoute.Sitemap = STATIC_ROUTES.map(
-    ({ path, changeFrequency, priority }) => ({
+    ({ path, lastModified }) => ({
       url: absoluteUrl(path),
-      lastModified,
-      changeFrequency,
-      priority,
+      lastModified: lastModified ?? buildDay,
     }),
   );
 
   const guideRoutes: MetadataRoute.Sitemap = GUIDES.map((guide) => ({
     url: absoluteUrl(`/guides/${guide.slug}`),
-    lastModified: new Date(guide.dateModified),
-    changeFrequency: "monthly" as const,
-    priority: 0.75,
+    lastModified: startOfUtcDay(new Date(guide.dateModified)),
   }));
 
   const categoryRoutes: MetadataRoute.Sitemap = CATEGORY_ORDER.map(
     (category) => ({
       url: absoluteUrl(`/categories/${category}`),
-      lastModified,
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
+      lastModified: buildDay,
     }),
   );
 
   const componentRoutes: MetadataRoute.Sitemap = CATALOG.map((item) => ({
     url: absoluteUrl(`/components/${item.slug}`),
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: CORE_COMPONENT_SLUGS.has(item.slug) ? 0.7 : 0.5,
+    lastModified: buildDay,
   }));
 
   return [
@@ -84,3 +62,6 @@ export function getSitemapEntries(): MetadataRoute.Sitemap {
     ...componentRoutes,
   ];
 }
+
+// Re-export type helper for consumers that need SitemapEntry
+export type { SitemapEntry };

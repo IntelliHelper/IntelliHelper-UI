@@ -13,7 +13,7 @@ import { JsonLd } from "../../../components/json-ld";
 import { PageHeader } from "../../../components/page-header";
 import { GUIDES } from "../../../lib/guides";
 import { webPageJsonLd } from "../../../lib/json-ld";
-import { createPageMetadata } from "../../../lib/seo";
+import { absoluteUrl, createPageMetadata } from "../../../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Guides — Liquid Glass React UI Tutorials",
@@ -34,13 +34,33 @@ export default function GuidesIndexPage() {
   return (
     <>
       <JsonLd
-        data={webPageJsonLd({
-          name: "Intelli UI Guides",
-          description:
-            "Tutorials and comparisons for Liquid Glass React components, Next.js, and Tailwind CSS.",
-          path: "/guides",
-          type: "CollectionPage",
-        })}
+        data={[
+          webPageJsonLd({
+            name: "Intelli UI Guides",
+            description:
+              "Tutorials and comparisons for Liquid Glass React components, Next.js, and Tailwind CSS.",
+            path: "/guides",
+            type: "CollectionPage",
+          }),
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            itemListElement: [
+              {
+                "@type": "ListItem",
+                position: 1,
+                name: "Home",
+                item: absoluteUrl("/"),
+              },
+              {
+                "@type": "ListItem",
+                position: 2,
+                name: "Guides",
+                item: absoluteUrl("/guides"),
+              },
+            ],
+          },
+        ]}
       />
       <div className="mx-auto max-w-3xl space-y-8 pb-8">
         <PageHeader

@@ -29,10 +29,19 @@ export function organizationJsonLd(): JsonLd {
       width: 500,
       height: 500,
     },
-    sameAs: [GITHUB_URL],
+    sameAs: [
+      GITHUB_URL,
+      "https://github.com/IntelliHelper",
+      "https://github.com/adeebmirza",
+    ],
     foundingDate: "2025",
     description:
       "IntelliHelper builds Liquid Glass UI tools and AI-ready component infrastructure for modern React apps.",
+    founder: {
+      "@type": "Person",
+      name: "Adeeb Mirza",
+      url: "https://github.com/adeebmirza",
+    },
   };
 }
 
@@ -472,8 +481,8 @@ export function catalogGraphJsonLd(): JsonLd {
     "@context": "https://schema.org",
     "@graph": [
       webPageJsonLd({
-        name: `${SITE_NAME} Component Catalog`,
-        description: `Complete catalog of ${CATALOG.length} Liquid Glass React components for Next.js and Tailwind CSS.`,
+        name: "Liquid Glass React Components",
+        description: `Complete catalog of ${CATALOG.length} free Liquid Glass React components for Next.js and Tailwind CSS — live previews and CLI install.`,
         path: "/components",
         type: "CollectionPage",
       }),

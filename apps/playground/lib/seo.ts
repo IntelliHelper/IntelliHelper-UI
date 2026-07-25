@@ -239,6 +239,8 @@ export function buildLlmsText(): string {
 - [Components](${absoluteUrl("/components")}): Full component catalog with live previews, search, and install commands.
 - [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI, agent plugin, or MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
 - [Guides](${absoluteUrl("/guides")}): Liquid Glass tutorials and shadcn comparison articles.
+- [shadcn vs Intelli UI](${absoluteUrl("/guides/shadcn-vs-intelli-ui")}): Comparison guide for teams evaluating shadcn alternatives.
+- [About](${absoluteUrl("/about")}): Maintainer, mission, and project status.
 - [Agent plugin](${absoluteUrl("/getting-started#plugin")}): One-step install for Claude Code, Grok, Codex, Gemini (skills + MCP + commands).
 - [MCP](${absoluteUrl("/getting-started#mcp")}): Tools-only setup for coding agents.
 - [HTML sitemap](${absoluteUrl("/sitemap")}): Human-readable index of every public page.
