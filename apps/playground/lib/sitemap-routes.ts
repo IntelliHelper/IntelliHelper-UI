@@ -1,9 +1,15 @@
 import type { MetadataRoute } from "next";
 import { CATALOG, CATEGORY_ORDER } from "./catalog";
 import { GUIDES } from "./guides";
-import { absoluteUrl } from "./seo";
+import { absoluteUrl, SITE_CONTENT_DATES } from "./seo";
 
 type SitemapEntry = MetadataRoute.Sitemap[number];
+
+function startOfUtcDay(date = new Date()): Date {
+  const d = new Date(date);
+  d.setUTCHours(0, 0, 0, 0);
+  return d;
+}
 
 /**
  * Sitemap entries: real lastmod where we have content dates.
@@ -14,27 +20,36 @@ const STATIC_ROUTES: Array<{
   path: string;
   lastModified?: Date;
 }> = [
-  { path: "/" },
-  { path: "/components" },
-  { path: "/getting-started" },
-  { path: "/guides" },
-  { path: "/about" },
+  {
+    path: "/",
+    lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
+  },
+  {
+    path: "/components",
+    lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
+  },
+  {
+    path: "/getting-started",
+    lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
+  },
+  {
+    path: "/guides",
+    lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
+  },
+  {
+    path: "/about",
+    lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
+  },
   { path: "/sitemap" },
 ];
 
-function startOfUtcDay(date = new Date()): Date {
-  const d = new Date(date);
-  d.setUTCHours(0, 0, 0, 0);
-  return d;
-}
-
 export function getSitemapEntries(): MetadataRoute.Sitemap {
-  const buildDay = startOfUtcDay();
+  const contentDay = startOfUtcDay(new Date(SITE_CONTENT_DATES.modified));
 
   const staticRoutes: MetadataRoute.Sitemap = STATIC_ROUTES.map(
     ({ path, lastModified }) => ({
       url: absoluteUrl(path),
-      lastModified: lastModified ?? buildDay,
+      lastModified: lastModified ?? contentDay,
     }),
   );
 
@@ -46,13 +61,13 @@ export function getSitemapEntries(): MetadataRoute.Sitemap {
   const categoryRoutes: MetadataRoute.Sitemap = CATEGORY_ORDER.map(
     (category) => ({
       url: absoluteUrl(`/categories/${category}`),
-      lastModified: buildDay,
+      lastModified: contentDay,
     }),
   );
 
   const componentRoutes: MetadataRoute.Sitemap = CATALOG.map((item) => ({
     url: absoluteUrl(`/components/${item.slug}`),
-    lastModified: buildDay,
+    lastModified: contentDay,
   }));
 
   return [

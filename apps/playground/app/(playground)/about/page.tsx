@@ -19,6 +19,7 @@ import {
   BRAND_NAME,
   createPageMetadata,
   GITHUB_URL,
+  SITE_CONTENT_DATES,
   SITE_NAME,
   SITE_URL,
 } from "../../../lib/seo";
@@ -52,6 +53,8 @@ const aboutJsonLd = {
       about: { "@id": `${SITE_URL}/#software` },
       publisher: { "@id": `${SITE_URL}/#organization` },
       inLanguage: "en-US",
+      datePublished: SITE_CONTENT_DATES.published,
+      dateModified: SITE_CONTENT_DATES.modified,
     },
     {
       "@type": "BreadcrumbList",
@@ -97,15 +100,23 @@ export default function AboutPage() {
               <Badge variant="outline" size="sm">
                 MIT
               </Badge>
+              <span className="text-xs text-muted-foreground">
+                Updated {SITE_CONTENT_DATES.modified}
+              </span>
             </span>
           }
           title="About Intelli UI"
           description={
             <>
-              {SITE_NAME} is the Liquid Glass component library from{" "}
+              <strong className="font-medium text-foreground">
+                Intelli UI is a free, open-source Liquid Glass component library
+                for React and Next.js
+              </strong>{" "}
+              from{" "}
               <strong className="font-medium text-foreground">{BRAND_NAME}</strong>
-              — free React components for Next.js and Tailwind with source you
-              own, a CLI, and first-class agent tooling.
+              . It ships {CATALOG.length}+ components, a CLI that copies source
+              into your repo, five themes, and agent tooling (plugin + MCP) so
+              product teams own frosted UI without black-box kits.
             </>
           }
           actions={
@@ -121,6 +132,34 @@ export default function AboutPage() {
             </div>
           }
         />
+
+        <section aria-labelledby="definition-heading" className="space-y-4">
+          <h2
+            id="definition-heading"
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
+            What is Intelli UI?
+          </h2>
+          <Card variant="chrome" animated={false}>
+            <CardContent className="space-y-3 p-6 text-sm leading-relaxed text-muted-foreground">
+              <p>
+                Intelli UI is Liquid Glass first — chrome vs content layers,
+                frosted primitives, and five themes (mono, aurora, sunset, frost,
+                ocean) so product UI looks intentional on day one. The CLI copies
+                TypeScript components into your repository under an MIT-friendly
+                ownership model, the same install pattern teams know from
+                shadcn-style registries, with glass hierarchy and agent-native
+                tooling included.
+              </p>
+              <p>
+                Use Intelli UI when you want glassmorphism that stays readable:
+                neutral chrome above expressive content, accessible Radix-based
+                primitives, live docs with install commands, and MCP/plugin
+                support for Claude, Grok, Cursor, and other coding agents.
+              </p>
+            </CardContent>
+          </Card>
+        </section>
 
         <section aria-labelledby="mission-heading" className="space-y-4">
           <h2
@@ -152,7 +191,13 @@ export default function AboutPage() {
                 </strong>
                 : an official plugin, MCP server, and docs that agents can
                 follow so installs stay correct instead of inventing frosted CSS
-                from scratch.
+                from scratch. The goal is less tab-hopping between Storybook,
+                npm, and half-finished glass CSS recipes.
+              </p>
+              <p>
+                Open source means transparent roadmap and contribution paths:
+                issues, pull requests, and showcases on GitHub shape what ships
+                next — components, themes, and agent skills included.
               </p>
             </CardContent>
           </Card>

@@ -2,7 +2,7 @@
 
 **Owner:** Growth / Product marketing  
 **Site:** [https://ui.intellihelper.in](https://ui.intellihelper.in)  
-**Last updated:** 2026-07-21  
+**Last updated:** 2026-07-25  
 **Goal:** Outrank generic component-library SERPs on *intent* keywords (Liquid Glass, glassmorphism, shadcn alternative, MCP UI) and win AI citation via `llms.txt` + structured data.
 
 ---

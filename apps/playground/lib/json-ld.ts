@@ -10,6 +10,7 @@ import {
   CLI_PACKAGE,
   DEFAULT_DESCRIPTION,
   GITHUB_URL,
+  SITE_CONTENT_DATES,
   SITE_NAME,
   SITE_URL,
 } from "./seo";
@@ -39,8 +40,16 @@ export function organizationJsonLd(): JsonLd {
       "IntelliHelper builds Liquid Glass UI tools and AI-ready component infrastructure for modern React apps.",
     founder: {
       "@type": "Person",
+      "@id": `${SITE_URL}/#founder`,
       name: "Adeeb Mirza",
       url: "https://github.com/adeebmirza",
+      sameAs: ["https://github.com/adeebmirza"],
+      jobTitle: "Creator & maintainer",
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      url: `${GITHUB_URL}/issues`,
     },
   };
 }
@@ -81,6 +90,8 @@ export function softwareApplicationJsonLd(): JsonLd {
     downloadUrl: absoluteUrl("/getting-started"),
     installUrl: absoluteUrl("/getting-started"),
     softwareVersion: "latest",
+    datePublished: SITE_CONTENT_DATES.published,
+    dateModified: SITE_CONTENT_DATES.modified,
     offers: {
       "@type": "Offer",
       price: "0",
@@ -147,11 +158,15 @@ export function webPageJsonLd({
   description,
   path,
   type = "WebPage",
+  datePublished = SITE_CONTENT_DATES.published,
+  dateModified = SITE_CONTENT_DATES.modified,
 }: {
   name: string;
   description: string;
   path: string;
   type?: "WebPage" | "CollectionPage" | "AboutPage" | "FAQPage" | "TechArticle";
+  datePublished?: string;
+  dateModified?: string;
 }): JsonLd {
   return {
     "@context": "https://schema.org",
@@ -164,6 +179,81 @@ export function webPageJsonLd({
     about: { "@id": `${SITE_URL}/#software` },
     inLanguage: "en-US",
     publisher: { "@id": `${SITE_URL}/#organization` },
+    datePublished,
+    dateModified,
+  };
+}
+
+export function breadcrumbJsonLd(
+  items: Array<{ name: string; path: string }>,
+): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: absoluteUrl(item.path),
+    })),
+  };
+}
+
+/** Buyer-intent FAQ for homepage GEO / AI Overview extraction */
+export function homeFaqJsonLd(): JsonLd {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: [
+      {
+        "@type": "Question",
+        name: "What is Intelli UI?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Intelli UI is a free, open-source Liquid Glass component library for React and Next.js. It ships 80+ accessible components, a CLI that copies source into your repo, five themes, an MCP server for AI coding agents, and a plugin for Claude Code, Grok, Cursor, and VS Code.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is Intelli UI free?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Intelli UI is free and open source under the MIT license. You install components into your project and own the copied source files.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Is Intelli UI better than shadcn/ui for glass UI?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "For glass product UI, yes when you want hierarchy out of the box. Both use a copy-paste ownership model. Intelli UI adds Liquid Glass chrome vs content layers, five themes, glass primitives, AI product components, and agent install (plugin + MCP). Prefer shadcn alone when you only need a flat, neutral baseline.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Does Intelli UI work with Tailwind CSS and Next.js?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Intelli UI is built for React 19, Next.js, and Tailwind CSS. Initialize with the CLI, then add components such as button, card, and dialog.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "Can AI coding agents install Intelli UI components?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: "Yes. Install the official agent plugin (IntelliHelper/agent-skills) or wire the intellihelper-ui MCP server so Claude, Grok, Cursor, Codex, and others install and compose components correctly.",
+        },
+      },
+      {
+        "@type": "Question",
+        name: "How do I install Intelli UI?",
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: `Run npx ${CLI_PACKAGE}@latest init, then npx ${CLI_PACKAGE}@latest add button card dialog. Optional: install the agent plugin or MCP for coding agents.`,
+        },
+      },
+    ],
   };
 }
 
@@ -353,6 +443,8 @@ export function componentPageJsonLd(item: CatalogItem): JsonLd {
     description: item.description,
     url,
     mainEntityOfPage: url,
+    datePublished: SITE_CONTENT_DATES.published,
+    dateModified: SITE_CONTENT_DATES.modified,
     inLanguage: "en-US",
     isAccessibleForFree: true,
     author: { "@id": `${SITE_URL}/#organization` },
@@ -467,6 +559,9 @@ export function homeGraphJsonLd(): JsonLd {
         path: "/",
         type: "WebPage",
       }),
+      breadcrumbJsonLd([{ name: "Home", path: "/" }]),
+      homeFaqJsonLd(),
+      itemListJsonLd(),
     ].map((node) => {
       const rest = { ...node };
       delete rest["@context"];

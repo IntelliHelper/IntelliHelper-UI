@@ -16,6 +16,18 @@ export const AGENT_SKILLS_REPO = "IntelliHelper/agent-skills";
 export const REGISTRY_URL = "https://ui.intellihelper.in/r/registry.json";
 export const CLI_PACKAGE = "@intellihelper/cli";
 
+/**
+ * Site-wide content freshness (ISO date YYYY-MM-DD).
+ * Bump when marketing/docs content or schema-facing copy changes.
+ * Used by WebPage JSON-LD, llms.txt, and visible "Updated" badges.
+ */
+export const SITE_CONTENT_DATES = {
+  /** First public marketing launch of the docs site */
+  published: "2026-07-21",
+  /** Last substantive content / schema refresh */
+  modified: "2026-07-25",
+} as const;
+
 export const DEFAULT_TITLE =
   "Intelli UI — Free Liquid Glass React Components for Next.js & Tailwind CSS";
 
@@ -232,6 +244,10 @@ export function buildLlmsText(): string {
   return `# ${SITE_NAME}
 
 > ${SITE_NAME} by ${BRAND_NAME} is a Liquid Glass component library for React and Next.js. Copy-paste accessible Tailwind components you own in your codebase. Includes a CLI (\`${CLI_PACKAGE}\`), shadcn-compatible registry, an official agent plugin (\`${AGENT_SKILLS_REPO}\`), and an MCP server (\`intellihelper-ui\`) for AI coding agents. Open source. Open code. AI-ready.
+
+Last updated: ${SITE_CONTENT_DATES.modified}
+Contact: ${GITHUB_URL}/issues
+Author: Adeeb Mirza (IntelliHelper) — ${absoluteUrl("/about")}
 
 ## Overview
 

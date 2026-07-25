@@ -1,8 +1,15 @@
+export type GuideTable = {
+  caption: string;
+  headers: string[];
+  rows: string[][];
+};
+
 export type GuideSection = {
   heading: string;
   paragraphs: string[];
   bullets?: string[];
   code?: string;
+  table?: GuideTable;
 };
 
 export type Guide = {
@@ -24,8 +31,8 @@ export const GUIDES: Guide[] = [
     description:
       "Learn what Liquid Glass (glassmorphism) UI is, how chrome vs content layers work, and how to ship free React components for Next.js & Tailwind with Intelli UI.",
     datePublished: "2026-07-21",
-    dateModified: "2026-07-21",
-    readingMinutes: 8,
+    dateModified: "2026-07-25",
+    readingMinutes: 10,
     keywords: [
       "liquid glass ui",
       "glassmorphism react",
@@ -39,12 +46,13 @@ export const GUIDES: Guide[] = [
         paragraphs: [
           "Liquid Glass UI is a design language that uses translucency, blur, and subtle borders to separate floating chrome (toolbars, controls, chrome buttons) from expressive content underneath. Apple popularized related ideas in visionOS and recent system UI; on the web, teams often call the same look glassmorphism.",
           "Done well, glass helps hierarchy: controls stay calm and reusable while content (media, gradients, product art) stays vivid. Done poorly, blur tanks performance and text contrast fails accessibility checks.",
+          "In product terms, Liquid Glass UI is not “blur everything.” It is a layered system: frosted chrome stays neutral so icons and labels remain readable; content panels may be more saturated; tokens keep blur, fill, and border consistent across themes.",
         ],
       },
       {
         heading: "Chrome layer vs content layer",
         paragraphs: [
-          "Intelli UI splits surfaces into two mental layers:",
+          "Intelli UI splits surfaces into two mental layers so glassmorphism stays usable in real apps, not just marketing mockups:",
         ],
         bullets: [
           "Chrome layer — frosted, neutral controls (bars, icon buttons, dialogs). Prefer lower saturation and reliable focus rings.",
@@ -56,6 +64,7 @@ export const GUIDES: Guide[] = [
         heading: "How to build Liquid Glass in React (Next.js + Tailwind)",
         paragraphs: [
           "You can hand-roll backdrop-filter and semi-transparent backgrounds, but a component library saves weeks of accessibility and variant work. Intelli UI ships free Liquid Glass React components you install into your repo — same ownership model as shadcn/ui, with a glass-first system.",
+          "A practical path: initialize the project, add chrome primitives (button, glass-bar, dialog), then content surfaces (card, glass content card). Keep glass regions bounded so Core Web Vitals stay healthy on mobile.",
         ],
         code: `npx @intellihelper/cli@latest init
 npx @intellihelper/cli@latest add button card dialog glass-bar`,
@@ -66,6 +75,39 @@ npx @intellihelper/cli@latest add button card dialog glass-bar`,
           "Backdrop blur is GPU-heavy on low-end mobile. Keep glass regions bounded, avoid animating large blurred areas on scroll, reserve space for previews to prevent CLS, and honor prefers-reduced-motion for decorative animation.",
           "Prefer live previews that mount on demand when a page lists many demos. The Intelli UI playground follows these patterns so catalog pages stay usable while still showing real glass.",
         ],
+      },
+      {
+        heading: "Liquid Glass vs flat UI kits",
+        paragraphs: [
+          "Flat component kits (including default shadcn/ui styling) leave brand and hierarchy entirely to you. Liquid Glass systems encode hierarchy in the design language itself.",
+        ],
+        table: {
+          caption:
+            "Liquid Glass design language compared to flat UI kit defaults",
+          headers: ["Concern", "Flat / neutral kits", "Liquid Glass (Intelli UI)"],
+          rows: [
+            [
+              "Hierarchy",
+              "You invent elevation and brand",
+              "Chrome vs content layers built-in",
+            ],
+            [
+              "Themes",
+              "Often one gray scale",
+              "Five Liquid Glass packs on shared tokens",
+            ],
+            [
+              "Glass primitives",
+              "DIY backdrop-filter",
+              "Glass-bar, content cards, preview stage",
+            ],
+            [
+              "Ownership",
+              "Varies by package",
+              "CLI copy-paste — source in your repo",
+            ],
+          ],
+        },
       },
       {
         heading: "Next steps",
@@ -81,8 +123,8 @@ npx @intellihelper/cli@latest add button card dialog glass-bar`,
     description:
       "How Intelli UI is better than shadcn/ui and generic React libraries for glassmorphism, AI product chrome, themes, and agent-native installs — with the same source-ownership model.",
     datePublished: "2026-07-21",
-    dateModified: "2026-07-24",
-    readingMinutes: 9,
+    dateModified: "2026-07-25",
+    readingMinutes: 11,
     keywords: [
       "shadcn alternative",
       "shadcn vs intelli ui",
@@ -98,6 +140,50 @@ npx @intellihelper/cli@latest add button card dialog glass-bar`,
           "Both shadcn/ui and Intelli UI reject the black-box npm UI kit model. You run a CLI, components land in your repository, and you customize source freely. That is the right default for product teams that outgrow theme-prop APIs from MUI, Chakra, Ant Design, and similar locked packages.",
           "Ownership is table stakes. The gap is what you get after the files land in your app.",
         ],
+      },
+      {
+        heading: "shadcn/ui vs Intelli UI at a glance",
+        paragraphs: [
+          "Use this comparison when evaluating “shadcn alternative,” glassmorphism React libraries, or AI-product chrome. Numbers reflect the Intelli UI catalog size at publish time and may grow as components ship.",
+        ],
+        table: {
+          caption: "Feature comparison of shadcn/ui and Intelli UI",
+          headers: ["Feature", "shadcn/ui", "Intelli UI"],
+          rows: [
+            [
+              "Visual system",
+              "Flat baseline; restyle yourself",
+              "Liquid Glass (chrome vs content layers)",
+            ],
+            [
+              "Components",
+              "~50 community baseline (varies)",
+              "80+ across 10 categories",
+            ],
+            [
+              "Themes",
+              "1 default + DIY tokens",
+              "5 (mono, aurora, sunset, frost, ocean)",
+            ],
+            [
+              "AI product components",
+              "None first-party",
+              "AI Chat, Reasoning Block, Tool Call Viewer, Prompt Input, Token Counter, and more",
+            ],
+            [
+              "Agent install",
+              "Docs only",
+              "Plugin for Claude/Grok/Cursor + MCP server intellihelper-ui",
+            ],
+            [
+              "Glass primitives",
+              "Community recipes",
+              "Glass-bar, content cards, preview stage, background pickers",
+            ],
+            ["Ownership model", "CLI copy-paste (MIT)", "CLI copy-paste (MIT)"],
+            ["Pricing", "Free", "Free"],
+          ],
+        },
       },
       {
         heading: "Where Intelli UI is better",
