@@ -15,6 +15,7 @@ import {
   type ReactNode,
 } from "react";
 import { cn, focusRing } from "@intelli/utils";
+import { GlassIconButton } from "./glass-icon-button";
 import {
   DEFAULT_IMAGE_CROP,
   DEFAULT_IMAGE_FILTERS,
@@ -78,7 +79,10 @@ export interface ImageEditorProps
     VariantProps<typeof imageEditorVariants> {
   src: string;
   alt?: string;
+  /** Controlled crop aspect preset. Preset chips update this (or defaultAspect). */
   aspect?: ImageAspectPreset;
+  defaultAspect?: ImageAspectPreset;
+  onAspectChange?: (aspect: ImageAspectPreset) => void;
   defaultTool?: ImageEditorTool;
   tool?: ImageEditorTool;
   onToolChange?: (tool: ImageEditorTool) => void;
@@ -122,36 +126,6 @@ function ToolButton({
         active
           ? "bg-[color-mix(in_oklch,var(--primary)_22%,transparent)] text-foreground"
           : "text-[var(--glass-chrome-fg)] hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_10%,transparent)]",
-      )}
-    >
-      {children}
-    </button>
-  );
-}
-
-function IconBtn({
-  label,
-  onClick,
-  children,
-  disabled,
-}: {
-  label: string;
-  onClick?: () => void;
-  children: ReactNode;
-  disabled?: boolean;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
-      className={cn(
-        "inline-flex size-9 items-center justify-center rounded-full",
-        "text-[var(--glass-chrome-fg)]",
-        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_10%,transparent)]",
-        "active:scale-95 disabled:opacity-40",
-        focusRing,
       )}
     >
       {children}
@@ -230,7 +204,9 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
       variant,
       src,
       alt = "",
-      aspect = "free",
+      aspect: aspectProp,
+      defaultAspect = "free",
+      onAspectChange,
       defaultTool = "crop",
       tool: toolProp,
       onToolChange,
@@ -256,6 +232,7 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
     const baseId = useId();
 
     const [uncontrolledTool, setUncontrolledTool] = useState(defaultTool);
+    const [uncontrolledAspect, setUncontrolledAspect] = useState(defaultAspect);
     const [uncontrolledCrop, setUncontrolledCrop] = useState(defaultCrop);
     const [uncontrolledTransform, setUncontrolledTransform] =
       useState(defaultTransform);
@@ -265,6 +242,7 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
     const [imgReady, setImgReady] = useState(false);
 
     const tool = toolProp ?? uncontrolledTool;
+    const aspect = aspectProp ?? uncontrolledAspect;
     const crop = cropProp ?? uncontrolledCrop;
     const transform = transformProp ?? uncontrolledTransform;
     const filters = filtersProp ?? uncontrolledFilters;
@@ -273,6 +251,14 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
       if (toolProp === undefined) setUncontrolledTool(next);
       onToolChange?.(next);
     };
+
+    const setAspect = useCallback(
+      (next: ImageAspectPreset) => {
+        if (aspectProp === undefined) setUncontrolledAspect(next);
+        onAspectChange?.(next);
+      },
+      [aspectProp, onAspectChange],
+    );
 
     const setCrop = useCallback(
       (next: ImageEditorCrop) => {
@@ -305,16 +291,31 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
     );
 
     useEffect(() => {
-      // Re-fit crop when aspect preset changes
+      // Re-fit crop when aspect preset changes (from chips or controlled prop)
       setCrop(crop);
       // eslint-disable-next-line react-hooks/exhaustive-deps -- only on aspect change
     }, [aspect]);
 
     const reset = useCallback(() => {
-      setCrop(DEFAULT_IMAGE_CROP);
+      if (aspectProp === undefined) setUncontrolledAspect(defaultAspect);
+      onAspectChange?.(defaultAspect);
+      const fitted = fitCropToAspect(
+        DEFAULT_IMAGE_CROP,
+        aspectPresetRatio(defaultAspect),
+      );
+      if (cropProp === undefined) setUncontrolledCrop(fitted);
+      onCropChange?.(fitted);
       setTransform(DEFAULT_IMAGE_TRANSFORM);
       setFilters(DEFAULT_IMAGE_FILTERS);
-    }, [setCrop, setFilters, setTransform]);
+    }, [
+      aspectProp,
+      cropProp,
+      defaultAspect,
+      onAspectChange,
+      onCropChange,
+      setFilters,
+      setTransform,
+    ]);
 
     useImperativeHandle(
       ref,
@@ -632,41 +633,37 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
                   ["16:9", "16:9"],
                   ["9:16", "9:16"],
                 ] as const
-              ).map(([value, label]) => (
-                <button
-                  key={value}
-                  type="button"
-                  onClick={() => {
-                    // Parent may control aspect via prop — when free, just reset crop shape
-                    if (value === "free") {
-                      setCrop({ x: 0.1, y: 0.1, width: 0.8, height: 0.8 });
-                      return;
-                    }
-                    const ratio = aspectPresetRatio(value);
-                    setCrop(
-                      fitCropToAspect(
-                        { x: 0.1, y: 0.1, width: 0.8, height: 0.8 },
-                        ratio,
-                      ),
-                    );
-                  }}
-                  className={cn(
-                    "h-8 rounded-full border px-3 text-xs font-medium",
-                    "border-[color-mix(in_oklch,var(--glass-chrome-border)_80%,transparent)]",
-                    "hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_8%,transparent)]",
-                    focusRing,
-                  )}
-                >
-                  {label}
-                </button>
-              ))}
+              ).map(([value, label]) => {
+                const active = aspect === value;
+                return (
+                  <button
+                    key={value}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => setAspect(value)}
+                    className={cn(
+                      "h-8 rounded-full border px-3 text-xs font-medium",
+                      "border-[color-mix(in_oklch,var(--glass-chrome-border)_80%,transparent)]",
+                      "hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_8%,transparent)]",
+                      active &&
+                        "border-[color-mix(in_oklch,var(--primary)_55%,transparent)] bg-[color-mix(in_oklch,var(--primary)_18%,transparent)]",
+                      focusRing,
+                    )}
+                  >
+                    {label}
+                  </button>
+                );
+              })}
             </div>
           ) : null}
 
           {tool === "transform" ? (
             <div className="flex flex-wrap items-center gap-2">
-              <IconBtn
-                label="Rotate left 90°"
+              <GlassIconButton
+                type="button"
+                variant="ghost"
+                size="default"
+                aria-label="Rotate left 90°"
                 onClick={() =>
                   setTransform({
                     ...transform,
@@ -675,9 +672,12 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
                 }
               >
                 <RotateLeftIcon className="size-4" />
-              </IconBtn>
-              <IconBtn
-                label="Rotate right 90°"
+              </GlassIconButton>
+              <GlassIconButton
+                type="button"
+                variant="ghost"
+                size="default"
+                aria-label="Rotate right 90°"
                 onClick={() =>
                   setTransform({
                     ...transform,
@@ -686,23 +686,29 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
                 }
               >
                 <RotateIcon className="size-4" />
-              </IconBtn>
-              <IconBtn
-                label="Flip horizontal"
+              </GlassIconButton>
+              <GlassIconButton
+                type="button"
+                variant="ghost"
+                size="default"
+                aria-label="Flip horizontal"
                 onClick={() =>
                   setTransform({ ...transform, flipX: !transform.flipX })
                 }
               >
                 <FlipHIcon className="size-4" />
-              </IconBtn>
-              <IconBtn
-                label="Flip vertical"
+              </GlassIconButton>
+              <GlassIconButton
+                type="button"
+                variant="ghost"
+                size="default"
+                aria-label="Flip vertical"
                 onClick={() =>
                   setTransform({ ...transform, flipY: !transform.flipY })
                 }
               >
                 <FlipVIcon className="size-4" />
-              </IconBtn>
+              </GlassIconButton>
               <span className="ml-2 text-xs text-muted-foreground">
                 Rotation {normalizeRotation(transform.rotation)}°
                 {transform.flipX ? " · Flip X" : ""}

@@ -18,10 +18,15 @@ import {
   type WheelEvent as ReactWheelEvent,
 } from "react";
 import { cn, focusRing } from "@intelli/utils";
+import { GlassIconButton } from "./glass-icon-button";
 
 const MIN_ZOOM = 1;
 const MAX_ZOOM = 4;
 const ZOOM_STEP = 0.25;
+
+function clamp(value: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, value));
+}
 
 export type ImagePreviewItem = {
   src: string;
@@ -82,41 +87,6 @@ const imagePreviewToolbarVariants = cva(
   },
 );
 
-function IconButton({
-  className,
-  label,
-  disabled,
-  onClick,
-  children,
-}: {
-  className?: string;
-  label: string;
-  disabled?: boolean;
-  onClick?: () => void;
-  children: ReactNode;
-}) {
-  return (
-    <button
-      type="button"
-      aria-label={label}
-      disabled={disabled}
-      onClick={onClick}
-      className={cn(
-        "inline-flex size-8 shrink-0 items-center justify-center rounded-full",
-        "text-[var(--glass-chrome-fg)]",
-        "transition-[background,transform,opacity] duration-[var(--duration-fast)] [transition-timing-function:var(--ease-default)]",
-        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_10%,transparent)]",
-        "active:scale-95",
-        "disabled:pointer-events-none disabled:opacity-40",
-        focusRing,
-        className,
-      )}
-    >
-      {children}
-    </button>
-  );
-}
-
 function CloseIcon({ className }: { className?: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className={className}>
@@ -171,10 +141,6 @@ function ChevronRightIcon({ className }: { className?: string }) {
       <path d="m9 18 6-6-6-6" />
     </svg>
   );
-}
-
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
 }
 
 function normalizeItems(
@@ -450,20 +416,37 @@ const ImagePreview = ({
             <div className={cn(imagePreviewToolbarVariants())}>
               {zoomable ? (
                 <>
-                  <IconButton label="Zoom out" onClick={zoomOut} disabled={zoom <= MIN_ZOOM}>
-                    <ZoomOutIcon className="size-4" />
-                  </IconButton>
+                  <GlassIconButton
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    aria-label="Zoom out"
+                    onClick={zoomOut}
+                    disabled={zoom <= MIN_ZOOM}
+                  >
+                    <ZoomOutIcon />
+                  </GlassIconButton>
                   <span className="min-w-12 text-center text-xs tabular-nums opacity-90">
                     {Math.round(zoom * 100)}%
                   </span>
-                  <IconButton label="Zoom in" onClick={zoomIn} disabled={zoom >= MAX_ZOOM}>
-                    <ZoomInIcon className="size-4" />
-                  </IconButton>
+                  <GlassIconButton
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    aria-label="Zoom in"
+                    onClick={zoomIn}
+                    disabled={zoom >= MAX_ZOOM}
+                  >
+                    <ZoomInIcon />
+                  </GlassIconButton>
                 </>
               ) : null}
               {downloadable && active ? (
-                <IconButton
-                  label="Download image"
+                <GlassIconButton
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  aria-label="Download image"
                   onClick={() =>
                     void downloadImage(
                       active.downloadSrc ?? active.src,
@@ -471,13 +454,18 @@ const ImagePreview = ({
                     )
                   }
                 >
-                  <DownloadIcon className="size-4" />
-                </IconButton>
+                  <DownloadIcon />
+                </GlassIconButton>
               ) : null}
               <DialogPrimitive.Close asChild>
-                <IconButton label="Close preview">
-                  <CloseIcon className="size-4" />
-                </IconButton>
+                <GlassIconButton
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  aria-label="Close preview"
+                >
+                  <CloseIcon />
+                </GlassIconButton>
               </DialogPrimitive.Close>
             </div>
           </div>
@@ -498,22 +486,28 @@ const ImagePreview = ({
             {items.length > 1 ? (
               <>
                 <div className="pointer-events-none absolute inset-y-0 left-2 z-10 flex items-center sm:left-4">
-                  <IconButton
-                    label="Previous image"
-                    className="pointer-events-auto size-10 border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)] backdrop-blur-[var(--glass-chrome-blur)]"
+                  <GlassIconButton
+                    type="button"
+                    variant="chrome"
+                    size="lg"
+                    aria-label="Previous image"
+                    className="pointer-events-auto"
                     onClick={goPrev}
                   >
                     <ChevronLeftIcon className="size-5" />
-                  </IconButton>
+                  </GlassIconButton>
                 </div>
                 <div className="pointer-events-none absolute inset-y-0 right-2 z-10 flex items-center sm:right-4">
-                  <IconButton
-                    label="Next image"
-                    className="pointer-events-auto size-10 border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)] backdrop-blur-[var(--glass-chrome-blur)]"
+                  <GlassIconButton
+                    type="button"
+                    variant="chrome"
+                    size="lg"
+                    aria-label="Next image"
+                    className="pointer-events-auto"
                     onClick={goNext}
                   >
                     <ChevronRightIcon className="size-5" />
-                  </IconButton>
+                  </GlassIconButton>
                 </div>
               </>
             ) : null}

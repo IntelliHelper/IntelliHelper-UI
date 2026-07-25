@@ -1797,10 +1797,26 @@ const { mode, setMode } = useTheme()
       title: "Lightbox gallery",
       description: "Thumbnails open a zoomable full-screen preview with keyboard navigation.",
       preview: <ImagePreviewDemo />,
-      code: `import { ImagePreview } from "@/components/ui/image-preview"
+      code: `import {
+  ImagePreview,
+  ImagePreviewThumb,
+} from "@/components/ui/image-preview"
 
 const [open, setOpen] = useState(false)
 const [index, setIndex] = useState(0)
+
+{images.map((item, i) => (
+  <ImagePreviewThumb
+    key={item.src}
+    src={item.src}
+    alt={item.alt}
+    index={i}
+    onOpen={(next) => {
+      setIndex(next)
+      setOpen(true)
+    }}
+  />
+))}
 
 <ImagePreview
   images={images}
@@ -1860,7 +1876,7 @@ const [index, setIndex] = useState(0)
 
 <ImageEditor
   src="/photo.jpg"
-  aspect="1:1"
+  defaultAspect="1:1"
   onExport={(blob) => upload(blob)}
 />`,
     },

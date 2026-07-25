@@ -2725,7 +2725,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "glass-icon-button"
       ],
       "files": [
         {
@@ -2758,9 +2759,20 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "dropdown-menu"
       ],
       "files": [
+        {
+          "path": "packages/ui/src/media-player-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/media-player-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/media-player-icons.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/media-player-icons.tsx"
+        },
         {
           "path": "packages/ui/src/media-player.tsx",
           "type": "registry:ui",
@@ -2795,7 +2807,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "glass-icon-button"
       ],
       "files": [
         {

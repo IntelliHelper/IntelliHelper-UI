@@ -818,6 +818,14 @@ export {
   type MediaPlayerCaptionValue,
 } from "./media-player";
 export {
+  captionTrackId,
+  clampVolume,
+  matchCaptionTrackId,
+  qualityId,
+  resolveDefaultCaption,
+  resolveDefaultQuality,
+} from "./media-player-utils";
+export {
   ImageEditor,
   imageEditorVariants,
   DEFAULT_IMAGE_CROP,

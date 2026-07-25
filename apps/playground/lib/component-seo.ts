@@ -124,12 +124,12 @@ export const COMPONENT_EXTRA_FAQS: Record<string, ComponentFaqItem[]> = {
     {
       question: "How do closed captions work?",
       answer:
-        "Provide WebVTT tracks via the captions prop. The CC menu lists Off plus each language. Press C to toggle the first track. Tracks render as native HTML track elements with mode showing or disabled.",
+        "Provide WebVTT tracks via the captions prop. The CC menu lists Off plus each language. Press C to toggle the first track. Tracks render as native HTML track elements with mode showing or disabled. For cross-origin caption files, set crossOrigin=\"anonymous\" on the player (and ensure the media host sends CORS headers).",
     },
     {
       question: "How does the quality selector switch sources?",
       answer:
-        "Pass a qualities array with label and src for each rendition. Changing quality swaps the media src while preserving current time and play state. Use distinct bitrates in production; demos may reuse one file for labels.",
+        "Pass a qualities array with label and src for each rendition. Changing quality (UI, quality prop, or setQuality) swaps the media src while preserving current time and play state. Use distinct bitrates in production; demos may reuse one file for labels.",
     },
     {
       question: "Does Media Player support audio and video?",
@@ -141,7 +141,7 @@ export const COMPONENT_EXTRA_FAQS: Record<string, ComponentFaqItem[]> = {
     {
       question: "What edits can Image Editor apply?",
       answer:
-        "Crop with drag handles and aspect presets (free, 1:1, 4:3, 3:2, 16:9, 9:16), rotate in 90° steps, flip horizontal/vertical, and adjust brightness, contrast, saturation, grayscale, sepia, and blur. Export to Blob or Data URL via onExport or the imperative handle.",
+        "Crop with drag handles and aspect presets (free, 1:1, 4:3, 3:2, 16:9, 9:16) that lock the ratio while resizing, rotate in 90° steps, flip horizontal/vertical, and adjust brightness, contrast, saturation, grayscale, sepia, and blur. Crop is authored in source space; rotate/flip apply on export after crop. Export to Blob or Data URL via onExport or the imperative handle.",
     },
     {
       question: "Does cropping run on the server?",

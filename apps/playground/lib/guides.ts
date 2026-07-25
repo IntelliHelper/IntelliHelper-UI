@@ -92,7 +92,7 @@ import { MediaPlayer } from "@/components/ui/media-player"
       {
         heading: "Image Editor (crop, rotate, filters)",
         paragraphs: [
-          "Image Editor is a client-side canvas tool for crop handles, aspect presets, 90° rotate, flip, and filter sliders (brightness, contrast, saturation, grayscale, sepia, blur). Export a Blob or Data URL for upload pipelines.",
+          "Image Editor is a client-side canvas tool for crop handles, aspect presets that lock ratio while resizing (defaultAspect / aspect / onAspectChange), 90° rotate, flip, and filter sliders (brightness, contrast, saturation, grayscale, sepia, blur). Crop is authored in source space; rotate/flip apply on export after crop. Export a Blob or Data URL for upload pipelines.",
           "Compose File Upload → Image Editor → API for avatars and attachments. Avoid using it as a server-side pipeline — it is product UI, not an NLE.",
         ],
         code: `npx @intellihelper/cli@latest add image-editor file-upload
@@ -101,7 +101,7 @@ import { ImageEditor } from "@/components/ui/image-editor"
 
 <ImageEditor
   src={previewUrl}
-  aspect="1:1"
+  defaultAspect="1:1"
   onExport={(blob) => uploadAvatar(blob)}
 />`,
       },
@@ -116,7 +116,7 @@ import { ImageEditor } from "@/components/ui/image-editor"
         heading: "Accessibility and performance",
         paragraphs: [
           "Provide real captions/transcripts for meaningful audio and video. Name icon-only controls. Keep glass player chrome on the control layer so text stays readable over the gradient.",
-          "Prefer progressive preload (metadata), poster images for LCP-friendly video frames, and CORS-friendly assets when using canvas export or cross-origin WebVTT.",
+          "Prefer progressive preload (metadata), poster images for LCP-friendly video frames, and CORS-friendly assets when using canvas export or cross-origin WebVTT. For remote captions, set crossOrigin=\"anonymous\" on MediaPlayer and serve CORS headers on the media origin.",
         ],
       },
     ],

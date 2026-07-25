@@ -4,6 +4,7 @@ import {
   ImageEditor,
   ImagePreview,
   ImagePreviewGallery,
+  ImagePreviewThumb,
   MediaPlayer,
   type ImagePreviewItem,
 } from "@intelli/ui";
@@ -49,26 +50,22 @@ export function ImagePreviewDemo() {
     <div className="w-full max-w-lg space-y-3">
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
         {DEMO_IMAGES.map((item, i) => (
-          <button
+          <ImagePreviewThumb
             key={item.src}
-            type="button"
-            className="overflow-hidden rounded-xl border border-[var(--glass-chrome-border)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            onClick={() => {
-              setIndex(i);
+            src={item.src}
+            alt={item.alt}
+            index={i}
+            className="aspect-square"
+            onOpen={(next) => {
+              setIndex(next);
               setOpen(true);
             }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={item.src}
-              alt={item.alt}
-              className="aspect-square size-full object-cover transition hover:scale-[1.03]"
-            />
-          </button>
+          />
         ))}
       </div>
       <p className="text-xs text-muted-foreground">
-        Click a thumbnail to open the lightbox. Arrow keys navigate; scroll to zoom.
+        Click a thumbnail to open the lightbox. Arrow keys navigate; scroll to
+        zoom.
       </p>
       <ImagePreview
         images={DEMO_IMAGES}
@@ -114,12 +111,8 @@ Los pétalos se abren hacia la luz.
 00:00:03.600 --> 00:00:06.000
 Demostración de subtítulos — Español.
 `;
-    const en = URL.createObjectURL(
-      new Blob([vttEn], { type: "text/vtt" }),
-    );
-    const es = URL.createObjectURL(
-      new Blob([vttEs], { type: "text/vtt" }),
-    );
+    const en = URL.createObjectURL(new Blob([vttEn], { type: "text/vtt" }));
+    const es = URL.createObjectURL(new Blob([vttEs], { type: "text/vtt" }));
     return [
       {
         id: "en",
@@ -161,7 +154,10 @@ export function MediaPlayerVideoDemo() {
         defaultQuality="720"
       />
       <p className="mt-2 text-xs text-muted-foreground">
-        Demo uses the same file for each quality label — wire distinct bitrates in production.
+        Demo uses the same file for each quality label — wire distinct bitrates
+        in production. Cross-origin captions need{" "}
+        <code className="rounded bg-muted px-1">crossOrigin=&quot;anonymous&quot;</code>{" "}
+        when tracks are remote.
       </p>
     </div>
   );
@@ -190,7 +186,7 @@ export function ImageEditorDemo() {
       <ImageEditor
         src={src}
         alt="Edit sample"
-        aspect="free"
+        defaultAspect="free"
         onExport={(blob) => {
           setLastExport(`${(blob.size / 1024).toFixed(1)} KB · ${blob.type}`);
         }}
@@ -199,7 +195,8 @@ export function ImageEditorDemo() {
         <p className="text-xs text-muted-foreground">Last export: {lastExport}</p>
       ) : (
         <p className="text-xs text-muted-foreground">
-          Crop, filter, or rotate — then Export to download a PNG.
+          Crop (aspect chips lock ratio while resizing), filter, or rotate —
+          then Export to download a PNG.
         </p>
       )}
     </div>

@@ -6,18 +6,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@intelli/ui";
-
-export type ComponentFaqExtra = {
-  question: string;
-  answer: string;
-};
+import type { ComponentFaqItem } from "../lib/component-seo";
 
 type ComponentFaqProps = {
   title: string;
   description: string;
   installCommand: string;
   /** Component-specific FAQ pairs (also mirrored in FAQPage JSON-LD). */
-  extras?: ComponentFaqExtra[];
+  extras?: ComponentFaqItem[];
 };
 
 /**
