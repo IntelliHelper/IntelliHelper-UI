@@ -266,6 +266,14 @@ export function WhyBetterSection() {
             <Link href="/guides/shadcn-vs-intelli-ui">Read comparison guide</Link>
           </Button>
         </div>
+        <div className="flex flex-col gap-3 border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+          <p className="text-sm text-muted-foreground">
+            Full write-up: when to pick Intelli UI vs shadcn for glass product UI.
+          </p>
+          <Button asChild variant="primary" size="sm" className="shrink-0">
+            <Link href="/guides/shadcn-vs-intelli-ui">Read comparison guide</Link>
+          </Button>
+        </div>
       </div>
     </section>
   );
