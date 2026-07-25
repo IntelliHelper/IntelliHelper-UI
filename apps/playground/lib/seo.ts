@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import type { CatalogItem, ComponentCategory } from "./catalog";
 import { CATEGORY_META, CATALOG } from "./catalog";
+import {
+  getCategoryKeywords,
+  getComponentKeywords,
+} from "./component-seo";
 
 export const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://ui.intellihelper.in";
@@ -33,7 +37,7 @@ export const DEFAULT_TITLE =
 
 /** ~155 chars: value prop + proof + CTA for SERP CTR */
 export const DEFAULT_DESCRIPTION =
-  "80+ free Liquid Glass React components for Next.js & Tailwind — stronger than flat shadcn defaults for glass UI, AI chrome, themes & agents. Live previews, CLI, source you own.";
+  "80+ free Liquid Glass React components for Next.js & Tailwind — glass UI, AI chrome, media players, themes & agents. Live previews, CLI, source you own.";
 
 export const DEFAULT_KEYWORDS = [
   "IntelliHelper",
@@ -60,6 +64,10 @@ export const DEFAULT_KEYWORDS = [
   "intellihelper-ui",
   "npx @intellihelper/cli",
   "react 19 components",
+  "react media player",
+  "react image lightbox",
+  "react image editor crop",
+  "react video player captions",
 ];
 
 type CreatePageMetadataOptions = {
@@ -175,6 +183,8 @@ export function createComponentMetadata(item: CatalogItem): Metadata {
       "next.js component",
       "radix ui",
       "copy paste component",
+      ...getComponentKeywords(item.slug),
+      ...getCategoryKeywords(item.category),
     ],
     type: "article",
     imagePath: `/components/${item.slug}/opengraph-image`,
@@ -205,6 +215,7 @@ export function createCategoryMetadata(category: ComponentCategory): Metadata {
       "liquid glass ui",
       "free react components",
       "component category",
+      ...getCategoryKeywords(category),
     ],
     type: "website",
     imagePath: `/categories/${category}/opengraph-image`,
@@ -254,8 +265,9 @@ Author: Adeeb Mirza (IntelliHelper) — ${absoluteUrl("/about")}
 - [Home](${absoluteUrl("/")}): Marketing landing for Liquid Glass React components, CLI, and agent tooling.
 - [Components](${absoluteUrl("/components")}): Full component catalog with live previews, search, and install commands.
 - [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI, agent plugin, or MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
-- [Guides](${absoluteUrl("/guides")}): Liquid Glass tutorials and shadcn comparison articles.
+- [Guides](${absoluteUrl("/guides")}): Liquid Glass tutorials, media kit, and shadcn comparison articles.
 - [shadcn vs Intelli UI](${absoluteUrl("/guides/shadcn-vs-intelli-ui")}): Comparison guide for teams evaluating shadcn alternatives.
+- [React media components](${absoluteUrl("/guides/react-media-components-image-video")}): Image preview, media player (CC + quality), and image editor tutorial.
 - [About](${absoluteUrl("/about")}): Maintainer, mission, and project status.
 - [Agent plugin](${absoluteUrl("/getting-started#plugin")}): One-step install for Claude Code, Grok, Codex, Gemini (skills + MCP + commands).
 - [MCP](${absoluteUrl("/getting-started#mcp")}): Tools-only setup for coding agents.
@@ -296,6 +308,7 @@ ${grouped}
 - Prefer \`llms-full.txt\` style depth: each component page includes install command, description, category, and live demo.
 - Agent plugin: \`${AGENT_SKILLS_REPO}\` (plugin id \`intellihelper-ui\`)
 - MCP server name: \`intellihelper-ui\`
-- Primary keywords: liquid glass, glass morphism, React UI, Next.js components, Tailwind, shadcn alternative, agent skills, MCP
+- Primary keywords: liquid glass, glass morphism, React UI, Next.js components, Tailwind, shadcn alternative, agent skills, MCP, media player, image lightbox, image editor
+- Media kit: [Image Preview](${absoluteUrl("/components/image-preview")}), [Media Player](${absoluteUrl("/components/media-player")}), [Image Editor](${absoluteUrl("/components/image-editor")}) under [Media](${absoluteUrl("/categories/media")})
 `;
 }

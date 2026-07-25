@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-07-15 (Tier 1 complete + Tier 2 AI kit + code surfaces)
+> **Last updated:** 2026-07-25 (Media kit: image-preview, media-player, image-editor)
 
 ---
 
@@ -101,6 +101,14 @@
 | AI Model Selector | `ai-model-selector` | forms | `packages/ui/src/ai-model-selector.tsx` | ✅ Done |
 | Conversation Sidebar | `conversation-sidebar` | navigation | `packages/ui/src/conversation-sidebar.tsx` | ✅ Done |
 
+### Built — Media kit
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Image Preview | `image-preview` | media | `packages/ui/src/image-preview.tsx` | ✅ Done |
+| Media Player | `media-player` | media | `packages/ui/src/media-player.tsx` | ✅ Done |
+| Image Editor | `image-editor` | media | `packages/ui/src/image-editor.tsx` | ✅ Done |
+
 ---
 
 ## Next up (priority order)
@@ -155,6 +163,12 @@ Ship in this order for maximum demand. Check items off as you go.
 - [x] Token Counter, Prompt Suggestions
 - [x] Agent Card, Tool Call Viewer, MCP Server Card
 - [x] AI Model Selector, Conversation Sidebar
+
+### Tier 2.5 — Media kit
+
+- [x] Image Preview (lightbox gallery, zoom/pan, download)
+- [x] Media Player (audio + video glass chrome)
+- [x] Image Editor (crop, rotate, flip, filters, export)
 
 ### Tier 3 — Product surfaces
 

@@ -2714,6 +2714,114 @@
           "target": "components/ui/conversation-sidebar.tsx"
         }
       ]
+    },
+    {
+      "name": "image-preview",
+      "type": "registry:ui",
+      "title": "Image Preview",
+      "description": "Full-screen Liquid Glass lightbox with zoom, pan, gallery navigation, captions, and download.",
+      "dependencies": [
+        "@radix-ui/react-dialog",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/image-preview.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/image-preview.tsx"
+        }
+      ],
+      "meta": {
+        "api": [
+          "ImagePreview",
+          "ImagePreviewThumb",
+          "ImagePreviewGallery"
+        ],
+        "features": [
+          "zoom",
+          "pan",
+          "gallery",
+          "download",
+          "keyboard"
+        ]
+      }
+    },
+    {
+      "name": "media-player",
+      "type": "registry:ui",
+      "title": "Media Player",
+      "description": "Glass HTML5 audio and video player with seek, volume, captions (CC), quality selector, mute, and fullscreen.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/media-player.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/media-player.tsx"
+        }
+      ],
+      "meta": {
+        "kinds": [
+          "video",
+          "audio"
+        ],
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "features": [
+          "captions",
+          "quality",
+          "seek",
+          "volume",
+          "fullscreen"
+        ]
+      }
+    },
+    {
+      "name": "image-editor",
+      "type": "registry:ui",
+      "title": "Image Editor",
+      "description": "Canvas image editor with crop handles, aspect presets, rotate/flip, filters, and export.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/image-editor-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/image-editor-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/image-editor.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/image-editor.tsx"
+        }
+      ],
+      "meta": {
+        "tools": [
+          "crop",
+          "filters",
+          "rotate",
+          "flip"
+        ],
+        "api": [
+          "ImageEditor",
+          "exportEditedImage",
+          "exportEditedDataUrl"
+        ]
+      }
     }
   ]
 }

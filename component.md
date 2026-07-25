@@ -242,11 +242,12 @@
 -   File Card
 -   Folder Card
 -   File Explorer
--   Image Preview
+-   Image Preview ✅ (`image-preview`)
 -   PDF Viewer
--   Audio Player
--   Video Player
--   Drag Upload Zone
+-   Audio Player ✅ (via `media-player` kind=audio)
+-   Video Player ✅ (via `media-player` kind=video; CC + quality)
+-   Image Editor ✅ (`image-editor` — crop, rotate, filters)
+-   Drag Upload Zone ✅ (via `file-upload`)
 
 ## 15. Authentication
 

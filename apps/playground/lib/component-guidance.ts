@@ -193,6 +193,25 @@ const CATEGORY_GUIDANCE: Record<ComponentCategory, ComponentGuidance> = {
       "Separate chrome toolbars from the reading column.",
     ],
   },
+  media: {
+    whenToUse: [
+      "Image lightboxes, audio/video playback, or in-browser crop/filter workflows.",
+      "AI chat attachments, galleries, podcasts, and avatar/product image editing.",
+    ],
+    whenNotTo: [
+      "Server-side image pipelines that should not run in the browser.",
+      "Complex NLE timelines — these are product UI primitives, not a video suite.",
+    ],
+    accessibility: [
+      "Lightbox and player controls need accessible names and keyboard support.",
+      "Provide captions/transcripts for meaningful audio and video content.",
+      "Do not rely on color-only filter previews for critical information.",
+    ],
+    composition: [
+      "Use File Upload for intake, Image Preview for viewing, Image Editor before submit.",
+      "Keep Media Player chrome on the control layer; avoid nesting saturated content cards inside the player shell.",
+    ],
+  },
 };
 
 /** Category-level guidance customized lightly with the component title. */

@@ -63,6 +63,17 @@
 | `feedback` | react alert badge spinner progress | status ui, kbd shortcuts |
 | `interactive` | react accordion slider carousel | collapsible, file tree |
 | `content` | react markdown editor viewer typography | docs ui, syntax highlighting |
+| `media` | react media components, react video player, image lightbox | image preview, media player captions/quality, image crop editor |
+
+### 2.3b Media kit component keywords (P2)
+
+| Slug | Primary keyword cluster | Supporting terms |
+|------|-------------------------|------------------|
+| `image-preview` | image preview react, react image lightbox | gallery zoom pan, next.js image modal |
+| `media-player` | react media player, react video player | captions CC, quality selector, audio player |
+| `image-editor` | react image editor, react image crop | rotate flip filters, canvas export |
+
+Guide (TOFU): `/guides/react-media-components-image-video` — React media components tutorial.
 
 ### 2.4 Component page formula (template)
 
@@ -262,11 +273,13 @@ shadcn wins on **brand and backlinks**. They currently under-invest in:
 
 ## 11. Content backlog (ready to write)
 
-1. Intelli UI vs shadcn/ui (honest comparison)  
-2. Liquid Glass design tokens explained  
-3. Building a settings page with Intelli UI (tutorial)  
-4. MCP for UI libraries: why agents need a registry  
-5. Migrating a shadcn project to add Liquid Glass components  
+1. ~~Intelli UI vs shadcn/ui (honest comparison)~~ → `/guides/shadcn-vs-intelli-ui`  
+2. ~~React media kit tutorial~~ → `/guides/react-media-components-image-video`  
+3. Liquid Glass design tokens explained  
+4. Building a settings page with Intelli UI (tutorial)  
+5. MCP for UI libraries: why agents need a registry  
+6. Migrating a shadcn project to add Liquid Glass components  
+7. Social clip: Media Player CC + quality menu GIF + install command
 6. Accessibility checklist for glass UI (contrast, focus)  
 7. Monorepo install with `@intellihelper/cli`  
 

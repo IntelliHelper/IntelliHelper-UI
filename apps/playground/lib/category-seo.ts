@@ -64,4 +64,10 @@ Built for Next.js and Tailwind CSS with CLI ownership of source. Use Interactive
 If your product is docs-heavy or agent-facing, Content primitives keep prose, code, and citations consistent. Markdown Viewer renders agent output; editors support authoring; typography scales establish hierarchy over glass backgrounds without muddy contrast.
 
 Free install via \`npx @intellihelper/cli\`, full source ownership, and Tailwind tokens for themes (mono, aurora, sunset, frost, ocean). Pair with Glass System previews when building your own component docs site — the same patterns power this playground.`,
+
+  media: `Media components cover image lightboxes, HTML5 audio/video players, and canvas-based image editing for Liquid Glass React apps on Next.js and Tailwind CSS — a dedicated category for teams searching “react media player,” “image lightbox,” or “react image crop.”
+
+Image Preview ships a full-screen gallery with zoom, pan, keyboard navigation, captions, and download. Media Player wraps native video and audio with frosted chrome controls: seek, volume, mute, fullscreen, closed captions (WebVTT), and a quality selector that swaps renditions while preserving playback position — without pulling a heavy player framework. Image Editor adds crop handles, aspect presets, rotate/flip transforms, and filter sliders (brightness, contrast, saturation, grayscale, sepia, blur) with Blob/DataURL export.
+
+These free components install via \`npx @intellihelper/cli add image-preview media-player image-editor\` so you own the TypeScript source. Ideal for AI chat image attachments, product galleries, podcast UIs, and in-app crop-before-upload flows. Pair with File Upload for intake and Aspect Ratio for layout frames. Read the tutorial: React Media Components guide on the playground Guides index.`,
 };
