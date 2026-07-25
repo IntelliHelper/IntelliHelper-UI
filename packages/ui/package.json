@@ -83,7 +83,12 @@
     "./tool-call-viewer": "./src/tool-call-viewer.tsx",
     "./mcp-server-card": "./src/mcp-server-card.tsx",
     "./ai-model-selector": "./src/ai-model-selector.tsx",
-    "./conversation-sidebar": "./src/conversation-sidebar.tsx"
+    "./conversation-sidebar": "./src/conversation-sidebar.tsx",
+    "./image-preview": "./src/image-preview.tsx",
+    "./media-player": "./src/media-player.tsx",
+    "./media-player-utils": "./src/media-player-utils.ts",
+    "./image-editor": "./src/image-editor.tsx",
+    "./image-editor-utils": "./src/image-editor-utils.ts"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

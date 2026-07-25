@@ -26,6 +26,102 @@ export type Guide = {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "react-media-components-image-video",
+    title: "React Media Components: Image Preview, Video Player & Image Editor",
+    description:
+      "Ship a Liquid Glass media kit in Next.js — image lightbox galleries, HTML5 video/audio with captions and quality selection, and canvas crop/filter/rotate editors you own in source.",
+    datePublished: "2026-07-25",
+    dateModified: "2026-07-25",
+    readingMinutes: 9,
+    keywords: [
+      "react media components",
+      "react image lightbox",
+      "react video player captions",
+      "react image crop editor",
+      "next.js media player",
+      "glassmorphism media ui",
+      "tailwind video player component",
+    ],
+    sections: [
+      {
+        heading: "Why a media category in a UI library?",
+        paragraphs: [
+          "Product UIs constantly handle images and audio/video: AI chat attachments, profile photos, product galleries, podcasts, and walkthrough clips. Teams often bolt on heavy players or ad-hoc lightbox CSS that fights the design system.",
+          "Intelli UI ships a free Media category with three Liquid Glass components — Image Preview, Media Player, and Image Editor — so chrome controls match the rest of your glass app and you still own the TypeScript after CLI install.",
+        ],
+      },
+      {
+        heading: "Image Preview (lightbox gallery)",
+        paragraphs: [
+          "Use Image Preview when users need to open images full-screen with zoom, pan, captions, download, and multi-image navigation. Pair thumbnails with controlled open/index state, or drop in ImagePreviewGallery for a grid that wires the lightbox for you.",
+          "Primary search intents: image preview react, react image lightbox, next.js image gallery modal.",
+        ],
+        code: `npx @intellihelper/cli@latest add image-preview
+
+import { ImagePreview } from "@/components/ui/image-preview"
+
+<ImagePreview
+  images={[{ src: "/hero.jpg", alt: "Hero", caption: "Launch art" }]}
+  open={open}
+  onOpenChange={setOpen}
+/>`,
+      },
+      {
+        heading: "Media Player (audio, video, CC, quality)",
+        paragraphs: [
+          "Media Player wraps native HTML5 media with glass chrome: seek, volume, mute, fullscreen, closed captions (WebVTT), and multi-quality source switching that preserves playback position.",
+          "Pass captions for accessibility and SEO-adjacent transcript UX; pass qualities for 1080p/720p/480p (or custom labels). Keyboard shortcuts include Space/K play, arrows seek, M mute, C captions, F fullscreen.",
+        ],
+        code: `npx @intellihelper/cli@latest add media-player
+
+import { MediaPlayer } from "@/components/ui/media-player"
+
+<MediaPlayer
+  kind="video"
+  title="Walkthrough"
+  captions={[
+    { id: "en", src: "/en.vtt", label: "English", srcLang: "en", default: true },
+  ]}
+  qualities={[
+    { id: "1080", label: "1080p", src: "/v-1080.mp4", height: 1080 },
+    { id: "720", label: "720p", src: "/v-720.mp4", height: 720 },
+  ]}
+  defaultQuality="720"
+/>`,
+      },
+      {
+        heading: "Image Editor (crop, rotate, filters)",
+        paragraphs: [
+          "Image Editor is a client-side canvas tool for crop handles, aspect presets that lock ratio while resizing (defaultAspect / aspect / onAspectChange), 90° rotate, flip, and filter sliders (brightness, contrast, saturation, grayscale, sepia, blur). Crop is authored in source space; rotate/flip apply on export after crop. Export a Blob or Data URL for upload pipelines.",
+          "Compose File Upload → Image Editor → API for avatars and attachments. Avoid using it as a server-side pipeline — it is product UI, not an NLE.",
+        ],
+        code: `npx @intellihelper/cli@latest add image-editor file-upload
+
+import { ImageEditor } from "@/components/ui/image-editor"
+
+<ImageEditor
+  src={previewUrl}
+  defaultAspect="1:1"
+  onExport={(blob) => uploadAvatar(blob)}
+/>`,
+      },
+      {
+        heading: "Install the full media kit",
+        paragraphs: [
+          "One CLI command installs all three components plus shared utils. Browse live demos under the Media category on the Intelli UI playground.",
+        ],
+        code: `npx @intellihelper/cli@latest add image-preview media-player image-editor`,
+      },
+      {
+        heading: "Accessibility and performance",
+        paragraphs: [
+          "Provide real captions/transcripts for meaningful audio and video. Name icon-only controls. Keep glass player chrome on the control layer so text stays readable over the gradient.",
+          "Prefer progressive preload (metadata), poster images for LCP-friendly video frames, and CORS-friendly assets when using canvas export or cross-origin WebVTT. For remote captions, set crossOrigin=\"anonymous\" on MediaPlayer and serve CORS headers on the media origin.",
+        ],
+      },
+    ],
+  },
+  {
     slug: "liquid-glass-ui-react",
     title: "Liquid Glass UI: What It Is & How to Build It in React",
     description:
@@ -158,7 +254,7 @@ npx @intellihelper/cli@latest add button card dialog glass-bar`,
             [
               "Components",
               "~50 community baseline (varies)",
-              "80+ across 10 categories",
+              "80+ across 11 categories (incl. Media)",
             ],
             [
               "Themes",
@@ -169,6 +265,11 @@ npx @intellihelper/cli@latest add button card dialog glass-bar`,
               "AI product components",
               "None first-party",
               "AI Chat, Reasoning Block, Tool Call Viewer, Prompt Input, Token Counter, and more",
+            ],
+            [
+              "Media components",
+              "Community recipes",
+              "Image Preview, Media Player (CC + quality), Image Editor",
             ],
             [
               "Agent install",

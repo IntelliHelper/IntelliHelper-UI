@@ -791,3 +791,63 @@ export {
 export {
   joinStreamChunks,
 } from "./ai-utils";
+
+/* ── Media kit ── */
+export {
+  ImagePreview,
+  ImagePreviewThumb,
+  ImagePreviewGallery,
+  imagePreviewThumbVariants,
+  imagePreviewToolbarVariants,
+  type ImagePreviewProps,
+  type ImagePreviewItem,
+  type ImagePreviewThumbProps,
+  type ImagePreviewGalleryProps,
+} from "./image-preview";
+export {
+  MediaPlayer,
+  mediaPlayerVariants,
+  mediaPlayerControlsVariants,
+  formatMediaTime,
+  detectMediaKind,
+  type MediaPlayerProps,
+  type MediaPlayerHandle,
+  type MediaPlayerKind,
+  type MediaPlayerCaptionTrack,
+  type MediaPlayerQuality,
+  type MediaPlayerCaptionValue,
+} from "./media-player";
+export {
+  captionTrackId,
+  clampVolume,
+  matchCaptionTrackId,
+  qualityId,
+  resolveDefaultCaption,
+  resolveDefaultQuality,
+} from "./media-player-utils";
+export {
+  ImageEditor,
+  imageEditorVariants,
+  DEFAULT_IMAGE_CROP,
+  DEFAULT_IMAGE_FILTERS,
+  DEFAULT_IMAGE_TRANSFORM,
+  type ImageEditorProps,
+  type ImageEditorHandle,
+  type ImageEditorTool,
+} from "./image-editor";
+export {
+  aspectPresetRatio,
+  areFiltersDefault,
+  exportEditedDataUrl,
+  exportEditedImage,
+  filtersToCss,
+  fitCropToAspect,
+  loadImageElement,
+  normalizeRotation,
+  renderEditedImage,
+  type ImageAspectPreset,
+  type ImageEditorCrop,
+  type ImageEditorExportOptions,
+  type ImageEditorFilters,
+  type ImageEditorTransform,
+} from "./image-editor-utils";

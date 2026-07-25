@@ -23,6 +23,7 @@ import {
   getRelatedItems,
 } from "../../../../lib/catalog";
 import { getComponentGuidance } from "../../../../lib/component-guidance";
+import { getComponentExtraFaqs } from "../../../../lib/component-seo";
 import {
   componentBreadcrumbJsonLd,
   componentFaqJsonLd,
@@ -63,6 +64,7 @@ export default async function ComponentPage({ params }: PageProps) {
   const category = CATEGORY_META[item.category];
   const related = getRelatedItems(item.slug);
   const guidance = getComponentGuidance(item);
+  const extraFaqs = getComponentExtraFaqs(item.slug);
 
   return (
     <>
@@ -70,7 +72,7 @@ export default async function ComponentPage({ params }: PageProps) {
         data={[
           componentBreadcrumbJsonLd(item),
           componentPageJsonLd(item),
-          componentFaqJsonLd(item),
+          componentFaqJsonLd(item, extraFaqs),
         ]}
       />
       <article className="mx-auto min-w-0 max-w-6xl pb-4">
@@ -261,6 +263,7 @@ export default async function ComponentPage({ params }: PageProps) {
             title={item.title}
             description={item.description}
             installCommand={`npx ${CLI_PACKAGE}@latest add ${item.slug}`}
+            extras={extraFaqs}
           />
         </section>
 

@@ -8,7 +8,8 @@ export type ComponentCategory =
   | "data"
   | "feedback"
   | "interactive"
-  | "content";
+  | "content"
+  | "media";
 
 export type CatalogItem = {
   slug: string;
@@ -60,6 +61,11 @@ export const CATEGORY_META: Record<
   content: {
     label: "Content",
     description: "Typography, markdown, and documentation tools",
+  },
+  media: {
+    label: "Media",
+    description:
+      "Image lightbox, audio/video player with CC & quality, and canvas image editing",
   },
 };
 
@@ -544,6 +550,24 @@ export const CATALOG: CatalogItem[] = [
     title: "Conversation Sidebar",
     description: "Pinned conversation list with active state and new chat.",
     category: "navigation",
+  },
+  {
+    slug: "image-preview",
+    title: "Image Preview",
+    description: "Lightbox gallery with zoom, pan, captions, and download.",
+    category: "media",
+  },
+  {
+    slug: "media-player",
+    title: "Media Player",
+    description: "Glass audio/video player with CC, quality selector, seek, and volume.",
+    category: "media",
+  },
+  {
+    slug: "image-editor",
+    title: "Image Editor",
+    description: "Crop, rotate, flip, filters, and canvas export for images.",
+    category: "media",
   },
 ];
 

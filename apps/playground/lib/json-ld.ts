@@ -210,7 +210,7 @@ export function homeFaqJsonLd(): JsonLd {
         name: "What is Intelli UI?",
         acceptedAnswer: {
           "@type": "Answer",
-          text: "Intelli UI is a free, open-source Liquid Glass component library for React and Next.js. It ships 80+ accessible components, a CLI that copies source into your repo, five themes, an MCP server for AI coding agents, and a plugin for Claude Code, Grok, Cursor, and VS Code.",
+          text: "Intelli UI is a free, open-source Liquid Glass component library for React and Next.js. It ships 80+ accessible components across glass, forms, AI, and media (image preview, media player with captions/quality, image editor), a CLI that copies source into your repo, five themes, an MCP server for AI coding agents, and a plugin for Claude Code, Grok, Cursor, and VS Code.",
         },
       },
       {
@@ -468,41 +468,56 @@ export function componentPageJsonLd(item: CatalogItem): JsonLd {
       "Next.js",
       "Tailwind CSS",
       "component library",
+      item.slug,
+      `${item.title} react component`,
     ].join(", "),
     image: absoluteUrl(`/components/${item.slug}/opengraph-image`),
   };
 }
 
-export function componentFaqJsonLd(item: CatalogItem): JsonLd {
+export function componentFaqJsonLd(
+  item: CatalogItem,
+  extraFaqs: { question: string; answer: string }[] = [],
+): JsonLd {
+  const mainEntity = [
+    {
+      "@type": "Question" as const,
+      name: `How do I install the ${item.title} component?`,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: `Run npx ${CLI_PACKAGE}@latest add ${item.slug} in a project that has been initialized with IntelliHelper UI.`,
+      },
+    },
+    {
+      "@type": "Question" as const,
+      name: `What is the ${item.title} component used for?`,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: item.description,
+      },
+    },
+    ...extraFaqs.map((faq) => ({
+      "@type": "Question" as const,
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: faq.answer,
+      },
+    })),
+    {
+      "@type": "Question" as const,
+      name: `Does ${item.title} work with Next.js and Tailwind CSS?`,
+      acceptedAnswer: {
+        "@type": "Answer" as const,
+        text: `Yes. ${item.title} is a Liquid Glass React component designed for Next.js and Tailwind CSS projects. Source files are copied into your app so you can customize variants freely.`,
+      },
+    },
+  ];
+
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: [
-      {
-        "@type": "Question",
-        name: `How do I install the ${item.title} component?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Run npx ${CLI_PACKAGE}@latest add ${item.slug} in a project that has been initialized with IntelliHelper UI.`,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `What is the ${item.title} component used for?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: item.description,
-        },
-      },
-      {
-        "@type": "Question",
-        name: `Does ${item.title} work with Next.js and Tailwind CSS?`,
-        acceptedAnswer: {
-          "@type": "Answer",
-          text: `Yes. ${item.title} is a Liquid Glass React component designed for Next.js and Tailwind CSS projects. Source files are copied into your app so you can customize variants freely.`,
-        },
-      },
-    ],
+    mainEntity,
   };
 }
 

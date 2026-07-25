@@ -64,6 +64,12 @@ import {
   ToolCallViewerDemo,
   TypingIndicatorDemo,
 } from "../../components/tier12-demo";
+import {
+  ImageEditorDemo,
+  ImagePreviewDemo,
+  MediaPlayerAudioDemo,
+  MediaPlayerVideoDemo,
+} from "../../components/media-demo";
 import { CarouselDemo } from "../../components/carousel-demo";
 import {
   LoginCardPreview,
@@ -1783,6 +1789,95 @@ const { mode, setMode } = useTheme()
   activeId={activeId}
   onSelect={select}
   onNewChat={create}
+/>`,
+    },
+  ],
+  "image-preview": [
+    {
+      title: "Lightbox gallery",
+      description: "Thumbnails open a zoomable full-screen preview with keyboard navigation.",
+      preview: <ImagePreviewDemo />,
+      code: `import {
+  ImagePreview,
+  ImagePreviewThumb,
+} from "@/components/ui/image-preview"
+
+const [open, setOpen] = useState(false)
+const [index, setIndex] = useState(0)
+
+{images.map((item, i) => (
+  <ImagePreviewThumb
+    key={item.src}
+    src={item.src}
+    alt={item.alt}
+    index={i}
+    onOpen={(next) => {
+      setIndex(next)
+      setOpen(true)
+    }}
+  />
+))}
+
+<ImagePreview
+  images={images}
+  open={open}
+  onOpenChange={setOpen}
+  index={index}
+  onIndexChange={setIndex}
+/>`,
+    },
+  ],
+  "media-player": [
+    {
+      title: "Video + CC + quality",
+      description:
+        "HTML5 video with captions menu, multi-quality sources, seek, volume, and fullscreen.",
+      preview: <MediaPlayerVideoDemo />,
+      code: `import { MediaPlayer } from "@/components/ui/media-player"
+
+<MediaPlayer
+  kind="video"
+  src="/demo-720.mp4"
+  title="Product walkthrough"
+  poster="/poster.jpg"
+  captions={[
+    { id: "en", src: "/captions-en.vtt", label: "English", srcLang: "en", default: true },
+    { id: "es", src: "/captions-es.vtt", label: "Español", srcLang: "es" },
+  ]}
+  qualities={[
+    { id: "1080", label: "1080p", src: "/demo-1080.mp4", height: 1080 },
+    { id: "720", label: "720p", src: "/demo-720.mp4", height: 720 },
+    { id: "480", label: "480p", src: "/demo-480.mp4", height: 480 },
+  ]}
+  defaultQuality="720"
+/>`,
+    },
+    {
+      title: "Audio player",
+      description: "Compact audio shell with title, seek bar, and volume.",
+      preview: <MediaPlayerAudioDemo />,
+      code: `import { MediaPlayer } from "@/components/ui/media-player"
+
+<MediaPlayer
+  kind="audio"
+  src="/track.mp3"
+  title="Episode 12"
+  subtitle="Design systems"
+  variant="elevated"
+/>`,
+    },
+  ],
+  "image-editor": [
+    {
+      title: "Crop · filters · rotate",
+      description: "Canvas editor with aspect presets, filter sliders, and PNG export.",
+      preview: <ImageEditorDemo />,
+      code: `import { ImageEditor } from "@/components/ui/image-editor"
+
+<ImageEditor
+  src="/photo.jpg"
+  defaultAspect="1:1"
+  onExport={(blob) => upload(blob)}
 />`,
     },
   ],

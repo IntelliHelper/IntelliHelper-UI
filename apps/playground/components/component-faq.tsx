@@ -6,11 +6,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@intelli/ui";
+import type { ComponentFaqItem } from "../lib/component-seo";
 
 type ComponentFaqProps = {
   title: string;
   description: string;
   installCommand: string;
+  /** Component-specific FAQ pairs (also mirrored in FAQPage JSON-LD). */
+  extras?: ComponentFaqItem[];
 };
 
 /**
@@ -21,6 +24,7 @@ export function ComponentFaq({
   title,
   description,
   installCommand,
+  extras = [],
 }: ComponentFaqProps) {
   return (
     <Accordion
@@ -42,6 +46,12 @@ export function ComponentFaq({
         <AccordionTrigger>What is {title} used for?</AccordionTrigger>
         <AccordionContent>{description}</AccordionContent>
       </AccordionItem>
+      {extras.map((faq, index) => (
+        <AccordionItem key={`extra-${index}`} value={`extra-${index}`}>
+          <AccordionTrigger>{faq.question}</AccordionTrigger>
+          <AccordionContent>{faq.answer}</AccordionContent>
+        </AccordionItem>
+      ))}
       <AccordionItem value="stack">
         <AccordionTrigger>
           Does it work with Next.js and Tailwind?
