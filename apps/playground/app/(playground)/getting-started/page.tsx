@@ -27,7 +27,7 @@ import {
   gettingStartedJsonLd,
   webPageJsonLd,
 } from "../../../lib/json-ld";
-import { createPageMetadata } from "../../../lib/seo";
+import { createPageMetadata, SITE_CONTENT_DATES } from "../../../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({
   title: "Getting Started — Install Liquid Glass React Components",
@@ -107,6 +107,8 @@ export default function GettingStartedPage() {
               "Install Liquid Glass components with the CLI, agent plugin, or MCP for AI coding agents.",
             path: "/getting-started",
             type: "WebPage",
+            datePublished: SITE_CONTENT_DATES.published,
+            dateModified: SITE_CONTENT_DATES.modified,
           }),
         ]}
       />
@@ -117,12 +119,15 @@ export default function GettingStartedPage() {
             { label: "Getting started" },
           ]}
           meta={
-            <span className="inline-flex items-center gap-2">
+            <span className="inline-flex flex-wrap items-center gap-2">
               <Badge variant="secondary" size="sm">
                 Docs
               </Badge>
               <span>
                 {total} components · {CATEGORY_ORDER.length} categories
+              </span>
+              <span className="text-xs text-muted-foreground">
+                Updated {SITE_CONTENT_DATES.modified}
               </span>
             </span>
           }

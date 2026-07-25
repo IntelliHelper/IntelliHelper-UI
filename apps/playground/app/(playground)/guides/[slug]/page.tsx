@@ -120,6 +120,55 @@ export default async function GuidePage({ params }: PageProps) {
                   ))}
                 </ul>
               ) : null}
+              {section.table ? (
+                <div className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_40%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
+                  <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
+                    <caption className="border-b border-[var(--glass-chrome-border)] px-4 py-3 text-left text-xs font-medium text-muted-foreground md:px-5">
+                      {section.table.caption}
+                    </caption>
+                    <thead>
+                      <tr className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_40%,transparent)]">
+                        {section.table.headers.map((header) => (
+                          <th
+                            key={header}
+                            scope="col"
+                            className="px-4 py-3 font-semibold text-foreground md:px-5"
+                          >
+                            {header}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {section.table.rows.map((row) => (
+                        <tr
+                          key={row.join("|").slice(0, 48)}
+                          className="border-b border-[var(--glass-chrome-border)] last:border-b-0"
+                        >
+                          {row.map((cell, cellIndex) =>
+                            cellIndex === 0 ? (
+                              <th
+                                key={`${row[0]}-${cellIndex}`}
+                                scope="row"
+                                className="px-4 py-3 font-medium text-foreground md:px-5"
+                              >
+                                {cell}
+                              </th>
+                            ) : (
+                              <td
+                                key={`${row[0]}-${cellIndex}`}
+                                className="px-4 py-3 text-muted-foreground md:px-5"
+                              >
+                                {cell}
+                              </td>
+                            ),
+                          )}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : null}
               {section.code ? (
                 <pre className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] p-4 text-xs leading-relaxed text-foreground">
                   <code>{section.code}</code>

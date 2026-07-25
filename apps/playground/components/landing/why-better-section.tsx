@@ -202,52 +202,61 @@ export function WhyBetterSection() {
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
             Side-by-side
           </p>
-          <p className="mt-1 text-sm font-medium text-foreground">
+          <h3 className="mt-1 text-sm font-medium text-foreground">
             What you get compared to typical kits
-          </p>
+          </h3>
         </div>
-        <div className="grid text-sm md:grid-cols-[1.1fr_1fr_1fr]">
-          <div className="hidden border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_40%,transparent)] px-4 py-3 font-medium text-muted-foreground md:block md:px-5">
-            Capability
-          </div>
-          <div className="hidden border-b border-l border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_40%,transparent)] px-4 py-3 font-medium text-muted-foreground md:block md:px-5">
-            Typical UI kits / shadcn
-          </div>
-          <div className="hidden border-b border-l border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--primary)_8%,transparent)] px-4 py-3 font-semibold text-foreground md:block md:px-5">
-            Intelli UI
-          </div>
-
-          {COMPARISON_ROWS.map((row, index, arr) => (
-            <div key={row.capability} className="contents">
-              <div
-                className={`border-[var(--glass-chrome-border)] px-4 py-3.5 font-medium text-foreground md:border-b md:px-5 ${
-                  index === arr.length - 1 ? "md:border-b-0" : ""
-                } border-t md:border-t-0`}
-              >
-                {row.capability}
-                <p className="mt-1 text-xs font-normal text-muted-foreground md:hidden">
-                  Others: {row.other}
-                </p>
-                <p className="mt-1 text-xs font-normal text-foreground md:hidden">
-                  Intelli: {row.us}
-                </p>
-              </div>
-              <div
-                className={`hidden border-l border-[var(--glass-chrome-border)] px-4 py-3.5 text-muted-foreground md:block md:border-b md:px-5 ${
-                  index === arr.length - 1 ? "md:border-b-0" : ""
-                }`}
-              >
-                {row.other}
-              </div>
-              <div
-                className={`hidden border-l border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--primary)_5%,transparent)] px-4 py-3.5 font-medium text-foreground md:block md:border-b md:px-5 ${
-                  index === arr.length - 1 ? "md:border-b-0" : ""
-                }`}
-              >
-                {row.us}
-              </div>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
+            <caption className="sr-only">
+              Intelli UI compared to typical UI kits and shadcn/ui on visual
+              system, themes, source ownership, AI agent install, AI product UI,
+              and glass primitives
+            </caption>
+            <thead>
+              <tr className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_40%,transparent)]">
+                <th
+                  scope="col"
+                  className="px-4 py-3 font-medium text-muted-foreground md:px-5"
+                >
+                  Capability
+                </th>
+                <th
+                  scope="col"
+                  className="border-l border-[var(--glass-chrome-border)] px-4 py-3 font-medium text-muted-foreground md:px-5"
+                >
+                  Typical UI kits / shadcn
+                </th>
+                <th
+                  scope="col"
+                  className="border-l border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--primary)_8%,transparent)] px-4 py-3 font-semibold text-foreground md:px-5"
+                >
+                  Intelli UI
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARISON_ROWS.map((row) => (
+                <tr
+                  key={row.capability}
+                  className="border-b border-[var(--glass-chrome-border)] last:border-b-0"
+                >
+                  <th
+                    scope="row"
+                    className="px-4 py-3.5 font-medium text-foreground md:px-5"
+                  >
+                    {row.capability}
+                  </th>
+                  <td className="border-l border-[var(--glass-chrome-border)] px-4 py-3.5 text-muted-foreground md:px-5">
+                    {row.other}
+                  </td>
+                  <td className="border-l border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--primary)_5%,transparent)] px-4 py-3.5 font-medium text-foreground md:px-5">
+                    {row.us}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
         <div className="flex flex-col gap-3 border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p className="text-sm text-muted-foreground">

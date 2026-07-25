@@ -25,6 +25,7 @@ import {
   AGENT_SKILLS_URL,
   CLI_PACKAGE,
   GITHUB_URL,
+  SITE_CONTENT_DATES,
   createPageMetadata,
 } from "../../lib/seo";
 
@@ -107,6 +108,33 @@ const PILLARS = [
   },
 ] as const;
 
+const HOME_FAQ = [
+  {
+    q: "What is Intelli UI?",
+    a: "Intelli UI is a free, open-source Liquid Glass component library for React and Next.js. It ships 80+ accessible components, a CLI that copies source into your repo, five themes, an MCP server for AI coding agents, and a plugin for Claude Code, Grok, Cursor, and VS Code.",
+  },
+  {
+    q: "Is Intelli UI free?",
+    a: "Yes. Intelli UI is free and open source under the MIT license. You install components into your project and own the copied source files.",
+  },
+  {
+    q: "Is Intelli UI better than shadcn/ui for glass UI?",
+    a: "For glass product UI, yes when you want hierarchy out of the box. Both use a copy-paste ownership model. Intelli UI adds Liquid Glass chrome vs content layers, five themes, glass primitives, AI product components, and agent install (plugin + MCP).",
+  },
+  {
+    q: "Does Intelli UI work with Tailwind CSS and Next.js?",
+    a: "Yes. Intelli UI is built for React 19, Next.js, and Tailwind CSS. Initialize with the CLI, then add components such as button, card, and dialog.",
+  },
+  {
+    q: "Can AI coding agents install Intelli UI components?",
+    a: "Yes. Install the official agent plugin (IntelliHelper/agent-skills) or wire the intellihelper-ui MCP server so Claude, Grok, Cursor, Codex, and others install and compose components correctly.",
+  },
+  {
+    q: "How do I install Intelli UI?",
+    a: `Run npx ${CLI_PACKAGE}@latest init, then npx ${CLI_PACKAGE}@latest add button card dialog. Optional: install the agent plugin or MCP for coding agents.`,
+  },
+] as const;
+
 const STEPS = [
   {
     title: "Init",
@@ -153,6 +181,9 @@ export default function LandingPage() {
                 <Badge variant="outline" size="sm">
                   React 19 · Next.js
                 </Badge>
+                <Badge variant="outline" size="sm">
+                  Updated {SITE_CONTENT_DATES.modified}
+                </Badge>
               </div>
 
               <div className="space-y-4">
@@ -161,9 +192,19 @@ export default function LandingPage() {
                   <span className="text-muted-foreground">you own</span>
                 </h1>
                 <p className="max-w-lg text-base leading-relaxed text-muted-foreground sm:text-lg">
-                  More than a shadcn clone: Liquid Glass hierarchy, AI product
-                  components, and agent-native install — frosted React UI for
-                  Next.js and Tailwind with source you own.
+                  <strong className="font-medium text-foreground">
+                    Intelli UI is a free, open-source Liquid Glass component
+                    library for React and Next.js.
+                  </strong>{" "}
+                  It ships {CATALOG.length}+ accessible components, a CLI that
+                  copies source into your repo, an MCP server for AI coding
+                  agents, and a plugin for Claude Code, Grok, Cursor, and VS
+                  Code — frosted product UI with MIT-friendly ownership.
+                </p>
+                <p className="max-w-lg text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  More than a shadcn clone: Liquid Glass hierarchy (chrome vs
+                  content layers), five themes, AI product components, and
+                  agent-native install for Next.js and Tailwind.
                 </p>
               </div>
 
@@ -236,6 +277,17 @@ export default function LandingPage() {
             >
               A glass system for product teams
             </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+              Intelli UI is Liquid Glass first — chrome vs content layers,
+              frosted primitives, and five themes so product UI looks intentional
+              on day one. The CLI copies components into your repo with the same
+              ownership model as shadcn, plus a Liquid Glass visual system built
+              for product chrome. Neutral frosted controls sit above expressive
+              panels so hierarchy stays clear instead of stacking blur on every
+              surface. An official plugin and MCP server help Claude, Grok,
+              Cursor, and other agents install and compose components correctly —
+              so teams ship glass UI without inventing frosted CSS from scratch.
+            </p>
           </div>
 
           <ul className="grid gap-4 md:grid-cols-3">
@@ -462,6 +514,40 @@ export default function LandingPage() {
             </p>
           </div>
           <ThemeSwitcher />
+        </section>
+
+        {/* ── FAQ (citability + FAQPage schema on homeGraph) ───── */}
+        <section aria-labelledby="home-faq-heading" className="space-y-6">
+          <div className="max-w-2xl space-y-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+              FAQ
+            </p>
+            <h2
+              id="home-faq-heading"
+              className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
+            >
+              What is Intelli UI?
+            </h2>
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              Short answers for teams evaluating Liquid Glass components, shadcn
+              alternatives, and agent-native install.
+            </p>
+          </div>
+          <dl className="grid gap-4 md:grid-cols-2">
+            {HOME_FAQ.map((item) => (
+              <div
+                key={item.q}
+                className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
+              >
+                <dt className="text-sm font-semibold text-foreground">
+                  {item.q}
+                </dt>
+                <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                  {item.a}
+                </dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         {/* ── Final CTA ────────────────────────────────────────── */}

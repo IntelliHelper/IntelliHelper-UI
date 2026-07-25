@@ -7,6 +7,7 @@ import { SITE_URL } from "../lib/seo";
  */
 const AI_BOTS = [
   "GPTBot",
+  "OAI-SearchBot",
   "ChatGPT-User",
   "Google-Extended",
   "Anthropic-AI",
