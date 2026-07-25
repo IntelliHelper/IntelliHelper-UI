@@ -22,6 +22,7 @@ import {
   getCatalogItem,
   getRelatedItems,
 } from "../../../../lib/catalog";
+import { getComponentGuidance } from "../../../../lib/component-guidance";
 import {
   componentBreadcrumbJsonLd,
   componentFaqJsonLd,
@@ -61,6 +62,7 @@ export default async function ComponentPage({ params }: PageProps) {
 
   const category = CATEGORY_META[item.category];
   const related = getRelatedItems(item.slug);
+  const guidance = getComponentGuidance(item);
 
   return (
     <>
@@ -159,6 +161,91 @@ export default async function ComponentPage({ params }: PageProps) {
                 </Link>
                 .
               </p>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section
+          className="mt-12 space-y-4"
+          aria-labelledby="component-guidance"
+        >
+          <h2
+            id="component-guidance"
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
+            When to use {item.title}
+          </h2>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card variant="outline" animated={false}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Use when</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 pt-0">
+                <ul className="list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground">
+                  {guidance.whenToUse.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+            <Card variant="outline" animated={false}>
+              <CardHeader className="pb-2">
+                <CardTitle className="text-sm">Avoid when</CardTitle>
+              </CardHeader>
+              <CardContent className="p-6 pt-0">
+                <ul className="list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground">
+                  {guidance.whenNotTo.map((line) => (
+                    <li key={line}>{line}</li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        <section
+          className="mt-12 space-y-4"
+          aria-labelledby="component-a11y"
+        >
+          <h2
+            id="component-a11y"
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
+            Accessibility notes
+          </h2>
+          <Card variant="chrome" animated={false}>
+            <CardContent className="p-6">
+              <ul className="list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground">
+                {guidance.accessibility.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
+              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+                Interactive primitives build on accessible patterns (including
+                Radix where applicable). Always verify focus order and contrast
+                on your mesh or product background.
+              </p>
+            </CardContent>
+          </Card>
+        </section>
+
+        <section
+          className="mt-12 space-y-4"
+          aria-labelledby="component-composition"
+        >
+          <h2
+            id="component-composition"
+            className="text-lg font-semibold tracking-tight text-foreground"
+          >
+            Composition tips
+          </h2>
+          <Card variant="outline" animated={false}>
+            <CardContent className="p-6">
+              <ul className="list-disc space-y-2 pl-4 text-sm leading-relaxed text-muted-foreground">
+                {guidance.composition.map((line) => (
+                  <li key={line}>{line}</li>
+                ))}
+              </ul>
             </CardContent>
           </Card>
         </section>

@@ -79,6 +79,22 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                   </li>
                   <li>
                     <Link
+                      href="/guides/shadcn-vs-intelli-ui"
+                      className="transition-colors hover:text-foreground"
+                    >
+                      vs shadcn
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/about"
+                      className="transition-colors hover:text-foreground"
+                    >
+                      About
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       href="/getting-started#plugin"
                       className="transition-colors hover:text-foreground"
                     >

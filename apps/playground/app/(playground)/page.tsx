@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
   Badge,
@@ -10,11 +11,9 @@ import {
   CardTitle,
   Separator,
 } from "@intelli/ui";
-import { HeroStage } from "../../components/landing/hero-stage";
 import { InstallStrip } from "../../components/landing/install-strip";
-import { WhyBetterSection } from "../../components/landing/why-better-section";
 import { JsonLd } from "../../components/json-ld";
-import { ThemeSwitcher } from "../../components/theme-switcher";
+import { GithubStars } from "../../components/github-stars";
 import {
   CATALOG,
   CATEGORY_META,
@@ -28,6 +27,39 @@ import {
   GITHUB_URL,
   createPageMetadata,
 } from "../../lib/seo";
+
+const HeroStage = dynamic(
+  () =>
+    import("../../components/landing/hero-stage").then((m) => m.HeroStage),
+  {
+    ssr: true,
+    loading: () => (
+      <div
+        className="min-h-[280px] rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]"
+        aria-hidden
+      />
+    ),
+  },
+);
+
+const WhyBetterSection = dynamic(
+  () =>
+    import("../../components/landing/why-better-section").then(
+      (m) => m.WhyBetterSection,
+    ),
+  {
+    ssr: true,
+    loading: () => (
+      <div className="min-h-[200px]" aria-hidden />
+    ),
+  },
+);
+
+const ThemeSwitcher = dynamic(
+  () =>
+    import("../../components/theme-switcher").then((m) => m.ThemeSwitcher),
+  { ssr: true },
+);
 
 export const metadata: Metadata = createPageMetadata({
   title:
@@ -136,32 +168,56 @@ export default function LandingPage() {
               </div>
 
               <div className="flex flex-wrap items-center gap-3">
-                <Button asChild variant="primary" size="lg">
+                <Button
+                  asChild
+                  variant="primary"
+                  size="lg"
+                  className="min-h-12"
+                >
                   <Link href="/getting-started">Get started</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg">
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="min-h-12"
+                >
                   <Link href="/components">Browse components</Link>
+                </Button>
+                <Button asChild variant="ghost" size="lg" className="min-h-12">
+                  <Link href="/guides/shadcn-vs-intelli-ui">vs shadcn</Link>
                 </Button>
               </div>
 
               <InstallStrip />
 
-              <p className="text-xs text-muted-foreground">
-                Or install for agents:{" "}
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+                <GithubStars className="font-medium text-foreground underline-offset-4 hover:underline" />
+                <span aria-hidden>·</span>
+                <span>
+                  Agents:{" "}
+                  <Link
+                    href="/getting-started#plugin"
+                    className="font-medium text-foreground underline-offset-4 hover:underline"
+                  >
+                    plugin
+                  </Link>
+                  {" · "}
+                  <Link
+                    href="/getting-started#mcp"
+                    className="font-medium text-foreground underline-offset-4 hover:underline"
+                  >
+                    MCP
+                  </Link>
+                </span>
+                <span aria-hidden>·</span>
                 <Link
-                  href="/getting-started#plugin"
+                  href="/about"
                   className="font-medium text-foreground underline-offset-4 hover:underline"
                 >
-                  agent plugin
+                  About
                 </Link>
-                {" · "}
-                <Link
-                  href="/getting-started#mcp"
-                  className="font-medium text-foreground underline-offset-4 hover:underline"
-                >
-                  MCP
-                </Link>
-              </p>
+              </div>
             </div>
 
             <HeroStage />

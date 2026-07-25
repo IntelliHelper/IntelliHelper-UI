@@ -21,6 +21,7 @@ export function BrandLogo({
         height={size}
         className="rounded-lg"
         priority
+        fetchPriority="high"
       />
       {showLabel ? (
         <span className="sr-only">{BRAND_NAME}</span>
