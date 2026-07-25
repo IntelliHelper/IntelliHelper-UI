@@ -297,6 +297,5 @@ ${grouped}
 - Agent plugin: \`${AGENT_SKILLS_REPO}\` (plugin id \`intellihelper-ui\`)
 - MCP server name: \`intellihelper-ui\`
 - Primary keywords: liquid glass, glass morphism, React UI, Next.js components, Tailwind, shadcn alternative, agent skills, MCP
-- Indexing: XML sitemap at ${absoluteUrl("/sitemap.xml")}; IndexNow key published at site root for Bing/Yandex partners
 `;
 }

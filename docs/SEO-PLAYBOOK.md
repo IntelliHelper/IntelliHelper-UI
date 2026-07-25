@@ -215,35 +215,6 @@ Cadence: **1 pillar or comparison every 2 weeks** + **weekly micro-update** (com
 
 ---
 
-## 7b. IndexNow (Bing / Yandex / partners)
-
-Instant URL notification for non-Google engines that support [IndexNow](https://www.indexnow.org/).
-
-| Piece | Location |
-|-------|----------|
-| Ownership key file | `public/{INDEXNOW_KEY}.txt` (default key committed; override with env `INDEXNOW_KEY`) |
-| Library | `apps/playground/lib/indexnow.ts` |
-| Submit API | `GET` or `POST /api/indexnow` (POST optional body `{ "urlList": ["https://…"] }`) |
-| Dry-run | `GET /api/indexnow?dry=1` |
-| Cron | Vercel Cron daily `0 6 * * *` → authorized `GET /api/indexnow` submits the sitemap |
-
-**Auth:** set `CRON_SECRET` (or `INDEXNOW_SUBMIT_SECRET`) on Vercel. Cron sends the Bearer token automatically when `CRON_SECRET` is set.
-
-```bash
-# After deploy — full sitemap ping
-curl -X POST "https://ui.intellihelper.in/api/indexnow" \
-  -H "Authorization: Bearer $CRON_SECRET" \
-  -H "Content-Type: application/json"
-
-# Dry-run (no notify)
-curl "https://ui.intellihelper.in/api/indexnow?dry=1" \
-  -H "Authorization: Bearer $CRON_SECRET"
-```
-
-**Note:** IndexNow does **not** replace Google Search Console indexing. Still use GSC for Google.
-
----
-
 ## 8. Measurement (KPIs)
 
 | KPI | Tool | Target (90 days) |
