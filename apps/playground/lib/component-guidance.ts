@@ -63,6 +63,8 @@ const CATEGORY_GUIDANCE: Record<ComponentCategory, ComponentGuidance> = {
     composition: [
       "Prefer one chrome surface level deep; avoid card-in-card glass stacks.",
       "Use separators sparingly between sections inside a surface.",
+      "Prefer layout primitives (Stack, Cluster, Grid, Split) over nested divs for spacing and alignment.",
+      "Use as=\"section\" | as=\"ul\" | asChild so landmarks stay semantic — layout is not always a div.",
     ],
   },
   forms: {

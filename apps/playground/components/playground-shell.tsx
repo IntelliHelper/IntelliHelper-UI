@@ -1,5 +1,13 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import {
+  Box,
+  Cluster,
+  Container,
+  Flex,
+  Grid,
+  Stack,
+} from "@intelli/ui/layout";
 import { Separator } from "@intelli/ui/separator";
 import { CATEGORY_META, CATEGORY_ORDER } from "../lib/catalog";
 import { GITHUB_URL } from "../lib/seo";
@@ -13,39 +21,53 @@ type PlaygroundShellProps = {
 
 export function PlaygroundShell({ children }: PlaygroundShellProps) {
   return (
-    <div className="relative min-h-screen pb-10">
+    <Box className="relative min-h-screen pb-10">
       <PlaygroundNav githubUrl={GITHUB_URL} />
 
-      <main id="main-content" className="mx-auto min-w-0 max-w-6xl px-4 sm:px-6">
+      <Container
+        as="main"
+        id="main-content"
+        size="xl"
+        className="min-w-0 max-w-6xl"
+      >
         {children}
-      </main>
+      </Container>
 
-      <footer className="mx-auto mt-20 max-w-6xl px-4 sm:px-6">
-        <div className="glass-panel rounded-2xl p-6 md:p-8 [background-color:var(--glass-dialog-elevated-bg)]">
-          <div className="grid gap-10 md:grid-cols-12">
-            <div className="space-y-3 md:col-span-5">
-              <div className="flex items-center gap-2.5">
+      <Container as="footer" size="xl" className="mt-20 max-w-6xl">
+        <Box className="glass-panel rounded-2xl p-6 md:p-8 [background-color:var(--glass-dialog-elevated-bg)]">
+          <Grid cols={1} mdCols={12} gap={10}>
+            <Stack gap={3} className="md:col-span-5">
+              <Cluster gap={2.5}>
                 <BrandLogo size={30} />
-                <div>
+                <Stack gap={0}>
                   <p className="text-sm font-semibold text-foreground">
                     Intelli UI
                   </p>
                   <p className="text-xs text-muted-foreground">
                     by IntelliHelper
                   </p>
-                </div>
-              </div>
+                </Stack>
+              </Cluster>
               <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
                 Liquid Glass components for React and Next.js. Install with the
                 CLI, own the source, and ship with agent tooling when you need
                 it.
               </p>
-            </div>
+            </Stack>
 
-            <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-7">
-              <div>
+            <Grid
+              cols={2}
+              smCols={3}
+              gap={8}
+              className="md:col-span-7"
+            >
+              <Box>
                 <p className="text-xs font-semibold text-foreground">Product</p>
-                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <Stack
+                  as="ul"
+                  gap={2}
+                  className="mt-3 text-sm text-muted-foreground"
+                >
                   <li>
                     <Link
                       href="/"
@@ -110,14 +132,18 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                       MCP
                     </Link>
                   </li>
-                </ul>
-              </div>
+                </Stack>
+              </Box>
 
-              <div>
+              <Box>
                 <p className="text-xs font-semibold text-foreground">
                   Categories
                 </p>
-                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <Stack
+                  as="ul"
+                  gap={2}
+                  className="mt-3 text-sm text-muted-foreground"
+                >
                   {CATEGORY_ORDER.slice(0, 6).map((category) => (
                     <li key={category}>
                       <Link
@@ -128,12 +154,16 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                       </Link>
                     </li>
                   ))}
-                </ul>
-              </div>
+                </Stack>
+              </Box>
 
-              <div className="col-span-2 sm:col-span-1">
+              <Box className="col-span-2 sm:col-span-1">
                 <p className="text-xs font-semibold text-foreground">Resources</p>
-                <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+                <Stack
+                  as="ul"
+                  gap={2}
+                  className="mt-3 text-sm text-muted-foreground"
+                >
                   <li>
                     <a
                       href={GITHUB_URL}
@@ -168,14 +198,18 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                       RSS
                     </a>
                   </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+                </Stack>
+              </Box>
+            </Grid>
+          </Grid>
 
           <Separator className="my-6" variant="subtle" />
 
-          <div className="flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
+          <Flex
+            direction="column"
+            gap={2}
+            className="text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between"
+          >
             <p>
               © {new Date().getFullYear()} IntelliHelper. Open source Liquid
               Glass UI.
@@ -184,11 +218,11 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
             <p className="text-muted-foreground">
               Built for teams that ship product UI.
             </p>
-          </div>
-        </div>
-      </footer>
+          </Flex>
+        </Box>
+      </Container>
 
       <ScrollToTopLazy />
-    </div>
+    </Box>
   );
 }

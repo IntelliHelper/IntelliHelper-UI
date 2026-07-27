@@ -26,6 +26,132 @@ export type Guide = {
 
 export const GUIDES: Guide[] = [
   {
+    slug: "layout-primitives",
+    title: "Layout Primitives: Replace Div Soup with Stack, Cluster & Grid",
+    description:
+      "Use Intelli UI layout primitives — Stack, Cluster, Grid, Flex, Split, Center, Container, Box, and Spacer — to cut nested divs, keep spacing consistent, and ship readable product UI in React and Next.js.",
+    datePublished: "2026-07-28",
+    dateModified: "2026-07-28",
+    readingMinutes: 7,
+    keywords: [
+      "react layout components",
+      "stack cluster grid",
+      "tailwind layout primitives",
+      "replace div soup",
+      "flex stack next.js",
+      "responsive grid react",
+      "intelli ui layout",
+    ],
+    sections: [
+      {
+        heading: "Why layout primitives?",
+        paragraphs: [
+          "Most product pages accumulate anonymous wrappers: div.space-y-8, div.flex.flex-wrap.gap-2, div.grid.md:grid-cols-3. The DOM still needs structure — but the source becomes huge, inconsistent, and hard for agents to edit safely.",
+          "Intelli UI layout primitives give those patterns a name. You express intent (stack children, wrap a cluster of actions, split a toolbar) instead of retyping the same Tailwind strings on every page. Install once; use across every screen.",
+        ],
+        code: `npx @intellihelper/cli@latest add layout
+
+import { Stack, Cluster, Grid, Split } from "@/components/ui/layout"`,
+      },
+      {
+        heading: "The primitive set",
+        paragraphs: [
+          "Nine small building blocks cover almost every page shell. Prefer the most specific primitive; fall back to Flex or Box only when you need an escape hatch.",
+        ],
+        table: {
+          caption: "When to use each layout primitive",
+          headers: ["Primitive", "Use for", "Default behavior"],
+          rows: [
+            ["Stack", "Vertical (or horizontal) sections", "flex-col · gap-4"],
+            ["Cluster", "Badges, chips, button groups", "flex-wrap · gap-2 · items-center"],
+            ["Grid", "Responsive card / form columns", "grid · cols=1 · gap-4"],
+            ["Split", "Title + action toolbars", "justify-between · wrap"],
+            ["Flex", "Custom flex rows/columns", "flex-row"],
+            ["Center", "Empty states, hero stages", "items + justify center"],
+            ["Container", "Page max-width shells", "mx-auto · max-w-5xl · padded"],
+            ["Box", "Polymorphic surface / padding", "as div · optional p"],
+            ["Spacer", "Push items apart in a flex row", "flex-1 grow"],
+          ],
+        },
+      },
+      {
+        heading: "Stack, Cluster, Grid (the daily drivers)",
+        paragraphs: [
+          "Stack is the default vertical rhythm for sections, forms, and docs. Cluster wraps horizontal groups without overflow pain. Grid handles responsive multi-column layouts with cols, smCols, mdCols, and lgCols — all mapped to static Tailwind classes so nothing gets purged.",
+        ],
+        code: `<Stack gap={8} as="section">
+  <Cluster gap={2}>
+    <Badge>New</Badge>
+    <Badge variant="outline">Layout</Badge>
+  </Cluster>
+
+  <Stack gap={2}>
+    <h2>Settings</h2>
+    <p className="text-muted-foreground">Profile and billing</p>
+  </Stack>
+
+  <Grid cols={1} mdCols={2} gap={4}>
+    <Card>…</Card>
+    <Card>…</Card>
+  </Grid>
+</Stack>`,
+      },
+      {
+        heading: "Split and semantic as / asChild",
+        paragraphs: [
+          "Split is for space-between rows: section headers with a trailing CTA, card titles with badges, table toolbars. Prefer as=\"section\" | as=\"ul\" | as=\"li\" so layout never forces meaningless divs. Use asChild when the child is already the correct element (for example merging onto a Link).",
+        ],
+        code: `<Split gap={3} align="end">
+  <Stack gap={1}>
+    <h2 id="billing">Billing</h2>
+    <p className="text-sm text-muted-foreground">Invoices and plans</p>
+  </Stack>
+  <Button size="sm">Manage</Button>
+</Split>
+
+{/* Landmark without an extra wrapper */}
+<Stack as="section" gap={6} aria-labelledby="billing">…</Stack>`,
+      },
+      {
+        heading: "Spacing scale and consistency",
+        paragraphs: [
+          "All gap and padding props share one scale (0, 0.5, 1 … 28) aligned with Tailwind. That keeps design rhythm consistent across the playground and consumer apps — prefer gap={4} over ad-hoc space-y-4 on one page and gap-5 on the next.",
+          "For one-off responsive tweaks (for example gap-20 md:gap-28), pass className. Props stay the common path; className stays the escape hatch.",
+        ],
+        bullets: [
+          "gap on Stack / Cluster / Grid / Flex / Split / Center",
+          "p on Box for uniform padding",
+          "size on Container: sm · md · lg · xl · 2xl · full",
+          "size on Spacer for fixed breathing room; omit for flex grow",
+        ],
+      },
+      {
+        heading: "Anti-patterns",
+        paragraphs: [
+          "Layout primitives are structure, not glass chrome. Do not nest frosted Card inside Card for spacing — use Stack gap instead. Do not replace every HTML element with Box; prefer semantic as props. Do not invent a tenth spacing scale with arbitrary Tailwind gaps next to gap={4}.",
+        ],
+        bullets: [
+          "Avoid: <div className=\"space-y-8\"><div className=\"flex flex-wrap gap-2\">…",
+          "Prefer: <Stack gap={8}><Cluster gap={2}>…",
+          "Avoid: layout-only wrappers around a single child with no gap or alignment",
+          "Prefer: put gap on the parent that already exists, or use asChild",
+        ],
+      },
+      {
+        heading: "Where Intelli UI uses this",
+        paragraphs: [
+          "Every component documentation page (preview workspace, install strip, guidance sections, related cards) is composed with layout primitives. The homepage, catalog, categories, guides, and shell footer follow the same system so demos match product patterns.",
+          "Open the Layout catalog entry for live previews, or copy the snippets above after CLI install.",
+        ],
+        code: `npx @intellihelper/cli@latest add layout button card badge
+
+# Docs
+# /components/layout
+# /guides/layout-primitives`,
+      },
+    ],
+  },
+  {
     slug: "react-media-components-image-video",
     title: "React Media Components: Image Preview, Video Player & Image Editor",
     description:

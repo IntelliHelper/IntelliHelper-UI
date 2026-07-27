@@ -55,6 +55,8 @@
     "./skeleton": "./src/skeleton.tsx",
     "./pagination": "./src/pagination.tsx",
     "./separator": "./src/separator.tsx",
+    "./layout": "./src/layout.tsx",
+    "./layout-utils": "./src/layout-utils.ts",
     "./spinner": "./src/spinner.tsx",
     "./progress": "./src/progress.tsx",
     "./scroll-area": "./src/scroll-area.tsx",

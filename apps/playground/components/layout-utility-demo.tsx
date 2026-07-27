@@ -2,6 +2,10 @@
 
 import { useRef, useState, type ReactNode } from "react";
 import {
+  Center,
+  Cluster,
+  Flex,
+  Grid,
   NativeSelect,
   NativeSelectOption,
   Progress,
@@ -14,6 +18,7 @@ import {
   ScrollToTop,
   Separator,
   Spinner,
+  Stack,
   TypographyBlockquote,
   TypographyH3,
   TypographyH4,
@@ -38,52 +43,52 @@ function LabelRow({
   children: ReactNode;
 }) {
   return (
-    <div className="flex items-start gap-3">
+    <Flex align="start" gap={3}>
       {children}
-      <div className="grid gap-0.5">
+      <Stack gap={0.5}>
         <label htmlFor={id} className="text-sm font-medium leading-none">
           {label}
         </label>
         {description && (
           <p className="text-xs text-muted-foreground">{description}</p>
         )}
-      </div>
-    </div>
+      </Stack>
+    </Flex>
   );
 }
 
 export function SeparatorDemo() {
   return (
-    <div className="space-y-3">
+    <Stack gap={3}>
       <p className="text-sm glass-chrome-text-muted">Horizontal chrome divider</p>
       <Separator variant="chrome" />
-      <div className="flex h-10 items-center gap-3">
+      <Flex align="center" gap={3} className="h-10">
         <span className="text-sm">Left</span>
         <Separator orientation="vertical" className="h-6" />
         <span className="text-sm">Right</span>
-      </div>
-    </div>
+      </Flex>
+    </Stack>
   );
 }
 
 export function SpinnerDemo() {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="flex flex-wrap items-center gap-4">
+    <Stack gap={4}>
+      <Cluster gap={4}>
         <Spinner />
         <Spinner type="ring" variant="primary" />
         <Spinner type="dots" variant="chrome" />
         <Spinner type="bars" variant="muted" />
         <Spinner type="pulse" variant="primary" size="lg" />
         <Spinner type="apple" variant="chrome" size="lg" />
-      </div>
-      <div className="flex flex-wrap items-center gap-4">
+      </Cluster>
+      <Cluster gap={4}>
         <Spinner size="sm" />
         <Spinner type="ring" size="default" />
         <Spinner type="dots" size="lg" />
         <Spinner type="bars" size="xl" variant="chrome" />
-      </div>
-    </div>
+      </Cluster>
+    </Stack>
   );
 }
 
@@ -91,11 +96,11 @@ export function ProgressDemo() {
   const [progress, setProgress] = useState(62);
 
   return (
-    <div className="w-full max-w-md space-y-3">
-      <div className="flex items-center justify-between text-sm">
+    <Stack gap={3} className="w-full max-w-md">
+      <Flex align="center" justify="between" className="text-sm">
         <span>Upload progress</span>
         <span className="glass-chrome-text-muted">{progress}%</span>
-      </div>
+      </Flex>
       <Progress value={progress} />
       <input
         aria-label="Progress value"
@@ -106,7 +111,7 @@ export function ProgressDemo() {
         onChange={(event) => setProgress(Number(event.target.value))}
         className="w-full"
       />
-    </div>
+    </Stack>
   );
 }
 
@@ -130,7 +135,7 @@ export function RadioGroupDemo() {
 
 export function NativeSelectDemo() {
   return (
-    <div className="space-y-4">
+    <Stack gap={4}>
       <NativeSelect defaultValue="chrome" aria-label="Theme preset">
         <NativeSelectOption value="chrome">Chrome</NativeSelectOption>
         <NativeSelectOption value="outline">Outline</NativeSelectOption>
@@ -141,20 +146,20 @@ export function NativeSelectDemo() {
         <NativeSelectOption value="default">Default</NativeSelectOption>
         <NativeSelectOption value="lg">Large</NativeSelectOption>
       </NativeSelect>
-    </div>
+    </Stack>
   );
 }
 
 export function ScrollAreaDemo() {
   return (
     <ScrollArea variant="chrome" className="h-48 w-full max-w-md p-4">
-      <div className="space-y-2 pr-4">
+      <Stack gap={2} className="pr-4">
         {scrollItems.map((item) => (
           <p key={item} className="text-sm glass-chrome-text-muted">
             {item}
           </p>
         ))}
-      </div>
+      </Stack>
     </ScrollArea>
   );
 }
@@ -165,13 +170,13 @@ export function ScrollToTopDemo() {
   return (
     <div ref={scrollAreaRef} className="relative w-full max-w-md">
       <ScrollArea variant="chrome" className="h-48 p-4">
-        <div className="space-y-2 pr-4">
+        <Stack gap={2} className="pr-4">
           {scrollItems.map((item) => (
             <p key={item} className="text-sm glass-chrome-text-muted">
               {item}
             </p>
           ))}
-        </div>
+        </Stack>
       </ScrollArea>
       <ScrollToTop withinRef={scrollAreaRef} threshold={48} />
     </div>
@@ -182,15 +187,13 @@ export function ResizableDemo() {
   return (
     <ResizablePanelGroup variant="chrome" className="min-h-48 w-full">
       <ResizablePanel defaultSize={35} minSize={20}>
-        <div className="flex h-full items-center justify-center p-6 text-sm glass-chrome-text-muted">
+        <Center className="h-full p-6 text-sm glass-chrome-text-muted">
           Sidebar
-        </div>
+        </Center>
       </ResizablePanel>
       <ResizableHandle withHandle />
       <ResizablePanel defaultSize={65} minSize={30}>
-        <div className="flex h-full items-center justify-center p-6 text-sm">
-          Main content area
-        </div>
+        <Center className="h-full p-6 text-sm">Main content area</Center>
       </ResizablePanel>
     </ResizablePanelGroup>
   );
@@ -198,7 +201,7 @@ export function ResizableDemo() {
 
 export function TypographyDemo() {
   return (
-    <div className="max-w-2xl space-y-2">
+    <Stack gap={2} className="max-w-2xl">
       <TypographyLead>
         Semantic text primitives for documentation and product copy.
       </TypographyLead>
@@ -221,44 +224,44 @@ export function TypographyDemo() {
         Built with <TypographyInlineCode>@intelli/ui</TypographyInlineCode>{" "}
         typography primitives.
       </TypographyMuted>
-    </div>
+    </Stack>
   );
 }
 
 /** Combined showcase — not used in per-component examples. */
 export function LayoutUtilityDemo() {
   return (
-    <div className="space-y-8">
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-5">
+    <Stack gap={8}>
+      <Grid cols={1} lgCols={2} gap={8}>
+        <Stack gap={5}>
           <p className="text-sm font-medium text-foreground">Separator & Spinner</p>
           <SeparatorDemo />
           <SpinnerDemo />
-        </div>
-        <div className="space-y-5">
+        </Stack>
+        <Stack gap={5}>
           <p className="text-sm font-medium text-foreground">Progress & Radio Group</p>
           <ProgressDemo />
           <RadioGroupDemo />
-        </div>
-      </div>
-      <div className="grid gap-8 lg:grid-cols-2">
-        <div className="space-y-4">
+        </Stack>
+      </Grid>
+      <Grid cols={1} lgCols={2} gap={8}>
+        <Stack gap={4}>
           <p className="text-sm font-medium text-foreground">Native Select</p>
           <NativeSelectDemo />
-        </div>
-        <div className="space-y-4">
+        </Stack>
+        <Stack gap={4}>
           <p className="text-sm font-medium text-foreground">Scroll Area</p>
           <ScrollToTopDemo />
-        </div>
-      </div>
-      <div className="space-y-4">
+        </Stack>
+      </Grid>
+      <Stack gap={4}>
         <p className="text-sm font-medium text-foreground">Resizable Panels</p>
         <ResizableDemo />
-      </div>
-      <div className="space-y-3">
+      </Stack>
+      <Stack gap={3}>
         <p className="text-sm font-medium text-foreground">Typography</p>
         <TypographyDemo />
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   );
 }

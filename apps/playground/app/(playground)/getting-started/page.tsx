@@ -10,6 +10,12 @@ import {
   CardTitle,
   Separator,
 } from "@intelli/ui";
+import {
+  Box,
+  Cluster,
+  Container,
+  Stack,
+} from "@intelli/ui/layout";
 import { CliGettingStarted } from "../../../components/cli-getting-started";
 import { CustomizationDemo } from "../../../components/customization-demo";
 import { DocsFaq } from "../../../components/docs-faq";
@@ -112,14 +118,15 @@ export default function GettingStartedPage() {
           }),
         ]}
       />
-      <div className="mx-auto max-w-3xl space-y-8 pb-8">
+      <Container size="md" padded={false} className="max-w-3xl pb-8">
+        <Stack gap={8}>
         <PageHeader
           breadcrumbs={[
             { label: "Home", href: "/" },
             { label: "Getting started" },
           ]}
           meta={
-            <span className="inline-flex flex-wrap items-center gap-2">
+            <Cluster gap={2}>
               <Badge variant="secondary" size="sm">
                 Docs
               </Badge>
@@ -129,32 +136,39 @@ export default function GettingStartedPage() {
               <span className="text-xs text-muted-foreground">
                 Updated {SITE_CONTENT_DATES.modified}
               </span>
-            </span>
+            </Cluster>
           }
           title="Getting started"
-          description="Install Liquid Glass components into any Next.js + Tailwind project. Own the source, customize freely, and optionally wire coding agents with the plugin or MCP."
+          description="Install Liquid Glass components into any Next.js + Tailwind project. Own the source, customize freely, and optionally wire coding agents with the plugin or MCP. Prefer layout primitives over nested divs — see the layout guide."
           actions={
-            <Button asChild variant="outline" size="sm">
-              <Link href="/components">Browse catalog</Link>
-            </Button>
+            <Cluster gap={2}>
+              <Button asChild variant="outline" size="sm">
+                <Link href="/components">Browse catalog</Link>
+              </Button>
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/guides/layout-primitives">Layout guide</Link>
+              </Button>
+            </Cluster>
           }
         />
 
         {/* On-page TOC — product docs pattern */}
-        <nav
+        <Cluster
+          as="nav"
+          gap={1.5}
           aria-label="On this page"
-          className="flex flex-wrap gap-1.5 rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-1.5"
+          className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-1.5 backdrop-blur-[var(--glass-blur)]"
         >
           {TOC.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="rounded-lg px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] hover:text-foreground"
+              className="rounded-lg bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:backdrop-blur-[var(--glass-blur)]"
             >
               {item.label}
             </a>
           ))}
-        </nav>
+        </Cluster>
 
         <Card id="cli" className="scroll-mt-24" variant="chrome" animated={false}>
           <CardHeader>
@@ -228,7 +242,13 @@ export default function GettingStartedPage() {
           </CardContent>
         </Card>
 
-        <section id="faq" className="scroll-mt-24 space-y-4" aria-labelledby="faq-heading">
+        <Stack
+          as="section"
+          id="faq"
+          gap={4}
+          className="scroll-mt-24"
+          aria-labelledby="faq-heading"
+        >
           <h2
             id="faq-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
@@ -236,7 +256,7 @@ export default function GettingStartedPage() {
             Frequently asked questions
           </h2>
           <DocsFaq items={FAQ_ITEMS} />
-        </section>
+        </Stack>
 
         <Card variant="chrome" animated={false}>
           <CardHeader>
@@ -245,32 +265,35 @@ export default function GettingStartedPage() {
               {total} components across {CATEGORY_ORDER.length} categories.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-0">
-            {CATEGORY_ORDER.map((category, index) => {
-              const items = grouped[category];
-              if (!items.length) return null;
-              return (
-                <div key={category}>
-                  {index > 0 ? (
-                    <Separator className="my-4" variant="subtle" />
-                  ) : null}
-                  <div>
-                    <Link
-                      href={`/categories/${category}`}
-                      className="text-sm font-medium text-foreground transition-colors hover:text-primary"
-                    >
-                      {CATEGORY_META[category].label}
-                    </Link>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
-                      {items.map((item) => item.title).join(" · ")}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
+          <CardContent>
+            <Stack gap={0}>
+              {CATEGORY_ORDER.map((category, index) => {
+                const items = grouped[category];
+                if (!items.length) return null;
+                return (
+                  <Box key={category}>
+                    {index > 0 ? (
+                      <Separator className="my-4" variant="subtle" />
+                    ) : null}
+                    <Stack gap={1}>
+                      <Link
+                        href={`/categories/${category}`}
+                        className="text-sm font-medium text-foreground transition-colors hover:text-primary"
+                      >
+                        {CATEGORY_META[category].label}
+                      </Link>
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        {items.map((item) => item.title).join(" · ")}
+                      </p>
+                    </Stack>
+                  </Box>
+                );
+              })}
+            </Stack>
           </CardContent>
         </Card>
-      </div>
+        </Stack>
+      </Container>
     </>
   );
 }

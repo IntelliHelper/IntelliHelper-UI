@@ -1730,6 +1730,70 @@
       }
     },
     {
+      "name": "layout",
+      "type": "registry:ui",
+      "title": "Layout",
+      "description": "Layout primitives that replace div soup \u2014 Stack, Cluster, Grid, Flex, Center, Split, Container, Box, and Spacer with shared spacing scale, polymorphic as/asChild, and Tailwind-safe class maps.",
+      "dependencies": [
+        "@radix-ui/react-slot"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        }
+      ],
+      "meta": {
+        "primitives": [
+          "Box",
+          "Stack",
+          "Cluster",
+          "Grid",
+          "Flex",
+          "Center",
+          "Split",
+          "Container",
+          "Spacer"
+        ],
+        "gapScale": [
+          0,
+          0.5,
+          1,
+          1.5,
+          2,
+          2.5,
+          3,
+          3.5,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          12,
+          14,
+          16,
+          20,
+          24,
+          28
+        ],
+        "polymorphic": [
+          "as",
+          "asChild"
+        ]
+      }
+    },
+    {
       "name": "spinner",
       "type": "registry:ui",
       "title": "Spinner",
@@ -2294,7 +2358,7 @@
       "name": "notification-center",
       "type": "registry:ui",
       "title": "Notification Center",
-      "description": "Inbox-style notification list with unread counts, mark-read, and dismiss — distinct from toast.",
+      "description": "Inbox-style notification list with unread counts, mark-read, and dismiss \u2014 distinct from toast.",
       "dependencies": [
         "class-variance-authority"
       ],

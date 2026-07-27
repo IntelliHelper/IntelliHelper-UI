@@ -1,6 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
+import { Center, Stack } from "@intelli/ui/layout";
 import {
   Empty,
   EmptyDescription,
@@ -17,9 +18,9 @@ type ComponentExamplesProps = {
 
 function PreviewFallback() {
   return (
-    <div className="flex min-h-[10rem] items-center justify-center p-6" aria-hidden>
+    <Center className="min-h-[10rem] p-6" aria-hidden>
       <Skeleton className="h-24 w-full max-w-md rounded-2xl" />
-    </div>
+    </Center>
   );
 }
 
@@ -41,7 +42,7 @@ export function ComponentExamples({ slug }: ComponentExamplesProps) {
   }
 
   return (
-    <div className="min-w-0 space-y-6">
+    <Stack gap={6} className="min-w-0">
       {examples.map((example) => (
         <DocWorkspace
           key={example.title}
@@ -53,6 +54,6 @@ export function ComponentExamples({ slug }: ComponentExamplesProps) {
           code={example.code}
         />
       ))}
-    </div>
+    </Stack>
   );
 }
