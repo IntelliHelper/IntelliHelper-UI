@@ -9,6 +9,10 @@
 
 @source "../../../packages/ui/src/**/*.{ts,tsx}";
 @source "../../../apps/playground/**/*.{ts,tsx}";
+/* Demo-only classes stay out of the critical CSS graph (smaller render-blocking sheet) */
+@source not "../../../apps/playground/components/**/*-demo.tsx";
+@source not "../../../apps/playground/lib/examples/**/*.{ts,tsx}";
+@source not "../../../apps/playground/public/**/*";
 
 @theme inline {
   --color-background: var(--background);
@@ -500,5 +504,93 @@
 
   .glass-link-underline::after {
     transform: scaleX(1) !important;
+  }
+}
+
+/*
+ * Mobile Core Web Vitals — Liquid Glass performance profile
+ *
+ * backdrop-filter is the #1 GPU cost on low-end mobile. Keep the premium
+ * frosted look via denser milky fills + thinner blur (not flat solid UI).
+ * Desktop (≥768px) is unchanged.
+ */
+@media (max-width: 767px) {
+  :root.light {
+    --glass-panel-bg: oklch(0.99 0 0 / 0.9);
+    --glass-header-bg: oklch(0.99 0 0 / 0.88);
+    --glass-dialog-bg: oklch(0.99 0 0 / 0.9);
+    --glass-dialog-elevated-bg: oklch(0.99 0 0 / 0.94);
+    --glass-surface-bg: oklch(0.99 0 0 / 0.86);
+    --glass-surface-thin-bg: oklch(0.99 0 0 / 0.78);
+    --glass-surface-subtle-bg: oklch(0.99 0 0 / 0.7);
+    --glass-field-bg: oklch(0.97 0 0 / 0.84);
+    --glass-chrome-bg: oklch(0.97 0 0 / 0.9);
+    --glass-chrome-bg-env: oklch(0.97 0 0 / 0.92);
+    --glass-button-ui-bg: oklch(1 0 0 / 0.86);
+    --glass-button-ui-bg-hover: oklch(1 0 0 / 0.94);
+    --glass-blur: 2px;
+    --glass-blur-heavy: 3px;
+    --glass-chrome-blur: 3px;
+  }
+
+  :root.dark {
+    --glass-panel-bg: oklch(0.24 0.015 270 / 0.9);
+    --glass-header-bg: oklch(0.24 0.015 270 / 0.88);
+    --glass-dialog-bg: oklch(0.24 0.015 270 / 0.9);
+    --glass-dialog-elevated-bg: oklch(0.26 0.015 270 / 0.94);
+    --glass-surface-bg: oklch(0.24 0.015 270 / 0.86);
+    --glass-surface-thin-bg: oklch(0.26 0.015 270 / 0.78);
+    --glass-surface-subtle-bg: oklch(0.28 0.015 270 / 0.7);
+    --glass-field-bg: oklch(0.28 0.018 270 / 0.84);
+    --glass-chrome-bg: oklch(0.3 0.018 270 / 0.9);
+    --glass-chrome-bg-env: oklch(0.3 0.018 270 / 0.92);
+    --glass-button-ui-bg: oklch(0.36 0.02 270 / 0.86);
+    --glass-button-ui-bg-hover: oklch(0.4 0.02 270 / 0.94);
+    --glass-blur: 2px;
+    --glass-blur-heavy: 3px;
+    --glass-chrome-blur: 3px;
+  }
+
+  /* Utility stacks hard-code blur px — re-assert thinner mobile frost */
+  .glass-frost,
+  .glass-base,
+  .glass-filled,
+  .glass-filled-destructive,
+  .glass-tonal,
+  .glass-outlined,
+  .glass-panel,
+  .glass-field,
+  .glass-surface,
+  .glass-surface-thin,
+  .glass-surface-subtle,
+  .glass-chrome-indicator,
+  .glass-button-chrome,
+  .glass-button-chrome-subtle,
+  .glass-button-content,
+  .glass-button-content-destructive,
+  .glass-button-glass {
+    -webkit-backdrop-filter: blur(2px) saturate(140%);
+    backdrop-filter: blur(2px) saturate(140%);
+  }
+
+  .glass-header,
+  .glass-dialog,
+  .glass-dialog-elevated,
+  .glass-chrome {
+    -webkit-backdrop-filter: blur(3px) saturate(150%);
+    backdrop-filter: blur(3px) saturate(150%);
+  }
+
+  /* Hover-only glass should not pay backdrop cost until needed */
+  .glass-button-ghost:hover {
+    -webkit-backdrop-filter: blur(2px) saturate(140%);
+    backdrop-filter: blur(2px) saturate(140%);
+  }
+
+  /* Touch UIs don't benefit from hover lift; skip transform paint churn */
+  .glass-interactive:hover,
+  .glass-chrome-interactive:hover,
+  .glass-row-hover:hover {
+    transform: none;
   }
 }

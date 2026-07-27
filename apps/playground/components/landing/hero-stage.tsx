@@ -1,15 +1,8 @@
 "use client";
 
-import {
-  GlassBar,
-  GlassBarControls,
-  GlassBarInfo,
-  GlassBarMedia,
-  GlassContentCard,
-  GlassContentPanel,
-  GlassIconButton,
-} from "@intelli/ui";
-
+import { GlassBar, GlassBarControls, GlassBarInfo, GlassBarMedia } from "@intelli/ui/glass-bar";
+import { GlassContentCard, GlassContentPanel } from "@intelli/ui/glass-content-card";
+import { GlassIconButton } from "@intelli/ui/glass-icon-button";
 function LayersIcon() {
   return (
     <svg
@@ -79,9 +72,9 @@ export function HeroStage() {
       className="relative mx-auto w-full max-w-md lg:max-w-lg"
       aria-label="Live Liquid Glass component preview"
     >
-      {/* Soft stage glow behind the card */}
+      {/* Soft stage glow — desktop only (blur layers are expensive on mobile GPU) */}
       <div
-        className="pointer-events-none absolute -inset-8 rounded-[2.5rem] opacity-80 blur-3xl"
+        className="pointer-events-none absolute -inset-8 hidden rounded-[2.5rem] opacity-80 blur-3xl md:block"
         style={{
           background:
             "radial-gradient(ellipse 65% 55% at 40% 35%, oklch(0.62 0.18 270 / 0.45), transparent 70%), radial-gradient(ellipse 50% 45% at 75% 70%, oklch(0.7 0.16 55 / 0.35), transparent 70%)",
@@ -89,10 +82,12 @@ export function HeroStage() {
         aria-hidden
       />
 
-      <GlassContentCard animated className="relative h-[19.5rem] sm:h-[21rem]">
+      {/* animated=false on LCP hero card: one less main-thread style pass on load */}
+      <GlassContentCard animated={false} className="relative h-[19.5rem] sm:h-[21rem]">
         <div className="flex h-full">
           <GlassContentPanel
             className="flex-[3] pb-20"
+            glow={false}
             gradient="linear-gradient(160deg, oklch(0.48 0.19 275), oklch(0.58 0.17 230))"
           >
             <p className="text-[11px] font-medium uppercase tracking-[0.16em] content-text-muted">
@@ -112,6 +107,7 @@ export function HeroStage() {
 
           <GlassContentPanel
             className="flex-[2] pb-20"
+            glow={false}
             gradient="linear-gradient(160deg, oklch(0.72 0.18 55), oklch(0.55 0.2 25))"
           >
             <p className="text-[11px] font-medium uppercase tracking-[0.16em] content-text-muted">
@@ -132,7 +128,7 @@ export function HeroStage() {
 
         {/* Chrome floats inside the content stage — not outside */}
         <div className="absolute inset-x-3 bottom-3 sm:inset-x-4 sm:bottom-4">
-          <GlassBar size="default" animated className="pr-1.5">
+          <GlassBar size="default" animated={false} className="pr-1.5">
             <GlassIconButton
               type="button"
               size="sm"

@@ -10,7 +10,7 @@ import {
   getBackgroundPictureStyle,
   NONE_BACKGROUND_VALUE,
   type BackgroundPictureValue,
-} from "@intelli/ui";
+} from "@intelli/ui/background-picture-picker";
 
 interface PlaygroundBackgroundContextValue {
   background: BackgroundPictureValue;

@@ -1,17 +1,27 @@
 "use client";
 
+import { Suspense } from "react";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyTitle,
-} from "@intelli/ui";
+} from "@intelli/ui/empty";
+import { Skeleton } from "@intelli/ui/skeleton";
 import { DocWorkspace } from "./doc-workspace";
 import { getExamples } from "../lib/examples";
 
 type ComponentExamplesProps = {
   slug: string;
 };
+
+function PreviewFallback() {
+  return (
+    <div className="flex min-h-[10rem] items-center justify-center p-6" aria-hidden>
+      <Skeleton className="h-24 w-full max-w-md rounded-2xl" />
+    </div>
+  );
+}
 
 export function ComponentExamples({ slug }: ComponentExamplesProps) {
   const examples = getExamples(slug);
@@ -37,7 +47,9 @@ export function ComponentExamples({ slug }: ComponentExamplesProps) {
           key={example.title}
           title={example.title}
           description={example.description}
-          preview={example.preview}
+          preview={
+            <Suspense fallback={<PreviewFallback />}>{example.preview}</Suspense>
+          }
           code={example.code}
         />
       ))}

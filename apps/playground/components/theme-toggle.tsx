@@ -1,8 +1,7 @@
 "use client";
 
 import { useTheme } from "@intelli/themes";
-import { Button } from "@intelli/ui";
-
+import { Button } from "@intelli/ui/button";
 function SunIcon() {
   return (
     <svg

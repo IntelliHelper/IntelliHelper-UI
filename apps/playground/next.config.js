@@ -1,6 +1,21 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@intelli/ui", "@intelli/themes", "@intelli/utils"],
+  // Modern Baseline browsers only — drops legacy polyfills Lighthouse flags
+  // (Array.at, Object.hasOwn, flatMap, trimStart, …). See root browserslist.
+  compiler: {
+    // Smaller production client bundles (main-thread parse cost)
+    removeConsole:
+      process.env.NODE_ENV === "production"
+        ? { exclude: ["error", "warn"] }
+        : false,
+  },
+  experimental: {
+    // Tree-shake barrel imports from the design system (critical for mobile TBT)
+    optimizePackageImports: ["@intelli/ui", "@intelli/themes", "@intelli/utils"],
+    // Inline critical CSS + defer the rest (render-blocking CSS audit)
+    optimizeCss: true,
+  },
   async redirects() {
     return [
       {

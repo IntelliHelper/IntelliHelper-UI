@@ -1,22 +1,48 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import {
-  Button,
-  Separator,
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@intelli/ui";
+import { Button } from "@intelli/ui/button";
 import { cn } from "@intelli/utils";
-import { CATEGORY_META, CATEGORY_ORDER } from "../lib/catalog";
 import { BrandLogo } from "./brand-logo";
-import { ComponentSearch } from "./component-search";
 import { ThemeToggle } from "./theme-toggle";
+
+/** Command palette + Dialog — defer off first paint (mobile TBT). */
+const ComponentSearch = dynamic(
+  () => import("./component-search").then((m) => m.ComponentSearch),
+  {
+    ssr: false,
+    loading: () => (
+      <div
+        className="hidden h-9 w-9 rounded-full border border-[var(--glass-chrome-border)] sm:block sm:w-[9.5rem]"
+        aria-hidden
+      />
+    ),
+  },
+);
+
+/** Radix Sheet drawer — not needed until mobile menu is used. */
+const MobileNavSheet = dynamic(
+  () => import("./mobile-nav-sheet").then((m) => m.MobileNavSheet),
+  {
+    ssr: false,
+    loading: () => (
+      <Button
+        type="button"
+        variant="outline"
+        size="icon"
+        shape="pill"
+        className="min-h-12 min-w-12 md:hidden"
+        aria-label="Open menu"
+        disabled
+      >
+        <span className="size-4" aria-hidden />
+      </Button>
+    ),
+  },
+);
 
 const PRIMARY_LINKS = [
   {
@@ -47,26 +73,6 @@ const PRIMARY_LINKS = [
     match: (path: string) => path.includes("shadcn-vs"),
   },
 ] as const;
-
-function MenuIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-      className="size-4"
-    >
-      <path d="M4 6h16" />
-      <path d="M4 12h16" />
-      <path d="M4 18h16" />
-    </svg>
-  );
-}
 
 function GithubIcon() {
   return (
@@ -151,100 +157,13 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
           </a>
         </Button>
 
-        <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
-          <SheetTrigger asChild>
-            <Button
-              type="button"
-              variant="outline"
-              size="icon"
-              shape="pill"
-              className="min-h-12 min-w-12 md:hidden"
-              aria-label="Open menu"
-            >
-              <MenuIcon />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="right" size="sm" className="gap-0 p-0">
-            <SheetHeader className="border-b border-[var(--glass-chrome-border)] px-5 py-4 text-left">
-              <SheetTitle className="flex items-center gap-2.5 text-base">
-                <BrandLogo size={28} />
-                Intelli UI
-              </SheetTitle>
-            </SheetHeader>
-
-            <div className="flex flex-1 flex-col overflow-y-auto px-3 py-4">
-              <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-                Navigate
-              </p>
-              <nav className="flex flex-col gap-0.5" aria-label="Mobile primary">
-                {PRIMARY_LINKS.map((link) => {
-                  const active = link.match(pathname);
-                  return (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileOpen(false)}
-                      aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
-                        active
-                          ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] text-foreground shadow-[var(--glass-chrome-inset)]"
-                          : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground",
-                      )}
-                    >
-                      {link.label}
-                    </Link>
-                  );
-                })}
-                <Link
-                  href="/about"
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
-                >
-                  About
-                </Link>
-                <Link
-                  href="/getting-started#plugin"
-                  onClick={() => setMobileOpen(false)}
-                  className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
-                >
-                  Agent plugin
-                </Link>
-              </nav>
-
-              <Separator className="my-4" variant="subtle" />
-
-              <p className="px-2 pb-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
-                Categories
-              </p>
-              <ul className="grid grid-cols-1 gap-0.5">
-                {CATEGORY_ORDER.map((category) => (
-                  <li key={category}>
-                    <Link
-                      href={`/categories/${category}`}
-                      onClick={() => setMobileOpen(false)}
-                      className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
-                    >
-                      {CATEGORY_META[category].label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              <Separator className="my-4" variant="subtle" />
-
-              <a
-                href={githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
-              >
-                <GithubIcon />
-                GitHub
-              </a>
-            </div>
-          </SheetContent>
-        </Sheet>
+        <MobileNavSheet
+          githubUrl={githubUrl}
+          pathname={pathname}
+          open={mobileOpen}
+          onOpenChange={setMobileOpen}
+          primaryLinks={PRIMARY_LINKS}
+        />
       </div>
     </header>
   );
