@@ -36,7 +36,7 @@ import {
 
 const imageEditorVariants = cva(
   [
-    "flex w-full flex-col overflow-hidden rounded-2xl border",
+    "flex w-full min-w-0 flex-col overflow-hidden rounded-2xl border",
     "border-[var(--glass-chrome-border)]",
   ],
   {
@@ -119,9 +119,9 @@ function ToolButton({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "inline-flex h-9 items-center gap-1.5 rounded-full px-3 text-xs font-medium",
+        "inline-flex h-10 min-h-10 items-center gap-1.5 rounded-full px-2.5 text-xs font-medium sm:h-9 sm:min-h-9 sm:px-3",
         "transition-[background,transform,color] duration-[var(--duration-fast)]",
-        "active:scale-[0.98]",
+        "active:scale-[0.98] touch-manipulation",
         focusRing,
         active
           ? "bg-[color-mix(in_oklch,var(--primary)_22%,transparent)] text-foreground"
@@ -172,12 +172,13 @@ function FilterSlider({
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
         className={cn(
-          "h-1.5 w-full cursor-pointer appearance-none rounded-full",
+          "h-2 w-full cursor-pointer appearance-none rounded-full sm:h-1.5",
           "bg-[color-mix(in_oklch,var(--glass-chrome-border)_80%,transparent)]",
-          "[&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:appearance-none",
+          "[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none sm:[&::-webkit-slider-thumb]:size-3.5",
           "[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-primary",
-          "[&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:rounded-full",
+          "[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full sm:[&::-moz-range-thumb]:size-3.5",
           "[&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-primary",
+          "touch-manipulation",
           focusRing,
         )}
       />
@@ -470,43 +471,49 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
         {/* Toolbar */}
         <div
           data-slot="image-editor-toolbar"
-          className="flex flex-wrap items-center gap-1 border-b border-[color-mix(in_oklch,var(--glass-chrome-border)_75%,transparent)] px-2 py-2"
+          className={cn(
+            "flex flex-col gap-2 border-b border-[color-mix(in_oklch,var(--glass-chrome-border)_75%,transparent)] px-2 py-2",
+            "sm:flex-row sm:flex-wrap sm:items-center sm:gap-1",
+          )}
         >
-          <ToolButton
-            label="Crop"
-            active={tool === "crop"}
-            onClick={() => setTool("crop")}
-          >
-            <CropIcon className="size-3.5" />
-            Crop
-          </ToolButton>
-          <ToolButton
-            label="Adjust"
-            active={tool === "adjust"}
-            onClick={() => setTool("adjust")}
-          >
-            <SlidersIcon className="size-3.5" />
-            Filters
-          </ToolButton>
-          <ToolButton
-            label="Transform"
-            active={tool === "transform"}
-            onClick={() => setTool("transform")}
-          >
-            <RotateIcon className="size-3.5" />
-            Rotate
-          </ToolButton>
+          <div className="flex min-w-0 flex-wrap items-center gap-1">
+            <ToolButton
+              label="Crop"
+              active={tool === "crop"}
+              onClick={() => setTool("crop")}
+            >
+              <CropIcon className="size-3.5 shrink-0" />
+              <span className="max-[360px]:sr-only">Crop</span>
+            </ToolButton>
+            <ToolButton
+              label="Adjust"
+              active={tool === "adjust"}
+              onClick={() => setTool("adjust")}
+            >
+              <SlidersIcon className="size-3.5 shrink-0" />
+              <span className="max-[360px]:sr-only">Filters</span>
+            </ToolButton>
+            <ToolButton
+              label="Transform"
+              active={tool === "transform"}
+              onClick={() => setTool("transform")}
+            >
+              <RotateIcon className="size-3.5 shrink-0" />
+              <span className="max-[360px]:sr-only">Rotate</span>
+            </ToolButton>
+          </div>
 
-          <div className="ml-auto flex items-center gap-1">
+          <div className="flex min-w-0 flex-wrap items-center gap-1 sm:ml-auto">
             <button
               type="button"
               onClick={reset}
               disabled={!dirty}
               className={cn(
-                "h-9 rounded-full px-3 text-xs font-medium",
+                "h-10 min-h-10 flex-1 rounded-full px-3 text-xs font-medium sm:h-9 sm:min-h-9 sm:flex-none",
                 "text-[var(--glass-chrome-fg)]",
                 "hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_10%,transparent)]",
                 "disabled:opacity-40",
+                "touch-manipulation",
                 focusRing,
               )}
             >
@@ -518,10 +525,11 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
                 onClick={() => void handleExport()}
                 disabled={exporting || !imgReady}
                 className={cn(
-                  "h-9 rounded-full px-3 text-xs font-semibold",
+                  "h-10 min-h-10 flex-1 rounded-full px-3 text-xs font-semibold sm:h-9 sm:min-h-9 sm:flex-none",
                   "bg-[color-mix(in_oklch,var(--primary)_88%,transparent)] text-primary-foreground",
                   "hover:brightness-110 active:scale-[0.98]",
                   "disabled:opacity-50",
+                  "touch-manipulation",
                   focusRing,
                 )}
               >
@@ -535,19 +543,22 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
         <div
           ref={stageRef}
           data-slot="image-editor-stage"
-          className="relative flex min-h-[240px] flex-1 items-center justify-center overflow-hidden bg-[color-mix(in_oklch,black_12%,transparent)] p-4"
+          className={cn(
+            "relative flex min-h-[200px] flex-1 items-center justify-center overflow-hidden",
+            "bg-[color-mix(in_oklch,black_12%,transparent)] p-2 touch-none sm:min-h-[240px] sm:p-4",
+          )}
           onPointerMove={onStagePointerMove}
           onPointerUp={endDrag}
           onPointerCancel={endDrag}
         >
-          <div className="relative max-h-[420px] max-w-full">
+          <div className="relative max-h-[min(50vh,420px)] max-w-full sm:max-h-[420px]">
             <img
               ref={imgRef}
               src={src}
               alt={alt}
               draggable={false}
               onLoad={() => setImgReady(true)}
-              className="max-h-[420px] max-w-full select-none object-contain"
+              className="max-h-[min(50vh,420px)] max-w-full select-none object-contain sm:max-h-[420px]"
               style={previewStyle}
             />
 
@@ -605,11 +616,15 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
                       type="button"
                       aria-label={`Resize crop ${mode}`}
                       className={cn(
-                        "absolute size-3 rounded-sm bg-white shadow",
+                        /* Visible handle + larger invisible touch target on mobile */
+                        "absolute flex size-5 items-center justify-center sm:size-3.5",
+                        "touch-manipulation before:absolute before:inset-[-6px] before:content-[''] sm:before:inset-[-4px]",
                         pos,
                       )}
                       onPointerDown={(e) => onCropPointerDown(e, mode)}
-                    />
+                    >
+                      <span className="size-3.5 rounded-sm bg-white shadow sm:size-3" />
+                    </button>
                   ))}
                 </div>
               </div>
@@ -620,7 +635,7 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
         {/* Tool panels */}
         <div
           data-slot="image-editor-panel"
-          className="border-t border-[color-mix(in_oklch,var(--glass-chrome-border)_75%,transparent)] p-3"
+          className="border-t border-[color-mix(in_oklch,var(--glass-chrome-border)_75%,transparent)] p-2.5 sm:p-3"
         >
           {tool === "crop" ? (
             <div className="flex flex-wrap gap-1.5">
@@ -642,9 +657,10 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
                     aria-pressed={active}
                     onClick={() => setAspect(value)}
                     className={cn(
-                      "h-8 rounded-full border px-3 text-xs font-medium",
+                      "h-9 min-h-9 rounded-full border px-2.5 text-xs font-medium sm:h-8 sm:min-h-8 sm:px-3",
                       "border-[color-mix(in_oklch,var(--glass-chrome-border)_80%,transparent)]",
                       "hover:bg-[color-mix(in_oklch,var(--glass-chrome-fg)_8%,transparent)]",
+                      "touch-manipulation",
                       active &&
                         "border-[color-mix(in_oklch,var(--primary)_55%,transparent)] bg-[color-mix(in_oklch,var(--primary)_18%,transparent)]",
                       focusRing,
@@ -709,7 +725,7 @@ const ImageEditor = forwardRef<ImageEditorHandle, ImageEditorProps>(
               >
                 <FlipVIcon className="size-4" />
               </GlassIconButton>
-              <span className="ml-2 text-xs text-muted-foreground">
+              <span className="w-full text-xs text-muted-foreground sm:ml-2 sm:w-auto">
                 Rotation {normalizeRotation(transform.rotation)}°
                 {transform.flipX ? " · Flip X" : ""}
                 {transform.flipY ? " · Flip Y" : ""}
