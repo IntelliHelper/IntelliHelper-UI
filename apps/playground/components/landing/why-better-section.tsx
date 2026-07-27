@@ -1,13 +1,14 @@
+"use client";
+
 import Link from "next/link";
-import { Badge, Button } from "@intelli/ui";
+import { useCallback, type ComponentType } from "react";
+import { Badge } from "@intelli/ui/badge";
+import { Button } from "@intelli/ui/button";
+import { LazyStage } from "./lazy-stage";
 import {
-  AgentsStage,
-  AiComponentsStage,
   DesignSystemStage,
   GlassPrimitivesStage,
-  LivePreviewsStage,
-  SourceOwnershipStage,
-} from "./why-better-stages";
+} from "./why-better-stages-light";
 
 const WHY_BETTER = [
   {
@@ -15,42 +16,60 @@ const WHY_BETTER = [
     title: "A real design system, not flat defaults",
     vs: "shadcn & most kits",
     body: "shadcn ships a neutral, flat baseline you restyle yourself. Intelli UI is Liquid Glass first — chrome vs content layers, frosted primitives, and five themes so product UI looks intentional on day one.",
-    stage: DesignSystemStage,
+    stage: "light" as const,
+    LightStage: DesignSystemStage,
   },
   {
     id: "glass-primitives",
     title: "Glass primitives others leave to you",
     vs: "hand-rolled glass",
     body: "Glass-bar, content cards, preview stages, and background pickers ship first-class — not blog CSS glued onto a generic Button.",
-    stage: GlassPrimitivesStage,
+    stage: "light" as const,
+    LightStage: GlassPrimitivesStage,
   },
   {
     id: "ai-components",
     title: "AI product components included",
     vs: "generic catalogs",
     body: "Chat, streaming text, reasoning blocks, tool-call viewers, and prompt inputs ship ready. Build agent UIs without stitching half-styled demos.",
-    stage: AiComponentsStage,
+    stage: "heavy" as const,
+    load: () =>
+      import("./why-better-stages-heavy").then((m) => ({
+        default: m.AiComponentsStage,
+      })),
   },
   {
     id: "agents",
     title: "Agents that know the system",
     vs: "docs-only libraries",
     body: "Official plugin + MCP teach Claude, Grok, Cursor, and others to install correctly and respect chrome vs content.",
-    stage: AgentsStage,
+    stage: "heavy" as const,
+    load: () =>
+      import("./why-better-stages-heavy").then((m) => ({
+        default: m.AgentsStage,
+      })),
   },
   {
     id: "source",
     title: "You own the source",
     vs: "black-box UI kits",
     body: "CLI copies TypeScript into your repo — same ownership as shadcn, without package lock-in from MUI, Chakra, or Ant.",
-    stage: SourceOwnershipStage,
+    stage: "heavy" as const,
+    load: () =>
+      import("./why-better-stages-heavy").then((m) => ({
+        default: m.SourceOwnershipStage,
+      })),
   },
   {
     id: "live-previews",
     title: "Live previews + install",
     vs: "docs-heavy ecosystems",
     body: "Every catalog page pairs a live demo, install command, and editable source — less tab-hopping between Storybook, npm, and Figma.",
-    stage: LivePreviewsStage,
+    stage: "heavy" as const,
+    load: () =>
+      import("./why-better-stages-heavy").then((m) => ({
+        default: m.LivePreviewsStage,
+      })),
   },
 ] as const;
 
@@ -87,20 +106,35 @@ const COMPARISON_ROWS = [
   },
 ] as const;
 
+type WhyItem = (typeof WHY_BETTER)[number];
+
+function FeatureStage({ item }: { item: WhyItem }) {
+  const loadHeavy = useCallback(() => {
+    if (item.stage !== "heavy") {
+      return Promise.resolve({ default: (() => null) as ComponentType });
+    }
+    return item.load();
+  }, [item]);
+
+  if (item.stage === "light") {
+    const Stage = item.LightStage;
+    return <Stage />;
+  }
+
+  return <LazyStage load={loadHeavy} />;
+}
+
 function FeatureCard({
   item,
   className = "",
 }: {
-  item: (typeof WHY_BETTER)[number];
+  item: WhyItem;
   className?: string;
 }) {
-  const Stage = item.stage;
-
   return (
     <article
       className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--primary)_32%,var(--glass-chrome-border))] hover:shadow-[0_20px_50px_color-mix(in_oklch,black_14%,transparent)] ${className}`}
     >
-      {/* Badges sit in a chrome header — never overlaid on the live demo */}
       <div className="flex items-center justify-between gap-2 border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_45%,transparent)] px-3.5 py-2.5 sm:px-4">
         <Badge variant="secondary" size="sm" className="max-w-[70%] truncate">
           vs {item.vs}
@@ -111,14 +145,16 @@ function FeatureCard({
       </div>
 
       <div className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_35%,transparent)]">
-        <Stage />
+        <FeatureStage item={item} />
       </div>
 
       <div className="flex flex-1 flex-col gap-2 p-5 sm:p-6">
         <h3 className="text-base font-semibold leading-snug tracking-tight text-foreground sm:text-lg">
           {item.title}
         </h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">{item.body}</p>
+        <p className="text-sm leading-relaxed text-muted-foreground">
+          {item.body}
+        </p>
       </div>
     </article>
   );
@@ -126,15 +162,18 @@ function FeatureCard({
 
 /**
  * Premium marketing section: live Intelli UI component stages + comparison table.
- * Stages render real catalog components so the product sells itself.
+ * Light stages ship with the page; heavy demos hydrate only near viewport.
  */
 export function WhyBetterSection() {
   const [designSystem, glassPrimitives, ...rest] = WHY_BETTER;
 
   return (
-    <section aria-labelledby="compare-heading" className="relative space-y-10">
+    <section
+      aria-labelledby="compare-heading"
+      className="relative space-y-10 cv-auto"
+    >
       <div
-        className="pointer-events-none absolute -left-16 top-24 h-64 w-64 rounded-full opacity-40 blur-3xl"
+        className="pointer-events-none absolute -left-16 top-24 hidden h-64 w-64 rounded-full opacity-40 blur-3xl md:block"
         style={{
           background:
             "radial-gradient(circle, oklch(0.62 0.16 270 / 0.35), transparent 70%)",
@@ -142,7 +181,7 @@ export function WhyBetterSection() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute -right-10 top-48 h-56 w-56 rounded-full opacity-35 blur-3xl"
+        className="pointer-events-none absolute -right-10 top-48 hidden h-56 w-56 rounded-full opacity-35 blur-3xl md:block"
         style={{
           background:
             "radial-gradient(circle, oklch(0.68 0.14 200 / 0.3), transparent 70%)",
@@ -260,15 +299,8 @@ export function WhyBetterSection() {
         </div>
         <div className="flex flex-col gap-3 border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <p className="text-sm text-muted-foreground">
-            Full write-up: when to pick Intelli UI vs shadcn for glass product UI.
-          </p>
-          <Button asChild variant="primary" size="sm" className="shrink-0">
-            <Link href="/guides/shadcn-vs-intelli-ui">Read comparison guide</Link>
-          </Button>
-        </div>
-        <div className="flex flex-col gap-3 border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-          <p className="text-sm text-muted-foreground">
-            Full write-up: when to pick Intelli UI vs shadcn for glass product UI.
+            Full write-up: when to pick Intelli UI vs shadcn for glass product
+            UI.
           </p>
           <Button asChild variant="primary" size="sm" className="shrink-0">
             <Link href="/guides/shadcn-vs-intelli-ui">Read comparison guide</Link>

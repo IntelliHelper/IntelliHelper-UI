@@ -1,6 +1,6 @@
 "use client";
 
-import { CopyButton } from "@intelli/ui";
+import { CopyButton } from "@intelli/ui/copy-button";
 import { cn } from "@intelli/utils";
 
 type InstallStripProps = {

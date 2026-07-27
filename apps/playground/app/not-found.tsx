@@ -1,14 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  Button,
-  Empty,
-  EmptyContent,
-  EmptyDescription,
-  EmptyHeader,
-  EmptyMedia,
-  EmptyTitle,
-} from "@intelli/ui";
+import { Button } from "@intelli/ui/button";
+import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "@intelli/ui/empty";
 import { createPageMetadata } from "../lib/seo";
 
 export const metadata: Metadata = createPageMetadata({

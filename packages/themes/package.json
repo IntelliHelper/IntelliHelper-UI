@@ -2,6 +2,7 @@
   "name": "@intelli/themes",
   "version": "0.0.0",
   "private": true,
+  "sideEffects": false,
   "exports": {
     ".": "./src/index.ts",
     "./mono.css": "./src/mono.css",

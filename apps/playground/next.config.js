@@ -1,6 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["@intelli/ui", "@intelli/themes", "@intelli/utils"],
+  // Modern Baseline browsers only — see root browserslist (Chrome/Edge/FF 111+, Safari 16.4+).
+  experimental: {
+    // Tree-shake barrel imports from the design system (critical for mobile TBT)
+    optimizePackageImports: ["@intelli/ui", "@intelli/themes", "@intelli/utils"],
+    // Inline critical CSS + defer the rest (render-blocking CSS audit)
+    optimizeCss: true,
+  },
   async redirects() {
     return [
       {

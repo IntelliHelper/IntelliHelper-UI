@@ -101,6 +101,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" data-theme="mono" className="light" suppressHydrationWarning>
+      <head>
+        {/*
+          Paint-critical baseline before the main CSS chunk arrives.
+          Keeps FCP/LCP from flashing unstyled; full design tokens still load via globals.css.
+        */}
+        <style
+          dangerouslySetInnerHTML={{
+            __html: [
+              "html{background:oklch(1 0 0);color-scheme:light dark}",
+              "html.dark{background:oklch(0.13 0.01 270)}",
+              "body{margin:0;min-height:100%;background:inherit;color:oklch(0.13 0 0)}",
+              "html.dark body{color:oklch(0.96 0 0)}",
+            ].join(""),
+          }}
+        />
+      </head>
       <body className="min-h-screen antialiased px-3 pt-2 sm:px-4 sm:pt-3">
         <a
           href="#main-content"

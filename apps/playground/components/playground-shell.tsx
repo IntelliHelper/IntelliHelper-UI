@@ -1,10 +1,11 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
-import { ScrollToTop, Separator } from "@intelli/ui";
+import { Separator } from "@intelli/ui/separator";
 import { CATEGORY_META, CATEGORY_ORDER } from "../lib/catalog";
 import { GITHUB_URL } from "../lib/seo";
 import { BrandLogo } from "./brand-logo";
 import { PlaygroundNav } from "./playground-nav";
+import { ScrollToTopLazy } from "./scroll-to-top-lazy";
 
 type PlaygroundShellProps = {
   children: ReactNode;
@@ -20,7 +21,7 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
       </main>
 
       <footer className="mx-auto mt-20 max-w-6xl px-4 sm:px-6">
-        <div className="glass-panel rounded-2xl p-6 md:p-8">
+        <div className="glass-panel rounded-2xl p-6 md:p-8 [background-color:var(--glass-dialog-elevated-bg)]">
           <div className="grid gap-10 md:grid-cols-12">
             <div className="space-y-3 md:col-span-5">
               <div className="flex items-center gap-2.5">
@@ -179,14 +180,15 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
               © {new Date().getFullYear()} IntelliHelper. Open source Liquid
               Glass UI.
             </p>
-            <p className="text-muted-foreground/80">
+            {/* Full muted token (no /80) — WCAG contrast on frosted glass */}
+            <p className="text-muted-foreground">
               Built for teams that ship product UI.
             </p>
           </div>
         </div>
       </footer>
 
-      <ScrollToTop />
+      <ScrollToTopLazy />
     </div>
   );
 }

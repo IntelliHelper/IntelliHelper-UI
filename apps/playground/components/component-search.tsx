@@ -2,19 +2,21 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useState } from "react";
+import { Button } from "@intelli/ui/button";
 import {
-  Button,
   Command,
   CommandInput,
   CommandList,
+  type CommandItemData,
+} from "@intelli/ui/command";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
-  filterItems,
-  Kbd,
-  type CommandItemData,
-} from "@intelli/ui";
+} from "@intelli/ui/dialog";
+import { Kbd } from "@intelli/ui/kbd";
+import { filterItems } from "@intelli/ui/filter-items";
 import { cn } from "@intelli/utils";
 import { CATALOG, CATEGORY_META } from "../lib/catalog";
 

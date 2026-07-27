@@ -1,122 +1,290 @@
 "use client";
 
-import { Button, ComponentPreview, Kbd } from "@intelli/ui";
-import { AccordionDemo, SliderDemo } from "../../components/accordion-slider-demo";
-import { BackgroundPictureDemo } from "../../components/background-picture-demo";
-import { ButtonGlassDemo } from "../../components/button-glass-demo";
-import {
-  CalendarDropdownDemo,
-  CalendarRangeDemo,
-  CalendarSingleDemo,
-  CalendarSizesDemo,
-} from "../../components/calendar-demo";
-import {
-  EventCalendarCompactDemo,
-  EventCalendarDemo,
-  EventCalendarOutlineDemo,
-} from "../../components/event-calendar-demo";
-import {
-  FloatingWidgetChromeDemo,
-  FloatingWidgetDemo,
-} from "../../components/floating-widget-demo";
-import {
-  ToastActionDemo,
-  ToastDemo,
-  ToastPositionDemo,
-  ToastStaticDemo,
-} from "../../components/toast-demo";
-import {
-  AlertDialogDemo,
-  AvatarDemo,
-  BreadcrumbDemo,
-  ContextMenuDemo,
-  DropdownMenuDemo,
-  LinkDemo,
-} from "../../components/app-shell-demo";
-import {
-  ComboboxDemo,
-  CommandDemo,
-  CopyButtonDemo,
-  FileUploadDemo,
-  NavigationMenuDemo,
-  StepperDemo,
-  ThemeToggleDemo,
-} from "../../components/roadmap-seven-demo";
-import {
-  AgentCardDemo,
-  AIChatDemo,
-  AIModelSelectorDemo,
-  AspectRatioDemo,
-  CitationCardDemo,
-  CodeViewerDemo,
-  ConversationSidebarDemo,
-  JsonViewerDemo,
-  McpServerCardDemo,
-  MultiSelectDemo,
-  NotificationCenterDemo,
-  PromptInputDemo,
-  PromptSuggestionsDemo,
-  ReasoningBlockDemo,
-  StreamingTextDemo,
-  TerminalBlockDemo,
-  ThinkingAnimationDemo,
-  TokenCounterDemo,
-  ToolCallViewerDemo,
-  TypingIndicatorDemo,
-} from "../../components/tier12-demo";
-import {
-  ImageEditorDemo,
-  ImagePreviewDemo,
-  MediaPlayerAudioDemo,
-  MediaPlayerVideoDemo,
-} from "../../components/media-demo";
-import { CarouselDemo } from "../../components/carousel-demo";
-import {
-  LoginCardPreview,
-  loginCardCode,
-} from "../../components/component-preview-demo";
-import {
-  AlertDemo,
-  CardDemo,
-  EmptyDemo,
-  PaginationDemo,
-  SkeletonDemo,
-  TableDemo,
-  TabsDemo,
-} from "../../components/data-components-demo";
-import { DialogDemo } from "../../components/dialog-demo";
-import { FileTreeDemo } from "../../components/file-tree-demo";
-import { InputDemo, TextareaDemo } from "../../components/form-components-demo";
-import {
-  NativeSelectDemo,
-  ProgressDemo,
-  RadioGroupDemo,
-  ResizableDemo,
-  ScrollAreaDemo,
-  ScrollToTopDemo,
-  SeparatorDemo,
-  SpinnerDemo,
-  TypographyDemo,
-} from "../../components/layout-utility-demo";
-import {
-  GlassBarDemo,
-  GlassContentCardDemo,
-  GlassIconButtonDemo,
-} from "../../components/liquid-glass-demo";
-import {
-  MarkdownEditorDemo,
-  MarkdownViewerOnlyDemo,
-} from "../../components/markdown-viewer-demo";
-import { SelectDemo, SidebarDemo } from "../../components/select-sidebar-demo";
-import { HoverCardDemo, SheetDemo } from "../../components/sheet-hover-card-demo";
-import { BadgeDemo, CheckboxDemo, SwitchDemo } from "../../components/toggle-components-demo";
-import {
-  PopoverDemo,
-  ToggleDemo,
-  ToggleGroupDemo,
-  TooltipDemo,
-} from "../../components/toggle-popover-demo";
+import { lazy } from "react";
+import { Button } from "@intelli/ui/button";
+import { ComponentPreview } from "@intelli/ui/component-preview";
+import { Kbd } from "@intelli/ui/kbd";
 import type { ComponentExample } from "./types";
+import { loginCardCode } from "./login-card-code";
+
+/* Lazy demos — keep shiki/calendar/media off every component page */
+const AccordionDemo = lazy(() =>
+  import("../../components/accordion-slider-demo").then((m) => ({ default: m.AccordionDemo })),
+);
+const SliderDemo = lazy(() =>
+  import("../../components/accordion-slider-demo").then((m) => ({ default: m.SliderDemo })),
+);
+const BackgroundPictureDemo = lazy(() =>
+  import("../../components/background-picture-demo").then((m) => ({ default: m.BackgroundPictureDemo })),
+);
+const ButtonGlassDemo = lazy(() =>
+  import("../../components/button-glass-demo").then((m) => ({ default: m.ButtonGlassDemo })),
+);
+const CalendarDropdownDemo = lazy(() =>
+  import("../../components/calendar-demo").then((m) => ({ default: m.CalendarDropdownDemo })),
+);
+const CalendarRangeDemo = lazy(() =>
+  import("../../components/calendar-demo").then((m) => ({ default: m.CalendarRangeDemo })),
+);
+const CalendarSingleDemo = lazy(() =>
+  import("../../components/calendar-demo").then((m) => ({ default: m.CalendarSingleDemo })),
+);
+const CalendarSizesDemo = lazy(() =>
+  import("../../components/calendar-demo").then((m) => ({ default: m.CalendarSizesDemo })),
+);
+const EventCalendarCompactDemo = lazy(() =>
+  import("../../components/event-calendar-demo").then((m) => ({ default: m.EventCalendarCompactDemo })),
+);
+const EventCalendarDemo = lazy(() =>
+  import("../../components/event-calendar-demo").then((m) => ({ default: m.EventCalendarDemo })),
+);
+const EventCalendarOutlineDemo = lazy(() =>
+  import("../../components/event-calendar-demo").then((m) => ({ default: m.EventCalendarOutlineDemo })),
+);
+const FloatingWidgetChromeDemo = lazy(() =>
+  import("../../components/floating-widget-demo").then((m) => ({ default: m.FloatingWidgetChromeDemo })),
+);
+const FloatingWidgetDemo = lazy(() =>
+  import("../../components/floating-widget-demo").then((m) => ({ default: m.FloatingWidgetDemo })),
+);
+const ToastActionDemo = lazy(() =>
+  import("../../components/toast-demo").then((m) => ({ default: m.ToastActionDemo })),
+);
+const ToastDemo = lazy(() =>
+  import("../../components/toast-demo").then((m) => ({ default: m.ToastDemo })),
+);
+const ToastPositionDemo = lazy(() =>
+  import("../../components/toast-demo").then((m) => ({ default: m.ToastPositionDemo })),
+);
+const ToastStaticDemo = lazy(() =>
+  import("../../components/toast-demo").then((m) => ({ default: m.ToastStaticDemo })),
+);
+const AlertDialogDemo = lazy(() =>
+  import("../../components/app-shell-demo").then((m) => ({ default: m.AlertDialogDemo })),
+);
+const AvatarDemo = lazy(() =>
+  import("../../components/app-shell-demo").then((m) => ({ default: m.AvatarDemo })),
+);
+const BreadcrumbDemo = lazy(() =>
+  import("../../components/app-shell-demo").then((m) => ({ default: m.BreadcrumbDemo })),
+);
+const ContextMenuDemo = lazy(() =>
+  import("../../components/app-shell-demo").then((m) => ({ default: m.ContextMenuDemo })),
+);
+const DropdownMenuDemo = lazy(() =>
+  import("../../components/app-shell-demo").then((m) => ({ default: m.DropdownMenuDemo })),
+);
+const LinkDemo = lazy(() =>
+  import("../../components/app-shell-demo").then((m) => ({ default: m.LinkDemo })),
+);
+const ComboboxDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.ComboboxDemo })),
+);
+const CommandDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.CommandDemo })),
+);
+const CopyButtonDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.CopyButtonDemo })),
+);
+const FileUploadDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.FileUploadDemo })),
+);
+const NavigationMenuDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.NavigationMenuDemo })),
+);
+const StepperDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.StepperDemo })),
+);
+const ThemeToggleDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.ThemeToggleDemo })),
+);
+const AgentCardDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.AgentCardDemo })),
+);
+const AIChatDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.AIChatDemo })),
+);
+const AIModelSelectorDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.AIModelSelectorDemo })),
+);
+const AspectRatioDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.AspectRatioDemo })),
+);
+const CitationCardDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.CitationCardDemo })),
+);
+const CodeViewerDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.CodeViewerDemo })),
+);
+const ConversationSidebarDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.ConversationSidebarDemo })),
+);
+const JsonViewerDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.JsonViewerDemo })),
+);
+const McpServerCardDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.McpServerCardDemo })),
+);
+const MultiSelectDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.MultiSelectDemo })),
+);
+const NotificationCenterDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.NotificationCenterDemo })),
+);
+const PromptInputDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.PromptInputDemo })),
+);
+const PromptSuggestionsDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.PromptSuggestionsDemo })),
+);
+const ReasoningBlockDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.ReasoningBlockDemo })),
+);
+const StreamingTextDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.StreamingTextDemo })),
+);
+const TerminalBlockDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.TerminalBlockDemo })),
+);
+const ThinkingAnimationDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.ThinkingAnimationDemo })),
+);
+const TokenCounterDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.TokenCounterDemo })),
+);
+const ToolCallViewerDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.ToolCallViewerDemo })),
+);
+const TypingIndicatorDemo = lazy(() =>
+  import("../../components/tier12-demo").then((m) => ({ default: m.TypingIndicatorDemo })),
+);
+const ImageEditorDemo = lazy(() =>
+  import("../../components/media-demo").then((m) => ({ default: m.ImageEditorDemo })),
+);
+const ImagePreviewDemo = lazy(() =>
+  import("../../components/media-demo").then((m) => ({ default: m.ImagePreviewDemo })),
+);
+const MediaPlayerAudioDemo = lazy(() =>
+  import("../../components/media-demo").then((m) => ({ default: m.MediaPlayerAudioDemo })),
+);
+const MediaPlayerVideoDemo = lazy(() =>
+  import("../../components/media-demo").then((m) => ({ default: m.MediaPlayerVideoDemo })),
+);
+const CarouselDemo = lazy(() =>
+  import("../../components/carousel-demo").then((m) => ({ default: m.CarouselDemo })),
+);
+const LoginCardPreview = lazy(() =>
+  import("../../components/component-preview-demo").then((m) => ({ default: m.LoginCardPreview })),
+);
+const AlertDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.AlertDemo })),
+);
+const CardDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.CardDemo })),
+);
+const EmptyDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.EmptyDemo })),
+);
+const PaginationDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.PaginationDemo })),
+);
+const SkeletonDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.SkeletonDemo })),
+);
+const TableDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.TableDemo })),
+);
+const TabsDemo = lazy(() =>
+  import("../../components/data-components-demo").then((m) => ({ default: m.TabsDemo })),
+);
+const DialogDemo = lazy(() =>
+  import("../../components/dialog-demo").then((m) => ({ default: m.DialogDemo })),
+);
+const FileTreeDemo = lazy(() =>
+  import("../../components/file-tree-demo").then((m) => ({ default: m.FileTreeDemo })),
+);
+const InputDemo = lazy(() =>
+  import("../../components/form-components-demo").then((m) => ({ default: m.InputDemo })),
+);
+const TextareaDemo = lazy(() =>
+  import("../../components/form-components-demo").then((m) => ({ default: m.TextareaDemo })),
+);
+const NativeSelectDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.NativeSelectDemo })),
+);
+const ProgressDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.ProgressDemo })),
+);
+const RadioGroupDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.RadioGroupDemo })),
+);
+const ResizableDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.ResizableDemo })),
+);
+const ScrollAreaDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.ScrollAreaDemo })),
+);
+const ScrollToTopDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.ScrollToTopDemo })),
+);
+const SeparatorDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.SeparatorDemo })),
+);
+const SpinnerDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.SpinnerDemo })),
+);
+const TypographyDemo = lazy(() =>
+  import("../../components/layout-utility-demo").then((m) => ({ default: m.TypographyDemo })),
+);
+const GlassBarDemo = lazy(() =>
+  import("../../components/liquid-glass-demo").then((m) => ({ default: m.GlassBarDemo })),
+);
+const GlassContentCardDemo = lazy(() =>
+  import("../../components/liquid-glass-demo").then((m) => ({ default: m.GlassContentCardDemo })),
+);
+const GlassIconButtonDemo = lazy(() =>
+  import("../../components/liquid-glass-demo").then((m) => ({ default: m.GlassIconButtonDemo })),
+);
+const MarkdownEditorDemo = lazy(() =>
+  import("../../components/markdown-viewer-demo").then((m) => ({ default: m.MarkdownEditorDemo })),
+);
+const MarkdownViewerOnlyDemo = lazy(() =>
+  import("../../components/markdown-viewer-demo").then((m) => ({ default: m.MarkdownViewerOnlyDemo })),
+);
+const SelectDemo = lazy(() =>
+  import("../../components/select-sidebar-demo").then((m) => ({ default: m.SelectDemo })),
+);
+const SidebarDemo = lazy(() =>
+  import("../../components/select-sidebar-demo").then((m) => ({ default: m.SidebarDemo })),
+);
+const HoverCardDemo = lazy(() =>
+  import("../../components/sheet-hover-card-demo").then((m) => ({ default: m.HoverCardDemo })),
+);
+const SheetDemo = lazy(() =>
+  import("../../components/sheet-hover-card-demo").then((m) => ({ default: m.SheetDemo })),
+);
+const BadgeDemo = lazy(() =>
+  import("../../components/toggle-components-demo").then((m) => ({ default: m.BadgeDemo })),
+);
+const CheckboxDemo = lazy(() =>
+  import("../../components/toggle-components-demo").then((m) => ({ default: m.CheckboxDemo })),
+);
+const SwitchDemo = lazy(() =>
+  import("../../components/toggle-components-demo").then((m) => ({ default: m.SwitchDemo })),
+);
+const PopoverDemo = lazy(() =>
+  import("../../components/toggle-popover-demo").then((m) => ({ default: m.PopoverDemo })),
+);
+const ToggleDemo = lazy(() =>
+  import("../../components/toggle-popover-demo").then((m) => ({ default: m.ToggleDemo })),
+);
+const ToggleGroupDemo = lazy(() =>
+  import("../../components/toggle-popover-demo").then((m) => ({ default: m.ToggleGroupDemo })),
+);
+const TooltipDemo = lazy(() =>
+  import("../../components/toggle-popover-demo").then((m) => ({ default: m.TooltipDemo })),
+);
+
 
 const variants = [
   "default",

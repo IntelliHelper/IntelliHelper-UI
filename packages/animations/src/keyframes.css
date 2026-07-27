@@ -17,14 +17,13 @@
   }
 }
 
+/* Opacity/transform only — filter forces non-composited paint (CLS / jank) */
 @keyframes fade-in {
   from {
     opacity: 0;
-    filter: blur(4px);
   }
   to {
     opacity: 1;
-    filter: blur(0);
   }
 }
 
@@ -32,12 +31,10 @@
   from {
     opacity: 0;
     transform: translateY(12px);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -45,12 +42,10 @@
   from {
     opacity: 0;
     transform: translateY(16px) scale(0.97);
-    filter: blur(8px);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
   }
 }
 
@@ -98,12 +93,10 @@
   from {
     opacity: 0;
     transform: translateY(10px) scale(0.985);
-    filter: blur(5px);
   }
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
-    filter: blur(0);
   }
 }
 
@@ -165,12 +158,10 @@
   from {
     opacity: 0;
     transform: scale(0.96) translateY(-6px);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: scale(1) translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -178,12 +169,10 @@
   from {
     opacity: 0;
     transform: translateX(-16px);
-    filter: blur(4px);
   }
   to {
     opacity: 1;
     transform: translateX(0);
-    filter: blur(0);
   }
 }
 
@@ -191,12 +180,10 @@
   from {
     opacity: 0;
     transform: translateX(100%);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateX(0);
-    filter: blur(0);
   }
 }
 
@@ -204,12 +191,10 @@
   from {
     opacity: 0;
     transform: translateX(-100%);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateX(0);
-    filter: blur(0);
   }
 }
 
@@ -217,12 +202,10 @@
   from {
     opacity: 0;
     transform: translateY(-100%);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 
@@ -230,12 +213,10 @@
   from {
     opacity: 0;
     transform: translateY(100%);
-    filter: blur(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
-    filter: blur(0);
   }
 }
 

@@ -1,16 +1,10 @@
 import type { Metadata } from "next";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-  Badge,
-  Button,
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-  Separator,
-} from "@intelli/ui";
+import { Badge } from "@intelli/ui/badge";
+import { Button } from "@intelli/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@intelli/ui/card";
+import { Separator } from "@intelli/ui/separator";
 import { InstallStrip } from "../../components/landing/install-strip";
 import { JsonLd } from "../../components/json-ld";
 import { GithubStars } from "../../components/github-stars";
@@ -49,9 +43,10 @@ const WhyBetterSection = dynamic(
       (m) => m.WhyBetterSection,
     ),
   {
+    // SSR keeps comparison copy for SEO; heavy demos still mount via LazyStage
     ssr: true,
     loading: () => (
-      <div className="min-h-[200px]" aria-hidden />
+      <div className="min-h-[520px] cv-auto" aria-hidden />
     ),
   },
 );
@@ -266,7 +261,10 @@ export default function LandingPage() {
         </section>
 
         {/* ── Pillars ──────────────────────────────────────────── */}
-        <section aria-labelledby="pillars-heading" className="space-y-8">
+        <section
+          aria-labelledby="pillars-heading"
+          className="space-y-8 cv-auto"
+        >
           <div className="max-w-2xl space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               Why Intelli UI
@@ -312,7 +310,7 @@ export default function LandingPage() {
         <WhyBetterSection />
 
         {/* ── How it works ─────────────────────────────────────── */}
-        <section aria-labelledby="steps-heading" className="space-y-8">
+        <section aria-labelledby="steps-heading" className="space-y-8 cv-auto">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl space-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
@@ -354,7 +352,10 @@ export default function LandingPage() {
         </section>
 
         {/* ── Featured components ──────────────────────────────── */}
-        <section aria-labelledby="featured-heading" className="space-y-8">
+        <section
+          aria-labelledby="featured-heading"
+          className="space-y-8 cv-auto"
+        >
           <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
             <div className="max-w-xl space-y-2">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
@@ -424,7 +425,7 @@ export default function LandingPage() {
         {/* ── Agents ───────────────────────────────────────────── */}
         <section
           aria-labelledby="agents-heading"
-          className="overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] shadow-[var(--glass-chrome-shadow)]"
+          className="cv-auto overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
         >
           <div className="grid gap-0 lg:grid-cols-2">
             <div className="space-y-5 p-6 sm:p-8 md:p-10">
@@ -497,7 +498,7 @@ export default function LandingPage() {
         </section>
 
         {/* ── Themes ───────────────────────────────────────────── */}
-        <section aria-labelledby="themes-heading" className="space-y-6">
+        <section aria-labelledby="themes-heading" className="space-y-6 cv-auto">
           <div className="max-w-xl space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               Themes
@@ -517,7 +518,10 @@ export default function LandingPage() {
         </section>
 
         {/* ── FAQ (citability + FAQPage schema on homeGraph) ───── */}
-        <section aria-labelledby="home-faq-heading" className="space-y-6">
+        <section
+          aria-labelledby="home-faq-heading"
+          className="space-y-6 cv-auto"
+        >
           <div className="max-w-2xl space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               FAQ

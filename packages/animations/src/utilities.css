@@ -201,6 +201,30 @@
   }
 }
 
+/*
+ * Mobile: kill infinite filter/opacity loops (content-glow, pulse, shimmer).
+ * Enter animations stay — they are one-shot and cheap. Desktop unchanged.
+ */
+@media (max-width: 767px) {
+  .animate-content-glow,
+  .animate-mesh-drift,
+  .animate-badge-pulse,
+  .animate-glass-pulse,
+  .animate-glass-shimmer {
+    animation: none !important;
+  }
+
+  .glass-specular-on-mount::after {
+    animation: none !important;
+    content: none;
+    display: none;
+  }
+
+  .glass-shimmer-hover:hover::after {
+    animation: none !important;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-glass-shimmer,
   .animate-glass-pulse,

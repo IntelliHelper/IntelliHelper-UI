@@ -109,12 +109,14 @@ const TabsList = forwardRef<
           variant === "plain"
             ? "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)] border border-[var(--glass-chrome-border)]"
             : "glass-chrome-indicator",
-          "transition-[transform,width,opacity]",
+          /* Only compositor-friendly props — width updates instantly (no width transition) */
+          "transition-[transform,opacity]",
           "duration-[var(--duration-slow)] [transition-timing-function:var(--ease-spring)]",
+          "will-change-transform",
           indicatorClassName,
         )}
         style={{
-          transform: `translateX(${indicator.left}px)`,
+          transform: `translate3d(${indicator.left}px, 0, 0)`,
           width: indicator.width,
           opacity: indicator.opacity,
         }}
