@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Cluster, Flex, Stack } from "@intelli/ui/layout";
 import { cn } from "@intelli/utils";
 import {
   PageBreadcrumbs,
@@ -31,28 +32,26 @@ export function PageHeader({
   density = "default",
 }: PageHeaderProps) {
   return (
-    <header
-      className={cn(
-        "min-w-0",
-        density === "default" ? "space-y-4" : "space-y-3",
-        className,
-      )}
+    <Stack
+      as="header"
+      gap={density === "default" ? 4 : 3}
+      className={cn("min-w-0", className)}
     >
       {breadcrumbs && breadcrumbs.length > 0 ? (
         <PageBreadcrumbs items={breadcrumbs} />
       ) : null}
 
-      <div
+      <Flex
+        direction="column"
+        gap={4}
         className={cn(
-          "flex min-w-0 flex-col gap-4",
+          "min-w-0",
           actions ? "sm:flex-row sm:items-end sm:justify-between" : null,
         )}
       >
-        <div className="min-w-0 max-w-2xl space-y-2">
+        <Stack gap={2} className="min-w-0 max-w-2xl">
           {meta ? (
-            <div className="text-xs font-medium text-muted-foreground">
-              {meta}
-            </div>
+            <BoxMeta>{meta}</BoxMeta>
           ) : null}
           <h1
             className={cn(
@@ -69,14 +68,20 @@ export function PageHeader({
               {description}
             </div>
           ) : null}
-        </div>
+        </Stack>
 
         {actions ? (
-          <div className="flex shrink-0 flex-wrap items-center gap-2">
+          <Cluster gap={2} className="shrink-0">
             {actions}
-          </div>
+          </Cluster>
         ) : null}
-      </div>
-    </header>
+      </Flex>
+    </Stack>
+  );
+}
+
+function BoxMeta({ children }: { children: ReactNode }) {
+  return (
+    <div className="text-xs font-medium text-muted-foreground">{children}</div>
   );
 }

@@ -32,7 +32,7 @@ export const CATEGORY_META: Record<
   },
   surfaces: {
     label: "Surfaces",
-    description: "Cards, tabs, and layout containers",
+    description: "Cards, tabs, layout primitives, and containers",
   },
   forms: {
     label: "Forms",
@@ -146,6 +146,13 @@ export const CATALOG: CatalogItem[] = [
     slug: "separator",
     title: "Separator",
     description: "Chrome dividers for horizontal and vertical layout.",
+    category: "surfaces",
+  },
+  {
+    slug: "layout",
+    title: "Layout",
+    description:
+      "Stack, Cluster, Grid, Flex, Center, Split, Container, Box, and Spacer — replace nested layout divs with named primitives.",
     category: "surfaces",
   },
   {

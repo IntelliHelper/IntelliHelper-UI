@@ -9,6 +9,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@intelli/ui";
+import {
+  Cluster,
+  Container,
+  Flex,
+  Stack,
+} from "@intelli/ui/layout";
 import { GithubStars } from "../../../components/github-stars";
 import { JsonLd } from "../../../components/json-ld";
 import { PageHeader } from "../../../components/page-header";
@@ -89,11 +95,12 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd data={aboutJsonLd} />
-      <div className="mx-auto max-w-3xl space-y-10 pb-10">
+      <Container size="md" padded={false} className="max-w-3xl pb-10">
+        <Stack gap={10}>
         <PageHeader
           breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
           meta={
-            <span className="inline-flex flex-wrap items-center gap-2">
+            <Cluster gap={2}>
               <Badge variant="secondary" size="sm">
                 Open source
               </Badge>
@@ -103,7 +110,7 @@ export default function AboutPage() {
               <span className="text-xs text-muted-foreground">
                 Updated {SITE_CONTENT_DATES.modified}
               </span>
-            </span>
+            </Cluster>
           }
           title="About Intelli UI"
           description={
@@ -120,7 +127,7 @@ export default function AboutPage() {
             </>
           }
           actions={
-            <div className="flex flex-wrap gap-2">
+            <Cluster gap={2}>
               <Button asChild variant="primary" size="sm">
                 <Link href="/getting-started">Get started</Link>
               </Button>
@@ -129,11 +136,14 @@ export default function AboutPage() {
                   GitHub
                 </a>
               </Button>
-            </div>
+              <Button asChild variant="ghost" size="sm">
+                <Link href="/guides/layout-primitives">Layout guide</Link>
+              </Button>
+            </Cluster>
           }
         />
 
-        <section aria-labelledby="definition-heading" className="space-y-4">
+        <Stack as="section" gap={4} aria-labelledby="definition-heading">
           <h2
             id="definition-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
@@ -141,7 +151,7 @@ export default function AboutPage() {
             What is Intelli UI?
           </h2>
           <Card variant="chrome" animated={false}>
-            <CardContent className="space-y-3 p-6 text-sm leading-relaxed text-muted-foreground">
+            <CardContent className="p-6 text-sm leading-relaxed text-muted-foreground">
               <p>
                 Intelli UI is Liquid Glass first — chrome vs content layers,
                 frosted primitives, and five themes (mono, aurora, sunset, frost,
@@ -159,9 +169,9 @@ export default function AboutPage() {
               </p>
             </CardContent>
           </Card>
-        </section>
+        </Stack>
 
-        <section aria-labelledby="mission-heading" className="space-y-4">
+        <Stack as="section" gap={4} aria-labelledby="mission-heading">
           <h2
             id="mission-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
@@ -201,32 +211,33 @@ export default function AboutPage() {
               </p>
             </CardContent>
           </Card>
-        </section>
+        </Stack>
 
-        <section aria-labelledby="team-heading" className="space-y-4">
+        <Stack as="section" gap={4} aria-labelledby="team-heading">
           <h2
             id="team-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
           >
             Team
           </h2>
-          <ul className="grid gap-3">
+          <Stack as="ul" gap={3}>
             <li>
               <Card variant="outline" animated={false}>
                 <CardHeader className="p-5 pb-2">
-                  <div className="flex flex-wrap items-start justify-between gap-2">
-                    <div>
+                  <Cluster gap={2} align="start" justify="between">
+                    <Stack gap={1}>
                       <CardTitle className="text-base">Adeeb Mirza</CardTitle>
-                      <CardDescription className="mt-1">
+                      <CardDescription>
                         Creator &amp; maintainer · IntelliHelper
                       </CardDescription>
-                    </div>
+                    </Stack>
                     <Badge variant="secondary" size="sm">
                       Lead
                     </Badge>
-                  </div>
+                  </Cluster>
                 </CardHeader>
-                <CardContent className="space-y-3 p-5 pt-2 text-sm text-muted-foreground">
+                <CardContent className="p-5 pt-2">
+                  <Stack gap={3} className="text-sm text-muted-foreground">
                   <p>
                     Designs and ships the Liquid Glass system, playground,
                     registry, CLI, and agent plugin for Intelli UI.
@@ -239,6 +250,7 @@ export default function AboutPage() {
                   >
                     github.com/adeebmirza →
                   </a>
+                  </Stack>
                 </CardContent>
               </Card>
             </li>
@@ -250,7 +262,8 @@ export default function AboutPage() {
                     Open-source organization
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="space-y-3 p-5 pt-2 text-sm text-muted-foreground">
+                <CardContent className="p-5 pt-2">
+                  <Stack gap={3} className="text-sm text-muted-foreground">
                   <p>
                     Home of Intelli UI, the agent-skills plugin, and related
                     tooling. Contributions welcome via pull requests and issues.
@@ -263,13 +276,14 @@ export default function AboutPage() {
                   >
                     github.com/IntelliHelper →
                   </a>
+                  </Stack>
                 </CardContent>
               </Card>
             </li>
-          </ul>
-        </section>
+          </Stack>
+        </Stack>
 
-        <section aria-labelledby="social-proof-heading" className="space-y-4">
+        <Stack as="section" gap={4} aria-labelledby="social-proof-heading">
           <h2
             id="social-proof-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
@@ -277,42 +291,48 @@ export default function AboutPage() {
             Project status
           </h2>
           <Card variant="chrome" animated={false}>
-            <CardContent className="flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between">
-              <div className="space-y-1">
-                <p className="text-sm font-medium text-foreground">
-                  GitHub · IntelliHelper-UI
-                </p>
-                <p className="text-sm text-muted-foreground">
-                  Stars help others discover the project. Issues and PRs shape
-                  the roadmap.
-                </p>
-                <GithubStars className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-foreground underline-offset-4 hover:underline" />
-              </div>
-              <div className="flex flex-wrap gap-2">
-                <Button asChild variant="outline" size="sm">
-                  <a
-                    href={GITHUB_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Repository
-                  </a>
-                </Button>
-                <Button asChild variant="ghost" size="sm">
-                  <a
-                    href={AGENT_SKILLS_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Agent skills
-                  </a>
-                </Button>
-              </div>
+            <CardContent className="p-6">
+              <Flex
+                direction="column"
+                gap={4}
+                className="sm:flex-row sm:items-center sm:justify-between"
+              >
+                <Stack gap={1}>
+                  <p className="text-sm font-medium text-foreground">
+                    GitHub · IntelliHelper-UI
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Stars help others discover the project. Issues and PRs shape
+                    the roadmap.
+                  </p>
+                  <GithubStars className="mt-2 inline-flex min-h-11 items-center text-sm font-semibold text-foreground underline-offset-4 hover:underline" />
+                </Stack>
+                <Cluster gap={2}>
+                  <Button asChild variant="outline" size="sm">
+                    <a
+                      href={GITHUB_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Repository
+                    </a>
+                  </Button>
+                  <Button asChild variant="ghost" size="sm">
+                    <a
+                      href={AGENT_SKILLS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Agent skills
+                    </a>
+                  </Button>
+                </Cluster>
+              </Flex>
             </CardContent>
           </Card>
-        </section>
+        </Stack>
 
-        <section aria-labelledby="built-with-heading" className="space-y-4">
+        <Stack as="section" gap={4} aria-labelledby="built-with-heading">
           <h2
             id="built-with-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
@@ -340,9 +360,9 @@ export default function AboutPage() {
               </Button>
             </CardContent>
           </Card>
-        </section>
+        </Stack>
 
-        <section aria-labelledby="contact-heading" className="space-y-4">
+        <Stack as="section" gap={4} aria-labelledby="contact-heading">
           <h2
             id="contact-heading"
             className="text-lg font-semibold tracking-tight text-foreground"
@@ -381,8 +401,9 @@ export default function AboutPage() {
               </a>
             </li>
           </ul>
-        </section>
-      </div>
+        </Stack>
+        </Stack>
+      </Container>
     </>
   );
 }

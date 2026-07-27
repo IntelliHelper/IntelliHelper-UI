@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useState, type ReactNode } from "react";
 import { Button, MarkdownCodeBlock } from "@intelli/ui";
+import { Box, Center, Cluster, Flex, Stack } from "@intelli/ui/layout";
 import { cn } from "@intelli/utils";
 
 const CODE_MAX_HEIGHT = "min(420px, 55vh)";
@@ -112,7 +113,8 @@ export function DocWorkspace({
   }, [copied]);
 
   return (
-    <section
+    <Box
+      as="section"
       className={cn(
         "isolate min-w-0 overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]",
         "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]",
@@ -121,18 +123,24 @@ export function DocWorkspace({
       )}
     >
       {/* Header — quiet chrome toolbar */}
-      <div className="flex flex-wrap items-start justify-between gap-3 border-b border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-4 py-3 md:px-5">
-        <div className="min-w-0 flex-1">
+      <Flex
+        wrap
+        align="start"
+        justify="between"
+        gap={3}
+        className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-4 py-3 backdrop-blur-[var(--glass-blur)] md:px-5"
+      >
+        <Stack gap={0.5} className="min-w-0 flex-1">
           <h3 className="text-sm font-semibold tracking-tight text-foreground">
             {title}
           </h3>
           {description ? (
-            <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground">
+            <p className="text-xs leading-relaxed text-muted-foreground">
               {description}
             </p>
           ) : null}
-        </div>
-        <div className="flex shrink-0 items-center gap-1.5">
+        </Stack>
+        <Cluster gap={1.5} className="shrink-0">
           <Button
             type="button"
             variant="outline"
@@ -157,11 +165,11 @@ export function DocWorkspace({
             {copied ? <CheckIcon /> : <CopyIcon />}
             {copied ? "Copied" : "Copy"}
           </Button>
-        </div>
-      </div>
+        </Cluster>
+      </Flex>
 
       {/* Full-width live preview — no horizontal split */}
-      <div
+      <Box
         data-slot="doc-preview"
         className={cn(
           "relative min-w-0",
@@ -169,14 +177,15 @@ export function DocWorkspace({
           "border-b border-[var(--glass-chrome-border)]",
         )}
       >
-        <div
+        <Center
+          inline={false}
           className={cn(
-            "flex w-full min-w-0 justify-center",
+            "w-full min-w-0",
             "p-5 sm:p-6 md:p-8",
             "min-h-[200px]",
           )}
         >
-          <div
+          <Box
             className={cn(
               "w-full min-w-0 max-w-full",
               /* Let nested demos expand to available width */
@@ -186,14 +195,14 @@ export function DocWorkspace({
             )}
           >
             {preview}
-          </div>
-        </div>
-      </div>
+          </Box>
+        </Center>
+      </Box>
 
       {/* Full-width code panel — collapsible, never steals preview width */}
-      <div data-slot="doc-code" id={codePanelId} className="relative min-w-0">
+      <Box data-slot="doc-code" id={codePanelId} className="relative min-w-0">
         {showCode ? (
-          <div
+          <Box
             className={cn(
               "overflow-auto overscroll-contain",
               "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
@@ -207,10 +216,10 @@ export function DocWorkspace({
               language={language}
               className="my-0 rounded-none border-0 shadow-none"
             />
-          </div>
+          </Box>
         ) : (
-          <div className="relative">
-            <div
+          <Box className="relative">
+            <Box
               aria-hidden
               className="pointer-events-none max-h-[6.5rem] select-none overflow-hidden opacity-55 blur-[1.25px]"
             >
@@ -219,14 +228,14 @@ export function DocWorkspace({
                 language={language}
                 className="my-0 rounded-none border-0 shadow-none"
               />
-            </div>
-            <div
+            </Box>
+            <Box
               className={cn(
                 "pointer-events-none absolute inset-0",
                 "bg-gradient-to-b from-transparent via-background/30 to-background/75",
               )}
             />
-            <div className="absolute inset-0 flex items-center justify-center">
+            <Center className="absolute inset-0">
               <Button
                 type="button"
                 variant="outline"
@@ -240,10 +249,10 @@ export function DocWorkspace({
                 <CodeIcon />
                 View code
               </Button>
-            </div>
-          </div>
+            </Center>
+          </Box>
         )}
-      </div>
-    </section>
+      </Box>
+    </Box>
   );
 }

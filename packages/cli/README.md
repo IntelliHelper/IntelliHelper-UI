@@ -284,7 +284,7 @@ More detail: [Getting started → Plugin](https://ui.intellihelper.in/getting-st
 | --- | --- |
 | **Glass system** | `glass-bar`, `glass-content-card`, `glass-icon-button`, `background-picture-picker`, `component-preview` |
 | **Actions** | `button`, `toggle`, `toggle-group` |
-| **Surfaces** | `card`, `tabs`, `separator`, `resizable`, `scroll-area` |
+| **Surfaces** | `card`, `tabs`, `separator`, `layout`, `resizable`, `scroll-area` |
 | **Forms** | `input`, `textarea`, `select`, `checkbox`, `switch`, `radio-group`, `calendar` |
 | **Overlays** | `dialog`, `sheet`, `popover`, `hover-card`, `tooltip` |
 | **Navigation** | `sidebar`, `pagination`, `scroll-to-top` |

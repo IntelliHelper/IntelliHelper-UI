@@ -7,6 +7,15 @@ export type ComponentFaqItem = {
 
 /** Extra SERP keywords layered onto component meta (P2 component intent). */
 export const COMPONENT_KEYWORDS: Record<string, string[]> = {
+  layout: [
+    "react layout components",
+    "stack cluster grid react",
+    "tailwind layout primitives",
+    "flex stack component next.js",
+    "replace div soup react",
+    "responsive grid component react",
+    "page container max-width react",
+  ],
   "image-preview": [
     "image preview react",
     "react image lightbox",
@@ -54,6 +63,7 @@ export const CATEGORY_KEYWORDS: Record<ComponentCategory, string[]> = {
   ],
   surfaces: [
     "react card tabs",
+    "layout stack cluster grid",
     "resizable panels react",
     "scroll area tailwind",
   ],

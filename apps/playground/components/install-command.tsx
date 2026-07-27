@@ -1,6 +1,7 @@
 "use client";
 
 import { CopyButton } from "@intelli/ui";
+import { Flex } from "@intelli/ui/layout";
 import { cn } from "@intelli/utils";
 
 type InstallCommandProps = {
@@ -12,10 +13,12 @@ export function InstallCommand({ slug, className }: InstallCommandProps) {
   const command = `npx @intellihelper/cli@latest add ${slug}`;
 
   return (
-    <div
+    <Flex
+      align="center"
+      gap={3}
       className={cn(
-        "flex min-w-0 items-center gap-3 rounded-xl border border-[var(--glass-chrome-border)]",
-        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-2.5 sm:px-4",
+        "min-w-0 rounded-xl border border-[var(--glass-chrome-border)]",
+        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-2.5 backdrop-blur-[var(--glass-blur)] sm:px-4",
         className,
       )}
     >
@@ -26,6 +29,6 @@ export function InstallCommand({ slug, className }: InstallCommandProps) {
         {command}
       </code>
       <CopyButton value={command} size="sm" variant="outline" />
-    </div>
+    </Flex>
   );
 }

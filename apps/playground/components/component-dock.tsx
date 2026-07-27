@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Button, Separator } from "@intelli/ui";
+import { Flex, Spacer, Stack } from "@intelli/ui/layout";
 import { cn } from "@intelli/utils";
 import { getAdjacentItems, type CatalogItem } from "../lib/catalog";
 
@@ -55,19 +56,22 @@ function DockLink({
       href={`/components/${item.slug}`}
       className={cn(
         "group flex min-w-0 flex-1 items-center gap-2 rounded-xl px-3 py-2 transition-colors",
-        "hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] hover:backdrop-blur-[var(--glass-blur)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
       )}
     >
       {isPrev ? <ChevronLeft /> : null}
-      <div className={cn("min-w-0 flex-1", isPrev ? "text-left" : "text-right")}>
+      <Stack
+        gap={0}
+        className={cn("min-w-0 flex-1", isPrev ? "text-left" : "text-right")}
+      >
         <p className="text-[10px] font-medium text-muted-foreground">
           {isPrev ? "Previous" : "Next"}
         </p>
         <p className="truncate text-sm font-medium text-foreground">
           {item.title}
         </p>
-      </div>
+      </Stack>
       {!isPrev ? <ChevronRight /> : null}
     </Link>
   );
@@ -83,15 +87,14 @@ export function ComponentDock({ slug }: ComponentDockProps) {
   if (!prev && !next) return null;
 
   return (
-    <nav
+    <Flex
+      as="nav"
+      align="stretch"
+      gap={1}
       aria-label="Component navigation"
-      className="glass-panel sticky bottom-4 z-[var(--z-sticky)] mx-auto mt-12 flex max-w-6xl items-stretch gap-1 rounded-2xl p-1.5 shadow-lg"
+      className="glass-panel sticky bottom-4 z-[var(--z-sticky)] mx-auto mt-12 max-w-6xl rounded-2xl p-1.5 shadow-lg"
     >
-      {prev ? (
-        <DockLink item={prev} direction="prev" />
-      ) : (
-        <div className="flex-1" />
-      )}
+      {prev ? <DockLink item={prev} direction="prev" /> : <Spacer />}
 
       <Separator orientation="vertical" className="hidden self-stretch sm:block" />
 
@@ -104,11 +107,7 @@ export function ComponentDock({ slug }: ComponentDockProps) {
         <Link href="/components">All components</Link>
       </Button>
 
-      {next ? (
-        <DockLink item={next} direction="next" />
-      ) : (
-        <div className="flex-1" />
-      )}
-    </nav>
+      {next ? <DockLink item={next} direction="next" /> : <Spacer />}
+    </Flex>
   );
 }

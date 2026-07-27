@@ -4,6 +4,14 @@ import Link from "next/link";
 import { Badge } from "@intelli/ui/badge";
 import { Button } from "@intelli/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@intelli/ui/card";
+import {
+  Box,
+  Cluster,
+  Flex,
+  Grid,
+  Split,
+  Stack,
+} from "@intelli/ui/layout";
 import { Separator } from "@intelli/ui/separator";
 import { InstallStrip } from "../../components/landing/install-strip";
 import { JsonLd } from "../../components/json-ld";
@@ -155,18 +163,55 @@ function getFeatured(): CatalogItem[] {
   );
 }
 
+function SectionIntro({
+  eyebrow,
+  title,
+  titleId,
+  description,
+  className,
+}: {
+  eyebrow: string;
+  title: string;
+  titleId?: string;
+  description?: string;
+  className?: string;
+}) {
+  return (
+    <Stack gap={2} className={className}>
+      <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
+        {eyebrow}
+      </p>
+      <h2
+        id={titleId}
+        className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
+      >
+        {title}
+      </h2>
+      {description ? (
+        <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
+          {description}
+        </p>
+      ) : null}
+    </Stack>
+  );
+}
+
 export default function LandingPage() {
   const featured = getFeatured();
 
   return (
     <>
       <JsonLd data={homeGraphJsonLd()} />
-      <div className="space-y-20 pb-12 md:space-y-28">
+      <Stack className="gap-20 pb-12 md:gap-28">
         {/* ── Hero ─────────────────────────────────────────────── */}
-        <section className="relative pt-2 md:pt-6">
-          <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14">
-            <div className="space-y-7">
-              <div className="flex flex-wrap items-center gap-2">
+        <Box as="section" className="relative pt-2 md:pt-6">
+          <Grid
+            gap={12}
+            align="center"
+            className="lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14"
+          >
+            <Stack gap={7}>
+              <Cluster gap={2}>
                 <Badge variant="secondary" size="sm">
                   {CATALOG.length}+ components
                 </Badge>
@@ -179,9 +224,9 @@ export default function LandingPage() {
                 <Badge variant="outline" size="sm">
                   Updated {SITE_CONTENT_DATES.modified}
                 </Badge>
-              </div>
+              </Cluster>
 
-              <div className="space-y-4">
+              <Stack gap={4}>
                 <h1 className="max-w-xl text-4xl font-semibold tracking-tight text-foreground sm:text-5xl sm:leading-[1.08]">
                   Liquid Glass components{" "}
                   <span className="text-muted-foreground">you own</span>
@@ -201,9 +246,9 @@ export default function LandingPage() {
                   content layers), five themes, AI product components, and
                   agent-native install for Next.js and Tailwind.
                 </p>
-              </div>
+              </Stack>
 
-              <div className="flex flex-wrap items-center gap-3">
+              <Cluster gap={3}>
                 <Button
                   asChild
                   variant="primary"
@@ -223,11 +268,11 @@ export default function LandingPage() {
                 <Button asChild variant="ghost" size="lg" className="min-h-12">
                   <Link href="/guides/shadcn-vs-intelli-ui">vs shadcn</Link>
                 </Button>
-              </div>
+              </Cluster>
 
               <InstallStrip />
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
+              <Cluster gap={3} className="gap-y-1 text-xs text-muted-foreground">
                 <GithubStars className="font-medium text-foreground underline-offset-4 hover:underline" />
                 <span aria-hidden>·</span>
                 <span>
@@ -253,42 +298,29 @@ export default function LandingPage() {
                 >
                   About
                 </Link>
-              </div>
-            </div>
+              </Cluster>
+            </Stack>
 
             <HeroStage />
-          </div>
-        </section>
+          </Grid>
+        </Box>
 
         {/* ── Pillars ──────────────────────────────────────────── */}
-        <section
+        <Stack
+          as="section"
+          gap={8}
           aria-labelledby="pillars-heading"
-          className="space-y-8 cv-auto"
+          className="cv-auto"
         >
-          <div className="max-w-2xl space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              Why Intelli UI
-            </p>
-            <h2
-              id="pillars-heading"
-              className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
-            >
-              A glass system for product teams
-            </h2>
-            <p className="text-sm leading-relaxed text-muted-foreground sm:text-base">
-              Intelli UI is Liquid Glass first — chrome vs content layers,
-              frosted primitives, and five themes so product UI looks intentional
-              on day one. The CLI copies components into your repo with the same
-              ownership model as shadcn, plus a Liquid Glass visual system built
-              for product chrome. Neutral frosted controls sit above expressive
-              panels so hierarchy stays clear instead of stacking blur on every
-              surface. An official plugin and MCP server help Claude, Grok,
-              Cursor, and other agents install and compose components correctly —
-              so teams ship glass UI without inventing frosted CSS from scratch.
-            </p>
-          </div>
+          <SectionIntro
+            eyebrow="Why Intelli UI"
+            title="A glass system for product teams"
+            titleId="pillars-heading"
+            className="max-w-2xl"
+            description="Intelli UI is Liquid Glass first — chrome vs content layers, frosted primitives, and five themes so product UI looks intentional on day one. The CLI copies components into your repo with the same ownership model as shadcn, plus a Liquid Glass visual system built for product chrome. Neutral frosted controls sit above expressive panels so hierarchy stays clear instead of stacking blur on every surface. An official plugin and MCP server help Claude, Grok, Cursor, and other agents install and compose components correctly — so teams ship glass UI without inventing frosted CSS from scratch."
+          />
 
-          <ul className="grid gap-4 md:grid-cols-3">
+          <Grid as="ul" cols={1} mdCols={3} gap={4}>
             {PILLARS.map((pillar) => (
               <li key={pillar.title}>
                 <Card variant="chrome" animated={false} className="h-full">
@@ -303,36 +335,38 @@ export default function LandingPage() {
                 </Card>
               </li>
             ))}
-          </ul>
-        </section>
+          </Grid>
+        </Stack>
 
         {/* ── Why better than shadcn / other libraries ─────────── */}
         <WhyBetterSection />
 
         {/* ── How it works ─────────────────────────────────────── */}
-        <section aria-labelledby="steps-heading" className="space-y-8 cv-auto">
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-xl space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                Workflow
-              </p>
-              <h2
-                id="steps-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
-              >
-                From zero to glass UI in minutes
-              </h2>
-            </div>
+        <Stack
+          as="section"
+          gap={8}
+          aria-labelledby="steps-heading"
+          className="cv-auto"
+        >
+          <Split gap={3} align="end" className="flex-col sm:flex-row">
+            <SectionIntro
+              eyebrow="Workflow"
+              title="From zero to glass UI in minutes"
+              titleId="steps-heading"
+              className="max-w-xl"
+            />
             <Button asChild variant="ghost" size="sm">
               <Link href="/getting-started">Full setup guide →</Link>
             </Button>
-          </div>
+          </Split>
 
-          <ol className="grid gap-4 md:grid-cols-3">
+          <Grid as="ol" cols={1} mdCols={3} gap={4}>
             {STEPS.map((step, index) => (
-              <li
+              <Stack
                 key={step.title}
-                className="relative flex flex-col rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)]"
+                as="li"
+                gap={0}
+                className="relative rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
               >
                 <span className="mb-4 flex size-8 items-center justify-center rounded-full border border-[var(--glass-chrome-border)] text-xs font-semibold tabular-nums text-muted-foreground">
                   {index + 1}
@@ -346,52 +380,46 @@ export default function LandingPage() {
                 <code className="mt-4 block overflow-x-auto rounded-xl bg-[color-mix(in_oklch,var(--background)_50%,transparent)] px-3 py-2.5 font-mono text-[11px] text-foreground sm:text-xs">
                   {step.command}
                 </code>
-              </li>
+              </Stack>
             ))}
-          </ol>
-        </section>
+          </Grid>
+        </Stack>
 
         {/* ── Featured components ──────────────────────────────── */}
-        <section
+        <Stack
+          as="section"
+          gap={8}
           aria-labelledby="featured-heading"
-          className="space-y-8 cv-auto"
+          className="cv-auto"
         >
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-            <div className="max-w-xl space-y-2">
-              <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                Catalog
-              </p>
-              <h2
-                id="featured-heading"
-                className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
-              >
-                Start with the essentials
-              </h2>
-              <p className="text-sm text-muted-foreground">
-                Every component ships with a live preview, install command, and
-                source you can edit.
-              </p>
-            </div>
+          <Split gap={3} align="end" className="flex-col sm:flex-row">
+            <SectionIntro
+              eyebrow="Catalog"
+              title="Start with the essentials"
+              titleId="featured-heading"
+              className="max-w-xl"
+              description="Every component ships with a live preview, install command, and source you can edit."
+            />
             <Button asChild variant="outline" size="sm">
               <Link href="/components">View all {CATALOG.length}+ →</Link>
             </Button>
-          </div>
+          </Split>
 
-          <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <Grid as="ul" cols={1} smCols={2} lgCols={3} gap={3}>
             {featured.map((item) => (
               <li key={item.slug}>
                 <Link
                   href={`/components/${item.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 transition-colors hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
+                  className="group flex h-full flex-col rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
                 >
-                  <div className="flex items-start justify-between gap-2">
+                  <Flex align="start" justify="between" gap={2}>
                     <h3 className="text-sm font-semibold text-foreground group-hover:text-foreground">
                       {item.title}
                     </h3>
                     <Badge variant="outline" size="sm">
                       {CATEGORY_META[item.category].label}
                     </Badge>
-                  </div>
+                  </Flex>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {item.description}
                   </p>
@@ -401,38 +429,39 @@ export default function LandingPage() {
                 </Link>
               </li>
             ))}
-          </ul>
+          </Grid>
 
-          <div className="space-y-3">
+          <Stack gap={3}>
             <p className="text-xs font-medium text-muted-foreground">
               Browse by category
             </p>
-            <ul className="flex flex-wrap gap-2">
+            <Cluster as="ul" gap={2}>
               {CATEGORY_ORDER.map((category) => (
                 <li key={category}>
                   <Link
                     href={`/categories/${category}`}
-                    className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                    className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                   >
                     {CATEGORY_META[category].label}
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-        </section>
+            </Cluster>
+          </Stack>
+        </Stack>
 
         {/* ── Agents ───────────────────────────────────────────── */}
-        <section
+        <Box
+          as="section"
           aria-labelledby="agents-heading"
           className="cv-auto overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
         >
-          <div className="grid gap-0 lg:grid-cols-2">
-            <div className="space-y-5 p-6 sm:p-8 md:p-10">
+          <Grid cols={1} lgCols={2} gap={0}>
+            <Stack gap={5} className="p-6 sm:p-8 md:p-10">
               <Badge variant="secondary" size="sm">
                 Agent plugin · MCP
               </Badge>
-              <div className="space-y-3">
+              <Stack gap={3}>
                 <h2
                   id="agents-heading"
                   className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
@@ -444,8 +473,8 @@ export default function LandingPage() {
                   to search the registry, add components, and respect chrome vs
                   content — not invent glass CSS from scratch.
                 </p>
-              </div>
-              <div className="flex flex-wrap gap-2.5">
+              </Stack>
+              <Cluster gap={2.5}>
                 <Button asChild variant="primary">
                   <Link href="/getting-started#plugin">Install plugin</Link>
                 </Button>
@@ -458,14 +487,14 @@ export default function LandingPage() {
                     agent-skills repo
                   </a>
                 </Button>
-              </div>
-            </div>
+              </Cluster>
+            </Stack>
 
-            <div className="border-t border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_35%,transparent)] p-6 sm:p-8 lg:border-l lg:border-t-0 md:p-10">
+            <Box className="border-t border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_35%,transparent)] p-6 sm:p-8 lg:border-l lg:border-t-0 md:p-10">
               <p className="mb-4 text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 Quick installs
               </p>
-              <ul className="space-y-3">
+              <Stack as="ul" gap={3}>
                 {[
                   {
                     label: "Claude Code",
@@ -480,9 +509,10 @@ export default function LandingPage() {
                     cmd: `npx ${CLI_PACKAGE}@latest mcp init --client cursor`,
                   },
                 ].map((row) => (
-                  <li
+                  <Box
                     key={row.label}
-                    className="rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-3.5"
+                    as="li"
+                    className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-3.5 backdrop-blur-[var(--glass-blur)]"
                   >
                     <p className="mb-1.5 text-xs font-medium text-foreground">
                       {row.label}
@@ -490,56 +520,47 @@ export default function LandingPage() {
                     <code className="block overflow-x-auto font-mono text-[11px] leading-relaxed text-muted-foreground sm:text-xs">
                       {row.cmd}
                     </code>
-                  </li>
+                  </Box>
                 ))}
-              </ul>
-            </div>
-          </div>
-        </section>
+              </Stack>
+            </Box>
+          </Grid>
+        </Box>
 
         {/* ── Themes ───────────────────────────────────────────── */}
-        <section aria-labelledby="themes-heading" className="space-y-6 cv-auto">
-          <div className="max-w-xl space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              Themes
-            </p>
-            <h2
-              id="themes-heading"
-              className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
-            >
-              Five Liquid Glass themes
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              Click a theme to apply it site-wide — mono, aurora, sunset, frost,
-              and ocean drive CSS variables across every component on this page.
-            </p>
-          </div>
+        <Stack
+          as="section"
+          gap={6}
+          aria-labelledby="themes-heading"
+          className="cv-auto"
+        >
+          <SectionIntro
+            eyebrow="Themes"
+            title="Five Liquid Glass themes"
+            titleId="themes-heading"
+            className="max-w-xl"
+            description="Click a theme to apply it site-wide — mono, aurora, sunset, frost, and ocean drive CSS variables across every component on this page."
+          />
           <ThemeSwitcher />
-        </section>
+        </Stack>
 
         {/* ── FAQ (citability + FAQPage schema on homeGraph) ───── */}
-        <section
+        <Stack
+          as="section"
+          gap={6}
           aria-labelledby="home-faq-heading"
-          className="space-y-6 cv-auto"
+          className="cv-auto"
         >
-          <div className="max-w-2xl space-y-2">
-            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-              FAQ
-            </p>
-            <h2
-              id="home-faq-heading"
-              className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl"
-            >
-              What is Intelli UI?
-            </h2>
-            <p className="text-sm leading-relaxed text-muted-foreground">
-              Short answers for teams evaluating Liquid Glass components, shadcn
-              alternatives, and agent-native install.
-            </p>
-          </div>
-          <dl className="grid gap-4 md:grid-cols-2">
+          <SectionIntro
+            eyebrow="FAQ"
+            title="What is Intelli UI?"
+            titleId="home-faq-heading"
+            className="max-w-2xl"
+            description="Short answers for teams evaluating Liquid Glass components, shadcn alternatives, and agent-native install."
+          />
+          <Grid as="dl" cols={1} mdCols={2} gap={4}>
             {HOME_FAQ.map((item) => (
-              <div
+              <Box
                 key={item.q}
                 className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
               >
@@ -549,14 +570,17 @@ export default function LandingPage() {
                 <dd className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {item.a}
                 </dd>
-              </div>
+              </Box>
             ))}
-          </dl>
-        </section>
+          </Grid>
+        </Stack>
 
         {/* ── Final CTA ────────────────────────────────────────── */}
-        <section className="rounded-3xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-10 text-center shadow-[var(--glass-chrome-shadow)] sm:px-10 md:py-14">
-          <div className="mx-auto max-w-xl space-y-5">
+        <Box
+          as="section"
+          className="rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-10 text-center shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] sm:px-10 md:py-14"
+        >
+          <Stack gap={5} className="mx-auto max-w-xl">
             <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
               Start building with Liquid Glass
             </h2>
@@ -565,7 +589,7 @@ export default function LandingPage() {
               tooling — product UI that looks better than flat defaults, with
               source you control.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-1">
+            <Cluster gap={3} justify="center" className="pt-1">
               <Button asChild variant="primary" size="lg">
                 <Link href="/getting-started">Get started</Link>
               </Button>
@@ -577,15 +601,15 @@ export default function LandingPage() {
                   GitHub
                 </a>
               </Button>
-            </div>
+            </Cluster>
             <Separator className="my-2" variant="subtle" />
             <p className="text-xs text-muted-foreground">
               {CATALOG.length}+ components · {CATEGORY_ORDER.length} categories ·
               MIT-friendly ownership model
             </p>
-          </div>
-        </section>
-      </div>
+          </Stack>
+        </Box>
+      </Stack>
     </>
   );
 }

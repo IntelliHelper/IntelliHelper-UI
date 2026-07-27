@@ -10,6 +10,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@intelli/ui";
+import {
+  Box,
+  Cluster,
+  Split,
+  Stack,
+} from "@intelli/ui/layout";
 import { ComponentCatalogGrid } from "../../../components/component-catalog-grid";
 import { JsonLd } from "../../../components/json-ld";
 import { PlaygroundSettings } from "../../../components/playground-settings";
@@ -43,19 +49,22 @@ export default function ComponentsPage() {
   return (
     <>
       <JsonLd data={catalogGraphJsonLd()} />
-      <div className="space-y-10 pb-8">
-        <section className="relative overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] md:px-8 md:py-10">
-          <div className="relative max-w-2xl space-y-5">
-            <div className="flex flex-wrap items-center gap-2">
+      <Stack gap={10} className="pb-8">
+        <Box
+          as="section"
+          className="relative overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] md:px-8 md:py-10"
+        >
+          <Stack gap={5} className="relative max-w-2xl">
+            <Cluster gap={2}>
               <Badge variant="secondary" size="sm">
                 {CATALOG.length}+ components
               </Badge>
               <Badge variant="outline" size="sm">
                 React · Next.js · Tailwind
               </Badge>
-            </div>
+            </Cluster>
 
-            <div className="space-y-3">
+            <Stack gap={3}>
               <h1 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl md:leading-[1.15]">
                 Liquid Glass React components
               </h1>
@@ -64,9 +73,9 @@ export default function ComponentsPage() {
                 CLI install, and source you own. Built for product chrome, AI
                 interfaces, and teams who want hierarchy instead of flat defaults.
               </p>
-            </div>
+            </Stack>
 
-            <div className="flex flex-wrap gap-2.5 pt-0.5">
+            <Cluster gap={2.5} className="pt-0.5">
               <Button asChild variant="primary">
                 <Link href="/getting-started">Get started</Link>
               </Button>
@@ -76,12 +85,15 @@ export default function ComponentsPage() {
               <Button asChild variant="ghost">
                 <Link href="/guides/shadcn-vs-intelli-ui">vs shadcn</Link>
               </Button>
-            </div>
-          </div>
-        </section>
+              <Button asChild variant="ghost">
+                <Link href="/guides/layout-primitives">Layout primitives</Link>
+              </Button>
+            </Cluster>
+          </Stack>
+        </Box>
 
-        <section aria-labelledby="category-links" className="space-y-3">
-          <div className="flex items-end justify-between gap-3">
+        <Stack as="section" gap={3} aria-labelledby="category-links">
+          <Split gap={3} align="end">
             <h2
               id="category-links"
               className="text-sm font-semibold text-foreground"
@@ -94,23 +106,23 @@ export default function ComponentsPage() {
             >
               Setup guide →
             </Link>
-          </div>
-          <ul className="flex flex-wrap gap-2">
+          </Split>
+          <Cluster as="ul" gap={2}>
             {CATEGORY_ORDER.map((category) => (
               <li key={category}>
                 <Link
                   href={`/categories/${category}`}
-                  className="inline-flex min-h-11 items-center rounded-full border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-2 text-xs font-medium text-muted-foreground transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                  className="inline-flex min-h-11 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-2 text-xs font-medium text-muted-foreground backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                 >
                   {CATEGORY_META[category].label}
                 </Link>
               </li>
             ))}
-          </ul>
-        </section>
+          </Cluster>
+        </Stack>
 
-        <section aria-labelledby="catalog-heading" className="space-y-5">
-          <div className="space-y-1">
+        <Stack as="section" gap={5} aria-labelledby="catalog-heading">
+          <Stack gap={1}>
             <h2
               id="catalog-heading"
               className="text-lg font-semibold tracking-tight text-foreground"
@@ -121,7 +133,7 @@ export default function ComponentsPage() {
               Filter by category or search. Every page includes a live preview
               and install command.
             </p>
-          </div>
+          </Stack>
           <Suspense
             fallback={
               <p className="text-sm text-muted-foreground">Loading catalog…</p>
@@ -129,7 +141,7 @@ export default function ComponentsPage() {
           >
             <ComponentCatalogGrid />
           </Suspense>
-        </section>
+        </Stack>
 
         <Card variant="chrome" animated={false}>
           <CardHeader className="pb-2">
@@ -143,7 +155,7 @@ export default function ComponentsPage() {
             <PlaygroundSettings embedded />
           </CardContent>
         </Card>
-      </div>
+      </Stack>
     </>
   );
 }

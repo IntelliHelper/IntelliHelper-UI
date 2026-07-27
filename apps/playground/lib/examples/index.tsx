@@ -230,6 +230,21 @@ const ScrollToTopDemo = lazy(() =>
 const SeparatorDemo = lazy(() =>
   import("../../components/layout-utility-demo").then((m) => ({ default: m.SeparatorDemo })),
 );
+const LayoutStackDemo = lazy(() =>
+  import("../../components/layout-demo").then((m) => ({ default: m.LayoutStackDemo })),
+);
+const LayoutClusterDemo = lazy(() =>
+  import("../../components/layout-demo").then((m) => ({ default: m.LayoutClusterDemo })),
+);
+const LayoutGridDemo = lazy(() =>
+  import("../../components/layout-demo").then((m) => ({ default: m.LayoutGridDemo })),
+);
+const LayoutSplitDemo = lazy(() =>
+  import("../../components/layout-demo").then((m) => ({ default: m.LayoutSplitDemo })),
+);
+const LayoutContainerDemo = lazy(() =>
+  import("../../components/layout-demo").then((m) => ({ default: m.LayoutContainerDemo })),
+);
 const SpinnerDemo = lazy(() =>
   import("../../components/layout-utility-demo").then((m) => ({ default: m.SpinnerDemo })),
 );
@@ -576,6 +591,89 @@ export function ProjectCard() {
 
 <Separator variant="chrome" />
 <Separator orientation="vertical" className="h-6" />`,
+    },
+  ],
+  layout: [
+    {
+      title: "Stack",
+      description: "Vertical (or horizontal) flex column with shared gap scale.",
+      preview: <LayoutStackDemo />,
+      code: `import { Box, Stack } from "@/components/ui/layout"
+
+<Stack gap={3}>
+  <Box className="rounded-xl border p-3">Item one</Box>
+  <Box className="rounded-xl border p-3">Item two</Box>
+  <Box className="rounded-xl border p-3">Item three</Box>
+</Stack>`,
+    },
+    {
+      title: "Cluster",
+      description: "Wrapping horizontal groups for badges and actions.",
+      preview: <LayoutClusterDemo />,
+      code: `import { Cluster } from "@/components/ui/layout"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+
+<Cluster gap={2}>
+  <Badge variant="secondary">Stack</Badge>
+  <Badge variant="outline">Cluster</Badge>
+  <Badge variant="outline">Grid</Badge>
+</Cluster>
+
+<Cluster gap={3}>
+  <Button size="sm" variant="primary">Primary</Button>
+  <Button size="sm" variant="outline">Outline</Button>
+</Cluster>`,
+    },
+    {
+      title: "Grid",
+      description: "Responsive CSS grid with cols / smCols / mdCols / lgCols.",
+      preview: <LayoutGridDemo />,
+      code: `import { Box, Grid } from "@/components/ui/layout"
+
+<Grid cols={1} smCols={2} mdCols={3} gap={3}>
+  <Box>Alpha</Box>
+  <Box>Beta</Box>
+  <Box>Gamma</Box>
+</Grid>`,
+    },
+    {
+      title: "Split · Spacer · Center",
+      description: "Toolbar rows, flexible space, and axis centering.",
+      preview: <LayoutSplitDemo />,
+      code: `import { Center, Flex, Spacer, Split, Stack } from "@/components/ui/layout"
+import { Button } from "@/components/ui/button"
+
+<Split gap={3}>
+  <Stack gap={1}>
+    <p className="font-semibold">Section title</p>
+    <p className="text-sm text-muted-foreground">Subtitle</p>
+  </Stack>
+  <Button size="sm" variant="outline">Action</Button>
+</Split>
+
+<Flex align="center">
+  <span>Left</span>
+  <Spacer />
+  <span>Right</span>
+</Flex>
+
+<Center className="h-24 border border-dashed rounded-xl">
+  Centered content
+</Center>`,
+    },
+    {
+      title: "Container",
+      description: "Max-width page constraint with optional horizontal padding.",
+      preview: <LayoutContainerDemo />,
+      code: `import { Container, Stack } from "@/components/ui/layout"
+
+<Container size="sm">
+  <Stack gap={2}>
+    <p className="font-medium">Narrow reading width</p>
+    <p className="text-sm text-muted-foreground">Body copy…</p>
+  </Stack>
+</Container>`,
     },
   ],
   resizable: [

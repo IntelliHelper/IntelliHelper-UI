@@ -15,6 +15,13 @@ import {
   Input,
 } from "@intelli/ui";
 import {
+  Cluster,
+  Flex,
+  Grid,
+  Split,
+  Stack,
+} from "@intelli/ui/layout";
+import {
   CATALOG,
   CATEGORY_META,
   type ComponentCategory,
@@ -68,8 +75,12 @@ export function ComponentCatalogGrid() {
   }, [activeCategory, filtered]);
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <Stack gap={6}>
+      <Flex
+        direction="column"
+        gap={3}
+        className="sm:flex-row sm:items-center sm:justify-between"
+      >
         <Input
           value={query}
           onChange={(event) => setQuery(event.target.value)}
@@ -80,10 +91,10 @@ export function ComponentCatalogGrid() {
         <p className="shrink-0 text-sm tabular-nums text-muted-foreground">
           {filtered.length} component{filtered.length === 1 ? "" : "s"}
         </p>
-      </div>
+      </Flex>
 
-      <div
-        className="flex flex-wrap gap-1.5"
+      <Cluster
+        gap={1.5}
         role="tablist"
         aria-label="Filter by category"
       >
@@ -110,7 +121,7 @@ export function ComponentCatalogGrid() {
             {CATEGORY_META[category].label}
           </Button>
         ))}
-      </div>
+      </Cluster>
 
       {filtered.length === 0 ? (
         <Empty variant="outline" animated={false} className="py-14">
@@ -133,26 +144,26 @@ export function ComponentCatalogGrid() {
           </Button>
         </Empty>
       ) : (
-        <div className="space-y-10">
+        <Stack gap={10}>
           {sections.map(([category, items]) => (
-            <section key={category} className="space-y-4">
+            <Stack key={category} as="section" gap={4}>
               {activeCategory === "all" ? (
-                <div className="flex flex-wrap items-end justify-between gap-2">
-                  <div>
+                <Split gap={2} align="end">
+                  <Stack gap={0.5}>
                     <h2 className="text-base font-semibold text-foreground">
                       {CATEGORY_META[category].label}
                     </h2>
-                    <p className="mt-0.5 text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground">
                       {CATEGORY_META[category].description}
                     </p>
-                  </div>
+                  </Stack>
                   <Badge variant="secondary" size="sm">
                     {items.length}
                   </Badge>
-                </div>
+                </Split>
               ) : null}
 
-              <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+              <Grid as="ul" cols={1} smCols={2} lgCols={3} gap={3}>
                 {items.map((item) => (
                   <li key={item.slug}>
                     <Link
@@ -162,10 +173,10 @@ export function ComponentCatalogGrid() {
                       <Card
                         variant="outline"
                         animated={false}
-                        className="h-full transition-[border-color,background,box-shadow] duration-200 group-hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] group-hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] group-focus-visible:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))]"
+                        className="h-full bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] transition-[border-color,background,box-shadow] duration-200 group-hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] group-hover:backdrop-blur-[var(--glass-blur)] group-focus-visible:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))]"
                       >
                         <CardContent className="flex h-full flex-col p-4">
-                          <div className="flex items-start justify-between gap-2">
+                          <Flex align="start" justify="between" gap={2}>
                             <span className="text-sm font-semibold text-foreground">
                               {item.title}
                             </span>
@@ -178,7 +189,7 @@ export function ComponentCatalogGrid() {
                                 {CATEGORY_META[item.category].label}
                               </Badge>
                             )}
-                          </div>
+                          </Flex>
                           <span className="mt-2 flex-1 text-xs leading-relaxed text-muted-foreground">
                             {item.description}
                           </span>
@@ -190,11 +201,11 @@ export function ComponentCatalogGrid() {
                     </Link>
                   </li>
                 ))}
-              </ul>
-            </section>
+              </Grid>
+            </Stack>
           ))}
-        </div>
+        </Stack>
       )}
-    </div>
+    </Stack>
   );
 }

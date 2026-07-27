@@ -4,6 +4,14 @@ import Link from "next/link";
 import { useCallback, type ComponentType } from "react";
 import { Badge } from "@intelli/ui/badge";
 import { Button } from "@intelli/ui/button";
+import {
+  Box,
+  Cluster,
+  Flex,
+  Grid,
+  Split,
+  Stack,
+} from "@intelli/ui/layout";
 import { LazyStage } from "./lazy-stage";
 import {
   DesignSystemStage,
@@ -132,31 +140,38 @@ function FeatureCard({
   className?: string;
 }) {
   return (
-    <article
-      className={`group relative flex h-full flex-col overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--primary)_32%,var(--glass-chrome-border))] hover:shadow-[0_20px_50px_color-mix(in_oklch,black_14%,transparent)] ${className}`}
+    <Stack
+      as="article"
+      gap={0}
+      className={`group relative h-full overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--primary)_32%,var(--glass-chrome-border))] hover:shadow-[0_20px_50px_color-mix(in_oklch,black_14%,transparent)] ${className}`}
     >
-      <div className="flex items-center justify-between gap-2 border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_45%,transparent)] px-3.5 py-2.5 sm:px-4">
+      <Flex
+        align="center"
+        justify="between"
+        gap={2}
+        className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_45%,transparent)] px-3.5 py-2.5 sm:px-4"
+      >
         <Badge variant="secondary" size="sm" className="max-w-[70%] truncate">
           vs {item.vs}
         </Badge>
         <Badge variant="outline" size="sm" className="shrink-0">
           Live UI
         </Badge>
-      </div>
+      </Flex>
 
-      <div className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_35%,transparent)]">
+      <Box className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--background)_35%,transparent)]">
         <FeatureStage item={item} />
-      </div>
+      </Box>
 
-      <div className="flex flex-1 flex-col gap-2 p-5 sm:p-6">
+      <Stack gap={2} className="flex-1 p-5 sm:p-6">
         <h3 className="text-base font-semibold leading-snug tracking-tight text-foreground sm:text-lg">
           {item.title}
         </h3>
         <p className="text-sm leading-relaxed text-muted-foreground">
           {item.body}
         </p>
-      </div>
-    </article>
+      </Stack>
+    </Stack>
   );
 }
 
@@ -168,11 +183,13 @@ export function WhyBetterSection() {
   const [designSystem, glassPrimitives, ...rest] = WHY_BETTER;
 
   return (
-    <section
+    <Stack
+      as="section"
+      gap={10}
       aria-labelledby="compare-heading"
-      className="relative space-y-10 cv-auto"
+      className="relative cv-auto"
     >
-      <div
+      <Box
         className="pointer-events-none absolute -left-16 top-24 hidden h-64 w-64 rounded-full opacity-40 blur-3xl md:block"
         style={{
           background:
@@ -180,7 +197,7 @@ export function WhyBetterSection() {
         }}
         aria-hidden
       />
-      <div
+      <Box
         className="pointer-events-none absolute -right-10 top-48 hidden h-56 w-56 rounded-full opacity-35 blur-3xl md:block"
         style={{
           background:
@@ -189,16 +206,20 @@ export function WhyBetterSection() {
         aria-hidden
       />
 
-      <div className="relative flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div className="max-w-2xl space-y-3">
-          <div className="flex flex-wrap items-center gap-2">
+      <Split
+        gap={4}
+        align="end"
+        className="relative flex-col sm:flex-row"
+      >
+        <Stack gap={3} className="max-w-2xl">
+          <Cluster gap={2}>
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">
               vs shadcn &amp; other libraries
             </p>
             <Badge variant="secondary" size="sm">
               Built with Intelli UI
             </Badge>
-          </div>
+          </Cluster>
           <h2
             id="compare-heading"
             className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl lg:text-4xl"
@@ -210,8 +231,8 @@ export function WhyBetterSection() {
             below is real Intelli UI: Liquid Glass chrome, AI components, and
             agent tooling generic kits do not ship.
           </p>
-        </div>
-        <div className="flex shrink-0 flex-wrap gap-2 self-start sm:self-auto">
+        </Stack>
+        <Cluster gap={2} className="shrink-0 self-start sm:self-auto">
           <Button asChild variant="primary" size="sm">
             <Link href="/guides/shadcn-vs-intelli-ui">
               shadcn vs Intelli UI
@@ -220,32 +241,32 @@ export function WhyBetterSection() {
           <Button asChild variant="outline" size="sm">
             <Link href="/components">Browse components</Link>
           </Button>
-        </div>
-      </div>
+        </Cluster>
+      </Split>
 
-      <div className="relative grid gap-4 lg:grid-cols-2 lg:gap-5">
+      <Grid cols={1} lgCols={2} gap={4} className="relative lg:gap-5">
         <FeatureCard item={designSystem} />
         <FeatureCard item={glassPrimitives} />
-      </div>
+      </Grid>
 
-      <ul className="relative grid gap-4 sm:grid-cols-2 lg:gap-5">
+      <Grid as="ul" cols={1} smCols={2} gap={4} className="relative lg:gap-5">
         {rest.map((item) => (
           <li key={item.id} className="min-h-0">
             <FeatureCard item={item} className="lg:min-h-full" />
           </li>
         ))}
-      </ul>
+      </Grid>
 
-      <div className="relative overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
-        <div className="border-b border-[var(--glass-chrome-border)] px-5 py-4 sm:px-6">
+      <Box className="relative overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
+        <Box className="border-b border-[var(--glass-chrome-border)] px-5 py-4 sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
             Side-by-side
           </p>
           <h3 className="mt-1 text-sm font-medium text-foreground">
             What you get compared to typical kits
           </h3>
-        </div>
-        <div className="overflow-x-auto">
+        </Box>
+        <Box className="overflow-x-auto">
           <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
             <caption className="sr-only">
               Intelli UI compared to typical UI kits and shadcn/ui on visual
@@ -296,8 +317,12 @@ export function WhyBetterSection() {
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="flex flex-col gap-3 border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+        </Box>
+        <Flex
+          direction="column"
+          gap={3}
+          className="border-t border-[var(--glass-chrome-border)] px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+        >
           <p className="text-sm text-muted-foreground">
             Full write-up: when to pick Intelli UI vs shadcn for glass product
             UI.
@@ -305,8 +330,8 @@ export function WhyBetterSection() {
           <Button asChild variant="primary" size="sm" className="shrink-0">
             <Link href="/guides/shadcn-vs-intelli-ui">Read comparison guide</Link>
           </Button>
-        </div>
-      </div>
-    </section>
+        </Flex>
+      </Box>
+    </Stack>
   );
 }

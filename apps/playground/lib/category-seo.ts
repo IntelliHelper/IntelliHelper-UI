@@ -17,7 +17,7 @@ Intelli UI buttons support shapes, sizes, and glass treatments so primary CTAs s
 
 Install any control with the IntelliHelper CLI (\`npx @intellihelper/cli add button\`) and customize CVA variants locally. These are not locked npm packages — you own the TypeScript source. Ideal keywords teams search for: glass button React, Next.js Tailwind button, shadcn-style copy-paste actions with a Liquid Glass aesthetic.`,
 
-  surfaces: `Surface components structure content without fighting the glass aesthetic. Cards, tabs, resizable panels, scroll areas, and separators give your Next.js app clear hierarchy while frosted chrome stays on the edges.
+  surfaces: `Surface components structure content without fighting the glass aesthetic. Cards, tabs, layout primitives (Stack, Cluster, Grid), resizable panels, scroll areas, and separators give your Next.js app clear hierarchy while frosted chrome stays on the edges.
 
 Use Glass Content Card–adjacent patterns and surface primitives when you need readable content regions over mesh or image backgrounds. Tabs organize dense settings and docs; Resizable lets power users split panes; Scroll Area keeps long lists inside a fixed glass frame; Separator and layout helpers keep density under control on marketing and product pages.
 
