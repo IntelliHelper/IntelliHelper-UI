@@ -137,7 +137,7 @@ export function MediaPlayerVideoDemo() {
   const captions = useDemoCaptions();
 
   return (
-    <div className="w-full max-w-xl">
+    <div className="w-full min-w-0 max-w-xl">
       <MediaPlayer
         kind="video"
         src={SAMPLE_VIDEO}
@@ -152,12 +152,14 @@ export function MediaPlayerVideoDemo() {
           { id: "480", label: "480p", src: SAMPLE_VIDEO, height: 480 },
         ]}
         defaultQuality="720"
+        className="min-w-0"
       />
       <p className="mt-2 text-xs text-muted-foreground">
         Demo uses the same file for each quality label — wire distinct bitrates
         in production. Cross-origin captions need{" "}
         <code className="rounded bg-muted px-1">crossOrigin=&quot;anonymous&quot;</code>{" "}
-        when tracks are remote.
+        when tracks are remote. On touch devices, tap the video to show or hide
+        controls while playing.
       </p>
     </div>
   );
@@ -165,13 +167,14 @@ export function MediaPlayerVideoDemo() {
 
 export function MediaPlayerAudioDemo() {
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full min-w-0 max-w-md">
       <MediaPlayer
         kind="audio"
         src={SAMPLE_AUDIO}
         title="T-Rex roar"
         subtitle="CC0 sample audio"
         variant="elevated"
+        className="min-w-0"
       />
     </div>
   );
@@ -182,11 +185,12 @@ export function ImageEditorDemo() {
   const src = useMemo(() => EDITOR_SRC, []);
 
   return (
-    <div className="w-full max-w-xl space-y-3">
+    <div className="w-full min-w-0 max-w-xl space-y-3">
       <ImageEditor
         src={src}
         alt="Edit sample"
         defaultAspect="free"
+        className="min-w-0"
         onExport={(blob) => {
           setLastExport(`${(blob.size / 1024).toFixed(1)} KB · ${blob.type}`);
         }}

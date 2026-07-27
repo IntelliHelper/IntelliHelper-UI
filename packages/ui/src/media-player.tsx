@@ -13,6 +13,7 @@ import {
   type HTMLAttributes,
   type KeyboardEvent as ReactKeyboardEvent,
   type MediaHTMLAttributes,
+  type PointerEvent as ReactPointerEvent,
   type ReactNode,
   type SyntheticEvent,
 } from "react";
@@ -57,7 +58,7 @@ export type {
 
 const mediaPlayerVariants = cva(
   [
-    "group/media relative flex w-full flex-col overflow-hidden",
+    "group/media relative flex w-full min-w-0 flex-col overflow-hidden",
     "border border-[var(--glass-chrome-border)]",
     "transition-[box-shadow,border-color] duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]",
   ],
@@ -93,7 +94,7 @@ const mediaPlayerVariants = cva(
 
 const mediaPlayerControlsVariants = cva(
   [
-    "flex flex-col gap-2 p-3",
+    "flex min-w-0 flex-col gap-1.5 p-2.5 sm:gap-2 sm:p-3",
     "border-t border-[color-mix(in_oklch,var(--glass-chrome-border)_70%,transparent)]",
     "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
@@ -103,13 +104,17 @@ const mediaPlayerControlsVariants = cva(
     variants: {
       kind: {
         video: [
-          "absolute inset-x-0 bottom-0 border-t-0",
+          "absolute inset-x-0 bottom-0 z-[2] border-t-0",
           "bg-gradient-to-t from-[color-mix(in_oklch,black_55%,transparent)] via-[color-mix(in_oklch,black_25%,transparent)] to-transparent",
           "backdrop-blur-none",
+          "pb-[max(0.625rem,env(safe-area-inset-bottom))]",
           "opacity-0 transition-opacity duration-[var(--duration-normal)]",
           "group-hover/media:opacity-100 group-focus-within/media:opacity-100",
+          /* Touch / coarse pointers have no hover — keep chrome usable */
+          "[@media(hover:none)]:opacity-100",
           "data-[playing=false]:opacity-100",
           "data-[menu-open=true]:opacity-100",
+          "data-[controls=true]:opacity-100",
         ],
         audio: "",
       },
@@ -121,11 +126,12 @@ const mediaPlayerControlsVariants = cva(
 );
 
 const controlBtnClass = cn(
-  "inline-flex size-9 shrink-0 items-center justify-center rounded-full text-current",
+  "inline-flex size-10 shrink-0 items-center justify-center rounded-full text-current sm:size-9",
   "transition-[background,transform,opacity] duration-[var(--duration-fast)]",
   "hover:bg-[color-mix(in_oklch,white_14%,transparent)] active:scale-95",
   "disabled:pointer-events-none disabled:opacity-40",
   "data-[pressed=true]:bg-[color-mix(in_oklch,white_16%,transparent)]",
+  "touch-manipulation",
   focusRing,
 );
 
@@ -160,13 +166,14 @@ function ControlButton({
 }
 
 const rangeClass = cn(
-  "h-1.5 cursor-pointer appearance-none rounded-full",
+  "h-2 cursor-pointer appearance-none rounded-full sm:h-1.5",
   "bg-[color-mix(in_oklch,white_22%,transparent)]",
-  "[&::-webkit-slider-thumb]:size-3.5 [&::-webkit-slider-thumb]:appearance-none",
+  "[&::-webkit-slider-thumb]:size-4 [&::-webkit-slider-thumb]:appearance-none sm:[&::-webkit-slider-thumb]:size-3.5",
   "[&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white",
   "[&::-webkit-slider-thumb]:shadow-md",
-  "[&::-moz-range-thumb]:size-3.5 [&::-moz-range-thumb]:rounded-full",
+  "[&::-moz-range-thumb]:size-4 [&::-moz-range-thumb]:rounded-full sm:[&::-moz-range-thumb]:size-3.5",
   "[&::-moz-range-thumb]:border-0 [&::-moz-range-thumb]:bg-white",
+  "touch-manipulation",
   focusRing,
 );
 
@@ -311,7 +318,74 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
     const [seeking, setSeeking] = useState(false);
     const [captionMenuOpen, setCaptionMenuOpen] = useState(false);
     const [qualityMenuOpen, setQualityMenuOpen] = useState(false);
+    /** Tap-to-reveal controls while playing on touch devices (hover is unavailable). */
+    const [controlsPinned, setControlsPinned] = useState(false);
+    const hideControlsTimer = useRef<ReturnType<typeof setTimeout> | null>(
+      null,
+    );
     const menuOpen = captionMenuOpen || qualityMenuOpen;
+    const controlsReveal = menuOpen || controlsPinned || !playing;
+
+    const clearHideControlsTimer = useCallback(() => {
+      if (hideControlsTimer.current !== null) {
+        clearTimeout(hideControlsTimer.current);
+        hideControlsTimer.current = null;
+      }
+    }, []);
+
+    const scheduleHideControls = useCallback(() => {
+      clearHideControlsTimer();
+      hideControlsTimer.current = setTimeout(() => {
+        setControlsPinned(false);
+        hideControlsTimer.current = null;
+      }, 3200);
+    }, [clearHideControlsTimer]);
+
+    const revealControls = useCallback(() => {
+      setControlsPinned(true);
+      scheduleHideControls();
+    }, [scheduleHideControls]);
+
+    useEffect(() => {
+      if (!playing || menuOpen) {
+        clearHideControlsTimer();
+        if (!playing) setControlsPinned(false);
+        return;
+      }
+      if (controlsPinned) scheduleHideControls();
+      return clearHideControlsTimer;
+    }, [
+      clearHideControlsTimer,
+      controlsPinned,
+      menuOpen,
+      playing,
+      scheduleHideControls,
+    ]);
+
+    const onVideoSurfacePointerUp = useCallback(
+      (event: ReactPointerEvent<HTMLVideoElement>) => {
+        // Mouse keeps hover chrome; touch/pen need an explicit controls toggle.
+        if (event.pointerType === "mouse") return;
+        if (menuOpen) return;
+        if (!playing) {
+          revealControls();
+          return;
+        }
+        setControlsPinned((open) => {
+          const next = !open;
+          if (next) scheduleHideControls();
+          else clearHideControlsTimer();
+          return next;
+        });
+      },
+      [
+        clearHideControlsTimer,
+        menuOpen,
+        playing,
+        revealControls,
+        scheduleHideControls,
+      ],
+    );
 
     const [uncontrolledCaption, setUncontrolledCaption] =
       useState<MediaPlayerCaptionValue>(() =>
@@ -654,8 +728,9 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
         ref={rootRef}
         data-slot="media-player"
         data-kind={kind}
-        data-playing={playing || undefined}
-        data-menu-open={menuOpen ? true : undefined}
+        data-playing={playing ? "true" : "false"}
+        data-menu-open={menuOpen ? "true" : undefined}
+        data-controls={controlsReveal ? "true" : undefined}
         tabIndex={0}
         role="region"
         aria-labelledby={title ? labelId : undefined}
@@ -676,7 +751,11 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
             ref={bindMediaRef}
             playsInline={playsInline}
             poster={poster}
-            className={cn("block w-full bg-black object-contain", mediaClassName)}
+            className={cn(
+              "block max-h-[min(70vh,720px)] w-full bg-black object-contain",
+              mediaClassName,
+            )}
+            onPointerUp={onVideoSurfacePointerUp}
             {...mediaShared}
           >
             {captions.map((track, index) => (
@@ -700,10 +779,10 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
         )}
 
         {kind === "audio" ? (
-          <div className="flex items-center gap-3 px-4 pb-1 pt-4">
+          <div className="flex min-w-0 items-center gap-3 px-3 pb-1 pt-3 sm:px-4 sm:pt-4">
             <div
               className={cn(
-                "flex size-12 shrink-0 items-center justify-center rounded-xl",
+                "flex size-11 shrink-0 items-center justify-center rounded-xl sm:size-12",
                 "border border-[var(--glass-chrome-border)]",
                 "bg-[color-mix(in_oklch,var(--primary)_18%,transparent)]",
                 "text-[var(--glass-chrome-fg)]",
@@ -729,7 +808,18 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
         ) : null}
 
         {kind === "video" && title ? (
-          <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] p-3 opacity-0 transition-opacity group-hover/media:opacity-100 group-focus-within/media:opacity-100 data-[playing=false]:opacity-100">
+          <div
+            className={cn(
+              "pointer-events-none absolute inset-x-0 top-0 z-[1] p-2.5 sm:p-3",
+              "opacity-0 transition-opacity",
+              "group-hover/media:opacity-100 group-focus-within/media:opacity-100",
+              "[@media(hover:none)]:opacity-100",
+              "data-[playing=false]:opacity-100",
+              "data-[controls=true]:opacity-100",
+            )}
+            data-playing={playing ? "true" : "false"}
+            data-controls={controlsReveal ? "true" : undefined}
+          >
             <p
               id={labelId}
               className="truncate text-sm font-medium text-white drop-shadow"
@@ -746,11 +836,13 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
 
         <div
           data-slot="media-player-controls"
-          data-playing={playing}
-          data-menu-open={menuOpen ? true : undefined}
+          data-playing={playing ? "true" : "false"}
+          data-menu-open={menuOpen ? "true" : undefined}
+          data-controls={controlsReveal ? "true" : undefined}
           className={cn(mediaPlayerControlsVariants({ kind }))}
+          onPointerDown={kind === "video" ? revealControls : undefined}
         >
-          <div className="flex items-center gap-2">
+          <div className="flex min-w-0 items-center gap-2">
             <label className="sr-only" htmlFor={`${labelId}-seek`}>
               Seek
             </label>
@@ -766,14 +858,14 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
               onPointerDown={() => setSeeking(true)}
               onPointerUp={() => setSeeking(false)}
               onChange={(event) => handleSeek(Number(event.target.value))}
-              className={cn(rangeClass, "w-full")}
+              className={cn(rangeClass, "min-w-0 flex-1")}
               style={{
                 background: `linear-gradient(to right, color-mix(in oklch, var(--primary) 85%, white) ${progress}%, color-mix(in oklch, white 22%, transparent) ${progress}%)`,
               }}
             />
           </div>
 
-          <div className="flex items-center gap-1">
+          <div className="flex min-w-0 flex-wrap items-center gap-0.5 sm:gap-1">
             <ControlButton
               label={playing ? "Pause" : "Play"}
               onClick={() => void togglePlay()}
@@ -785,11 +877,16 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
               )}
             </ControlButton>
 
-            <span className="min-w-[5.5rem] px-1 text-xs tabular-nums opacity-90">
-              {formatMediaTime(currentTime)} / {formatMediaTime(duration)}
+            <span className="min-w-0 shrink px-0.5 text-[11px] tabular-nums opacity-90 sm:min-w-[5.5rem] sm:px-1 sm:text-xs">
+              <span className="sm:hidden">
+                {formatMediaTime(currentTime)}
+              </span>
+              <span className="hidden sm:inline">
+                {formatMediaTime(currentTime)} / {formatMediaTime(duration)}
+              </span>
             </span>
 
-            <div className="relative ml-auto flex items-center gap-1">
+            <div className="relative ml-auto flex min-w-0 shrink-0 flex-wrap items-center justify-end gap-0.5 sm:gap-1">
               {showVolume ? (
                 <>
                   <ControlButton
@@ -817,7 +914,11 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
                       setMuted(next === 0);
                       onVolumeChange?.(next, next === 0);
                     }}
-                    className={cn(rangeClass, "hidden w-20 sm:block", "[&::-webkit-slider-thumb]:size-3 [&::-moz-range-thumb]:size-3")}
+                    className={cn(
+                      rangeClass,
+                      "hidden w-20 sm:block",
+                      "[&::-webkit-slider-thumb]:size-3 [&::-moz-range-thumb]:size-3",
+                    )}
                   />
                 </>
               ) : null}
@@ -887,7 +988,7 @@ const MediaPlayer = forwardRef<MediaPlayerHandle, MediaPlayerProps>(
                       aria-label={`Quality: ${activeQualityLabel ?? "Auto"}`}
                       className={cn(
                         controlBtnClass,
-                        "min-w-9 gap-0 px-2 text-[10px] font-semibold tabular-nums",
+                        "min-w-10 gap-0 px-2 text-[10px] font-semibold tabular-nums sm:min-w-9",
                       )}
                     >
                       <span className="sr-only sm:not-sr-only sm:mr-1">
