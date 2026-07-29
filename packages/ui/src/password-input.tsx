@@ -136,7 +136,6 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
         <button
           type="button"
           data-slot="password-input-toggle"
-          tabIndex={-1}
           disabled={disabled}
           aria-label={visible ? hideLabel : showLabel}
           aria-controls={id}
@@ -149,7 +148,8 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
             "hover:text-[var(--glass-chrome-fg,var(--foreground))]",
             "active:scale-95",
-            "disabled:pointer-events-none disabled:opacity-50",
+            // Wrapper already applies opacity-50 when disabled; keep button fully opaque inside it.
+            "disabled:pointer-events-none disabled:opacity-100",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ring)]/40",
             toggleSizeStyles[resolvedSize],
           )}

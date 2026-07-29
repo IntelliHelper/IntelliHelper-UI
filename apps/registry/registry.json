@@ -316,6 +316,11 @@
       ],
       "files": [
         {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
           "path": "packages/ui/src/otp-input.tsx",
           "type": "registry:ui",
           "target": "components/ui/otp-input.tsx"

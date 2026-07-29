@@ -288,7 +288,6 @@ const OtpInput = forwardRef<OtpInputHandle, OtpInputProps>(
     return (
       <div
         data-slot="otp-input"
-        id={baseId}
         role="group"
         aria-label={ariaLabelledBy ? undefined : ariaLabel}
         aria-labelledby={ariaLabelledBy}
@@ -304,7 +303,8 @@ const OtpInput = forwardRef<OtpInputHandle, OtpInputProps>(
             ref={(el) => {
               inputRefs.current[index] = el;
             }}
-            id={`${baseId}-slot-${index}`}
+            // First slot uses public `id` so <Label htmlFor={id}> focuses it.
+            id={index === 0 ? baseId : `${baseId}-slot-${index}`}
             data-slot="otp-input-slot"
             type="text"
             inputMode={inputMode}
