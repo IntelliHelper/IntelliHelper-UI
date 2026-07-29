@@ -234,6 +234,116 @@
       }
     },
     {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "Accessible form label with chrome and muted variants, optional required marker.",
+      "dependencies": [
+        "@radix-ui/react-label",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/label.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/label.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "default",
+          "chrome",
+          "muted"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      }
+    },
+    {
+      "name": "password-input",
+      "type": "registry:ui",
+      "title": "Password Input",
+      "description": "Glass password field with show/hide toggle, chrome variants, and form states.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/password-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/password-input.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "states": [
+          "default",
+          "error",
+          "success"
+        ]
+      }
+    },
+    {
+      "name": "otp-input",
+      "type": "registry:ui",
+      "title": "OTP Input",
+      "description": "One-time password slots with paste, keyboard navigation, and completion callback.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/otp-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/otp-input.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "states": [
+          "default",
+          "error",
+          "success"
+        ]
+      }
+    },
+    {
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",

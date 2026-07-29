@@ -34,6 +34,9 @@
 | Resizable | `resizable` | surfaces | `packages/ui/src/resizable.tsx` | Split pane |
 | Scroll Area | `scroll-area` | surfaces | `packages/ui/src/scroll-area.tsx` | |
 | Input / Textarea | `input`, `textarea` | forms | `packages/ui/src/input.tsx` | |
+| Label | `label` | forms | `packages/ui/src/label.tsx` | Radix Label + required marker |
+| Password Input | `password-input` | forms | `packages/ui/src/password-input.tsx` | Show/hide toggle |
+| OTP Input | `otp-input` | forms | `packages/ui/src/otp-input.tsx` | Paste + onComplete |
 | Select / Native Select | `select`, `native-select` | forms | `packages/ui/src/select.tsx` | |
 | Checkbox / Switch / Radio | `checkbox`, `switch`, `radio-group` | forms | | |
 | Slider | `slider` | interactive | `packages/ui/src/slider.tsx` | |
@@ -179,7 +182,9 @@ Ship in this order for maximum demand. Check items off as you go.
 - [ ] Metric / KPI / Statistic Cards
 - [ ] Charts wrapper (Line, Area, Sparkline, Donut first)
 - [ ] Date Time / Time / Month pickers (composites on calendar)
-- [ ] Password Input, Search Input, OTP / Pin Input
+- [x] Password Input
+- [x] OTP Input
+- [ ] Search Input / Pin Input
 - [ ] Number / Currency / Phone inputs
 - [ ] Color Picker, Rating
 - [ ] Dock, Bottom Navigation
