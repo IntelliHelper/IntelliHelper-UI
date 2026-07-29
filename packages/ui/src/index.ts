@@ -80,6 +80,16 @@ export {
   type DialogDescriptionProps,
 } from "./dialog";
 export { Input, fieldVariants, type InputProps } from "./input";
+export { Label, labelVariants, type LabelProps } from "./label";
+export {
+  PasswordInput,
+  type PasswordInputProps,
+} from "./password-input";
+export {
+  OtpInput,
+  type OtpInputProps,
+  type OtpInputHandle,
+} from "./otp-input";
 export {
   Textarea,
   textareaVariants,

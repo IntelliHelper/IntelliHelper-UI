@@ -174,6 +174,24 @@ export const CATALOG: CatalogItem[] = [
     category: "forms",
   },
   {
+    slug: "label",
+    title: "Label",
+    description: "Accessible form labels with chrome, muted, and required styles.",
+    category: "forms",
+  },
+  {
+    slug: "password-input",
+    title: "Password Input",
+    description: "Glass password field with show/hide toggle and field states.",
+    category: "forms",
+  },
+  {
+    slug: "otp-input",
+    title: "OTP Input",
+    description: "One-time code slots with paste support and completion callback.",
+    category: "forms",
+  },
+  {
     slug: "textarea",
     title: "Textarea",
     description: "Multiline glass inputs with size and state variants.",

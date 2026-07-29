@@ -206,6 +206,17 @@ const FileTreeDemo = lazy(() =>
 const InputDemo = lazy(() =>
   import("../../components/form-components-demo").then((m) => ({ default: m.InputDemo })),
 );
+const LabelDemo = lazy(() =>
+  import("../../components/form-components-demo").then((m) => ({ default: m.LabelDemo })),
+);
+const PasswordInputDemo = lazy(() =>
+  import("../../components/form-components-demo").then((m) => ({
+    default: m.PasswordInputDemo,
+  })),
+);
+const OtpInputDemo = lazy(() =>
+  import("../../components/form-components-demo").then((m) => ({ default: m.OtpInputDemo })),
+);
 const TextareaDemo = lazy(() =>
   import("../../components/form-components-demo").then((m) => ({ default: m.TextareaDemo })),
 );
@@ -713,10 +724,64 @@ import { Button } from "@/components/ui/button"
       title: "Text fields",
       preview: <InputDemo />,
       code: `import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
-<Input placeholder="Enter your name" />
+<div className="space-y-2">
+  <Label htmlFor="name">Name</Label>
+  <Input id="name" placeholder="Enter your name" />
+</div>
 <Input variant="outline" type="email" placeholder="you@example.com" />
 <Input size="sm" placeholder="Small" />`,
+    },
+  ],
+  label: [
+    {
+      title: "Form labels",
+      preview: <LabelDemo />,
+      code: `import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+
+<Label htmlFor="email">Email</Label>
+<Input id="email" type="email" />
+
+<Label htmlFor="name" required>
+  Full name
+</Label>
+<Input id="name" required />
+
+<Label variant="muted" size="sm">Muted small</Label>`,
+    },
+  ],
+  "password-input": [
+    {
+      title: "Password field",
+      preview: <PasswordInputDemo />,
+      code: `import { PasswordInput } from "@/components/ui/password-input"
+import { Label } from "@/components/ui/label"
+
+<div className="space-y-2">
+  <Label htmlFor="password">Password</Label>
+  <PasswordInput id="password" placeholder="Enter password" />
+</div>
+<PasswordInput variant="outline" state="error" />
+<PasswordInput size="sm" placeholder="Small" />`,
+    },
+  ],
+  "otp-input": [
+    {
+      title: "One-time code",
+      preview: <OtpInputDemo />,
+      code: `import { OtpInput } from "@/components/ui/otp-input"
+import { Label } from "@/components/ui/label"
+
+<div className="space-y-2">
+  <Label>Verification code</Label>
+  <OtpInput
+    onValueChange={setCode}
+    onComplete={(code) => console.log("complete", code)}
+  />
+</div>
+<OtpInput length={4} variant="outline" size="sm" />`,
     },
   ],
   textarea: [
@@ -724,8 +789,12 @@ import { Button } from "@/components/ui/button"
       title: "Multiline input",
       preview: <TextareaDemo />,
       code: `import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
 
-<Textarea placeholder="Write a message..." />
+<div className="space-y-2">
+  <Label htmlFor="bio">Bio</Label>
+  <Textarea id="bio" placeholder="Write a message..." />
+</div>
 <Textarea variant="outline" placeholder="Add a description..." />`,
     },
   ],
