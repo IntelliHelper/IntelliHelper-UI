@@ -25,16 +25,6 @@ const DAILY_SERIES = [
   34, 33, 36, 35, 38, 37, 40, 39, 42, 41, 44,
 ];
 
-const WEEKLY = [
-  { label: "Mon", value: 42 },
-  { label: "Tue", value: 55 },
-  { label: "Wed", value: 48 },
-  { label: "Thu", value: 62 },
-  { label: "Fri", value: 70 },
-  { label: "Sat", value: 58 },
-  { label: "Sun", value: 65 },
-];
-
 const TRAFFIC = [
   { label: "Organic", value: 48 },
   { label: "Direct", value: 22 },
