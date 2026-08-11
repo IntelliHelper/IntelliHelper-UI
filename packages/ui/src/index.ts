@@ -890,3 +890,119 @@ export {
   type ImageEditorFilters,
   type ImageEditorTransform,
 } from "./image-editor-utils";
+
+/* ── Analytics / charts ── */
+export {
+  MetricCard,
+  MetricTrend,
+  metricCardVariants,
+  metricTrendVariants,
+  type MetricCardProps,
+  type MetricTrendProps,
+} from "./metric-card";
+export {
+  LineChart,
+  lineChartVariants,
+  type LineChartProps,
+} from "./line-chart";
+export {
+  AreaChart,
+  areaChartVariants,
+  type AreaChartProps,
+} from "./area-chart";
+export {
+  Sparkline,
+  sparklineVariants,
+  type SparklineProps,
+} from "./sparkline";
+export {
+  DonutChart,
+  donutChartVariants,
+  type DonutChartProps,
+  type DonutDatum,
+} from "./donut-chart";
+export {
+  ChartPeriodControl,
+  chartPeriodVariants,
+  chartPeriodItemVariants,
+  type ChartPeriodControlProps,
+} from "./chart-period";
+export {
+  ChartFrame,
+  chartFrameVariants,
+  type ChartFrameProps,
+} from "./chart-frame";
+export {
+  BarChart,
+  barChartVariants,
+  type BarChartProps,
+} from "./bar-chart";
+export {
+  PieChart,
+  pieChartVariants,
+  type PieChartProps,
+  type PieDatum,
+} from "./pie-chart";
+export {
+  StackedBarChart,
+  stackedBarChartVariants,
+  type StackedBarChartProps,
+} from "./stacked-bar-chart";
+export {
+  RadarChart,
+  radarChartVariants,
+  type RadarChartProps,
+} from "./radar-chart";
+export {
+  FunnelChart,
+  funnelChartVariants,
+  type FunnelChartProps,
+} from "./funnel-chart";
+export {
+  applyChartPeriod,
+  chartColorAt,
+  clamp,
+  computeDelta,
+  DEFAULT_CHART_COLORS,
+  DEFAULT_CHART_PERIODS,
+  describeArc,
+  donutSegments,
+  donutSlicePath,
+  filterTimeSeriesByPeriod,
+  formatDelta,
+  layoutFunnelStages,
+  layoutHorizontalBars,
+  layoutRadarPoints,
+  layoutStackedBars,
+  layoutVerticalBars,
+  niceTicks,
+  normalizeSeries,
+  percentOfTotal,
+  periodDaySpan,
+  periodStartMs,
+  pointsToAreaPath,
+  pointsToLinePath,
+  pointsToPolygonPath,
+  polarToCartesian,
+  scaleLinear,
+  scaleSeriesToPoints,
+  seriesExtent,
+  sliceSeriesForPeriod,
+  sumValues,
+  toEpochMs,
+  type BarRect,
+  type ChartDatum,
+  type ChartPadding,
+  type ChartPeriodKey,
+  type ChartPeriodOption,
+  type DonutSegment,
+  type FormattedDelta,
+  type FunnelStage,
+  type RadarPoint,
+  type ScaledPoint,
+  type SeriesExtent,
+  type StackedBarSegment,
+  type StackedBarSeries,
+  type TimeSeriesDatum,
+  type TrendDirection,
+} from "./chart-utils";

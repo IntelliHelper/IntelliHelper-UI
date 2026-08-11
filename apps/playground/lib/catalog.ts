@@ -48,7 +48,8 @@ export const CATEGORY_META: Record<
   },
   data: {
     label: "Data",
-    description: "Tables, empty states, and loading placeholders",
+    description:
+      "Tables, empty states, KPI metric cards, and chart visualizations",
   },
   feedback: {
     label: "Feedback",
@@ -593,6 +594,81 @@ export const CATALOG: CatalogItem[] = [
     title: "Image Editor",
     description: "Crop, rotate, flip, filters, and canvas export for images.",
     category: "media",
+  },
+  {
+    slug: "metric-card",
+    title: "Metric Card",
+    description:
+      "Glass KPI / statistic card with value, trend delta, icon, and footer slot.",
+    category: "data",
+  },
+  {
+    slug: "line-chart",
+    title: "Line Chart",
+    description: "Pure SVG line series with glass chrome, grid, and point markers.",
+    category: "data",
+  },
+  {
+    slug: "area-chart",
+    title: "Area Chart",
+    description: "Filled SVG area series with primary gradient under the line.",
+    category: "data",
+  },
+  {
+    slug: "sparkline",
+    title: "Sparkline",
+    description: "Compact inline sparkline for KPI cards and dense metric rows.",
+    category: "data",
+  },
+  {
+    slug: "donut-chart",
+    title: "Donut Chart",
+    description: "Donut segments with legend, center total, and token colors.",
+    category: "data",
+  },
+  {
+    slug: "chart-period",
+    title: "Chart Period",
+    description:
+      "Time-range control (24H · 7D · 30D · 90D · YTD · All) for analytics toolbars.",
+    category: "data",
+  },
+  {
+    slug: "chart-frame",
+    title: "Chart Frame",
+    description:
+      "Dashboard chart shell with title, description, period toolbar, legend, and footer.",
+    category: "data",
+  },
+  {
+    slug: "bar-chart",
+    title: "Bar Chart",
+    description: "Vertical or horizontal pure SVG bars with labels and grid.",
+    category: "data",
+  },
+  {
+    slug: "pie-chart",
+    title: "Pie Chart",
+    description: "Solid pie segments with legend and token-aware colors.",
+    category: "data",
+  },
+  {
+    slug: "stacked-bar-chart",
+    title: "Stacked Bar Chart",
+    description: "Multi-series stacked columns with legend and category labels.",
+    category: "data",
+  },
+  {
+    slug: "radar-chart",
+    title: "Radar Chart",
+    description: "Spider/radar polygon for multi-axis skill or score profiles.",
+    category: "data",
+  },
+  {
+    slug: "funnel-chart",
+    title: "Funnel Chart",
+    description: "Conversion funnel stages with tapering widths and labels.",
+    category: "data",
   },
 ];
 

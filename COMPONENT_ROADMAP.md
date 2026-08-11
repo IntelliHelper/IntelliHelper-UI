@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-07-25 (Media kit: image-preview, media-player, image-editor)
+> **Last updated:** 2026-08-12 (Analytics: metric-card, line/area/sparkline/donut charts)
 
 ---
 
@@ -112,6 +112,24 @@
 | Media Player | `media-player` | media | `packages/ui/src/media-player.tsx` | ✅ Done |
 | Image Editor | `image-editor` | media | `packages/ui/src/image-editor.tsx` | ✅ Done |
 
+### Built — Analytics / charts
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Metric Card | `metric-card` | data | `packages/ui/src/metric-card.tsx` | ✅ Done |
+| Line Chart | `line-chart` | data | `packages/ui/src/line-chart.tsx` | ✅ Done |
+| Area Chart | `area-chart` | data | `packages/ui/src/area-chart.tsx` | ✅ Done |
+| Sparkline | `sparkline` | data | `packages/ui/src/sparkline.tsx` | ✅ Done |
+| Donut Chart | `donut-chart` | data | `packages/ui/src/donut-chart.tsx` | ✅ Done |
+| Chart Period | `chart-period` | data | `packages/ui/src/chart-period.tsx` | ✅ Done |
+| Chart Frame | `chart-frame` | data | `packages/ui/src/chart-frame.tsx` | ✅ Done |
+| Bar Chart | `bar-chart` | data | `packages/ui/src/bar-chart.tsx` | ✅ Done |
+| Pie Chart | `pie-chart` | data | `packages/ui/src/pie-chart.tsx` | ✅ Done |
+| Stacked Bar Chart | `stacked-bar-chart` | data | `packages/ui/src/stacked-bar-chart.tsx` | ✅ Done |
+| Radar Chart | `radar-chart` | data | `packages/ui/src/radar-chart.tsx` | ✅ Done |
+| Funnel Chart | `funnel-chart` | data | `packages/ui/src/funnel-chart.tsx` | ✅ Done |
+| Chart utils | (lib) | — | `packages/ui/src/chart-utils.ts` | ✅ Done |
+
 ---
 
 ## Next up (priority order)
@@ -179,8 +197,8 @@ Ship in this order for maximum demand. Check items off as you go.
 - [ ] Virtual Table / Infinite Table
 - [ ] Kanban / Task Board
 - [ ] Timeline + Activity Feed
-- [ ] Metric / KPI / Statistic Cards
-- [ ] Charts wrapper (Line, Area, Sparkline, Donut first)
+- [x] Metric / KPI / Statistic Cards
+- [x] Charts wrapper (Line, Area, Sparkline, Donut first)
 - [ ] Date Time / Time / Month pickers (composites on calendar)
 - [x] Password Input
 - [x] OTP Input
@@ -194,7 +212,7 @@ Ship in this order for maximum demand. Check items off as you go.
 ### Tier 4 — Later / lower ROI
 
 - Layout atoms: Box, Flex, Stack, Spacer, Center, Container, Grid (Tailwind covers these)
-- Full chart zoo: Radar, Heatmap, Tree Map, Sankey, Funnel, Gauge
+- Full chart zoo (remaining): Heatmap, Tree Map, Sankey, Gauge
 - E-commerce suite, Social suite (prefer recipes over core registry)
 - Premium builders: Form/Workflow/SQL/Email/Dashboard builders
 - Mobile-only web duplicates of `ui-native` patterns

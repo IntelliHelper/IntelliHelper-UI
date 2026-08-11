@@ -310,6 +310,42 @@ const ToggleGroupDemo = lazy(() =>
 const TooltipDemo = lazy(() =>
   import("../../components/toggle-popover-demo").then((m) => ({ default: m.TooltipDemo })),
 );
+const MetricCardDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.MetricCardDemo })),
+);
+const LineChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.LineChartDemo })),
+);
+const AreaChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.AreaChartDemo })),
+);
+const SparklineDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.SparklineDemo })),
+);
+const DonutChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.DonutChartDemo })),
+);
+const ChartPeriodDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.ChartPeriodDemo })),
+);
+const ChartFrameDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.ChartFrameDemo })),
+);
+const BarChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.BarChartDemo })),
+);
+const PieChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.PieChartDemo })),
+);
+const StackedBarChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.StackedBarChartDemo })),
+);
+const RadarChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.RadarChartDemo })),
+);
+const FunnelChartDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.FunnelChartDemo })),
+);
 
 
 const variants = [
@@ -2199,6 +2235,193 @@ const [index, setIndex] = useState(0)
   title="Episode 12"
   subtitle="Design systems"
   variant="elevated"
+/>`,
+    },
+  ],
+  "metric-card": [
+    {
+      title: "KPI metric cards",
+      description: "Label, value, auto trend delta, icon, and sparkline footer.",
+      preview: <MetricCardDemo />,
+      code: `import { MetricCard } from "@/components/ui/metric-card"
+import { Sparkline } from "@/components/ui/sparkline"
+
+<MetricCard
+  label="Monthly revenue"
+  value="$48.2k"
+  trendValue={48200}
+  trendPrevious={42100}
+  description="vs previous 30 days"
+  footer={<Sparkline data={[12, 18, 22, 28, 36]} fill />}
+/>`,
+    },
+  ],
+  "line-chart": [
+    {
+      title: "Line + time period",
+      description:
+        "Sessions line chart inside ChartFrame with 7D / 14D / 30D / 90D controls.",
+      preview: <LineChartDemo />,
+      code: `import { useState } from "react"
+import { LineChart } from "@/components/ui/line-chart"
+import { ChartFrame } from "@/components/ui/chart-frame"
+import { applyChartPeriod } from "@/components/ui/chart-utils"
+
+const [period, setPeriod] = useState("30d")
+const data = applyChartPeriod(seriesWithDates, period)
+
+<ChartFrame
+  title="Sessions"
+  description="Unique sessions over the selected range"
+  period={period}
+  onPeriodChange={setPeriod}
+>
+  <LineChart data={data} variant="bare" />
+</ChartFrame>`,
+    },
+  ],
+  "area-chart": [
+    {
+      title: "Area + period toolbar",
+      description: "Filled area with ChartFrame period control.",
+      preview: <AreaChartDemo />,
+      code: `import { AreaChart } from "@/components/ui/area-chart"
+import { ChartFrame } from "@/components/ui/chart-frame"
+
+<ChartFrame title="Engagement" period={period} onPeriodChange={setPeriod}>
+  <AreaChart data={data} variant="bare" />
+</ChartFrame>`,
+    },
+  ],
+  sparkline: [
+    {
+      title: "Inline sparklines",
+      description: "Compact series for dense metric rows and cards.",
+      preview: <SparklineDemo />,
+      code: `import { Sparkline } from "@/components/ui/sparkline"
+
+<Sparkline data={[40, 42, 38, 55, 60, 48]} fill />`,
+    },
+  ],
+  "donut-chart": [
+    {
+      title: "Donut breakdown",
+      description: "Segmented donut with legend and center total.",
+      preview: <DonutChartDemo />,
+      code: `import { DonutChart } from "@/components/ui/donut-chart"
+
+<DonutChart
+  data={[
+    { label: "Organic", value: 48 },
+    { label: "Direct", value: 22 },
+    { label: "Referral", value: 18 },
+    { label: "Social", value: 12 },
+  ]}
+  centerValue="100%"
+  centerLabel="Traffic"
+/>`,
+    },
+  ],
+  "chart-period": [
+    {
+      title: "Period control",
+      description: "Full preset strip for analytics toolbars.",
+      preview: <ChartPeriodDemo />,
+      code: `import { ChartPeriodControl } from "@/components/ui/chart-period"
+
+<ChartPeriodControl
+  value={period}
+  onValueChange={setPeriod}
+  include={["7d", "30d", "90d", "1y", "all"]}
+/>`,
+    },
+  ],
+  "chart-frame": [
+    {
+      title: "Dashboard chart shell",
+      description: "Title, description, period toolbar, chart body, footer.",
+      preview: <ChartFrameDemo />,
+      code: `import { ChartFrame } from "@/components/ui/chart-frame"
+import { AreaChart } from "@/components/ui/area-chart"
+
+<ChartFrame
+  title="Revenue overview"
+  description="Net revenue"
+  period={period}
+  onPeriodChange={setPeriod}
+  footer="Source: billing warehouse"
+>
+  <AreaChart data={data} variant="bare" />
+</ChartFrame>`,
+    },
+  ],
+  "bar-chart": [
+    {
+      title: "Bar charts",
+      description: "Vertical bars with period frame + horizontal region bars.",
+      preview: <BarChartDemo />,
+      code: `import { BarChart } from "@/components/ui/bar-chart"
+
+<BarChart data={[{ label: "Mon", value: 40 }, { label: "Tue", value: 55 }]} />
+<BarChart orientation="horizontal" data={regions} />`,
+    },
+  ],
+  "pie-chart": [
+    {
+      title: "Pie breakdown",
+      description: "Solid pie with legend percentages.",
+      preview: <PieChartDemo />,
+      code: `import { PieChart } from "@/components/ui/pie-chart"
+
+<PieChart data={[{ label: "Organic", value: 48 }, { label: "Direct", value: 22 }]} />`,
+    },
+  ],
+  "stacked-bar-chart": [
+    {
+      title: "Stacked channels",
+      description: "Multi-series stacked columns with legend.",
+      preview: <StackedBarChartDemo />,
+      code: `import { StackedBarChart } from "@/components/ui/stacked-bar-chart"
+
+<StackedBarChart
+  categories={["Mon", "Tue", "Wed"]}
+  series={[
+    { key: "web", label: "Web", values: [40, 48, 45] },
+    { key: "mobile", label: "Mobile", values: [28, 32, 30] },
+  ]}
+/>`,
+    },
+  ],
+  "radar-chart": [
+    {
+      title: "Radar profile",
+      description: "Multi-axis spider chart for scores or skills.",
+      preview: <RadarChartDemo />,
+      code: `import { RadarChart } from "@/components/ui/radar-chart"
+
+<RadarChart
+  data={[
+    { label: "Perf", value: 88 },
+    { label: "A11y", value: 72 },
+    { label: "SEO", value: 91 },
+  ]}
+  maxValue={100}
+/>`,
+    },
+  ],
+  "funnel-chart": [
+    {
+      title: "Conversion funnel",
+      description: "Stage widths proportional to conversion volume.",
+      preview: <FunnelChartDemo />,
+      code: `import { FunnelChart } from "@/components/ui/funnel-chart"
+
+<FunnelChart
+  data={[
+    { label: "Visitors", value: 12000 },
+    { label: "Signups", value: 4800 },
+    { label: "Paid", value: 840 },
+  ]}
 />`,
     },
   ],
