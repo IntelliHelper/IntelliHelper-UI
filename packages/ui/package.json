@@ -96,7 +96,20 @@
     "./media-player": "./src/media-player.tsx",
     "./media-player-utils": "./src/media-player-utils.ts",
     "./image-editor": "./src/image-editor.tsx",
-    "./image-editor-utils": "./src/image-editor-utils.ts"
+    "./image-editor-utils": "./src/image-editor-utils.ts",
+    "./chart-utils": "./src/chart-utils.ts",
+    "./metric-card": "./src/metric-card.tsx",
+    "./line-chart": "./src/line-chart.tsx",
+    "./area-chart": "./src/area-chart.tsx",
+    "./sparkline": "./src/sparkline.tsx",
+    "./donut-chart": "./src/donut-chart.tsx",
+    "./chart-period": "./src/chart-period.tsx",
+    "./chart-frame": "./src/chart-frame.tsx",
+    "./bar-chart": "./src/bar-chart.tsx",
+    "./pie-chart": "./src/pie-chart.tsx",
+    "./stacked-bar-chart": "./src/stacked-bar-chart.tsx",
+    "./radar-chart": "./src/radar-chart.tsx",
+    "./funnel-chart": "./src/funnel-chart.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

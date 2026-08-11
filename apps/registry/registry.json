@@ -3009,6 +3009,351 @@
           "exportEditedDataUrl"
         ]
       }
+    },
+    {
+      "name": "metric-card",
+      "type": "registry:ui",
+      "title": "Metric Card",
+      "description": "Glass KPI / statistic card with label, value, trend delta, icon, and optional footer slot.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/metric-card.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/metric-card.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "api": [
+          "MetricCard",
+          "MetricTrend",
+          "formatDelta"
+        ]
+      }
+    },
+    {
+      "name": "line-chart",
+      "type": "registry:ui",
+      "title": "Line Chart",
+      "description": "Pure SVG line chart with glass chrome, grid, and optional point markers.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/line-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/line-chart.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "outline",
+          "bare"
+        ]
+      }
+    },
+    {
+      "name": "area-chart",
+      "type": "registry:ui",
+      "title": "Area Chart",
+      "description": "Pure SVG area chart with gradient fill under the series line.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/area-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/area-chart.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "outline",
+          "bare"
+        ]
+      }
+    },
+    {
+      "name": "sparkline",
+      "type": "registry:ui",
+      "title": "Sparkline",
+      "description": "Compact inline SVG sparkline for KPI cards and dense data rows.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/sparkline.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sparkline.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "bare",
+          "chrome"
+        ]
+      }
+    },
+    {
+      "name": "donut-chart",
+      "type": "registry:ui",
+      "title": "Donut Chart",
+      "description": "Pure SVG donut chart with center label, legend, and token-aware segment colors.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/donut-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/donut-chart.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "outline",
+          "bare"
+        ]
+      }
+    },
+    {
+      "name": "chart-period",
+      "type": "registry:ui",
+      "title": "Chart Period",
+      "description": "Analytics time-period control (24H, 7D, 30D, 90D, YTD, All) for dashboard toolbars.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/chart-period.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/chart-period.tsx"
+        }
+      ],
+      "meta": {
+        "api": [
+          "ChartPeriodControl",
+          "DEFAULT_CHART_PERIODS",
+          "applyChartPeriod"
+        ]
+      }
+    },
+    {
+      "name": "chart-frame",
+      "type": "registry:ui",
+      "title": "Chart Frame",
+      "description": "Dashboard chart shell with title, description, period toolbar, legend, and footer.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "chart-period"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/chart-period.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/chart-period.tsx"
+        },
+        {
+          "path": "packages/ui/src/chart-frame.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/chart-frame.tsx"
+        }
+      ],
+      "meta": {
+        "api": [
+          "ChartFrame"
+        ]
+      }
+    },
+    {
+      "name": "bar-chart",
+      "type": "registry:ui",
+      "title": "Bar Chart",
+      "description": "Vertical or horizontal pure SVG bar chart with labels and grid.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/bar-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "pie-chart",
+      "type": "registry:ui",
+      "title": "Pie Chart",
+      "description": "Solid pie chart with legend and token-aware segment colors.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/pie-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pie-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "stacked-bar-chart",
+      "type": "registry:ui",
+      "title": "Stacked Bar Chart",
+      "description": "Multi-series stacked column chart with legend and category labels.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/stacked-bar-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/stacked-bar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "radar-chart",
+      "type": "registry:ui",
+      "title": "Radar Chart",
+      "description": "Spider/radar polygon chart for multi-axis profiles and scores.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/radar-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/radar-chart.tsx"
+        }
+      ]
+    },
+    {
+      "name": "funnel-chart",
+      "type": "registry:ui",
+      "title": "Funnel Chart",
+      "description": "Conversion funnel with tapering stage widths and labels.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/funnel-chart.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/funnel-chart.tsx"
+        }
+      ]
     }
   ]
 }
