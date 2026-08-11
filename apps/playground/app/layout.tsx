@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@intelli/themes";
 import { PlaygroundBackgroundProvider } from "../components/playground-background-provider";
 import {
@@ -127,6 +128,7 @@ export default function RootLayout({
         <ThemeProvider defaultTheme="mono" defaultMode="light">
           <PlaygroundBackgroundProvider>{children}</PlaygroundBackgroundProvider>
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
