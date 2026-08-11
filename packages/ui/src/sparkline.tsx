@@ -65,14 +65,23 @@ const Sparkline = forwardRef<HTMLSpanElement, SparklineProps>(
     ref,
   ) => {
     const series = useMemo(() => normalizeSeries(data), [data]);
-    const pad = { top: 2, right: 2, bottom: 2, left: 2 };
+    const padTop = 2;
+    const padRight = 2;
+    const padBottom = 2;
+    const padLeft = 2;
     const points = useMemo(
-      () => scaleSeriesToPoints(series, width, height, pad),
+      () =>
+        scaleSeriesToPoints(series, width, height, {
+          top: padTop,
+          right: padRight,
+          bottom: padBottom,
+          left: padLeft,
+        }),
       [series, width, height],
     );
     const linePath = useMemo(() => pointsToLinePath(points), [points]);
     const areaPath = useMemo(
-      () => pointsToAreaPath(points, height - pad.bottom),
+      () => pointsToAreaPath(points, height - padBottom),
       [points, height],
     );
     const empty = points.length === 0;

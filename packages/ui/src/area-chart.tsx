@@ -70,12 +70,21 @@ const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
   ) => {
     const gradientId = useId().replace(/:/g, "");
     const series = useMemo(() => normalizeSeries(data), [data]);
-    const pad = { top: 12, right: 12, bottom: 12, left: 12 };
+    const padTop = 12;
+    const padRight = 12;
+    const padBottom = 12;
+    const padLeft = 12;
     const points = useMemo(
-      () => scaleSeriesToPoints(series, width, height, pad),
+      () =>
+        scaleSeriesToPoints(series, width, height, {
+          top: padTop,
+          right: padRight,
+          bottom: padBottom,
+          left: padLeft,
+        }),
       [series, width, height],
     );
-    const baselineY = height - pad.bottom;
+    const baselineY = height - padBottom;
     const linePath = useMemo(() => pointsToLinePath(points), [points]);
     const areaPath = useMemo(
       () => pointsToAreaPath(points, baselineY),
@@ -118,12 +127,12 @@ const AreaChart = forwardRef<HTMLDivElement, AreaChartProps>(
           {showGrid && !empty ? (
             <g data-slot="area-chart-grid" opacity={0.35}>
               {[0.25, 0.5, 0.75].map((t) => {
-                const y = pad.top + t * (height - pad.top - pad.bottom);
+                const y = padTop + t * (height - padTop - padBottom);
                 return (
                   <line
                     key={t}
-                    x1={pad.left}
-                    x2={width - pad.right}
+                    x1={padLeft}
+                    x2={width - padRight}
                     y1={y}
                     y2={y}
                     stroke="var(--glass-chrome-border)"

@@ -91,36 +91,42 @@ const FunnelChart = forwardRef<HTMLDivElement, FunnelChartProps>(
         >
           <title>{label}</title>
           {!empty ? (
-            stages.map((stage) => (
-              <g key={stage.index} data-slot="funnel-chart-stage">
-                <path
-                  d={stage.path}
-                  fill={chartColorAt(stage.index, colors)}
-                  opacity={0.92 - stage.index * 0.06}
-                >
-                  <title>
-                    {stage.label ?? `Stage ${stage.index + 1}`}: {stage.value} (
-                    {stage.percentOfFirst.toFixed(0)}%)
-                  </title>
-                </path>
-                {showLabels ? (
-                  <text
-                    x={width - 8}
-                    y={stage.y + stage.height / 2}
-                    textAnchor="end"
-                    dominantBaseline="middle"
-                    className="fill-[var(--glass-chrome-fg)]"
-                    fontSize={10}
-                    fontWeight={500}
-                  >
-                    {stage.label ?? `S${stage.index + 1}`}{" "}
-                    <tspan className="fill-muted-foreground" fontWeight={400}>
-                      {stage.value}
-                    </tspan>
-                  </text>
-                ) : null}
-              </g>
-            ))
+            stages.map((stage) => {
+              // Keep long funnels visible: floor opacity so late stages never vanish.
+              const opacity = Math.max(0.35, 0.92 - stage.index * 0.04);
+              return (
+                <g key={stage.index} data-slot="funnel-chart-stage">
+                  {stage.path ? (
+                    <path
+                      d={stage.path}
+                      fill={chartColorAt(stage.index, colors)}
+                      opacity={opacity}
+                    >
+                      <title>
+                        {stage.label ?? `Stage ${stage.index + 1}`}:{" "}
+                        {stage.value} ({stage.percentOfFirst.toFixed(0)}%)
+                      </title>
+                    </path>
+                  ) : null}
+                  {showLabels ? (
+                    <text
+                      x={width - 8}
+                      y={stage.y + stage.height / 2}
+                      textAnchor="end"
+                      dominantBaseline="middle"
+                      className="fill-[var(--glass-chrome-fg)]"
+                      fontSize={10}
+                      fontWeight={500}
+                    >
+                      {stage.label ?? `S${stage.index + 1}`}{" "}
+                      <tspan className="fill-muted-foreground" fontWeight={400}>
+                        {stage.value}
+                      </tspan>
+                    </text>
+                  ) : null}
+                </g>
+              );
+            })
           ) : (
             <text
               x={width / 2}

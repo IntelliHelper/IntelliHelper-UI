@@ -79,16 +79,19 @@ const StackedBarChart = forwardRef<HTMLDivElement, StackedBarChartProps>(
       [series, colors],
     );
 
-    const pad = {
-      top: 12,
-      right: 12,
-      bottom: showLabels ? 28 : 12,
-      left: 12,
-    };
+    const pad = useMemo(
+      () => ({
+        top: 12,
+        right: 12,
+        bottom: showLabels ? 28 : 12,
+        left: 12,
+      }),
+      [showLabels],
+    );
 
     const segments = useMemo(
       () => layoutStackedBars(categories, coloredSeries, width, height, pad),
-      [categories, coloredSeries, width, height, showLabels],
+      [categories, coloredSeries, width, height, pad],
     );
     const empty = segments.length === 0;
 

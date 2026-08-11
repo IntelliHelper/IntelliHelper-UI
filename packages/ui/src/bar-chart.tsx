@@ -73,17 +73,20 @@ const BarChart = forwardRef<HTMLDivElement, BarChartProps>(
     ref,
   ) => {
     const series = useMemo(() => normalizeSeries(data), [data]);
-    const pad =
-      orientation === "horizontal"
-        ? { top: 8, right: 16, bottom: 8, left: showLabels ? 48 : 12 }
-        : { top: 12, right: 12, bottom: showLabels ? 28 : 12, left: 12 };
+    const pad = useMemo(
+      () =>
+        orientation === "horizontal"
+          ? { top: 8, right: 16, bottom: 8, left: showLabels ? 48 : 12 }
+          : { top: 12, right: 12, bottom: showLabels ? 28 : 12, left: 12 },
+      [orientation, showLabels],
+    );
 
     const bars = useMemo(
       () =>
         orientation === "horizontal"
           ? layoutHorizontalBars(series, width, height, pad)
           : layoutVerticalBars(series, width, height, pad),
-      [series, width, height, orientation, showLabels],
+      [series, width, height, orientation, pad],
     );
     const empty = bars.length === 0;
 

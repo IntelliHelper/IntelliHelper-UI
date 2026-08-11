@@ -865,12 +865,14 @@ export function layoutFunnelStages(
   const innerH = Math.max(0, height - pad.top - pad.bottom);
   const rawFirst =
     series[0] && Number.isFinite(series[0].value) ? Math.max(0, series[0].value) : 0;
-  const firstValue = rawFirst > 0 ? rawFirst : 1;
+  // All-zero (or non-positive) series must not invent a visible funnel body.
+  const firstValue = rawFirst > 0 ? rawFirst : 0;
   const minRatio = options?.minWidthRatio ?? 0.12;
   const stageH = innerH / series.length;
   const stages: FunnelStage[] = [];
 
   const widthAt = (value: number) => {
+    if (firstValue <= 0 || value <= 0) return 0;
     const ratio = clamp(value / firstValue, minRatio, 1);
     return innerW * ratio;
   };
@@ -889,18 +891,21 @@ export function layoutFunnelStages(
     const topR = cx + topW / 2;
     const botL = cx - bottomW / 2;
     const botR = cx + bottomW / 2;
-    const path = [
-      `M ${round(topL)} ${round(y)}`,
-      `L ${round(topR)} ${round(y)}`,
-      `L ${round(botR)} ${round(y + stageH)}`,
-      `L ${round(botL)} ${round(y + stageH)}`,
-      "Z",
-    ].join(" ");
+    const path =
+      topW <= 0 && bottomW <= 0
+        ? ""
+        : [
+            `M ${round(topL)} ${round(y)}`,
+            `L ${round(topR)} ${round(y)}`,
+            `L ${round(botR)} ${round(y + stageH)}`,
+            `L ${round(botL)} ${round(y + stageH)}`,
+            "Z",
+          ].join(" ");
     stages.push({
       index: i,
       label: d.label,
       value,
-      percentOfFirst: (value / firstValue) * 100,
+      percentOfFirst: firstValue > 0 ? (value / firstValue) * 100 : 0,
       path,
       y: round(y),
       height: round(stageH),

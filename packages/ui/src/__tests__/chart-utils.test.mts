@@ -403,4 +403,20 @@ describe("bar / stacked / radar / funnel layout", () => {
       assert.ok(s.path.includes("Z"));
     }
   });
+
+  it("layoutFunnelStages all-zero data has zero widths and empty paths", () => {
+    const stages = layoutFunnelStages([0, 0, 0], 200, 120, {
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    });
+    assert.equal(stages.length, 3);
+    for (const s of stages) {
+      assert.equal(s.topWidth, 0);
+      assert.equal(s.bottomWidth, 0);
+      assert.equal(s.percentOfFirst, 0);
+      assert.equal(s.path, "");
+    }
+  });
 });
