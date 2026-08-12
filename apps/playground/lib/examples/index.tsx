@@ -349,6 +349,15 @@ const FunnelChartDemo = lazy(() =>
 const HeatmapDemo = lazy(() =>
   import("../../components/analytics-demo").then((m) => ({ default: m.HeatmapDemo })),
 );
+const TreeMapDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.TreeMapDemo })),
+);
+const SankeyDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.SankeyDemo })),
+);
+const GaugeDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.GaugeDemo })),
+);
 
 /* Tier 3 demos */
 const SearchInputDemo = lazy(() =>
@@ -2397,22 +2406,42 @@ import { ChartFrame } from "@/components/ui/chart-frame"
   ],
   "chart-period": [
     {
-      title: "Period control",
-      description: "Full preset strip for analytics toolbars.",
+      title: "Presets · custom period · range",
+      description:
+        "Built-in chips, app-defined keys (daySpan), and absolute from/to custom range.",
       preview: <ChartPeriodDemo />,
-      code: `import { ChartPeriodControl } from "@/components/ui/chart-period"
+      code: `import {
+  ChartPeriodControl,
+  applyChartPeriod,
+  type ChartPeriodKey,
+  type ChartPeriodRange,
+} from "@intelli/ui"
+
+const periods = [
+  { value: "7d", label: "7D", description: "Last 7 days" },
+  { value: "45d", label: "45D", description: "Last 45 days", daySpan: 45 },
+  { value: "all", label: "All", description: "All time" },
+]
+
+const [period, setPeriod] = useState<ChartPeriodKey>("7d")
+const [range, setRange] = useState<ChartPeriodRange | null>(null)
+const data = applyChartPeriod(series, period, { range, periods })
 
 <ChartPeriodControl
   value={period}
   onValueChange={setPeriod}
-  include={["7d", "30d", "90d", "1y", "all"]}
+  periods={periods}
+  allowCustomRange
+  range={range}
+  onRangeChange={setRange}
 />`,
     },
   ],
   "chart-frame": [
     {
       title: "Dashboard chart shell",
-      description: "Title, description, period toolbar, chart body, footer.",
+      description:
+        "Title, description, period toolbar (custom range), chart body, footer.",
       preview: <ChartFrameDemo />,
       code: `import { ChartFrame } from "@/components/ui/chart-frame"
 import { AreaChart } from "@/components/ui/area-chart"
@@ -2422,6 +2451,9 @@ import { AreaChart } from "@/components/ui/area-chart"
   description="Net revenue"
   period={period}
   onPeriodChange={setPeriod}
+  allowCustomRange
+  periodRange={range}
+  onPeriodRangeChange={setRange}
   footer="Source: billing warehouse"
 >
   <AreaChart data={data} variant="bare" />
@@ -2538,6 +2570,72 @@ import { AreaChart } from "@/components/ui/area-chart"
 <Heatmap
   data={[{ row: "API", col: "p95", value: 180 }]}
   colorScale={["#e0f2fe", "#0284c7", "#0c4a6e"]}
+/>`,
+    },
+  ],
+  "tree-map": [
+    {
+      title: "Hierarchical tree map",
+      description: "Squarified tiles — area proportional to value.",
+      preview: <TreeMapDemo />,
+      code: `import { TreeMap } from "@/components/ui/tree-map"
+
+<TreeMap
+  data={{
+    name: "Revenue",
+    children: [
+      {
+        name: "Product",
+        children: [
+          { name: "Pro", value: 420 },
+          { name: "Team", value: 280 },
+        ],
+      },
+      { name: "Services", value: 210 },
+    ],
+  }}
+  height={240}
+/>`,
+    },
+  ],
+  sankey: [
+    {
+      title: "Acquisition flow",
+      description: "Multi-column nodes with weighted link ribbons.",
+      preview: <SankeyDemo />,
+      code: `import { Sankey } from "@/components/ui/sankey"
+
+<Sankey
+  nodes={[
+    { id: "visit", label: "Visits" },
+    { id: "signup", label: "Signups" },
+    { id: "paid", label: "Paid" },
+  ]}
+  links={[
+    { source: "visit", target: "signup", value: 4800 },
+    { source: "signup", target: "paid", value: 840 },
+  ]}
+  height={240}
+/>`,
+    },
+  ],
+  gauge: [
+    {
+      title: "Gauge + thresholds",
+      description: "Needle on a domain arc with optional colored bands.",
+      preview: <GaugeDemo />,
+      code: `import { Gauge } from "@/components/ui/gauge"
+
+<Gauge
+  value={72}
+  min={0}
+  max={100}
+  unit="%"
+  thresholds={[
+    { value: 40, color: "oklch(0.65 0.18 25)" },
+    { value: 70, color: "oklch(0.78 0.14 85)" },
+    { value: 100, color: "oklch(0.72 0.16 145)" },
+  ]}
 />`,
     },
   ],

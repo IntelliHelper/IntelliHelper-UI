@@ -11,7 +11,11 @@ import {
   ChartPeriodControl,
   type ChartPeriodControlProps,
 } from "./chart-period";
-import type { ChartPeriodKey } from "./chart-utils";
+import type {
+  ChartPeriodKey,
+  ChartPeriodOption,
+  ChartPeriodRange,
+} from "./chart-utils";
 
 const chartFrameVariants = cva(
   "flex w-full min-w-0 flex-col gap-3 rounded-2xl border",
@@ -55,9 +59,16 @@ export interface ChartFrameProps
   onPeriodChange?: (period: ChartPeriodKey) => void;
   /** Limit period chips (default compact: 7d, 30d, 90d, 1y, all) */
   periodInclude?: ChartPeriodKey[];
+  /** Override period chip definitions (custom keys with daySpan, etc.) */
+  periods?: readonly ChartPeriodOption[];
+  /** Enable Custom chip + absolute from/to range fields */
+  allowCustomRange?: boolean;
+  /** Absolute range when period is `"custom"` */
+  periodRange?: ChartPeriodRange | null;
+  onPeriodRangeChange?: (range: ChartPeriodRange | null) => void;
   periodControlProps?: Omit<
     ChartPeriodControlProps,
-    "value" | "onValueChange"
+    "value" | "onValueChange" | "range" | "onRangeChange"
   >;
   /** Fully custom period control slot (replaces built-in) */
   periodControl?: ReactNode;
@@ -90,6 +101,10 @@ const ChartFrame = forwardRef<HTMLDivElement, ChartFrameProps>(
       period,
       onPeriodChange,
       periodInclude = DEFAULT_PERIOD_INCLUDE,
+      periods,
+      allowCustomRange = false,
+      periodRange = null,
+      onPeriodRangeChange,
       periodControlProps,
       periodControl,
       actions,
@@ -153,6 +168,10 @@ const ChartFrame = forwardRef<HTMLDivElement, ChartFrameProps>(
                         value={period}
                         onValueChange={onPeriodChange}
                         include={periodInclude}
+                        periods={periods}
+                        allowCustomRange={allowCustomRange}
+                        range={periodRange}
+                        onRangeChange={onPeriodRangeChange}
                         size="sm"
                         {...periodControlProps}
                       />

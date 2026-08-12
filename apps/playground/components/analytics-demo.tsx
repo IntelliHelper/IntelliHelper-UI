@@ -8,14 +8,18 @@ import {
   ChartPeriodControl,
   DonutChart,
   FunnelChart,
+  Gauge,
   Heatmap,
   LineChart,
   MetricCard,
   PieChart,
   RadarChart,
+  Sankey,
   Sparkline,
   StackedBarChart,
+  TreeMap,
   type ChartPeriodKey,
+  type ChartPeriodRange,
   type HeatmapColorScaleId,
   type TimeSeriesDatum,
 } from "@intelli/ui";
@@ -220,22 +224,52 @@ export function DonutChartDemo() {
   );
 }
 
+const CUSTOM_PERIODS = [
+  { value: "7d" as const, label: "7D", description: "Last 7 days" },
+  { value: "30d" as const, label: "30D", description: "Last 30 days" },
+  {
+    value: "45d",
+    label: "45D",
+    description: "Last 45 days",
+    daySpan: 45,
+  },
+  { value: "90d" as const, label: "90D", description: "Last 90 days" },
+  { value: "all" as const, label: "All", description: "All time" },
+];
+
 export function ChartPeriodDemo() {
   const [period, setPeriod] = useState<ChartPeriodKey>("30d");
+  const [range, setRange] = useState<ChartPeriodRange | null>(null);
+  const filtered = useMemo(
+    () =>
+      applyChartPeriod(DATED_90D, period, {
+        range,
+        periods: CUSTOM_PERIODS,
+      }),
+    [period, range],
+  );
+
   return (
     <div className="flex w-full max-w-lg flex-col gap-3">
       <p className="text-xs text-muted-foreground">
-        Standalone period control — pair with any chart via{" "}
-        <code className="text-[10px]">applyChartPeriod</code> or{" "}
-        <code className="text-[10px]">ChartFrame</code>.
+        Presets, app-defined periods (<code className="text-[10px]">45d</code>
+        ), and absolute custom ranges — pair with{" "}
+        <code className="text-[10px]">applyChartPeriod</code>.
       </p>
       <ChartPeriodControl
         value={period}
         onValueChange={setPeriod}
-        include={["24h", "7d", "14d", "30d", "90d", "6m", "1y", "ytd", "all"]}
+        periods={CUSTOM_PERIODS}
+        allowCustomRange
+        range={range}
+        onRangeChange={setRange}
       />
       <p className="text-xs font-medium text-[var(--glass-chrome-fg)]">
         Selected: {period}
+        {period === "custom" && range
+          ? ` · ${String(range.from)}${range.to ? ` → ${String(range.to)}` : ""}`
+          : ""}{" "}
+        · {filtered.length} points
       </p>
     </div>
   );
@@ -243,18 +277,28 @@ export function ChartPeriodDemo() {
 
 export function ChartFrameDemo() {
   const [period, setPeriod] = useState<ChartPeriodKey>("30d");
+  const [range, setRange] = useState<ChartPeriodRange | null>(null);
   const filtered = useMemo(
-    () => applyChartPeriod(DATED_90D, period),
-    [period],
+    () =>
+      applyChartPeriod(DATED_90D, period, {
+        range,
+        periods: CUSTOM_PERIODS,
+      }),
+    [period, range],
   );
   return (
     <div className="w-full max-w-xl">
       <ChartFrame
         title="Revenue overview"
-        description="Net revenue with dashboard period toolbar"
+        description="Presets, custom 45D, and absolute date range"
         period={period}
         onPeriodChange={setPeriod}
-        footer="Source: billing warehouse · updated hourly"
+        periods={CUSTOM_PERIODS}
+        periodInclude={["7d", "30d", "45d", "90d", "all", "custom"]}
+        allowCustomRange
+        periodRange={range}
+        onPeriodRangeChange={setRange}
+        footer={`Source: billing warehouse · ${filtered.length} points · ${period}`}
       >
         <AreaChart
           data={filtered}
@@ -368,7 +412,8 @@ const COLOR_SCALES: HeatmapColorScaleId[] = [
 
 /** 7 weekdays × 12 weeks — contribution-style activity grid */
 const CONTRIB_ROWS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const CONTRIB_COLS = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);
+/** Short week markers — component auto-thins when pitch is tight */
+const CONTRIB_COLS = Array.from({ length: 12 }, (_, i) => String(i + 1));
 const CONTRIB_MATRIX: number[][] = CONTRIB_ROWS.map((_, r) =>
   CONTRIB_COLS.map((__, c) => {
     // Pseudo-random but stable: weekends quieter, mid-week peaks
@@ -454,17 +499,28 @@ export function HeatmapDemo() {
           rows={CONTRIB_ROWS}
           cols={CONTRIB_COLS}
           colorScale="github"
-          gap={2}
+          gap={3}
           cellRadius={2}
-          cellSize={11}
+          cellSize={12}
           showRowLabels
           showColLabels
+          colLabelStep="auto"
           showValues={false}
           emptyColor="#ebedf0"
           legendLowLabel="Less"
           legendHighLabel="More"
           label="Contribution heatmap"
           variant="outline"
+          interactive
+          onCellHover={(cell) =>
+            setHovered(
+              cell
+                ? cell.present
+                  ? `${cell.row} · week ${cell.col}: ${cell.value}`
+                  : `${cell.row} · week ${cell.col}: no data`
+                : null,
+            )
+          }
         />
       </div>
       <Heatmap
@@ -488,6 +544,98 @@ export function HeatmapDemo() {
         height={160}
         variant="outline"
       />
+    </div>
+  );
+}
+
+const TREE_MAP_DATA = {
+  name: "Revenue",
+  children: [
+    {
+      name: "Product",
+      children: [
+        { name: "Pro", value: 420 },
+        { name: "Team", value: 280 },
+        { name: "Free→Paid", value: 90 },
+      ],
+    },
+    {
+      name: "Services",
+      children: [
+        { name: "Support", value: 140 },
+        { name: "Training", value: 70 },
+      ],
+    },
+    { name: "Other", value: 55 },
+  ],
+};
+
+export function TreeMapDemo() {
+  return (
+    <div className="w-full max-w-md">
+      <TreeMap data={TREE_MAP_DATA} height={240} label="Revenue tree map" />
+    </div>
+  );
+}
+
+const SANKEY_NODES = [
+  { id: "visit", label: "Visits" },
+  { id: "signup", label: "Signups" },
+  { id: "trial", label: "Trials" },
+  { id: "paid", label: "Paid" },
+  { id: "churn", label: "Churn" },
+];
+
+const SANKEY_LINKS = [
+  { source: "visit", target: "signup", value: 4800 },
+  { source: "visit", target: "churn", value: 7200 },
+  { source: "signup", target: "trial", value: 2100 },
+  { source: "signup", target: "churn", value: 2700 },
+  { source: "trial", target: "paid", value: 840 },
+  { source: "trial", target: "churn", value: 1260 },
+];
+
+export function SankeyDemo() {
+  return (
+    <div className="w-full max-w-lg">
+      <Sankey
+        nodes={SANKEY_NODES}
+        links={SANKEY_LINKS}
+        height={240}
+        label="Acquisition flow"
+      />
+    </div>
+  );
+}
+
+export function GaugeDemo() {
+  return (
+    <div className="flex w-full max-w-lg flex-wrap items-end gap-4">
+      <div className="min-w-[200px] flex-1">
+        <Gauge
+          value={72}
+          min={0}
+          max={100}
+          unit="%"
+          label="Health score"
+          thresholds={[
+            { value: 40, color: "color-mix(in oklch, oklch(0.65 0.18 25) 70%, transparent)" },
+            { value: 70, color: "color-mix(in oklch, oklch(0.78 0.14 85) 75%, transparent)" },
+            { value: 100, color: "color-mix(in oklch, oklch(0.72 0.16 145) 70%, transparent)" },
+          ]}
+        />
+      </div>
+      <div className="min-w-[180px] flex-1">
+        <Gauge
+          value={42}
+          min={0}
+          max={100}
+          label="CPU"
+          unit="%"
+          variant="outline"
+          showValue
+        />
+      </div>
     </div>
   );
 }

@@ -630,7 +630,7 @@ export const CATALOG: CatalogItem[] = [
     slug: "chart-period",
     title: "Chart Period",
     description:
-      "Time-range control (24H · 7D · 30D · 90D · YTD · All) for analytics toolbars.",
+      "Time-range control with presets, app-defined periods, and custom from/to range.",
     category: "data",
   },
   {
@@ -675,6 +675,26 @@ export const CATALOG: CatalogItem[] = [
     title: "Heatmap",
     description:
       "Matrix heatmap with color scales, labels, legend, values, and interactive cells.",
+    category: "data",
+  },
+  {
+    slug: "tree-map",
+    title: "Tree Map",
+    description:
+      "Squarified hierarchical tree map — tile area proportional to value.",
+    category: "data",
+  },
+  {
+    slug: "sankey",
+    title: "Sankey",
+    description: "Weighted flow diagram with multi-column nodes and ribbons.",
+    category: "data",
+  },
+  {
+    slug: "gauge",
+    title: "Gauge",
+    description:
+      "Semi-circular gauge with needle, domain mapping, and threshold bands.",
     category: "data",
   },
   /* ─── Tier 3 product surfaces ───────────────────────────────────────── */

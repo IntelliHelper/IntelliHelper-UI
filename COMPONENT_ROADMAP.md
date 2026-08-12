@@ -129,6 +129,9 @@
 | Radar Chart | `radar-chart` | data | `packages/ui/src/radar-chart.tsx` | ✅ Done |
 | Funnel Chart | `funnel-chart` | data | `packages/ui/src/funnel-chart.tsx` | ✅ Done |
 | Heatmap | `heatmap` | data | `packages/ui/src/heatmap.tsx` | ✅ Done |
+| Tree Map | `tree-map` | data | `packages/ui/src/tree-map.tsx` | ✅ Done |
+| Sankey | `sankey` | data | `packages/ui/src/sankey.tsx` | ✅ Done |
+| Gauge | `gauge` | data | `packages/ui/src/gauge.tsx` | ✅ Done |
 | Chart utils | (lib) | — | `packages/ui/src/chart-utils.ts` | ✅ Done |
 
 ### Built — Tier 3 product surfaces (2026-08-12)
@@ -186,7 +189,7 @@ Ship in this order for maximum demand. Check items off as you go.
 | 12 | ~~Copy Button~~ | `copy-button` | | ✅ |
 | 13 | ~~AI Chat kit (full Tier 2 AI surfaces)~~ | `ai-chat`… | Brand differentiation | ✅ |
 | 14 | ~~Data Grid + Kanban~~ | `data-grid` / `kanban` | Marketing visual + admin apps | ✅ |
-| 15 | Tier 4 chart leftovers | `tree-map` / `sankey` / `gauge` | Analytics completeness | M |
+| 15 | ~~Tier 4 chart leftovers~~ | `tree-map` / `sankey` / `gauge` | Analytics completeness | ✅ |
 
 ---
 
@@ -247,7 +250,7 @@ Ship in this order for maximum demand. Check items off as you go.
 ### Tier 4 — Later / lower ROI
 
 - Layout atoms: Box, Flex, Stack, Spacer, Center, Container, Grid (Tailwind covers these)
-- Full chart zoo (remaining): Tree Map, Sankey, Gauge
+- [x] Full chart zoo (remaining): Tree Map, Sankey, Gauge
 - E-commerce suite, Social suite (prefer recipes over core registry)
 - Premium builders: Form/Workflow/SQL/Email/Dashboard builders
 - Mobile-only web duplicates of `ui-native` patterns
