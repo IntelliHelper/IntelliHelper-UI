@@ -3378,6 +3378,643 @@
           "target": "components/ui/heatmap.tsx"
         }
       ]
+    },
+    {
+      "name": "search-input",
+      "type": "registry:ui",
+      "title": "Search Input",
+      "description": "Search field with leading icon, clear control, and glass field variants.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/search-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/search-input.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      }
+    },
+    {
+      "name": "pin-input",
+      "type": "registry:ui",
+      "title": "PIN Input",
+      "description": "Masked short PIN slots built on OTP input patterns.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "otp-input"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/pin-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/pin-input.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      }
+    },
+    {
+      "name": "number-input",
+      "type": "registry:ui",
+      "title": "Number Input",
+      "description": "Numeric field with steppers, min/max, step rounding, and keyboard arrows.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/number-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/number-input.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      }
+    },
+    {
+      "name": "currency-input",
+      "type": "registry:ui",
+      "title": "Currency Input",
+      "description": "Locale-aware money field with searchable selector for all ISO currencies, symbols, and currency-specific decimals.",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "scroll-area",
+        "layout"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/country-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/country-data.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/currency-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/currency-input.tsx"
+        }
+      ],
+      "meta": {
+        "currencies": 154,
+        "features": [
+          "currency-select",
+          "intl",
+          "search",
+          "decimals"
+        ]
+      }
+    },
+    {
+      "name": "phone-input",
+      "type": "registry:ui",
+      "title": "Phone Input",
+      "description": "International phone field with all-country dial codes, searchable country picker, national formatting, and E.164 output.",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "scroll-area",
+        "layout"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/country-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/country-data.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/phone-input.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/phone-input.tsx"
+        }
+      ],
+      "meta": {
+        "countries": 240,
+        "features": [
+          "country-select",
+          "e164",
+          "search",
+          "national-format"
+        ]
+      }
+    },
+    {
+      "name": "color-picker",
+      "type": "registry:ui",
+      "title": "Color Picker",
+      "description": "Swatches, hex entry, and native color input in a glass popover.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/color-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/color-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "rating",
+      "type": "registry:ui",
+      "title": "Rating",
+      "description": "Accessible star rating with keyboard support and optional half stars.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/rating.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/rating.tsx"
+        }
+      ],
+      "meta": {
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ]
+      }
+    },
+    {
+      "name": "time-picker",
+      "type": "registry:ui",
+      "title": "Time Picker",
+      "description": "Hour/minute/second columns with 12/24h, typing, and glass popover.",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/time-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/time-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "month-picker",
+      "type": "registry:ui",
+      "title": "Month Picker",
+      "description": "Year-navigated month grid for reporting periods and filters.",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/month-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/month-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "date-time-picker",
+      "type": "registry:ui",
+      "title": "Date Time Picker",
+      "description": "Calendar + time composite for scheduling and filters.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "date-fns",
+        "react-day-picker"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "calendar",
+        "time-picker"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/date-time-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/date-time-picker.tsx"
+        }
+      ]
+    },
+    {
+      "name": "banner",
+      "type": "registry:ui",
+      "title": "Banner",
+      "description": "Full-width status banner with sticky/fixed positions and dismiss.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/banner.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/banner.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "default",
+          "info",
+          "success",
+          "warning",
+          "destructive",
+          "chrome"
+        ]
+      }
+    },
+    {
+      "name": "callout",
+      "type": "registry:ui",
+      "title": "Callout",
+      "description": "Documentation-style callout for tips, warnings, and notes.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/callout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/callout.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "info",
+          "tip",
+          "warning",
+          "danger",
+          "note"
+        ]
+      }
+    },
+    {
+      "name": "offline-banner",
+      "type": "registry:ui",
+      "title": "Offline Banner",
+      "description": "Network-aware banner that appears offline and flashes when back online.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "banner"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/offline-banner.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/offline-banner.tsx"
+        }
+      ]
+    },
+    {
+      "name": "loading-screen",
+      "type": "registry:ui",
+      "title": "Loading Screen",
+      "description": "Fullscreen, overlay, inline, or panel loading states with spinners.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "spinner"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/loading-screen.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/loading-screen.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "fullscreen",
+          "overlay",
+          "inline",
+          "panel"
+        ]
+      }
+    },
+    {
+      "name": "retry-view",
+      "type": "registry:ui",
+      "title": "Retry View",
+      "description": "Error empty state with primary retry action and custom actions slot.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/retry-view.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/retry-view.tsx"
+        }
+      ]
+    },
+    {
+      "name": "dock",
+      "type": "registry:ui",
+      "title": "Dock",
+      "description": "macOS-style glass dock with magnification, tooltips, and active dots.",
+      "dependencies": [
+        "class-variance-authority",
+        "@radix-ui/react-tooltip"
+      ],
+      "registryDependencies": [
+        "utils",
+        "tooltip"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/dock.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/dock.tsx"
+        }
+      ]
+    },
+    {
+      "name": "bottom-navigation",
+      "type": "registry:ui",
+      "title": "Bottom Navigation",
+      "description": "Mobile tab bar with badges, safe-area padding, and glass chrome.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/bottom-navigation.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/bottom-navigation.tsx"
+        }
+      ]
+    },
+    {
+      "name": "timeline",
+      "type": "registry:ui",
+      "title": "Timeline",
+      "description": "Vertical event timeline with status dots, connectors, and timestamps.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/timeline.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/timeline.tsx"
+        }
+      ]
+    },
+    {
+      "name": "activity-feed",
+      "type": "registry:ui",
+      "title": "Activity Feed",
+      "description": "Scrollable social-style activity list with avatars and timestamps.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "avatar",
+        "scroll-area"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/activity-feed.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/activity-feed.tsx"
+        }
+      ]
+    },
+    {
+      "name": "kanban",
+      "type": "registry:ui",
+      "title": "Kanban",
+      "description": "Drag-and-drop task board with columns, cards, labels, and counts.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "badge",
+        "scroll-area"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/kanban.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/kanban.tsx"
+        }
+      ]
+    },
+    {
+      "name": "data-grid",
+      "type": "registry:ui",
+      "title": "Data Grid",
+      "description": "Sortable, filterable, selectable data table on glass Table primitives.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "table",
+        "checkbox",
+        "search-input"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/data-grid.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/data-grid.tsx"
+        }
+      ]
+    },
+    {
+      "name": "virtual-table",
+      "type": "registry:ui",
+      "title": "Virtual Table",
+      "description": "Windowed table for large datasets with infinite-scroll hook.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "table"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tier3-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tier3-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/virtual-table.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/virtual-table.tsx"
+        }
+      ]
     }
   ]
 }
