@@ -13,6 +13,7 @@ import {
   estimateHeatmapLabelWidth,
   heatmapColorAt,
   layoutHeatmapCells,
+  normalizeHeatmapData,
   selectHeatmapAxisLabelIndices,
   type HeatmapCellLayout,
   type HeatmapColorScaleId,
@@ -157,11 +158,22 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     },
     ref,
   ) => {
+    // Resolve the same row/col labels the layout will render — including
+    // labels inferred from sparse cells when `rows` / `cols` props are omitted.
+    const resolvedAxes = useMemo(
+      () =>
+        normalizeHeatmapData(data, {
+          rows: rowsProp,
+          cols: colsProp,
+        }),
+      [data, rowsProp, colsProp],
+    );
+
     // Pre-compute label font + left/top padding from label lengths so long
     // row labels ("Mon") and multi-char col labels ("W12") never clip.
     const labelMetrics = useMemo(() => {
-      const colLabels = colsProp ?? [];
-      const rowLabels = rowsProp ?? [];
+      const colLabels = resolvedAxes.cols;
+      const rowLabels = resolvedAxes.rows;
       // Dense contribution grids (small cells) use a slightly smaller type.
       const dense =
         cellSize != null && cellSize > 0 && cellSize <= 14;
@@ -193,7 +205,7 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
         bottom: 8,
         maxColW,
       };
-    }, [colsProp, rowsProp, cellSize, showColLabels, showRowLabels]);
+    }, [resolvedAxes, cellSize, showColLabels, showRowLabels]);
 
     const pad = useMemo(
       () => ({

@@ -1157,7 +1157,9 @@ export function estimateHeatmapLabelWidth(
 
 /**
  * Pick which axis labels to show so dense grids don't run labels together.
- * Always keeps first + last when thinning. Returns indices into `labels`.
+ * Keeps first + last when thinning, but never places two labels closer than
+ * `step` index units (so endpoint retention cannot reintroduce overlap).
+ * Returns indices into `labels`.
  *
  * @param pitch Distance between adjacent cell centers (cellSize + gap).
  */
@@ -1193,11 +1195,25 @@ export function selectHeatmapAxisLabelIndices(
     return Array.from({ length: n }, (_, i) => i);
   }
 
-  const picked = new Set<number>();
-  for (let i = 0; i < n; i += step) picked.add(i);
-  picked.add(0);
-  picked.add(n - 1);
-  return [...picked].sort((a, b) => a - b);
+  const picked: number[] = [];
+  for (let i = 0; i < n; i += step) {
+    picked.push(i);
+  }
+  // Prefer true endpoints. If last stepped index sits too close to n-1,
+  // replace it with n-1 instead of stacking both (which re-collides labels).
+  const last = n - 1;
+  if (picked[0] !== 0) picked.unshift(0);
+  const tail = picked[picked.length - 1]!;
+  if (tail !== last) {
+    if (last - tail >= step) {
+      picked.push(last);
+    } else if (picked.length === 1) {
+      picked.push(last);
+    } else {
+      picked[picked.length - 1] = last;
+    }
+  }
+  return picked;
 }
 
 /**

@@ -578,6 +578,38 @@ describe("heatmap layout + color", () => {
   it("selectHeatmapAxisLabelIndices respects explicit step", () => {
     const labels = ["a", "b", "c", "d", "e", "f"];
     const picked = selectHeatmapAxisLabelIndices(labels, 100, { step: 2 });
-    assert.deepEqual(picked, [0, 2, 4, 5]);
+    // Ends kept; tail replaced when last stepped index is too close to n-1
+    // step=2 → 0,2,4 then 5 replaces nothing extra distance → 0,2,4,5 (5-4=1 < 2)
+    // so 4 is replaced by 5 → 0,2,5
+    assert.deepEqual(picked, [0, 2, 5]);
+  });
+
+  it("selectHeatmapAxisLabelIndices never places ends closer than step", () => {
+    const labels = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);
+    const picked = selectHeatmapAxisLabelIndices(labels, 13, { fontSize: 8 });
+    assert.equal(picked[0], 0);
+    assert.equal(picked[picked.length - 1], 11);
+    // Reconstruct min step from first gap (or 1)
+    let minDist = Infinity;
+    for (let i = 1; i < picked.length; i++) {
+      minDist = Math.min(minDist, picked[i]! - picked[i - 1]!);
+    }
+    // On dense pitch, auto step is >= 2; no adjacent indices
+    assert.ok(minDist >= 2, `min index distance ${minDist}, picked=${picked}`);
+  });
+
+  it("normalizeHeatmapData inferred labels are what Heatmap measures for padding", () => {
+    // Sparse without explicit rows/cols — layout (and labelMetrics) must see these
+    const { rows, cols } = normalizeHeatmapData([
+      { row: "Backend API", col: "p99 latency", value: 12 },
+      { row: "Frontend", col: "p50 latency", value: 4 },
+    ]);
+    assert.deepEqual(rows, ["Backend API", "Frontend"]);
+    assert.deepEqual(cols, ["p99 latency", "p50 latency"]);
+    // Width estimates must be non-trivial so left pad can grow beyond default 36
+    const maxRowW = Math.max(
+      ...rows.map((r) => estimateHeatmapLabelWidth(r, 9)),
+    );
+    assert.ok(maxRowW > 30, `expected long inferred label width, got ${maxRowW}`);
   });
 });
