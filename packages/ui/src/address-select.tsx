@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "./icons";
 import {
   forwardRef,
   useId,
@@ -25,23 +26,6 @@ import { Box, Stack } from "./layout";
 import { fieldVariants, type FieldVariantProps } from "./field-variants";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { ScrollArea } from "./scroll-area";
-
-function ChevronDown({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
 
 type SelectBaseProps = Omit<
   HTMLAttributes<HTMLDivElement>,
@@ -121,7 +105,7 @@ function AddressSelectShell({
           >
             {hasValue ? triggerLabel : placeholder}
           </span>
-          <ChevronDown className="size-3.5 shrink-0 opacity-60" />
+          <ChevronDownIcon className="size-3.5 shrink-0 opacity-60" />
         </button>
       </PopoverTrigger>
       <PopoverContent

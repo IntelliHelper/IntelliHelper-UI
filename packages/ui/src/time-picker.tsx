@@ -1,5 +1,6 @@
 "use client";
 
+import { ClockIcon } from "./icons";
 import {
   forwardRef,
   useId,
@@ -17,15 +18,6 @@ import {
   parseTimeString,
   type TimeValue,
 } from "./tier3-utils";
-
-function ClockIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden className={className}>
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v6l4 2" />
-    </svg>
-  );
-}
 
 function range(max: number, step = 1): number[] {
   const out: number[] = [];

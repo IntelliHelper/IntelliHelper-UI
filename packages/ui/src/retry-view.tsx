@@ -1,5 +1,6 @@
 "use client";
 
+import { DefaultErrorIcon } from "./icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, type HTMLAttributes, type ReactNode } from "react";
 import { cn, focusRing } from "@intelli/utils";
@@ -48,25 +49,6 @@ export interface RetryViewProps
   loading?: boolean;
 }
 
-function DefaultErrorIcon() {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="size-6"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 8v4" />
-      <path d="M12 16h.01" />
-    </svg>
-  );
-}
-
 const RetryView = forwardRef<HTMLDivElement, RetryViewProps>(
   (
     {
@@ -105,7 +87,7 @@ const RetryView = forwardRef<HTMLDivElement, RetryViewProps>(
               variant === "destructive" && "text-destructive",
             )}
           >
-            {icon ?? <DefaultErrorIcon />}
+            {icon ?? <DefaultErrorIcon className="size-6" />}
           </EmptyMedia>
           <EmptyTitle data-slot="retry-view-title">{title}</EmptyTitle>
           {description ? (

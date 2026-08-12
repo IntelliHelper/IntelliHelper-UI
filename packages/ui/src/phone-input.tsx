@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "./icons";
 import {
   forwardRef,
   useId,
@@ -21,23 +22,6 @@ import { Box, Flex, Stack } from "./layout";
 import { fieldVariants, type FieldVariantProps } from "./field-variants";
 import { Popover, PopoverContent, PopoverTrigger } from "./popover";
 import { ScrollArea } from "./scroll-area";
-
-function ChevronDown({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
 
 const sizePad = {
   sm: { field: "ps-2", trigger: "h-9 px-2 text-xs gap-1", flag: "text-sm" },
@@ -213,7 +197,7 @@ const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
                   {country.flag}
                 </span>
                 <span className="font-medium">+{country.dialCode}</span>
-                <ChevronDown className="size-3.5 opacity-60" />
+                <ChevronDownIcon className="size-3.5 opacity-60" />
               </button>
             </PopoverTrigger>
             <PopoverContent

@@ -6,6 +6,7 @@ import {
   type ReactNode,
 } from "react";
 import { cn } from "@intelli/utils";
+import { ChevronRightIcon, MoreHorizontalIcon } from "./icons";
 
 const breadcrumbListVariants = cva(
   "flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2",
@@ -137,7 +138,7 @@ const BreadcrumbSeparator = ({
     className={cn("[&>svg]:size-3.5", className)}
     {...props}
   >
-    {children ?? <ChevronRightIcon />}
+    {children ?? <ChevronRightIcon className="size-3.5 opacity-60" />}
   </li>
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
@@ -162,44 +163,6 @@ const BreadcrumbEllipsis = ({
   </span>
 );
 BreadcrumbEllipsis.displayName = "BreadcrumbEllipsis";
-
-function ChevronRightIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="size-3.5 opacity-60"
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
-
-function MoreHorizontalIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <circle cx="12" cy="12" r="1" />
-      <circle cx="19" cy="12" r="1" />
-      <circle cx="5" cy="12" r="1" />
-    </svg>
-  );
-}
 
 export {
   Breadcrumb,

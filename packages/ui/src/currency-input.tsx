@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "./icons";
 import {
   forwardRef,
   useId,
@@ -27,23 +28,6 @@ import {
   parseNumericInput,
   roundToStep,
 } from "./tier3-utils";
-
-function ChevronDown({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-      aria-hidden
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
 
 const sizePad = {
   sm: { trigger: "h-9 px-2 text-xs gap-1 min-w-[4.5rem]", amount: "ps-2" },
@@ -209,7 +193,7 @@ const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
               >
                 <span className="font-semibold tabular-nums">{currencyCode}</span>
                 <span className="truncate glass-chrome-text-muted">{symbol}</span>
-                <ChevronDown className="size-3.5 shrink-0 opacity-60" />
+                <ChevronDownIcon className="size-3.5 shrink-0 opacity-60" />
               </button>
             </PopoverTrigger>
             <PopoverContent

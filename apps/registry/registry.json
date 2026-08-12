@@ -108,6 +108,21 @@
       }
     },
     {
+      "name": "icons",
+      "type": "registry:ui",
+      "title": "Icons",
+      "description": "Shared decorative SVG icon components (check, chevron, close, media controls, etc.) used by UI chrome.",
+      "dependencies": [],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "packages/ui/src/icons.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/icons.tsx"
+        }
+      ]
+    },
+    {
       "name": "glass-content-card",
       "type": "registry:ui",
       "title": "Glass Content Card",
@@ -274,7 +289,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -393,7 +409,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -446,7 +463,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -539,7 +557,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -662,7 +681,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -765,7 +785,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -833,7 +854,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -868,7 +890,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -908,7 +931,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -944,7 +968,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "popover"
+        "popover",
+        "icons"
       ],
       "files": [
         {
@@ -982,7 +1007,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "dialog"
+        "dialog",
+        "icons"
       ],
       "files": [
         {
@@ -1026,7 +1052,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1063,7 +1090,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1098,7 +1126,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1133,7 +1162,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1173,7 +1203,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1213,7 +1244,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "button"
+        "button",
+        "icons"
       ],
       "files": [
         {
@@ -1244,7 +1276,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1280,7 +1313,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "input"
+        "input",
+        "icons"
       ],
       "files": [
         {
@@ -1350,7 +1384,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "tooltip"
+        "tooltip",
+        "icons"
       ],
       "files": [
         {
@@ -1388,7 +1423,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "button"
+        "button",
+        "icons"
       ],
       "files": [
         {
@@ -1426,7 +1462,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "button"
+        "button",
+        "icons"
       ],
       "files": [
         {
@@ -1473,7 +1510,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "dialog"
+        "dialog",
+        "icons"
       ],
       "files": [
         {
@@ -1659,7 +1697,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -1790,7 +1829,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "button"
+        "button",
+        "icons"
       ],
       "files": [
         {
@@ -1843,7 +1883,7 @@
       "name": "layout",
       "type": "registry:ui",
       "title": "Layout",
-      "description": "Layout primitives that replace div soup \u2014 Stack, Cluster, Grid, Flex, Center, Split, Container, Box, and Spacer with shared spacing scale, polymorphic as/asChild, and Tailwind-safe class maps.",
+      "description": "Layout primitives that replace div soup — Stack, Cluster, Grid, Flex, Center, Split, Container, Box, and Spacer with shared spacing scale, polymorphic as/asChild, and Tailwind-safe class maps.",
       "dependencies": [
         "@radix-ui/react-slot"
       ],
@@ -2012,7 +2052,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "glass-icon-button"
+        "glass-icon-button",
+        "icons"
       ],
       "files": [
         {
@@ -2053,7 +2094,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -2140,7 +2182,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -2169,7 +2212,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "input"
+        "input",
+        "icons"
       ],
       "files": [
         {
@@ -2314,7 +2358,8 @@
         "tooltip",
         "scroll-area",
         "separator",
-        "resizable"
+        "resizable",
+        "icons"
       ],
       "files": [
         {
@@ -2380,7 +2425,8 @@
         "utils",
         "button",
         "textarea",
-        "markdown-viewer"
+        "markdown-viewer",
+        "icons"
       ],
       "files": [
         {
@@ -2436,7 +2482,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "popover"
+        "popover",
+        "icons"
       ],
       "files": [
         {
@@ -2468,7 +2515,7 @@
       "name": "notification-center",
       "type": "registry:ui",
       "title": "Notification Center",
-      "description": "Inbox-style notification list with unread counts, mark-read, and dismiss \u2014 distinct from toast.",
+      "description": "Inbox-style notification list with unread counts, mark-read, and dismiss — distinct from toast.",
       "dependencies": [
         "class-variance-authority"
       ],
@@ -2850,7 +2897,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "popover"
+        "popover",
+        "icons"
       ],
       "files": [
         {
@@ -2900,7 +2948,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "glass-icon-button"
+        "glass-icon-button",
+        "icons"
       ],
       "files": [
         {
@@ -2934,7 +2983,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "dropdown-menu"
+        "dropdown-menu",
+        "icons"
       ],
       "files": [
         {
@@ -2982,7 +3032,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "glass-icon-button"
+        "glass-icon-button",
+        "icons"
       ],
       "files": [
         {
@@ -3458,7 +3509,8 @@
       "description": "Search field with leading icon, clear control, and glass field variants.",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -3516,7 +3568,8 @@
       "description": "Numeric field with steppers, min/max, step rounding, and keyboard arrows.",
       "dependencies": [],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -3555,7 +3608,8 @@
         "utils",
         "popover",
         "scroll-area",
-        "layout"
+        "layout",
+        "icons"
       ],
       "files": [
         {
@@ -3611,7 +3665,8 @@
         "utils",
         "popover",
         "scroll-area",
-        "layout"
+        "layout",
+        "icons"
       ],
       "files": [
         {
@@ -3690,7 +3745,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -3722,7 +3778,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "popover"
+        "popover",
+        "icons"
       ],
       "files": [
         {
@@ -3752,7 +3809,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "popover"
+        "popover",
+        "icons"
       ],
       "files": [
         {
@@ -3786,7 +3844,8 @@
         "utils",
         "popover",
         "calendar",
-        "time-picker"
+        "time-picker",
+        "icons"
       ],
       "files": [
         {
@@ -3815,7 +3874,8 @@
         "class-variance-authority"
       ],
       "registryDependencies": [
-        "utils"
+        "utils",
+        "icons"
       ],
       "files": [
         {
@@ -3919,7 +3979,8 @@
       ],
       "registryDependencies": [
         "utils",
-        "button"
+        "button",
+        "icons"
       ],
       "files": [
         {
@@ -4100,7 +4161,8 @@
         "utils",
         "popover",
         "scroll-area",
-        "layout"
+        "layout",
+        "icons"
       ],
       "files": [
         {
@@ -4153,7 +4215,8 @@
         "popover",
         "scroll-area",
         "layout",
-        "address-country-select"
+        "address-country-select",
+        "icons"
       ],
       "files": [
         {
@@ -4206,7 +4269,8 @@
         "popover",
         "scroll-area",
         "layout",
-        "address-region-select"
+        "address-region-select",
+        "icons"
       ],
       "files": [
         {
@@ -4250,7 +4314,7 @@
       "name": "address-fields",
       "type": "registry:ui",
       "title": "Address Fields",
-      "description": "Composite Country \u2192 State \u2192 City selectors with cascading resets and labels.",
+      "description": "Composite Country → State → City selectors with cascading resets and labels.",
       "dependencies": [
         "@radix-ui/react-popover",
         "@radix-ui/react-label"
@@ -4261,7 +4325,8 @@
         "scroll-area",
         "layout",
         "label",
-        "address-country-select"
+        "address-country-select",
+        "icons"
       ],
       "files": [
         {

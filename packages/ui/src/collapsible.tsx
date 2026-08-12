@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRightIcon } from "./icons";
 import * as CollapsiblePrimitive from "@radix-ui/react-collapsible";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
@@ -74,27 +75,6 @@ const collapsibleTriggerVariants = cva(
   },
 );
 
-function CollapsibleChevron({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={cn(
-        "shrink-0 glass-chrome-text-muted transition-transform duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]",
-        className,
-      )}
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
-
 export interface CollapsibleTriggerProps
   extends ComponentPropsWithoutRef<typeof CollapsiblePrimitive.Trigger>,
     VariantProps<typeof collapsibleTriggerVariants> {
@@ -117,11 +97,11 @@ const CollapsibleTrigger = forwardRef<
       {...props}
     >
       {layout === "tree" && showChevron ? (
-        <CollapsibleChevron className="size-3.5" />
+        <ChevronRightIcon className="size-3.5 shrink-0 glass-chrome-text-muted transition-transform duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]" />
       ) : null}
       {children}
       {layout !== "tree" && showChevron ? (
-        <CollapsibleChevron className="size-4" />
+        <ChevronRightIcon className="size-4 shrink-0 glass-chrome-text-muted transition-transform duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]" />
       ) : null}
     </CollapsiblePrimitive.Trigger>
   ),

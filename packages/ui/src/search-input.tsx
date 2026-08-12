@@ -1,5 +1,6 @@
 "use client";
 
+import { SearchIcon, XIcon } from "./icons";
 import {
   forwardRef,
   useId,
@@ -10,44 +11,6 @@ import {
 import { cn } from "@intelli/utils";
 import { Box, Flex } from "./layout";
 import { fieldVariants, type FieldVariantProps } from "./field-variants";
-
-function SearchIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.3-4.3" />
-    </svg>
-  );
-}
-
-function XIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
 
 const iconPad = {
   sm: { start: "ps-9", end: "pe-9", icon: "start-2.5 size-3.5", btn: "end-1 size-7 rounded-lg [&_svg]:size-3.5" },

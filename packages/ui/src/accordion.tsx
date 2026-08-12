@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "./icons";
 import * as AccordionPrimitive from "@radix-ui/react-accordion";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
@@ -74,24 +75,6 @@ export interface AccordionTriggerProps
   extends ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>,
     VariantProps<typeof accordionTriggerVariants> {}
 
-function AccordionChevron() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="size-4 shrink-0 glass-chrome-text-muted transition-transform duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]"
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
-
 const AccordionTrigger = forwardRef<
   ElementRef<typeof AccordionPrimitive.Trigger>,
   AccordionTriggerProps
@@ -104,7 +87,7 @@ const AccordionTrigger = forwardRef<
       {...props}
     >
       {children}
-      <AccordionChevron />
+      <ChevronDownIcon className="size-4 shrink-0 glass-chrome-text-muted transition-transform duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]" />
     </AccordionPrimitive.Trigger>
   </AccordionPrimitive.Header>
 ));

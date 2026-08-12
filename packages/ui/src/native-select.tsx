@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDownIcon } from "./icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
   forwardRef,
@@ -8,24 +9,6 @@ import {
 } from "react";
 import { cn } from "@intelli/utils";
 import { fieldVariants, type FieldVariantProps } from "./field-variants";
-
-function SelectChevron({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
 
 const nativeSelectWrapperVariants = cva(
   "group/native-select relative w-full has-[select:disabled]:opacity-50",
@@ -97,7 +80,7 @@ const NativeSelect = forwardRef<HTMLSelectElement, NativeSelectProps>(
       >
         {children}
       </select>
-      <SelectChevron
+      <ChevronDownIcon
         data-slot="native-select-icon"
         className={cn(
           "pointer-events-none absolute top-1/2 right-3 size-4 -translate-y-1/2",

@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronIcon, CloseIcon } from "./icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
   forwardRef,
@@ -249,7 +250,7 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                           }
                         }}
                       >
-                        <CloseIcon />
+                        <CloseIcon className="size-3" />
                       </span>
                     </span>
                   ))}
@@ -270,10 +271,10 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
                       setValue(clearMultiSelectValues());
                     }}
                   >
-                    <CloseIcon />
+                    <CloseIcon className="size-3" />
                   </span>
                 ) : null}
-                <ChevronIcon />
+                <ChevronIcon className="size-4 shrink-0 opacity-50" />
               </span>
             </button>
           </PopoverTrigger>
@@ -378,43 +379,6 @@ const MultiSelect = forwardRef<HTMLDivElement, MultiSelectProps>(
   },
 );
 MultiSelect.displayName = "MultiSelect";
-
-function ChevronIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={cn("size-4", className)}
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
-
-function CloseIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={cn("size-3", className)}
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
-}
 
 export {
   MultiSelect,
