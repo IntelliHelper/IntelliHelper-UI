@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-08-12 (Analytics: metric-card, line/area/sparkline/donut charts)
+> **Last updated:** 2026-08-12 (Analytics: heatmap + chart zoo)
 
 ---
 
@@ -128,6 +128,7 @@
 | Stacked Bar Chart | `stacked-bar-chart` | data | `packages/ui/src/stacked-bar-chart.tsx` | ✅ Done |
 | Radar Chart | `radar-chart` | data | `packages/ui/src/radar-chart.tsx` | ✅ Done |
 | Funnel Chart | `funnel-chart` | data | `packages/ui/src/funnel-chart.tsx` | ✅ Done |
+| Heatmap | `heatmap` | data | `packages/ui/src/heatmap.tsx` | ✅ Done |
 | Chart utils | (lib) | — | `packages/ui/src/chart-utils.ts` | ✅ Done |
 
 ---
@@ -212,7 +213,7 @@ Ship in this order for maximum demand. Check items off as you go.
 ### Tier 4 — Later / lower ROI
 
 - Layout atoms: Box, Flex, Stack, Spacer, Center, Container, Grid (Tailwind covers these)
-- Full chart zoo (remaining): Heatmap, Tree Map, Sankey, Gauge
+- Full chart zoo (remaining): Tree Map, Sankey, Gauge
 - E-commerce suite, Social suite (prefer recipes over core registry)
 - Premium builders: Form/Workflow/SQL/Email/Dashboard builders
 - Mobile-only web duplicates of `ui-native` patterns

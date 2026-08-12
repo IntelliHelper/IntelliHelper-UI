@@ -8,6 +8,7 @@ import {
   ChartPeriodControl,
   DonutChart,
   FunnelChart,
+  Heatmap,
   LineChart,
   MetricCard,
   PieChart,
@@ -15,6 +16,7 @@ import {
   Sparkline,
   StackedBarChart,
   type ChartPeriodKey,
+  type HeatmapColorScaleId,
   type TimeSeriesDatum,
 } from "@intelli/ui";
 import { useMemo, useState } from "react";
@@ -342,6 +344,145 @@ export function FunnelChartDemo() {
   return (
     <div className="w-full max-w-md">
       <FunnelChart data={FUNNEL} height={220} label="Conversion funnel" />
+    </div>
+  );
+}
+
+const HEATMAP_ROWS = ["Mon", "Tue", "Wed", "Thu", "Fri"];
+const HEATMAP_COLS = ["00", "04", "08", "12", "16", "20"];
+const HEATMAP_MATRIX = [
+  [2, 4, 8, 12, 9, 3],
+  [1, 3, 10, 14, 11, 4],
+  [3, 5, 11, 16, 13, 6],
+  [2, 6, 9, 15, 12, 5],
+  [1, 2, 7, 10, 8, 2],
+];
+
+const COLOR_SCALES: HeatmapColorScaleId[] = [
+  "primary",
+  "github",
+  "cool",
+  "warm",
+  "mono",
+];
+
+/** 7 weekdays × 12 weeks — contribution-style activity grid */
+const CONTRIB_ROWS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+const CONTRIB_COLS = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);
+const CONTRIB_MATRIX: number[][] = CONTRIB_ROWS.map((_, r) =>
+  CONTRIB_COLS.map((__, c) => {
+    // Pseudo-random but stable: weekends quieter, mid-week peaks
+    const seed = (r * 17 + c * 31) % 11;
+    if (r >= 5 && seed < 4) return 0;
+    return seed;
+  }),
+);
+
+export function HeatmapDemo() {
+  const [scale, setScale] = useState<HeatmapColorScaleId>("github");
+  const [showValues, setShowValues] = useState(false);
+  const [gap, setGap] = useState(3);
+  const [hovered, setHovered] = useState<string | null>(null);
+
+  return (
+    <div className="w-full max-w-xl space-y-4">
+      <div className="flex flex-wrap items-center gap-2 text-xs">
+        <span className="text-muted-foreground">Scale</span>
+        {COLOR_SCALES.map((id) => (
+          <button
+            key={id}
+            type="button"
+            onClick={() => setScale(id)}
+            className={
+              scale === id
+                ? "rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--primary)_18%,transparent)] px-2.5 py-1 font-medium capitalize"
+                : "rounded-full border border-transparent px-2.5 py-1 capitalize text-muted-foreground hover:border-[var(--glass-chrome-border)]"
+            }
+          >
+            {id}
+          </button>
+        ))}
+        <button
+          type="button"
+          onClick={() => setShowValues((v) => !v)}
+          className="ml-auto rounded-full border border-[var(--glass-chrome-border)] px-2.5 py-1"
+        >
+          Values: {showValues ? "on" : "off"}
+        </button>
+        <label className="flex items-center gap-1.5 text-muted-foreground">
+          Gap
+          <input
+            type="range"
+            min={0}
+            max={8}
+            value={gap}
+            onChange={(e) => setGap(Number(e.target.value))}
+            className="w-20 accent-[var(--primary)]"
+          />
+        </label>
+      </div>
+      <Heatmap
+        data={HEATMAP_MATRIX}
+        rows={HEATMAP_ROWS}
+        cols={HEATMAP_COLS}
+        colorScale={scale}
+        gap={gap}
+        showValues={showValues}
+        cellRadius={4}
+        interactive
+        onCellHover={(cell) =>
+          setHovered(cell ? `${cell.row} ${cell.col}h · ${cell.value}` : null)
+        }
+        label="Activity by hour"
+        height={200}
+      />
+      <p className="min-h-4 text-xs text-muted-foreground">
+        {hovered ??
+          "Hover a cell · try the github scale for contribution-graph greens"}
+      </p>
+      <div className="space-y-1.5">
+        <p className="text-xs font-medium text-muted-foreground">
+          GitHub-style contributions
+        </p>
+        <Heatmap
+          data={CONTRIB_MATRIX}
+          rows={CONTRIB_ROWS}
+          cols={CONTRIB_COLS}
+          colorScale="github"
+          gap={2}
+          cellRadius={2}
+          cellSize={11}
+          showRowLabels
+          showColLabels
+          showValues={false}
+          emptyColor="#ebedf0"
+          legendLowLabel="Less"
+          legendHighLabel="More"
+          label="Contribution heatmap"
+          variant="outline"
+        />
+      </div>
+      <Heatmap
+        data={[
+          { row: "API", col: "p50", value: 42 },
+          { row: "API", col: "p95", value: 180 },
+          { row: "API", col: "p99", value: 420 },
+          { row: "DB", col: "p50", value: 8 },
+          { row: "DB", col: "p95", value: 45 },
+          { row: "DB", col: "p99", value: 120 },
+          { row: "Cache", col: "p50", value: 1 },
+          { row: "Cache", col: "p95", value: 4 },
+          { row: "Cache", col: "p99", value: 12 },
+        ]}
+        colorScale="cool"
+        showValues
+        formatValue={(v) => `${v}ms`}
+        legendLowLabel="Fast"
+        legendHighLabel="Slow"
+        label="Latency heatmap"
+        height={160}
+        variant="outline"
+      />
     </div>
   );
 }

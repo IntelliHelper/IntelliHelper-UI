@@ -3354,6 +3354,30 @@
           "target": "components/ui/funnel-chart.tsx"
         }
       ]
+    },
+    {
+      "name": "heatmap",
+      "type": "registry:ui",
+      "title": "Heatmap",
+      "description": "Matrix heatmap with color scales, labels, legend, and interactive cells.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/heatmap.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/heatmap.tsx"
+        }
+      ]
     }
   ]
 }

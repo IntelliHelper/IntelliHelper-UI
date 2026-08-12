@@ -14,11 +14,16 @@ import {
   donutSlicePath,
   filterTimeSeriesByPeriod,
   formatDelta,
+  heatmapColorAt,
+  HEATMAP_COLOR_SCALES,
+  isHeatmapMatrix,
   layoutFunnelStages,
+  layoutHeatmapCells,
   layoutHorizontalBars,
   layoutRadarPoints,
   layoutStackedBars,
   layoutVerticalBars,
+  normalizeHeatmapData,
   normalizeSeries,
   percentOfTotal,
   periodDaySpan,
@@ -27,6 +32,7 @@ import {
   pointsToLinePath,
   pointsToPolygonPath,
   polarToCartesian,
+  resolveHeatmapScale,
   scaleLinear,
   scaleSeriesToPoints,
   seriesExtent,
@@ -418,5 +424,97 @@ describe("bar / stacked / radar / funnel layout", () => {
       assert.equal(s.percentOfFirst, 0);
       assert.equal(s.path, "");
     }
+  });
+});
+
+describe("heatmap layout + color", () => {
+  it("detects matrix vs sparse input", () => {
+    assert.equal(isHeatmapMatrix([[1, 2], [3, 4]]), true);
+    assert.equal(
+      isHeatmapMatrix([{ row: "a", col: "b", value: 1 }]),
+      false,
+    );
+    assert.equal(isHeatmapMatrix([]), false);
+  });
+
+  it("normalizeHeatmapData expands matrix with labels", () => {
+    const { rows, cols, cells } = normalizeHeatmapData(
+      [
+        [1, 2],
+        [3, 4],
+      ],
+      { rows: ["A", "B"], cols: ["X", "Y"] },
+    );
+    assert.deepEqual(rows, ["A", "B"]);
+    assert.deepEqual(cols, ["X", "Y"]);
+    assert.equal(cells.length, 4);
+    assert.equal(cells[0]!.value, 1);
+    assert.equal(cells[3]!.row, "B");
+    assert.equal(cells[3]!.col, "Y");
+  });
+
+  it("normalizeHeatmapData keeps sparse order", () => {
+    const { rows, cols, cells } = normalizeHeatmapData([
+      { row: "R2", col: "C1", value: 5 },
+      { row: "R1", col: "C2", value: 9 },
+    ]);
+    assert.deepEqual(rows, ["R2", "R1"]);
+    assert.deepEqual(cols, ["C1", "C2"]);
+    assert.equal(cells.length, 2);
+  });
+
+  it("layoutHeatmapCells fills grid and normalizes t", () => {
+    const layout = layoutHeatmapCells(
+      [
+        [0, 50],
+        [100, 25],
+      ],
+      100,
+      100,
+      { top: 0, right: 0, bottom: 0, left: 0 },
+      { gap: 0, rows: ["r0", "r1"], cols: ["c0", "c1"] },
+    );
+    assert.equal(layout.cells.length, 4);
+    assert.equal(layout.min, 0);
+    assert.equal(layout.max, 100);
+    const high = layout.cells.find((c) => c.row === "r1" && c.col === "c0");
+    assert.ok(high);
+    assert.equal(high!.t, 1);
+    const low = layout.cells.find((c) => c.row === "r0" && c.col === "c0");
+    assert.ok(low);
+    assert.equal(low!.t, 0);
+    // Cells tile without overlap when gap is 0
+    assert.equal(layout.cells[0]!.width + layout.cells[1]!.width, 100);
+  });
+
+  it("layoutHeatmapCells respects fixed cellSize", () => {
+    const layout = layoutHeatmapCells(
+      [[1, 2, 3]],
+      10,
+      10,
+      { top: 0, right: 0, bottom: 0, left: 0 },
+      { cellSize: 12, gap: 2 },
+    );
+    assert.equal(layout.cells.length, 3);
+    assert.equal(layout.cells[0]!.width, 12);
+    assert.equal(layout.plotWidth, 12 * 3 + 2 * 2);
+  });
+
+  it("heatmapColorAt blends stops and resolves named scales", () => {
+    assert.deepEqual(resolveHeatmapScale("primary"), [
+      ...HEATMAP_COLOR_SCALES.primary,
+    ]);
+    assert.deepEqual(resolveHeatmapScale("github"), [
+      ...HEATMAP_COLOR_SCALES.github,
+    ]);
+    assert.equal(HEATMAP_COLOR_SCALES.github[0], "#ebedf0");
+    assert.equal(HEATMAP_COLOR_SCALES.github[4], "#216e39");
+    assert.deepEqual(resolveHeatmapScale(["a", "b"]), ["a", "b"]);
+    assert.equal(heatmapColorAt(0, ["a", "b", "c"]), "a");
+    assert.equal(heatmapColorAt(1, ["a", "b", "c"]), "c");
+    const mid = heatmapColorAt(0.5, ["a", "b"]);
+    assert.ok(mid.includes("color-mix") || mid === "a" || mid === "b");
+    assert.equal(heatmapColorAt(0, "github"), "#ebedf0");
+    assert.equal(heatmapColorAt(1, "github"), "#216e39");
   });
 });
