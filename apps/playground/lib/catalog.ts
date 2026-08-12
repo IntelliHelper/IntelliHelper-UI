@@ -677,6 +677,166 @@ export const CATALOG: CatalogItem[] = [
       "Matrix heatmap with color scales, labels, legend, values, and interactive cells.",
     category: "data",
   },
+  /* ─── Tier 3 product surfaces ───────────────────────────────────────── */
+  {
+    slug: "search-input",
+    title: "Search Input",
+    description: "Search field with icon, clear control, and glass field variants.",
+    category: "forms",
+  },
+  {
+    slug: "pin-input",
+    title: "PIN Input",
+    description: "Masked short PIN slots for secure numeric entry.",
+    category: "forms",
+  },
+  {
+    slug: "number-input",
+    title: "Number Input",
+    description: "Numeric field with steppers, min/max, step, and arrow keys.",
+    category: "forms",
+  },
+  {
+    slug: "currency-input",
+    title: "Currency Input",
+    description:
+      "Money field with searchable selector for all ISO currencies, symbols, and decimals.",
+    category: "forms",
+  },
+  {
+    slug: "phone-input",
+    title: "Phone Input",
+    description:
+      "International phone with all-country dial codes, search, national format, and E.164.",
+    category: "forms",
+  },
+  {
+    slug: "color-picker",
+    title: "Color Picker",
+    description: "Swatches, hex entry, and native picker in a glass popover.",
+    category: "forms",
+  },
+  {
+    slug: "rating",
+    title: "Rating",
+    description: "Accessible star rating with keyboard support and half stars.",
+    category: "forms",
+  },
+  {
+    slug: "time-picker",
+    title: "Time Picker",
+    description: "Hour/minute columns with 12/24h mode and typed time entry.",
+    category: "forms",
+  },
+  {
+    slug: "month-picker",
+    title: "Month Picker",
+    description: "Year-navigated month grid for filters and reporting periods.",
+    category: "forms",
+  },
+  {
+    slug: "date-time-picker",
+    title: "Date Time Picker",
+    description: "Calendar + time composite for scheduling and admin filters.",
+    category: "forms",
+  },
+  {
+    slug: "banner",
+    title: "Banner",
+    description: "Full-width status banner with sticky/fixed modes and dismiss.",
+    category: "feedback",
+  },
+  {
+    slug: "callout",
+    title: "Callout",
+    description: "Doc-style callout for tips, warnings, dangers, and notes.",
+    category: "feedback",
+  },
+  {
+    slug: "offline-banner",
+    title: "Offline Banner",
+    description: "Network-aware banner for offline state and reconnect flash.",
+    category: "feedback",
+  },
+  {
+    slug: "loading-screen",
+    title: "Loading Screen",
+    description: "Fullscreen, overlay, inline, or panel loading with spinners.",
+    category: "feedback",
+  },
+  {
+    slug: "retry-view",
+    title: "Retry View",
+    description: "Error empty state with primary retry action and action slots.",
+    category: "feedback",
+  },
+  {
+    slug: "dock",
+    title: "Dock",
+    description: "macOS-style glass dock with magnification and tooltips.",
+    category: "navigation",
+  },
+  {
+    slug: "bottom-navigation",
+    title: "Bottom Navigation",
+    description: "Mobile tab bar with badges, safe-area, and glass chrome.",
+    category: "navigation",
+  },
+  {
+    slug: "timeline",
+    title: "Timeline",
+    description: "Vertical event timeline with status dots and timestamps.",
+    category: "data",
+  },
+  {
+    slug: "activity-feed",
+    title: "Activity Feed",
+    description: "Scrollable activity list with avatars, actions, and times.",
+    category: "data",
+  },
+  {
+    slug: "kanban",
+    title: "Kanban",
+    description: "Drag-and-drop task board with columns, cards, and labels.",
+    category: "data",
+  },
+  {
+    slug: "data-grid",
+    title: "Data Grid",
+    description: "Sortable, filterable, selectable table for admin apps.",
+    category: "data",
+  },
+  {
+    slug: "virtual-table",
+    title: "Virtual Table",
+    description: "Windowed table for large datasets with infinite-scroll hook.",
+    category: "data",
+  },
+  {
+    slug: "address-fields",
+    title: "Address Fields",
+    description:
+      "Country → State → City cascading selectors (select-only, full world data).",
+    category: "forms",
+  },
+  {
+    slug: "address-country-select",
+    title: "Address Country Select",
+    description: "Searchable country picker for addresses with flags.",
+    category: "forms",
+  },
+  {
+    slug: "address-region-select",
+    title: "Address Region Select",
+    description: "State/province picker cascading from country.",
+    category: "forms",
+  },
+  {
+    slug: "address-city-select",
+    title: "Address City Select",
+    description: "City picker cascading from country + state.",
+    category: "forms",
+  },
 ];
 
 export function getCatalogItem(slug: string): CatalogItem | undefined {

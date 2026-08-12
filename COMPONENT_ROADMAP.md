@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-08-12 (Analytics: heatmap + chart zoo)
+> **Last updated:** 2026-08-12 (Tier 3 product surfaces complete)
 
 ---
 
@@ -131,6 +131,39 @@
 | Heatmap | `heatmap` | data | `packages/ui/src/heatmap.tsx` | ✅ Done |
 | Chart utils | (lib) | — | `packages/ui/src/chart-utils.ts` | ✅ Done |
 
+### Built — Tier 3 product surfaces (2026-08-12)
+
+| Component | Registry slug | Category | Source | Status |
+| --- | --- | --- | --- | --- |
+| Search Input | `search-input` | forms | `packages/ui/src/search-input.tsx` | ✅ Done |
+| PIN Input | `pin-input` | forms | `packages/ui/src/pin-input.tsx` | ✅ Done |
+| Number Input | `number-input` | forms | `packages/ui/src/number-input.tsx` | ✅ Done |
+| Currency Input | `currency-input` | forms | `packages/ui/src/currency-input.tsx` | ✅ Done |
+| Phone Input | `phone-input` | forms | `packages/ui/src/phone-input.tsx` | ✅ Done |
+| Color Picker | `color-picker` | forms | `packages/ui/src/color-picker.tsx` | ✅ Done |
+| Rating | `rating` | forms | `packages/ui/src/rating.tsx` | ✅ Done |
+| Time Picker | `time-picker` | forms | `packages/ui/src/time-picker.tsx` | ✅ Done |
+| Month Picker | `month-picker` | forms | `packages/ui/src/month-picker.tsx` | ✅ Done |
+| Date Time Picker | `date-time-picker` | forms | `packages/ui/src/date-time-picker.tsx` | ✅ Done |
+| Banner | `banner` | feedback | `packages/ui/src/banner.tsx` | ✅ Done |
+| Callout | `callout` | feedback | `packages/ui/src/callout.tsx` | ✅ Done |
+| Offline Banner | `offline-banner` | feedback | `packages/ui/src/offline-banner.tsx` | ✅ Done |
+| Loading Screen | `loading-screen` | feedback | `packages/ui/src/loading-screen.tsx` | ✅ Done |
+| Retry View | `retry-view` | feedback | `packages/ui/src/retry-view.tsx` | ✅ Done |
+| Dock | `dock` | navigation | `packages/ui/src/dock.tsx` | ✅ Done |
+| Bottom Navigation | `bottom-navigation` | navigation | `packages/ui/src/bottom-navigation.tsx` | ✅ Done |
+| Timeline | `timeline` | data | `packages/ui/src/timeline.tsx` | ✅ Done |
+| Activity Feed | `activity-feed` | data | `packages/ui/src/activity-feed.tsx` | ✅ Done |
+| Kanban | `kanban` | data | `packages/ui/src/kanban.tsx` | ✅ Done |
+| Data Grid | `data-grid` | data | `packages/ui/src/data-grid.tsx` | ✅ Done |
+| Virtual Table | `virtual-table` | data | `packages/ui/src/virtual-table.tsx` | ✅ Done |
+| Tier 3 utils | (lib) | — | `packages/ui/src/tier3-utils.ts` | ✅ Done |
+| Address Fields (Country / State / City) | `address-fields` | forms | `packages/ui/src/address-fields.tsx` | ✅ Done |
+| Address Country Select | `address-country-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address Region Select | `address-region-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address City Select | `address-city-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address data (regions + cities) | (lib) | — | `packages/ui/src/address-data.ts` | ✅ Done |
+
 ---
 
 ## Next up (priority order)
@@ -152,7 +185,8 @@ Ship in this order for maximum demand. Check items off as you go.
 | 11 | ~~Theme Toggle~~ | `theme-toggle` | | ✅ |
 | 12 | ~~Copy Button~~ | `copy-button` | | ✅ |
 | 13 | ~~AI Chat kit (full Tier 2 AI surfaces)~~ | `ai-chat`… | Brand differentiation | ✅ |
-| 14 | Data Grid or Kanban | `data-grid` / `kanban` | Marketing visual + admin apps | L |
+| 14 | ~~Data Grid + Kanban~~ | `data-grid` / `kanban` | Marketing visual + admin apps | ✅ |
+| 15 | Tier 4 chart leftovers | `tree-map` / `sankey` / `gauge` | Analytics completeness | M |
 
 ---
 
@@ -194,21 +228,21 @@ Ship in this order for maximum demand. Check items off as you go.
 
 ### Tier 3 — Product surfaces
 
-- [ ] Data Grid (sort / filter / select)
-- [ ] Virtual Table / Infinite Table
-- [ ] Kanban / Task Board
-- [ ] Timeline + Activity Feed
+- [x] Data Grid (sort / filter / select)
+- [x] Virtual Table / Infinite Table
+- [x] Kanban / Task Board
+- [x] Timeline + Activity Feed
 - [x] Metric / KPI / Statistic Cards
 - [x] Charts wrapper (Line, Area, Sparkline, Donut first)
-- [ ] Date Time / Time / Month pickers (composites on calendar)
+- [x] Date Time / Time / Month pickers (composites on calendar)
 - [x] Password Input
 - [x] OTP Input
-- [ ] Search Input / Pin Input
-- [ ] Number / Currency / Phone inputs
-- [ ] Color Picker, Rating
-- [ ] Dock, Bottom Navigation
-- [ ] Banner, Callout, Offline Banner
-- [ ] Loading Screen, Retry View
+- [x] Search Input / Pin Input
+- [x] Number / Currency / Phone inputs
+- [x] Color Picker, Rating
+- [x] Dock, Bottom Navigation
+- [x] Banner, Callout, Offline Banner
+- [x] Loading Screen, Retry View
 
 ### Tier 4 — Later / lower ROI
 

@@ -350,6 +350,76 @@ const HeatmapDemo = lazy(() =>
   import("../../components/analytics-demo").then((m) => ({ default: m.HeatmapDemo })),
 );
 
+/* Tier 3 demos */
+const SearchInputDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.SearchInputDemo })),
+);
+const PinInputDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.PinInputDemo })),
+);
+const NumberInputDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.NumberInputDemo })),
+);
+const CurrencyInputDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.CurrencyInputDemo })),
+);
+const PhoneInputDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.PhoneInputDemo })),
+);
+const ColorPickerDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.ColorPickerDemo })),
+);
+const RatingDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.RatingDemo })),
+);
+const TimePickerDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.TimePickerDemo })),
+);
+const MonthPickerDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.MonthPickerDemo })),
+);
+const DateTimePickerDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.DateTimePickerDemo })),
+);
+const BannerDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.BannerDemo })),
+);
+const CalloutDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.CalloutDemo })),
+);
+const OfflineBannerDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.OfflineBannerDemo })),
+);
+const LoadingScreenDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.LoadingScreenDemo })),
+);
+const RetryViewDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.RetryViewDemo })),
+);
+const DockDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.DockDemo })),
+);
+const BottomNavigationDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.BottomNavigationDemo })),
+);
+const TimelineDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.TimelineDemo })),
+);
+const ActivityFeedDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.ActivityFeedDemo })),
+);
+const KanbanDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.KanbanDemo })),
+);
+const DataGridDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.DataGridDemo })),
+);
+const VirtualTableDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.VirtualTableDemo })),
+);
+const AddressFieldsDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.AddressFieldsDemo })),
+);
 
 const variants = [
   "default",
@@ -2482,6 +2552,318 @@ import { AreaChart } from "@/components/ui/area-chart"
   src="/photo.jpg"
   defaultAspect="1:1"
   onExport={(blob) => upload(blob)}
+/>`,
+    },
+  ],
+  /* ─── Tier 3 ─────────────────────────────────────────────────────────── */
+  "search-input": [
+    {
+      title: "Search with clear",
+      description: "Leading icon, clearable value, glass field variants.",
+      preview: <SearchInputDemo />,
+      code: `import { SearchInput } from "@/components/ui/search-input"
+
+<SearchInput
+  value={query}
+  onValueChange={setQuery}
+  placeholder="Search components…"
+/>`,
+    },
+  ],
+  "pin-input": [
+    {
+      title: "Masked PIN",
+      description: "4-slot masked PIN built on OTP patterns.",
+      preview: <PinInputDemo />,
+      code: `import { PinInput } from "@/components/ui/pin-input"
+
+<PinInput length={4} value={pin} onValueChange={setPin} />`,
+    },
+  ],
+  "number-input": [
+    {
+      title: "Steppers + bounds",
+      description: "Min/max, step, keyboard arrows, and +/- controls.",
+      preview: <NumberInputDemo />,
+      code: `import { NumberInput } from "@/components/ui/number-input"
+
+<NumberInput value={n} onValueChange={setN} min={0} max={99} step={1} />`,
+    },
+  ],
+  "currency-input": [
+    {
+      title: "All currencies",
+      description: "Searchable ISO currency picker + locale-aware amount field.",
+      preview: <CurrencyInputDemo />,
+      code: `import { CurrencyInput } from "@/components/ui/currency-input"
+
+<CurrencyInput
+  value={amount}
+  onValueChange={setAmount}
+  currency={currency}           // "USD" | "EUR" | "JPY" | …
+  onCurrencyChange={setCurrency}
+/>`,
+    },
+  ],
+  "phone-input": [
+    {
+      title: "All countries",
+      description: "240 countries · dial codes · national format · E.164 value.",
+      preview: <PhoneInputDemo />,
+      code: `import { PhoneInput } from "@/components/ui/phone-input"
+
+<PhoneInput
+  value={phone}                 // E.164 e.g. +14155550100
+  onValueChange={setPhone}
+  country={country}             // ISO2 e.g. "US" | "IN" | "GB"
+  onCountryChange={setCountry}
+/>`,
+    },
+  ],
+  "color-picker": [
+    {
+      title: "Swatches + hex",
+      description: "Popover with swatches, native input, and hex field.",
+      preview: <ColorPickerDemo />,
+      code: `import { ColorPicker } from "@/components/ui/color-picker"
+
+<ColorPicker value={color} onValueChange={setColor} />`,
+    },
+  ],
+  rating: [
+    {
+      title: "Star rating",
+      description: "Keyboard-accessible stars with controlled value.",
+      preview: <RatingDemo />,
+      code: `import { Rating } from "@/components/ui/rating"
+
+<Rating value={rating} onValueChange={setRating} max={5} />`,
+    },
+  ],
+  "time-picker": [
+    {
+      title: "Time columns",
+      description: "12/24h columns plus typed time entry.",
+      preview: <TimePickerDemo />,
+      code: `import { TimePicker } from "@/components/ui/time-picker"
+
+<TimePicker value={time} onValueChange={setTime} hour12 />`,
+    },
+  ],
+  "month-picker": [
+    {
+      title: "Month grid",
+      description: "Year navigation with 12-month selection.",
+      preview: <MonthPickerDemo />,
+      code: `import { MonthPicker } from "@/components/ui/month-picker"
+
+<MonthPicker value={month} onValueChange={setMonth} />`,
+    },
+  ],
+  "date-time-picker": [
+    {
+      title: "Date + time",
+      description: "Calendar composite with time picker.",
+      preview: <DateTimePickerDemo />,
+      code: `import { DateTimePicker } from "@/components/ui/date-time-picker"
+
+<DateTimePicker value={date} onValueChange={setDate} hour12 />`,
+    },
+  ],
+  banner: [
+    {
+      title: "Status banners",
+      description: "Info/warning variants with dismiss.",
+      preview: <BannerDemo />,
+      code: `import { Banner } from "@/components/ui/banner"
+
+<Banner variant="info" title="Shipped" dismissible>
+  Tier 3 components are live.
+</Banner>`,
+    },
+  ],
+  callout: [
+    {
+      title: "Doc callouts",
+      description: "Tip and warning tones for documentation UIs.",
+      preview: <CalloutDemo />,
+      code: `import { Callout } from "@/components/ui/callout"
+
+<Callout variant="tip" title="Pro tip">
+  Prefer chrome for toolbars.
+</Callout>`,
+    },
+  ],
+  "offline-banner": [
+    {
+      title: "Offline state",
+      description: "Forced offline demo of the network-aware banner.",
+      preview: <OfflineBannerDemo />,
+      code: `import { OfflineBanner } from "@/components/ui/offline-banner"
+
+// Auto-listens to navigator.onLine
+<OfflineBanner />`,
+    },
+  ],
+  "loading-screen": [
+    {
+      title: "Panel loading",
+      description: "Glass panel loading state with spinner + copy.",
+      preview: <LoadingScreenDemo />,
+      code: `import { LoadingScreen } from "@/components/ui/loading-screen"
+
+<LoadingScreen variant="panel" label="Syncing…" />`,
+    },
+  ],
+  "retry-view": [
+    {
+      title: "Retry empty",
+      description: "Error surface with primary try-again action.",
+      preview: <RetryViewDemo />,
+      code: `import { RetryView } from "@/components/ui/retry-view"
+
+<RetryView onRetry={refetch} title="Failed to load" />`,
+    },
+  ],
+  dock: [
+    {
+      title: "Glass dock",
+      description: "Magnifying dock with tooltips and active dots.",
+      preview: <DockDemo />,
+      code: `import { Dock } from "@/components/ui/dock"
+
+<Dock items={[{ id: "home", label: "Home", icon: <HomeIcon /> }]} />`,
+    },
+  ],
+  "bottom-navigation": [
+    {
+      title: "Mobile tabs",
+      description: "Bottom nav with badges and static demo shell.",
+      preview: <BottomNavigationDemo />,
+      code: `import { BottomNavigation } from "@/components/ui/bottom-navigation"
+
+<BottomNavigation items={items} />`,
+    },
+  ],
+  timeline: [
+    {
+      title: "Event timeline",
+      description: "Vertical timeline with status dots.",
+      preview: <TimelineDemo />,
+      code: `import { Timeline } from "@/components/ui/timeline"
+
+<Timeline items={[{ id: "1", title: "Shipped", status: "success" }]} />`,
+    },
+  ],
+  "activity-feed": [
+    {
+      title: "Activity list",
+      description: "Scrollable feed with avatars and timestamps.",
+      preview: <ActivityFeedDemo />,
+      code: `import { ActivityFeed } from "@/components/ui/activity-feed"
+
+<ActivityFeed items={[{ id: "1", actor: "Ava", action: "commented" }]} />`,
+    },
+  ],
+  kanban: [
+    {
+      title: "Task board",
+      description: "Drag cards across Todo / In progress / Done.",
+      preview: <KanbanDemo />,
+      code: `import { Kanban } from "@/components/ui/kanban"
+
+<Kanban columns={cols} cards={cards} onCardsChange={setCards} />`,
+    },
+  ],
+  "data-grid": [
+    {
+      title: "Sort · filter · select",
+      description: "Admin data grid with global search and row selection.",
+      preview: <DataGridDemo />,
+      code: `import { DataGrid } from "@/components/ui/data-grid"
+
+<DataGrid
+  columns={columns}
+  data={rows}
+  getRowId={(r) => r.id}
+  selectable
+/>`,
+    },
+  ],
+  "virtual-table": [
+    {
+      title: "500-row window",
+      description: "Virtualized rows for large datasets.",
+      preview: <VirtualTableDemo />,
+      code: `import { VirtualTable } from "@/components/ui/virtual-table"
+
+<VirtualTable
+  height={280}
+  data={rows}
+  getRowId={(r) => r.id}
+  columns={columns}
+/>`,
+    },
+  ],
+  "address-fields": [
+    {
+      title: "Country · State · City",
+      description: "Select-only cascading address fields with world data.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressFields } from "@/components/ui/address-fields"
+
+const [address, setAddress] = useState({
+  country: "US",
+  region: "CA",
+  city: "San Francisco",
+})
+
+<AddressFields
+  layout="grid"
+  value={address}
+  onValueChange={setAddress}
+/>`,
+    },
+  ],
+  "address-country-select": [
+    {
+      title: "Country select",
+      description: "Same cascade used inside Address Fields.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressCountrySelect } from "@/components/ui/address-select"
+
+<AddressCountrySelect
+  value={country}
+  onValueChange={setCountry}
+/>`,
+    },
+  ],
+  "address-region-select": [
+    {
+      title: "State / province",
+      description: "Enabled after a country is chosen.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressRegionSelect } from "@/components/ui/address-select"
+
+<AddressRegionSelect
+  country={country}
+  value={region}
+  onValueChange={setRegion}
+/>`,
+    },
+  ],
+  "address-city-select": [
+    {
+      title: "City select",
+      description: "Enabled after country + state are chosen.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressCitySelect } from "@/components/ui/address-select"
+
+<AddressCitySelect
+  country={country}
+  region={region}
+  value={city}
+  onValueChange={setCity}
 />`,
     },
   ],

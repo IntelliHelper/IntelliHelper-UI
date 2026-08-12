@@ -964,6 +964,185 @@ export {
   type HeatmapCellInteraction,
   type HeatmapProps,
 } from "./heatmap";
+/* ─── Tier 3 product surfaces ─────────────────────────────────────────── */
+export { SearchInput, type SearchInputProps } from "./search-input";
+export { PinInput, type PinInputProps, type PinInputHandle } from "./pin-input";
+export { NumberInput, type NumberInputProps } from "./number-input";
+export {
+  CurrencyInput,
+  type CurrencyInputProps,
+  type CurrencyRecord,
+} from "./currency-input";
+export {
+  PhoneInput,
+  type PhoneInputProps,
+  type CountryRecord,
+} from "./phone-input";
+export {
+  COUNTRIES,
+  CURRENCIES,
+  getCountry,
+  getCurrency,
+  getCountriesByDialCode,
+  flagFromIso,
+  searchCountries,
+  searchCurrencies,
+  formatNationalNumber,
+  toE164,
+  parseE164,
+  defaultLocaleForCurrency,
+  currencyDecimals,
+} from "./country-data";
+export {
+  AddressCountrySelect,
+  AddressRegionSelect,
+  AddressCitySelect,
+} from "./address-select";
+export type {
+  AddressCountrySelectProps,
+  AddressRegionSelectProps,
+  AddressCitySelectProps,
+} from "./address-select";
+export {
+  AddressFields,
+  type AddressFieldsProps,
+  type AddressValue,
+} from "./address-fields";
+export {
+  ADDRESS_COUNTRIES,
+  getAddressCountry,
+  getRegionsForCountry,
+  getRegion,
+  getCitiesForRegion,
+  searchAddressCountries,
+  searchRegions,
+  searchCities,
+  cascadeAddressValue,
+  emptyAddressValue,
+  type AddressCountry,
+  type AddressRegion,
+} from "./address-data";
+export {
+  ColorPicker,
+  DEFAULT_SWATCHES,
+  type ColorPickerProps,
+} from "./color-picker";
+export { Rating, ratingVariants, type RatingProps } from "./rating";
+export {
+  TimePicker,
+  type TimePickerProps,
+  type TimeValue,
+} from "./time-picker";
+export {
+  MonthPicker,
+  type MonthPickerProps,
+  type MonthValue,
+} from "./month-picker";
+export {
+  DateTimePicker,
+  type DateTimePickerProps,
+} from "./date-time-picker";
+export { Banner, bannerVariants, type BannerProps } from "./banner";
+export { Callout, calloutVariants, type CalloutProps } from "./callout";
+export {
+  OfflineBanner,
+  type OfflineBannerProps,
+} from "./offline-banner";
+export {
+  LoadingScreen,
+  loadingScreenVariants,
+  type LoadingScreenProps,
+} from "./loading-screen";
+export {
+  RetryView,
+  retryViewVariants,
+  type RetryViewProps,
+} from "./retry-view";
+export {
+  Dock,
+  dockVariants,
+  dockItemVariants,
+  type DockProps,
+  type DockItem,
+} from "./dock";
+export {
+  BottomNavigation,
+  bottomNavVariants,
+  bottomNavItemVariants,
+  type BottomNavigationProps,
+  type BottomNavItem,
+} from "./bottom-navigation";
+export {
+  Timeline,
+  TimelineItem,
+  timelineVariants,
+  type TimelineProps,
+  type TimelineItemProps,
+  type TimelineItemData,
+} from "./timeline";
+export {
+  ActivityFeed,
+  activityFeedVariants,
+  type ActivityFeedProps,
+  type ActivityItem,
+} from "./activity-feed";
+export {
+  Kanban,
+  kanbanVariants,
+  type KanbanProps,
+  type KanbanCard,
+  type KanbanColumn,
+} from "./kanban";
+export {
+  DataGrid,
+  type DataGridProps,
+  type DataGridColumnDef,
+  type DataGridSortState,
+} from "./data-grid";
+export {
+  VirtualTable,
+  type VirtualTableProps,
+  type VirtualTableColumn,
+} from "./virtual-table";
+export {
+  clampNumber,
+  roundToStep,
+  stepDecimals,
+  parseNumericInput,
+  formatNumberDisplay,
+  formatCurrencyValue,
+  currencySymbol,
+  sanitizePhoneDigits,
+  formatPhoneDisplay,
+  normalizeHexColor,
+  isValidHexColor,
+  clampRating,
+  ratingStars,
+  clampTimePart,
+  normalizeTimeValue,
+  formatTimeValue,
+  parseTimeString,
+  timeValueToDate,
+  dateToTimeValue,
+  normalizeMonthValue,
+  formatMonthValue,
+  monthGrid,
+  compareCellValues,
+  toggleSortState,
+  sortDataGridRows,
+  filterDataGridRows,
+  processDataGridRows,
+  toggleRowSelection,
+  toggleSelectAll,
+  getDataGridCellValue,
+  computeVirtualWindow,
+  groupKanbanCards,
+  moveKanbanCard,
+  timelineStatusTone,
+  type SortDirection,
+  type VirtualWindow,
+  type TimelineStatus,
+} from "./tier3-utils";
 export {
   applyChartPeriod,
   chartColorAt,
