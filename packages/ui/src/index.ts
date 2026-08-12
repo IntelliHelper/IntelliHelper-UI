@@ -1241,3 +1241,5 @@ export {
   type TreeMapTile,
   type TrendDirection,
 } from "./chart-utils";
+
+export * from "./icons";

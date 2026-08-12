@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckIcon, IndeterminateIcon } from "./icons";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
@@ -8,41 +9,6 @@ import {
   type ElementRef,
 } from "react";
 import { cn, focusRing } from "@intelli/utils";
-
-function CheckIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function IndeterminateIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="3"
-      strokeLinecap="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M5 12h14" />
-    </svg>
-  );
-}
 
 const checkboxVariants = cva(
   [
@@ -125,7 +91,7 @@ const Checkbox = forwardRef<
       data-slot="checkbox-indicator"
       className={cn(checkboxIndicatorVariants({ size }))}
     >
-      <CheckIcon className="group-data-[state=indeterminate]/checkbox:hidden" />
+      <CheckIcon strokeWidth={3} className="group-data-[state=indeterminate]/checkbox:hidden" />
       <IndeterminateIcon className="hidden group-data-[state=indeterminate]/checkbox:block" />
     </CheckboxPrimitive.Indicator>
   </CheckboxPrimitive.Root>

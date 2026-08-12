@@ -2,11 +2,11 @@
 
 import {
   forwardRef,
-  useId,
   useState,
   type HTMLAttributes,
   type KeyboardEvent,
 } from "react";
+import { StarIcon } from "./icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn, focusRing } from "@intelli/utils";
 import { Flex } from "./layout";
@@ -24,46 +24,6 @@ const ratingVariants = cva("", {
     size: "default",
   },
 });
-
-function StarIcon({
-  fill,
-  className,
-}: {
-  fill: "full" | "half" | "empty";
-  className?: string;
-}) {
-  const gradId = useId();
-  if (fill === "half") {
-    return (
-      <svg viewBox="0 0 24 24" className={className} aria-hidden>
-        <defs>
-          <linearGradient id={gradId}>
-            <stop offset="50%" stopColor="currentColor" />
-            <stop offset="50%" stopColor="transparent" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M12 2.5l2.9 6.2 6.8.6-5.2 4.5 1.6 6.6L12 16.8 5.9 20.4l1.6-6.6L2.3 9.3l6.8-.6L12 2.5z"
-          fill={`url(#${gradId})`}
-          stroke="currentColor"
-          strokeWidth="1.25"
-          strokeLinejoin="round"
-        />
-      </svg>
-    );
-  }
-  return (
-    <svg viewBox="0 0 24 24" className={className} aria-hidden>
-      <path
-        d="M12 2.5l2.9 6.2 6.8.6-5.2 4.5 1.6 6.6L12 16.8 5.9 20.4l1.6-6.6L2.3 9.3l6.8-.6L12 2.5z"
-        fill={fill === "full" ? "currentColor" : "transparent"}
-        stroke="currentColor"
-        strokeWidth="1.25"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
 
 export interface RatingProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue">,

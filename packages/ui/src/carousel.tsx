@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeftIcon, ChevronRightIcon } from "./icons";
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
 } from "embla-carousel-react";
@@ -64,40 +65,6 @@ const carouselContentVariants = cva("overflow-hidden", {
     variant: "default",
   },
 });
-
-function CarouselChevronLeft() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="m15 18-6-6 6-6" />
-    </svg>
-  );
-}
-
-function CarouselChevronRight() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
 
 const Carousel = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement> & CarouselProps>(
   (
@@ -277,7 +244,7 @@ const CarouselPrevious = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={scrollPrev}
         {...props}
       >
-        <CarouselChevronLeft />
+        <ChevronLeftIcon />
         <span className="sr-only">Previous slide</span>
       </Button>
     );
@@ -307,7 +274,7 @@ const CarouselNext = forwardRef<HTMLButtonElement, ButtonProps>(
         onClick={scrollNext}
         {...props}
       >
-        <CarouselChevronRight />
+        <ChevronRightIcon />
         <span className="sr-only">Next slide</span>
       </Button>
     );

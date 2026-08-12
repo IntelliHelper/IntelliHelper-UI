@@ -50,6 +50,7 @@
     "./event-calendar": "./src/event-calendar.tsx",
     "./sheet": "./src/sheet.tsx",
     "./hover-card": "./src/hover-card.tsx",
+    "./icons": "./src/icons.tsx",
     "./toggle": "./src/toggle.tsx",
     "./toggle-group": "./src/toggle-group.tsx",
     "./popover": "./src/popover.tsx",

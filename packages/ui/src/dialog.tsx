@@ -1,5 +1,6 @@
 "use client";
 
+import { DialogCloseIcon } from "./icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
@@ -162,24 +163,6 @@ export interface DialogContentProps
   closeClassName?: string;
   closeIcon?: ReactNode;
   closeLabel?: string;
-}
-
-function DialogCloseIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M18 6 6 18" />
-      <path d="m6 6 12 12" />
-    </svg>
-  );
 }
 
 const DialogContent = forwardRef<

@@ -1,5 +1,6 @@
 "use client";
 
+import { MinusIcon, PlusIcon } from "./icons";
 import {
   forwardRef,
   useId,
@@ -16,23 +17,6 @@ import {
   roundToStep,
   stepDecimals,
 } from "./tier3-utils";
-
-function MinusIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden className={className}>
-      <path d="M5 12h14" />
-    </svg>
-  );
-}
-
-function PlusIcon({ className }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden className={className}>
-      <path d="M12 5v14" />
-      <path d="M5 12h14" />
-    </svg>
-  );
-}
 
 const sizeStyles = {
   sm: { pad: "px-9", btn: "size-7 rounded-lg [&_svg]:size-3.5", side: "w-8" },

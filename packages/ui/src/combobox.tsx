@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronIcon } from "./icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
   forwardRef,
@@ -190,7 +191,7 @@ const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
               )}
             >
               <span className="truncate">{label}</span>
-              <ChevronIcon className="opacity-60" />
+              <ChevronIcon className="size-4 opacity-60" />
             </button>
           </PopoverTrigger>
           <PopoverContent
@@ -276,24 +277,6 @@ const Combobox = forwardRef<HTMLDivElement, ComboboxProps>(
   },
 );
 Combobox.displayName = "Combobox";
-
-function ChevronIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={cn("size-4", className)}
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
 
 export type ComboboxTriggerProps = ButtonHTMLAttributes<HTMLButtonElement>;
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckIcon, ChevronDownIcon } from "./icons";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
@@ -41,24 +42,6 @@ export interface SelectTriggerProps
     FieldVariantProps,
     VariantProps<typeof selectTriggerVariants> {}
 
-function SelectChevron({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="m6 9 6 6 6-6" />
-    </svg>
-  );
-}
-
 const SelectTrigger = forwardRef<
   ElementRef<typeof SelectPrimitive.Trigger>,
   SelectTriggerProps
@@ -74,7 +57,7 @@ const SelectTrigger = forwardRef<
   >
     {children}
     <SelectPrimitive.Icon asChild>
-      <SelectChevron
+      <ChevronDownIcon
         className={cn(
           "size-4 glass-chrome-text-muted",
           "transition-transform duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]",
@@ -214,24 +197,6 @@ export interface SelectItemProps
   extends ComponentPropsWithoutRef<typeof SelectPrimitive.Item>,
     VariantProps<typeof selectItemVariants> {}
 
-function SelectItemCheck({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
 const SelectItem = forwardRef<
   ElementRef<typeof SelectPrimitive.Item>,
   SelectItemProps
@@ -244,7 +209,7 @@ const SelectItem = forwardRef<
   >
     <span className="absolute right-2 flex size-4 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <SelectItemCheck className="size-3.5 animate-checkbox-check" />
+        <CheckIcon strokeWidth={2.5} className="size-3.5 animate-checkbox-check" />
       </SelectPrimitive.ItemIndicator>
     </span>
     <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>

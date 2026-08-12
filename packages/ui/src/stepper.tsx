@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckIcon } from "./icons";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
   Children,
@@ -240,7 +241,7 @@ const StepIndicator = forwardRef<HTMLDivElement, StepIndicatorProps>(
       >
         {children ??
           (status === "completed" ? (
-            <CheckIcon className="size-3.5" />
+            <CheckIcon strokeWidth={2.5} className="size-3.5" />
           ) : (
             <span>{index + 1}</span>
           ))}
@@ -307,24 +308,6 @@ const StepContent = forwardRef<HTMLDivElement, HTMLAttributes<HTMLDivElement>>(
   },
 );
 StepContent.displayName = "StepContent";
-
-function CheckIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
 
 export {
   Stepper,

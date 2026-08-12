@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckIcon, ChevronRightIcon, CircleIcon } from "./icons";
 import * as ContextMenuPrimitive from "@radix-ui/react-context-menu";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
@@ -131,7 +132,7 @@ const ContextMenuCheckboxItem = forwardRef<
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <ContextMenuPrimitive.ItemIndicator>
-        <CheckIcon />
+        <CheckIcon className="size-3.5" />
       </ContextMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -152,7 +153,7 @@ const ContextMenuRadioItem = forwardRef<
   >
     <span className="absolute left-2 flex size-3.5 items-center justify-center">
       <ContextMenuPrimitive.ItemIndicator>
-        <CircleIcon />
+        <CircleIcon className="size-2" />
       </ContextMenuPrimitive.ItemIndicator>
     </span>
     {children}
@@ -253,56 +254,6 @@ const ContextMenuSubContent = forwardRef<
   />
 ));
 ContextMenuSubContent.displayName = ContextMenuPrimitive.SubContent.displayName;
-
-function CheckIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className="size-3.5"
-    >
-      <path d="M20 6 9 17l-5-5" />
-    </svg>
-  );
-}
-
-function CircleIcon() {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="currentColor"
-      aria-hidden="true"
-      className="size-2"
-    >
-      <circle cx="12" cy="12" r="6" />
-    </svg>
-  );
-}
-
-function ChevronRightIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      className={className}
-    >
-      <path d="m9 18 6-6-6-6" />
-    </svg>
-  );
-}
 
 export {
   ContextMenu,
