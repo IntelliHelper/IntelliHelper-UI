@@ -3,13 +3,18 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import {
   forwardRef,
+  useMemo,
   type HTMLAttributes,
 } from "react";
 import { cn } from "@intelli/utils";
 import {
+  CUSTOM_CHART_PERIOD,
   DEFAULT_CHART_PERIODS,
+  formatChartPeriodRange,
+  toDateInputValue,
   type ChartPeriodKey,
   type ChartPeriodOption,
+  type ChartPeriodRange,
 } from "./chart-utils";
 
 const chartPeriodVariants = cva(
@@ -72,17 +77,43 @@ const chartPeriodItemVariants = cva(
   },
 );
 
+const dateFieldClassName = cn(
+  "h-7 rounded-lg border border-[var(--glass-chrome-border)] bg-transparent",
+  "px-1.5 text-[11px] text-[var(--glass-chrome-fg)]",
+  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50",
+  "disabled:pointer-events-none disabled:opacity-40",
+  "[color-scheme:inherit]",
+);
+
 export interface ChartPeriodControlProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange" | "defaultValue">,
     VariantProps<typeof chartPeriodVariants> {
-  /** Selected period key */
+  /** Selected period key (built-in, `"custom"`, or app-defined id) */
   value: ChartPeriodKey;
-  /** Called when the user picks a period */
+  /** Called when the user picks a period chip */
   onValueChange: (value: ChartPeriodKey) => void;
-  /** Override presets (defaults to DEFAULT_CHART_PERIODS) */
+  /**
+   * Period chips. Defaults to {@link DEFAULT_CHART_PERIODS}.
+   * Add custom keys with `daySpan` / `startOffsetMs` for filtering support:
+   * `{ value: "45d", label: "45D", description: "Last 45 days", daySpan: 45 }`.
+   */
   periods?: readonly ChartPeriodOption[];
   /** Limit which keys render (e.g. compact dashboard: 7d/30d/90d) */
   include?: ChartPeriodKey[];
+  /**
+   * Show a **Custom** chip and from/to date fields for absolute ranges.
+   * Requires `onRangeChange` to persist the selected range.
+   */
+  allowCustomRange?: boolean;
+  /** Absolute range when `value === "custom"` (and optional display seed) */
+  range?: ChartPeriodRange | null;
+  /** Called when the custom from/to inputs change */
+  onRangeChange?: (range: ChartPeriodRange | null) => void;
+  /**
+   * When true (default), custom range fields show whenever `value === "custom"`.
+   * Set false to render only the chip and manage range UI yourself.
+   */
+  showRangeFields?: boolean;
   disabled?: boolean;
   /** Accessible name for the control group */
   "aria-label"?: string;
@@ -98,15 +129,58 @@ const ChartPeriodControl = forwardRef<HTMLDivElement, ChartPeriodControlProps>(
       onValueChange,
       periods = DEFAULT_CHART_PERIODS,
       include,
+      allowCustomRange = false,
+      range = null,
+      onRangeChange,
+      showRangeFields = true,
       disabled = false,
       "aria-label": ariaLabel = "Time period",
       ...props
     },
     ref,
   ) => {
-    const list = include?.length
-      ? periods.filter((p) => include.includes(p.value))
-      : [...periods];
+    const list = useMemo(() => {
+      let base = include?.length
+        ? periods.filter((p) => include.includes(p.value))
+        : [...periods];
+      if (allowCustomRange) {
+        const hasCustom = base.some((p) => p.value === "custom");
+        if (!hasCustom) {
+          // Prefer include if provided and "custom" listed
+          if (!include?.length || include.includes("custom")) {
+            base = [...base, CUSTOM_CHART_PERIOD];
+          }
+        }
+      }
+      return base;
+    }, [periods, include, allowCustomRange]);
+
+    const showCustomFields =
+      allowCustomRange &&
+      showRangeFields &&
+      value === "custom" &&
+      typeof onRangeChange === "function";
+
+    const fromValue = toDateInputValue(range?.from);
+    const toValue = toDateInputValue(range?.to);
+    const rangeSummary =
+      value === "custom" && range
+        ? formatChartPeriodRange(range)
+        : "";
+
+    const commitRange = (next: { from?: string; to?: string }) => {
+      if (!onRangeChange) return;
+      const from = next.from ?? fromValue;
+      const to = next.to ?? toValue;
+      if (!from && !to) {
+        onRangeChange(null);
+        return;
+      }
+      onRangeChange({
+        from: from || to,
+        to: to || from || undefined,
+      });
+    };
 
     return (
       <div
@@ -115,35 +189,100 @@ const ChartPeriodControl = forwardRef<HTMLDivElement, ChartPeriodControlProps>(
         aria-label={ariaLabel}
         data-slot="chart-period"
         data-variant={variant}
-        className={cn(chartPeriodVariants({ variant, size }), className)}
+        data-period={value}
+        data-custom-range={allowCustomRange || undefined}
+        className={cn(
+          "inline-flex max-w-full flex-col items-stretch gap-1.5",
+          className,
+        )}
         {...props}
       >
-        {list.map((period) => {
-          const active = period.value === value;
-          return (
-            <button
-              key={period.value}
-              type="button"
-              data-slot="chart-period-item"
-              data-state={active ? "on" : "off"}
-              data-period={period.value}
-              disabled={disabled}
-              aria-pressed={active}
-              aria-label={period.description}
-              title={period.description}
-              className={cn(
-                chartPeriodItemVariants({ size, active }),
-              )}
-              onClick={() => {
-                if (!disabled && period.value !== value) {
-                  onValueChange(period.value);
-                }
-              }}
-            >
-              {period.label}
-            </button>
-          );
-        })}
+        <div className={cn(chartPeriodVariants({ variant, size }))}>
+          {list.map((period) => {
+            const active = period.value === value;
+            return (
+              <button
+                key={period.value}
+                type="button"
+                data-slot="chart-period-item"
+                data-state={active ? "on" : "off"}
+                data-period={period.value}
+                disabled={disabled}
+                aria-pressed={active}
+                aria-label={period.description}
+                title={period.description}
+                className={cn(chartPeriodItemVariants({ size, active }))}
+                onClick={() => {
+                  if (disabled) return;
+                  if (period.value !== value) {
+                    onValueChange(period.value);
+                  }
+                  // Seed a sensible default range when entering custom mode
+                  if (
+                    period.value === "custom" &&
+                    onRangeChange &&
+                    !range?.from
+                  ) {
+                    const end = new Date();
+                    const start = new Date(end);
+                    start.setDate(start.getDate() - 29);
+                    onRangeChange({
+                      from: toDateInputValue(start),
+                      to: toDateInputValue(end),
+                    });
+                  }
+                }}
+              >
+                {period.label}
+              </button>
+            );
+          })}
+        </div>
+
+        {showCustomFields ? (
+          <div
+            data-slot="chart-period-range"
+            className="flex flex-wrap items-center gap-1.5 px-0.5"
+          >
+            <label className="flex items-center gap-1 text-[10px] text-muted-foreground">
+              <span className="sr-only sm:not-sr-only">From</span>
+              <input
+                type="date"
+                data-slot="chart-period-from"
+                className={dateFieldClassName}
+                disabled={disabled}
+                value={fromValue}
+                max={toValue || undefined}
+                aria-label="Range start"
+                onChange={(e) => commitRange({ from: e.target.value })}
+              />
+            </label>
+            <span className="text-[10px] text-muted-foreground" aria-hidden>
+              –
+            </span>
+            <label className="flex items-center gap-1 text-[10px] text-muted-foreground">
+              <span className="sr-only sm:not-sr-only">To</span>
+              <input
+                type="date"
+                data-slot="chart-period-to"
+                className={dateFieldClassName}
+                disabled={disabled}
+                value={toValue}
+                min={fromValue || undefined}
+                aria-label="Range end"
+                onChange={(e) => commitRange({ to: e.target.value })}
+              />
+            </label>
+            {rangeSummary ? (
+              <span
+                data-slot="chart-period-range-summary"
+                className="ml-auto text-[10px] tabular-nums text-muted-foreground"
+              >
+                {rangeSummary}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     );
   },
@@ -155,5 +294,10 @@ export {
   chartPeriodVariants,
   chartPeriodItemVariants,
   DEFAULT_CHART_PERIODS,
+  CUSTOM_CHART_PERIOD,
 };
-export type { ChartPeriodKey, ChartPeriodOption };
+export type {
+  ChartPeriodKey,
+  ChartPeriodOption,
+  ChartPeriodRange,
+};

@@ -3380,6 +3380,78 @@
       ]
     },
     {
+      "name": "tree-map",
+      "type": "registry:ui",
+      "title": "Tree Map",
+      "description": "Squarified hierarchical tree map with area proportional to value.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/tree-map.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tree-map.tsx"
+        }
+      ]
+    },
+    {
+      "name": "sankey",
+      "type": "registry:ui",
+      "title": "Sankey",
+      "description": "Flow diagram with weighted links and multi-column nodes.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/sankey.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/sankey.tsx"
+        }
+      ]
+    },
+    {
+      "name": "gauge",
+      "type": "registry:ui",
+      "title": "Gauge",
+      "description": "Semi-circular gauge with needle, domain, and optional threshold bands.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/chart-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/chart-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/gauge.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/gauge.tsx"
+        }
+      ]
+    },
+    {
       "name": "search-input",
       "type": "registry:ui",
       "title": "Search Input",

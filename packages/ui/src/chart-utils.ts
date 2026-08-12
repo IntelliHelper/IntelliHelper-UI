@@ -446,8 +446,10 @@ export function chartColorAt(index: number, colors?: string[]): string {
 
 /* ── Time period presets (dashboard chrome) ── */
 
+const DAY_MS = 24 * 60 * 60 * 1000;
+
 /** Built-in analytics period keys used by ChartPeriodControl. */
-export type ChartPeriodKey =
+export type BuiltinChartPeriodKey =
   | "24h"
   | "7d"
   | "14d"
@@ -456,7 +458,22 @@ export type ChartPeriodKey =
   | "6m"
   | "1y"
   | "ytd"
-  | "all";
+  | "all"
+  /** Absolute custom range via `ChartPeriodRange` */
+  | "custom";
+
+/**
+ * Built-in keys plus app-defined period ids (e.g. `"45d"`, `"sprint"`).
+ * Custom ids resolve via `ChartPeriodOption.daySpan` / `startOffsetMs`.
+ */
+export type ChartPeriodKey = BuiltinChartPeriodKey | (string & {});
+
+export type ChartPeriodRange = {
+  /** Inclusive range start */
+  from: string | number | Date;
+  /** Inclusive range end (defaults to `now` when omitted) */
+  to?: string | number | Date;
+};
 
 export type ChartPeriodOption = {
   value: ChartPeriodKey;
@@ -464,7 +481,46 @@ export type ChartPeriodOption = {
   label: string;
   /** Longer accessible name */
   description: string;
+  /**
+   * For custom keys: relative window length in days ending at `now`.
+   * Used by `periodDaySpan` / undated series slicing.
+   */
+  daySpan?: number;
+  /**
+   * For custom keys: ms before `now` for the lower bound.
+   * Used when `daySpan` is omitted.
+   */
+  startOffsetMs?: number;
 };
+
+export type ChartPeriodResolveOptions = {
+  now?: Date | number;
+  /** Absolute range used when period is `"custom"` */
+  range?: ChartPeriodRange | null;
+  /** Registry of custom period definitions (daySpan / startOffsetMs) */
+  periods?: readonly ChartPeriodOption[];
+};
+
+export const BUILTIN_CHART_PERIOD_KEYS: readonly BuiltinChartPeriodKey[] = [
+  "24h",
+  "7d",
+  "14d",
+  "30d",
+  "90d",
+  "6m",
+  "1y",
+  "ytd",
+  "all",
+  "custom",
+] as const;
+
+const BUILTIN_PERIOD_SET = new Set<string>(BUILTIN_CHART_PERIOD_KEYS);
+
+export function isBuiltinChartPeriodKey(
+  period: ChartPeriodKey,
+): period is BuiltinChartPeriodKey {
+  return BUILTIN_PERIOD_SET.has(period);
+}
 
 export const DEFAULT_CHART_PERIODS: readonly ChartPeriodOption[] = [
   { value: "24h", label: "24H", description: "Last 24 hours" },
@@ -477,6 +533,13 @@ export const DEFAULT_CHART_PERIODS: readonly ChartPeriodOption[] = [
   { value: "ytd", label: "YTD", description: "Year to date" },
   { value: "all", label: "All", description: "All time" },
 ] as const;
+
+/** Default chip for absolute custom range mode */
+export const CUSTOM_CHART_PERIOD: ChartPeriodOption = {
+  value: "custom",
+  label: "Custom",
+  description: "Custom date range",
+};
 
 export type TimeSeriesDatum = ChartDatum & {
   /** ISO date string, unix ms, or Date — used for period filtering */
@@ -493,49 +556,135 @@ export function toEpochMs(value: string | number | Date | undefined | null): num
   if (typeof value === "number") {
     return Number.isFinite(value) ? value : null;
   }
+  // Prefer full ISO parse; bare YYYY-MM-DD → local midnight via Date parts
+  if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    const [y, m, d] = value.split("-").map(Number);
+    const t = new Date(y!, (m ?? 1) - 1, d ?? 1).getTime();
+    return Number.isFinite(t) ? t : null;
+  }
   const t = Date.parse(value);
   return Number.isFinite(t) ? t : null;
 }
 
+/** Format epoch/Date as `YYYY-MM-DD` for native date inputs (local calendar). */
+export function toDateInputValue(
+  value: string | number | Date | undefined | null,
+): string {
+  const ms = toEpochMs(value);
+  if (ms == null) return "";
+  const d = new Date(ms);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+/** Normalize a range so from ≤ to when both parse. */
+export function normalizeChartPeriodRange(
+  range: ChartPeriodRange | null | undefined,
+): { from: number; to: number } | null {
+  if (!range) return null;
+  const from = toEpochMs(range.from);
+  if (from == null) return null;
+  const toRaw = range.to != null ? toEpochMs(range.to) : null;
+  const to = toRaw ?? from;
+  if (from <= to) return { from, to };
+  return { from: to, to: from };
+}
+
+function resolveNowMs(now: Date | number = Date.now()): number {
+  return typeof now === "number" ? now : now.getTime();
+}
+
+function findPeriodOption(
+  period: ChartPeriodKey,
+  periods?: readonly ChartPeriodOption[],
+): ChartPeriodOption | undefined {
+  if (!periods?.length) return undefined;
+  return periods.find((p) => p.value === period);
+}
+
 /**
  * Inclusive lower bound for a period relative to `now`.
- * Returns null for `"all"` (no lower bound).
+ * Returns null for `"all"`, unknown keys without custom definition, or incomplete custom range.
  */
 export function periodStartMs(
   period: ChartPeriodKey,
   now: Date | number = Date.now(),
+  options?: Omit<ChartPeriodResolveOptions, "now">,
 ): number | null {
-  const nowMs = typeof now === "number" ? now : now.getTime();
+  const opts: ChartPeriodResolveOptions = { ...options, now };
+  const nowMs = resolveNowMs(now);
   const d = new Date(nowMs);
+
+  if (period === "custom") {
+    const bounds = normalizeChartPeriodRange(opts.range);
+    return bounds?.from ?? null;
+  }
+
   switch (period) {
     case "24h":
-      return nowMs - 24 * 60 * 60 * 1000;
+      return nowMs - DAY_MS;
     case "7d":
-      return nowMs - 7 * 24 * 60 * 60 * 1000;
+      return nowMs - 7 * DAY_MS;
     case "14d":
-      return nowMs - 14 * 24 * 60 * 60 * 1000;
+      return nowMs - 14 * DAY_MS;
     case "30d":
-      return nowMs - 30 * 24 * 60 * 60 * 1000;
+      return nowMs - 30 * DAY_MS;
     case "90d":
-      return nowMs - 90 * 24 * 60 * 60 * 1000;
+      return nowMs - 90 * DAY_MS;
     case "6m":
-      return nowMs - 182 * 24 * 60 * 60 * 1000;
+      return nowMs - 182 * DAY_MS;
     case "1y":
-      return nowMs - 365 * 24 * 60 * 60 * 1000;
+      return nowMs - 365 * DAY_MS;
     case "ytd":
       return new Date(d.getFullYear(), 0, 1).getTime();
     case "all":
       return null;
-    default:
+    default: {
+      const def = findPeriodOption(period, opts.periods);
+      if (def?.daySpan != null && def.daySpan > 0) {
+        return nowMs - def.daySpan * DAY_MS;
+      }
+      if (def?.startOffsetMs != null && def.startOffsetMs > 0) {
+        return nowMs - def.startOffsetMs;
+      }
       return null;
+    }
   }
 }
 
 /**
- * Approximate day span for a period (for truncating non-dated series by count).
- * `"all"` / unknown → null.
+ * Inclusive upper bound for a period.
+ * Presets use `now`; `"custom"` uses `range.to` (or `now` / `from` fallback).
  */
-export function periodDaySpan(period: ChartPeriodKey): number | null {
+export function periodEndMs(
+  period: ChartPeriodKey,
+  now: Date | number = Date.now(),
+  options?: Omit<ChartPeriodResolveOptions, "now">,
+): number {
+  const nowMs = resolveNowMs(now);
+  if (period === "custom") {
+    const bounds = normalizeChartPeriodRange(options?.range);
+    if (bounds) return bounds.to;
+    return nowMs;
+  }
+  return nowMs;
+}
+
+/**
+ * Approximate day span for a period (for truncating non-dated series by count).
+ * `"all"` / unknown without definition → null.
+ */
+export function periodDaySpan(
+  period: ChartPeriodKey,
+  options?: ChartPeriodResolveOptions,
+): number | null {
+  if (period === "custom") {
+    const bounds = normalizeChartPeriodRange(options?.range);
+    if (!bounds) return null;
+    return Math.max(1, Math.ceil((bounds.to - bounds.from) / DAY_MS) + 1);
+  }
   switch (period) {
     case "24h":
       return 1;
@@ -552,35 +701,74 @@ export function periodDaySpan(period: ChartPeriodKey): number | null {
     case "1y":
       return 365;
     case "ytd": {
-      const now = new Date();
+      const nowMs = resolveNowMs(options?.now);
+      const now = new Date(nowMs);
       const start = new Date(now.getFullYear(), 0, 1);
-      return Math.max(1, Math.ceil((now.getTime() - start.getTime()) / (24 * 60 * 60 * 1000)) + 1);
+      return Math.max(
+        1,
+        Math.ceil((nowMs - start.getTime()) / DAY_MS) + 1,
+      );
     }
     case "all":
       return null;
-    default:
+    default: {
+      const def = findPeriodOption(period, options?.periods);
+      if (def?.daySpan != null && def.daySpan > 0) return Math.floor(def.daySpan);
+      if (def?.startOffsetMs != null && def.startOffsetMs > 0) {
+        return Math.max(1, Math.ceil(def.startOffsetMs / DAY_MS));
+      }
       return null;
+    }
   }
 }
 
+function normalizePeriodArgs(
+  nowOrOptions: Date | number | ChartPeriodResolveOptions = Date.now(),
+): ChartPeriodResolveOptions {
+  if (
+    typeof nowOrOptions === "object" &&
+    nowOrOptions != null &&
+    !(nowOrOptions instanceof Date)
+  ) {
+    return nowOrOptions;
+  }
+  return { now: nowOrOptions };
+}
+
 /**
- * Filter time-series points into the selected period.
+ * Filter time-series points into the selected period / custom range.
  * Points without a parseable `date` are kept only when period is `"all"`.
  */
 export function filterTimeSeriesByPeriod<T extends TimeSeriesDatum>(
   data: T[] | undefined | null,
   period: ChartPeriodKey,
-  now: Date | number = Date.now(),
+  nowOrOptions: Date | number | ChartPeriodResolveOptions = Date.now(),
 ): T[] {
   if (!data || data.length === 0) return [];
+  const opts = normalizePeriodArgs(nowOrOptions);
+  const nowMs = resolveNowMs(opts.now);
+  const resolveOpts = { range: opts.range, periods: opts.periods };
   if (period === "all") return [...data];
-  const start = periodStartMs(period, now);
-  if (start == null) return [...data];
-  const end = typeof now === "number" ? now : now.getTime();
+  if (period === "custom" && !normalizeChartPeriodRange(opts.range)) {
+    // Incomplete custom range → empty rather than unfiltered surprise
+    return [];
+  }
+  const start = periodStartMs(period, nowMs, resolveOpts);
+  if (start == null && period !== "custom") return [...data];
+  if (start == null) return [];
+  const end = periodEndMs(period, nowMs, resolveOpts);
+  // Date-only `to` (YYYY-MM-DD) is midnight — include the full local day.
+  const endInclusive =
+    period === "custom" &&
+    opts.range?.to != null &&
+    typeof opts.range.to === "string" &&
+    /^\d{4}-\d{2}-\d{2}$/.test(opts.range.to)
+      ? end + DAY_MS - 1
+      : end;
   return data.filter((d) => {
     const t = toEpochMs(d.date);
     if (t == null) return false;
-    return t >= start && t <= end;
+    return t >= start && t <= endInclusive;
   });
 }
 
@@ -591,23 +779,45 @@ export function filterTimeSeriesByPeriod<T extends TimeSeriesDatum>(
 export function sliceSeriesForPeriod<T>(
   data: T[] | undefined | null,
   period: ChartPeriodKey,
+  options?: ChartPeriodResolveOptions,
 ): T[] {
   if (!data || data.length === 0) return [];
-  const span = periodDaySpan(period);
+  const span = periodDaySpan(period, options);
   if (span == null || span >= data.length) return [...data];
   return data.slice(-span);
 }
 
-/** Prefer date filter when any point has a date; otherwise slice by count. */
+/**
+ * Prefer date filter when any point has a date; otherwise slice by count.
+ * Third arg: `now` (legacy) or {@link ChartPeriodResolveOptions} with `range` / `periods`.
+ */
 export function applyChartPeriod<T extends TimeSeriesDatum>(
   data: T[] | undefined | null,
   period: ChartPeriodKey,
-  now: Date | number = Date.now(),
+  nowOrOptions: Date | number | ChartPeriodResolveOptions = Date.now(),
 ): T[] {
   if (!data || data.length === 0) return [];
+  const opts = normalizePeriodArgs(nowOrOptions);
   const hasDates = data.some((d) => toEpochMs(d.date) != null);
-  if (hasDates) return filterTimeSeriesByPeriod(data, period, now);
-  return sliceSeriesForPeriod(data, period);
+  if (hasDates) return filterTimeSeriesByPeriod(data, period, opts);
+  return sliceSeriesForPeriod(data, period, opts);
+}
+
+/** Human-readable range label for footers / toolbars. */
+export function formatChartPeriodRange(
+  range: ChartPeriodRange | null | undefined,
+  locale?: string,
+): string {
+  const bounds = normalizeChartPeriodRange(range);
+  if (!bounds) return "";
+  const fmt = (ms: number) =>
+    new Date(ms).toLocaleDateString(locale, {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  if (bounds.from === bounds.to) return fmt(bounds.from);
+  return `${fmt(bounds.from)} – ${fmt(bounds.to)}`;
 }
 
 /* ── Bar / stacked / radar / funnel geometry ── */
@@ -1143,6 +1353,64 @@ export function normalizeHeatmapData(
 }
 
 /**
+ * Estimate SVG text width for monospace-ish labels (viewBox units).
+ * Tuned for ~9px UI labels; slightly wide so we thin early rather than clip.
+ */
+export function estimateHeatmapLabelWidth(
+  label: string,
+  fontSize = 9,
+): number {
+  if (!label) return 0;
+  // Average glyph width ≈ 0.58em for tabular UI labels (W10, Mon, etc.)
+  return Math.max(fontSize * 0.5, label.length * fontSize * 0.58);
+}
+
+/**
+ * Pick which axis labels to show so dense grids don't run labels together.
+ * Always keeps first + last when thinning. Returns indices into `labels`.
+ *
+ * @param pitch Distance between adjacent cell centers (cellSize + gap).
+ */
+export function selectHeatmapAxisLabelIndices(
+  labels: readonly string[],
+  pitch: number,
+  options?: {
+    fontSize?: number;
+    /** Minimum gap between adjacent drawn labels (viewBox units). Default 2. */
+    minGap?: number;
+    /**
+     * Force a fixed step (1 = all). When omitted, step is derived from
+     * the widest label vs pitch.
+     */
+    step?: number;
+  },
+): number[] {
+  const n = labels.length;
+  if (n === 0) return [];
+  if (n === 1) return [0];
+  const fontSize = options?.fontSize ?? 9;
+  const minGap = options?.minGap ?? 2;
+  const maxLabelW = Math.max(
+    ...labels.map((l) => estimateHeatmapLabelWidth(l, fontSize)),
+    fontSize,
+  );
+  const needed = maxLabelW + minGap;
+  const autoStep =
+    pitch > 0 && needed > pitch ? Math.ceil(needed / pitch) : 1;
+  const step = Math.max(1, options?.step ?? autoStep);
+
+  if (step <= 1) {
+    return Array.from({ length: n }, (_, i) => i);
+  }
+
+  const picked = new Set<number>();
+  for (let i = 0; i < n; i += step) picked.add(i);
+  picked.add(0);
+  picked.add(n - 1);
+  return [...picked].sort((a, b) => a - b);
+}
+
+/**
  * Layout heatmap cells as a grid of rects inside a viewBox.
  * When `cellSize` is set, width/height are derived; otherwise cells fill the plot area.
  */
@@ -1277,5 +1545,767 @@ export function layoutHeatmapCells(
     max: options?.maxValue ?? dataMax,
     plotWidth: round(plotW),
     plotHeight: round(plotH),
+  };
+}
+
+/* ── Tree Map geometry ── */
+
+/** Hierarchical node for tree-map layout. Leaf value or parent sum of children. */
+export type TreeMapNode = {
+  name: string;
+  /** Absolute value. When omitted on parents, sum of children is used. */
+  value?: number;
+  children?: TreeMapNode[];
+  color?: string;
+};
+
+export type TreeMapTile = {
+  name: string;
+  value: number;
+  depth: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  /** Dot-separated ancestry path from root */
+  path: string;
+  /** True for leaves (no children layout tiles) */
+  leaf: boolean;
+  color?: string;
+};
+
+/** Resolve display value: sum of children when present, else node.value (clamped ≥ 0). */
+export function treeMapNodeValue(node: TreeMapNode): number {
+  if (node.children && node.children.length > 0) {
+    const childSum = node.children.reduce((s, c) => s + treeMapNodeValue(c), 0);
+    if (childSum > 0) return childSum;
+  }
+  const v = node.value;
+  return Number.isFinite(v) ? Math.max(0, v as number) : 0;
+}
+
+type InternalTree = {
+  name: string;
+  value: number;
+  children: InternalTree[];
+  color?: string;
+  path: string;
+  depth: number;
+};
+
+function buildInternalTree(
+  node: TreeMapNode,
+  path: string,
+  depth: number,
+): InternalTree {
+  const children = (node.children ?? []).map((c, i) =>
+    buildInternalTree(c, path ? `${path}.${c.name}` : c.name, depth + 1),
+  );
+  let value = children.length
+    ? children.reduce((s, c) => s + c.value, 0)
+    : Number.isFinite(node.value)
+      ? Math.max(0, node.value as number)
+      : 0;
+  // Parent may declare a value larger than children (padding weight) — use max
+  if (
+    children.length &&
+    node.value != null &&
+    Number.isFinite(node.value) &&
+    node.value > value
+  ) {
+    value = Math.max(0, node.value);
+  }
+  return {
+    name: node.name,
+    value,
+    children,
+    color: node.color,
+    path: path || node.name,
+    depth,
+  };
+}
+
+/** Worst aspect ratio for a row of sizes in a free rectangle of short side `side`. */
+function worstAspect(row: number[], side: number): number {
+  if (row.length === 0 || side <= 0) return Infinity;
+  const s = row.reduce((a, b) => a + b, 0);
+  if (s <= 0) return Infinity;
+  let maxR = 0;
+  for (const r of row) {
+    const w = (r / s) * side;
+    // rect is (s/side) × w in the layout plane; aspect = max(side²r/s², s²/(side²r))
+    const a1 = (side * side * r) / (s * s);
+    const a2 = (s * s) / (side * side * r);
+    maxR = Math.max(maxR, a1, a2);
+  }
+  return maxR;
+}
+
+/**
+ * Squarified tree-map (Bruls et al.): layout leaves (and intermediate nodes if
+ * `includeParents`) as rectangles with area proportional to value.
+ */
+export function layoutTreeMap(
+  data: TreeMapNode | TreeMapNode[] | null | undefined,
+  width: number,
+  height: number,
+  padding: Partial<ChartPadding> = {},
+  options?: {
+    /** Gap between sibling tiles (SVG units). Default 1. */
+    gap?: number;
+    /** When true, emit parent tiles as well as leaves. Default false (leaves only). */
+    includeParents?: boolean;
+  },
+): TreeMapTile[] {
+  if (!data || width <= 0 || height <= 0) return [];
+  const roots = Array.isArray(data) ? data : [data];
+  if (roots.length === 0) return [];
+
+  const pad = { ...DEFAULT_PAD, ...padding };
+  const gap = Math.max(0, options?.gap ?? 1);
+  const includeParents = options?.includeParents ?? false;
+  const innerW = Math.max(0, width - pad.left - pad.right);
+  const innerH = Math.max(0, height - pad.top - pad.bottom);
+  if (innerW <= 0 || innerH <= 0) return [];
+
+  const forest: InternalTree =
+    roots.length === 1
+      ? buildInternalTree(roots[0]!, roots[0]!.name, 0)
+      : {
+          name: "__root__",
+          value: 0,
+          children: roots.map((r) => buildInternalTree(r, r.name, 0)),
+          path: "",
+          depth: -1,
+        };
+  if (forest.children.length && forest.value === 0) {
+    forest.value = forest.children.reduce((s, c) => s + c.value, 0);
+  }
+  if (forest.value <= 0) return [];
+
+  const tiles: TreeMapTile[] = [];
+
+  const pushTile = (
+    node: InternalTree,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    leaf: boolean,
+  ) => {
+    if (w <= 0 || h <= 0) return;
+    tiles.push({
+      name: node.name,
+      value: node.value,
+      depth: node.depth,
+      x: round(x),
+      y: round(y),
+      width: round(w),
+      height: round(h),
+      path: node.path,
+      leaf,
+      color: node.color,
+    });
+  };
+
+  const layoutNode = (
+    node: InternalTree,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+  ) => {
+    const kids = node.children.filter((c) => c.value > 0);
+    if (kids.length === 0) {
+      pushTile(node, x, y, w, h, true);
+      return;
+    }
+    if (includeParents && node.depth >= 0) {
+      pushTile(node, x, y, w, h, false);
+    }
+    // Squarify children into the rectangle
+    squarify(kids, x, y, w, h, layoutNode);
+  };
+
+  type LayoutChild = (
+    node: InternalTree,
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+  ) => void;
+
+  function squarify(
+    children: InternalTree[],
+    x: number,
+    y: number,
+    w: number,
+    h: number,
+    layoutChild: LayoutChild,
+  ) {
+    const total = children.reduce((s, c) => s + c.value, 0);
+    if (total <= 0 || w <= 0 || h <= 0) return;
+    // Scale values to area units
+    const area = w * h;
+    const sizes = children.map((c) => (c.value / total) * area);
+    const nodes = children.map((c, i) => ({ node: c, size: sizes[i]! }));
+
+    let cx = x;
+    let cy = y;
+    let cw = w;
+    let ch = h;
+    let i = 0;
+    while (i < nodes.length) {
+      const row: typeof nodes = [];
+      const horizontal = cw >= ch; // row grows along the long side
+      const side = horizontal ? ch : cw;
+
+      while (i < nodes.length) {
+        const next = nodes[i]!;
+        const trial = [...row, next];
+        const trialSizes = trial.map((t) => t.size);
+        if (
+          row.length === 0 ||
+          worstAspect(trialSizes, side) <= worstAspect(
+            row.map((t) => t.size),
+            side,
+          )
+        ) {
+          row.push(next);
+          i++;
+        } else {
+          break;
+        }
+      }
+
+      const rowSum = row.reduce((s, t) => s + t.size, 0);
+      if (rowSum <= 0) break;
+      const rowThickness = rowSum / side;
+
+      if (horizontal) {
+        // Row stacks vertically along height `side`, thickness along x
+        let ry = cy;
+        for (const item of row) {
+          const rh = (item.size / rowSum) * side;
+          const g = gap > 0 && row.length > 1 ? gap / 2 : 0;
+          layoutChild(
+            item.node,
+            cx,
+            ry + g,
+            Math.max(0, rowThickness - (gap > 0 ? gap / 2 : 0)),
+            Math.max(0, rh - g * 2),
+          );
+          ry += rh;
+        }
+        cx += rowThickness;
+        cw = Math.max(0, cw - rowThickness);
+      } else {
+        // Row stacks horizontally along width `side`, thickness along y
+        let rx = cx;
+        for (const item of row) {
+          const rw = (item.size / rowSum) * side;
+          const g = gap > 0 && row.length > 1 ? gap / 2 : 0;
+          layoutChild(
+            item.node,
+            rx + g,
+            cy,
+            Math.max(0, rw - g * 2),
+            Math.max(0, rowThickness - (gap > 0 ? gap / 2 : 0)),
+          );
+          rx += rw;
+        }
+        cy += rowThickness;
+        ch = Math.max(0, ch - rowThickness);
+      }
+    }
+  }
+
+  if (forest.depth === -1) {
+    // Synthetic multi-root forest
+    squarify(forest.children, pad.left, pad.top, innerW, innerH, layoutNode);
+  } else if (forest.children.length === 0) {
+    pushTile(forest, pad.left, pad.top, innerW, innerH, true);
+  } else {
+    if (includeParents) {
+      pushTile(forest, pad.left, pad.top, innerW, innerH, false);
+    }
+    squarify(forest.children, pad.left, pad.top, innerW, innerH, layoutNode);
+  }
+
+  return tiles;
+}
+
+/* ── Sankey geometry ── */
+
+export type SankeyNodeInput = {
+  id: string;
+  label?: string;
+  /** Explicit column/rank (0-based). Auto from topology when omitted. */
+  column?: number;
+  color?: string;
+};
+
+export type SankeyLinkInput = {
+  source: string;
+  target: string;
+  value: number;
+  color?: string;
+};
+
+export type SankeyNodeLayout = {
+  id: string;
+  label?: string;
+  column: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  value: number;
+  color?: string;
+};
+
+export type SankeyLinkLayout = {
+  source: string;
+  target: string;
+  value: number;
+  path: string;
+  width: number;
+  sourceY0: number;
+  sourceY1: number;
+  targetY0: number;
+  targetY1: number;
+  color?: string;
+};
+
+export type SankeyLayout = {
+  nodes: SankeyNodeLayout[];
+  links: SankeyLinkLayout[];
+  columns: number;
+};
+
+/**
+ * Layout a multi-column Sankey diagram.
+ * Node height ∝ max(sum of inbound, sum of outbound) values.
+ * Link ribbon widths ∝ flow value; paths are cubic bezier bands.
+ */
+export function layoutSankey(
+  nodesInput: SankeyNodeInput[] | null | undefined,
+  linksInput: SankeyLinkInput[] | null | undefined,
+  width: number,
+  height: number,
+  padding: Partial<ChartPadding> = {},
+  options?: {
+    nodeWidth?: number;
+    nodeGap?: number;
+  },
+): SankeyLayout {
+  const empty: SankeyLayout = { nodes: [], links: [], columns: 0 };
+  if (!nodesInput || nodesInput.length === 0 || width <= 0 || height <= 0) {
+    return empty;
+  }
+  const pad = { ...DEFAULT_PAD, ...padding };
+  const nodeW = options?.nodeWidth ?? 14;
+  const nodeGap = options?.nodeGap ?? 10;
+  const innerW = Math.max(0, width - pad.left - pad.right);
+  const innerH = Math.max(0, height - pad.top - pad.bottom);
+  if (innerW <= 0 || innerH <= 0) return empty;
+
+  const nodeMap = new Map<string, SankeyNodeInput>();
+  for (const n of nodesInput) {
+    if (n.id) nodeMap.set(n.id, n);
+  }
+  if (nodeMap.size === 0) return empty;
+
+  const links = (linksInput ?? [])
+    .filter(
+      (l) =>
+        l &&
+        nodeMap.has(l.source) &&
+        nodeMap.has(l.target) &&
+        l.source !== l.target &&
+        Number.isFinite(l.value) &&
+        l.value > 0,
+    )
+    .map((l) => ({ ...l, value: Math.max(0, l.value) }));
+
+  // Incoming / outgoing totals
+  const outSum = new Map<string, number>();
+  const inSum = new Map<string, number>();
+  for (const id of nodeMap.keys()) {
+    outSum.set(id, 0);
+    inSum.set(id, 0);
+  }
+  for (const l of links) {
+    outSum.set(l.source, (outSum.get(l.source) ?? 0) + l.value);
+    inSum.set(l.target, (inSum.get(l.target) ?? 0) + l.value);
+  }
+
+  // Column assignment
+  const columns = new Map<string, number>();
+  for (const [id, n] of nodeMap) {
+    if (n.column != null && Number.isFinite(n.column) && n.column >= 0) {
+      columns.set(id, Math.floor(n.column));
+    }
+  }
+  // Topological-ish: sources first; longest-path from sources for the rest
+  const adj = new Map<string, string[]>();
+  const indeg = new Map<string, number>();
+  for (const id of nodeMap.keys()) {
+    adj.set(id, []);
+    indeg.set(id, 0);
+  }
+  for (const l of links) {
+    adj.get(l.source)!.push(l.target);
+    indeg.set(l.target, (indeg.get(l.target) ?? 0) + 1);
+  }
+  // BFS rank for unassigned
+  const queue: string[] = [];
+  for (const id of nodeMap.keys()) {
+    if (!columns.has(id)) {
+      if ((indeg.get(id) ?? 0) === 0) {
+        columns.set(id, 0);
+        queue.push(id);
+      }
+    } else {
+      queue.push(id);
+    }
+  }
+  // Relax longest path
+  const order = [...nodeMap.keys()];
+  for (let pass = 0; pass < order.length; pass++) {
+    let changed = false;
+    for (const l of links) {
+      const sc = columns.get(l.source);
+      if (sc == null) continue;
+      const want = sc + 1;
+      const tc = columns.get(l.target);
+      if (tc == null || tc < want) {
+        // Don't overwrite explicit columns from input when they already set a higher rank
+        const explicit = nodeMap.get(l.target)?.column;
+        if (explicit != null && Number.isFinite(explicit)) {
+          if (tc == null) columns.set(l.target, Math.floor(explicit));
+        } else {
+          columns.set(l.target, want);
+          changed = true;
+        }
+      }
+    }
+    if (!changed) break;
+  }
+  for (const id of nodeMap.keys()) {
+    if (!columns.has(id)) columns.set(id, 0);
+  }
+
+  const maxCol = Math.max(0, ...[...columns.values()]);
+  const colCount = maxCol + 1;
+
+  // Group nodes by column
+  const byCol: string[][] = Array.from({ length: colCount }, () => []);
+  for (const id of nodeMap.keys()) {
+    byCol[columns.get(id)!]!.push(id);
+  }
+
+  // Node value = max(in, out) so height covers both sides
+  const nodeValue = (id: string) =>
+    Math.max(inSum.get(id) ?? 0, outSum.get(id) ?? 0, 1e-9);
+
+  // Per-column scale: height available after gaps
+  const nodeLayouts = new Map<string, SankeyNodeLayout>();
+  const xForCol = (col: number) => {
+    if (colCount === 1) return pad.left + (innerW - nodeW) / 2;
+    return pad.left + (col / (colCount - 1)) * (innerW - nodeW);
+  };
+
+  for (let col = 0; col < colCount; col++) {
+    const ids = byCol[col]!;
+    if (ids.length === 0) continue;
+    // Stable order by id for determinism
+    ids.sort((a, b) => a.localeCompare(b));
+    const values = ids.map(nodeValue);
+    const totalVal = values.reduce((s, v) => s + v, 0);
+    const gaps = Math.max(0, ids.length - 1) * nodeGap;
+    const usable = Math.max(0, innerH - gaps);
+    let y = pad.top;
+    for (let i = 0; i < ids.length; i++) {
+      const id = ids[i]!;
+      const h =
+        totalVal > 0 ? (values[i]! / totalVal) * usable : usable / ids.length;
+      const n = nodeMap.get(id)!;
+      nodeLayouts.set(id, {
+        id,
+        label: n.label ?? id,
+        column: col,
+        x: round(xForCol(col)),
+        y: round(y),
+        width: round(nodeW),
+        height: round(Math.max(1, h)),
+        value: round(values[i]!, 4),
+        color: n.color,
+      });
+      y += h + nodeGap;
+    }
+  }
+
+  // Link attachments: stack outbound at source, inbound at target
+  const outCursor = new Map<string, number>();
+  const inCursor = new Map<string, number>();
+  for (const [id, n] of nodeLayouts) {
+    outCursor.set(id, n.y);
+    inCursor.set(id, n.y);
+  }
+
+  // Sort links for stable stacking: by source column, then source id, then target
+  const sortedLinks = [...links].sort((a, b) => {
+    const ca = columns.get(a.source)! - columns.get(b.source)!;
+    if (ca !== 0) return ca;
+    const s = a.source.localeCompare(b.source);
+    if (s !== 0) return s;
+    return a.target.localeCompare(b.target);
+  });
+
+  const linkLayouts: SankeyLinkLayout[] = [];
+  for (const l of sortedLinks) {
+    const src = nodeLayouts.get(l.source);
+    const tgt = nodeLayouts.get(l.target);
+    if (!src || !tgt) continue;
+
+    // Thickness proportional within source node height using out-sum
+    const srcOut = outSum.get(l.source) || 1;
+    const tgtIn = inSum.get(l.target) || 1;
+    const srcH = Math.max(1, (l.value / srcOut) * src.height);
+    const tgtH = Math.max(1, (l.value / tgtIn) * tgt.height);
+
+    const sy0 = outCursor.get(l.source) ?? src.y;
+    const sy1 = sy0 + srcH;
+    outCursor.set(l.source, sy1);
+    const ty0 = inCursor.get(l.target) ?? tgt.y;
+    const ty1 = ty0 + tgtH;
+    inCursor.set(l.target, ty1);
+
+    const x0 = src.x + src.width;
+    const x1 = tgt.x;
+    const mx = (x0 + x1) / 2;
+    // Ribbon: closed path with two cubic curves
+    const path = [
+      `M ${round(x0)} ${round(sy0)}`,
+      `C ${round(mx)} ${round(sy0)}, ${round(mx)} ${round(ty0)}, ${round(x1)} ${round(ty0)}`,
+      `L ${round(x1)} ${round(ty1)}`,
+      `C ${round(mx)} ${round(ty1)}, ${round(mx)} ${round(sy1)}, ${round(x0)} ${round(sy1)}`,
+      "Z",
+    ].join(" ");
+
+    linkLayouts.push({
+      source: l.source,
+      target: l.target,
+      value: l.value,
+      path,
+      width: round(Math.min(srcH, tgtH), 4),
+      sourceY0: round(sy0),
+      sourceY1: round(sy1),
+      targetY0: round(ty0),
+      targetY1: round(ty1),
+      color: l.color,
+    });
+  }
+
+  return {
+    nodes: [...nodeLayouts.values()].sort((a, b) =>
+      a.column !== b.column
+        ? a.column - b.column
+        : a.id.localeCompare(b.id),
+    ),
+    links: linkLayouts,
+    columns: colCount,
+  };
+}
+
+/* ── Gauge geometry ── */
+
+export type GaugeThreshold = {
+  /** Absolute domain value marking the end of this band (inclusive upper). */
+  value: number;
+  color?: string;
+};
+
+export type GaugeBandLayout = {
+  from: number;
+  to: number;
+  startAngle: number;
+  endAngle: number;
+  path: string;
+  color?: string;
+};
+
+export type GaugeLayout = {
+  cx: number;
+  cy: number;
+  radius: number;
+  innerRadius: number;
+  /** Arc start (left / low end), radians — 0 at 12 o'clock, clockwise */
+  startAngle: number;
+  /** Arc end (right / high end) */
+  endAngle: number;
+  valueAngle: number;
+  min: number;
+  max: number;
+  value: number;
+  clampedValue: number;
+  /** Normalized 0–1 position of value in domain */
+  t: number;
+  needle: { x: number; y: number };
+  needlePath: string;
+  trackPath: string;
+  valueArcPath: string;
+  bands: GaugeBandLayout[];
+};
+
+/**
+ * Semi-circular (or custom-sweep) gauge layout.
+ * Maps `value` into [min, max] along an arc; clamps out-of-range safely.
+ * Optional thresholds produce colored bands from min → each threshold.
+ */
+export function layoutGauge(
+  value: number,
+  min: number,
+  max: number,
+  width: number,
+  height: number,
+  padding: Partial<ChartPadding> = {},
+  options?: {
+    /** Start angle rad (default -π/2 = 9 o'clock) */
+    startAngle?: number;
+    /** End angle rad (default π/2 = 3 o'clock) — top semicircle when start < end clockwise via top */
+    endAngle?: number;
+    /** Outer radius; default fits plot */
+    radius?: number;
+    /** Inner radius ratio of outer (0–1). Default 0.72 */
+    innerRatio?: number;
+    thresholds?: GaugeThreshold[];
+  },
+): GaugeLayout | null {
+  if (width <= 0 || height <= 0) return null;
+  const pad = { ...DEFAULT_PAD, ...padding };
+  const innerW = Math.max(0, width - pad.left - pad.right);
+  const innerH = Math.max(0, height - pad.top - pad.bottom);
+  if (innerW <= 0 || innerH <= 0) return null;
+
+  let d0 = Number.isFinite(min) ? min : 0;
+  let d1 = Number.isFinite(max) ? max : 1;
+  if (d1 < d0) {
+    const t = d0;
+    d0 = d1;
+    d1 = t;
+  }
+  // Degenerate domain: expand slightly so needle has a defined mid
+  if (d1 === d0) {
+    d0 = d0 - 1;
+    d1 = d1 + 1;
+  }
+
+  const startAngle = options?.startAngle ?? -Math.PI / 2;
+  const endAngle = options?.endAngle ?? Math.PI / 2;
+  const sweep = endAngle - startAngle;
+
+  // Center near bottom of plot for top semicircle; general center for full
+  const cx = pad.left + innerW / 2;
+  const isSemi = Math.abs(Math.abs(sweep) - Math.PI) < 0.2;
+  const cy = isSemi
+    ? pad.top + innerH * 0.92
+    : pad.top + innerH / 2;
+  const maxR = options?.radius
+    ?? (isSemi
+      ? Math.min(innerW / 2, innerH * 0.95) * 0.96
+      : Math.min(innerW, innerH) / 2 * 0.9);
+  const radius = Math.max(1, maxR);
+  const innerRatio = clamp(options?.innerRatio ?? 0.72, 0.05, 0.95);
+  const innerRadius = radius * innerRatio;
+
+  const raw = Number.isFinite(value) ? value : d0;
+  const clampedValue = clamp(raw, d0, d1);
+  const t = (clampedValue - d0) / (d1 - d0);
+  const valueAngle = startAngle + t * sweep;
+
+  const needle = polarToCartesian(cx, cy, radius * 0.88, valueAngle);
+  // Needle base triangle
+  const baseW = Math.max(3, radius * 0.04);
+  const baseLeft = polarToCartesian(cx, cy, baseW, valueAngle - Math.PI / 2);
+  const baseRight = polarToCartesian(cx, cy, baseW, valueAngle + Math.PI / 2);
+  const hub = { x: cx, y: cy };
+  const needlePath = [
+    `M ${round(baseLeft.x)} ${round(baseLeft.y)}`,
+    `L ${round(needle.x)} ${round(needle.y)}`,
+    `L ${round(baseRight.x)} ${round(baseRight.y)}`,
+    `L ${round(hub.x)} ${round(hub.y)}`,
+    "Z",
+  ].join(" ");
+
+  const trackPath = donutSlicePath(
+    cx,
+    cy,
+    radius,
+    innerRadius,
+    startAngle,
+    endAngle,
+  );
+  const valueArcPath =
+    t > 0
+      ? donutSlicePath(cx, cy, radius, innerRadius, startAngle, valueAngle)
+      : "";
+
+  // Threshold bands
+  const bands: GaugeBandLayout[] = [];
+  const thresholds = [...(options?.thresholds ?? [])]
+    .filter((th) => Number.isFinite(th.value))
+    .sort((a, b) => a.value - b.value);
+  if (thresholds.length > 0) {
+    let from = d0;
+    for (const th of thresholds) {
+      const to = clamp(th.value, d0, d1);
+      if (to <= from) {
+        from = to;
+        continue;
+      }
+      const a0 = startAngle + ((from - d0) / (d1 - d0)) * sweep;
+      const a1 = startAngle + ((to - d0) / (d1 - d0)) * sweep;
+      bands.push({
+        from,
+        to,
+        startAngle: a0,
+        endAngle: a1,
+        path: donutSlicePath(cx, cy, radius, innerRadius, a0, a1),
+        color: th.color,
+      });
+      from = to;
+    }
+    if (from < d1) {
+      const a0 = startAngle + ((from - d0) / (d1 - d0)) * sweep;
+      bands.push({
+        from,
+        to: d1,
+        startAngle: a0,
+        endAngle,
+        path: donutSlicePath(cx, cy, radius, innerRadius, a0, endAngle),
+      });
+    }
+  }
+
+  return {
+    cx: round(cx),
+    cy: round(cy),
+    radius: round(radius),
+    innerRadius: round(innerRadius),
+    startAngle,
+    endAngle,
+    valueAngle,
+    min: d0,
+    max: d1,
+    value: raw,
+    clampedValue,
+    t: round(t, 4),
+    needle: { x: round(needle.x), y: round(needle.y) },
+    needlePath,
+    trackPath,
+    valueArcPath,
+    bands,
   };
 }
