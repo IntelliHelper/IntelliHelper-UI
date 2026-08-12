@@ -15,14 +15,8 @@ const require = createRequire(import.meta.url);
 const ts = require("typescript") as typeof import("typescript");
 
 const iconsSrcPath = path.join(import.meta.dirname, "../icons.tsx");
-const scratchDir = path.join(
-  import.meta.dirname,
-  "../../../../../var/folders/xd/qq6v19ks2dn2hq4jb25w9sf80000gn/T/grok-goal-39be984b7c3f/implementer"
-);
-// Prefer absolute scratch from env-like known path; fall back next to package
-const OUT =
-  process.env.ICON_TEST_OUT ||
-  "/var/folders/xd/qq6v19ks2dn2hq4jb25w9sf80000gn/T/grok-goal-39be984b7c3f/implementer/icons.compiled.mjs";
+/** Compiled next to the test so node can import JSX without a TS loader. */
+const OUT = path.join(import.meta.dirname, ".icons.compiled.mjs");
 
 let icons: Record<string, (props?: Record<string, unknown>) => unknown>;
 
@@ -42,12 +36,11 @@ before(async () => {
     require.resolve("react/jsx-runtime")
   ).href;
   const reactUrl = pathToFileURL(require.resolve("react")).href;
-  let code = outputText
+  const code = outputText
     .replaceAll('from "react/jsx-runtime"', `from ${JSON.stringify(jsxRuntime)}`)
     .replaceAll("from 'react/jsx-runtime'", `from ${JSON.stringify(jsxRuntime)}`)
     .replaceAll('from "react"', `from ${JSON.stringify(reactUrl)}`)
     .replaceAll("from 'react'", `from ${JSON.stringify(reactUrl)}`);
-  fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, code);
   icons = await import(pathToFileURL(OUT).href);
 });
