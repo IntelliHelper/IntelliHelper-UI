@@ -346,6 +346,9 @@ const RadarChartDemo = lazy(() =>
 const FunnelChartDemo = lazy(() =>
   import("../../components/analytics-demo").then((m) => ({ default: m.FunnelChartDemo })),
 );
+const HeatmapDemo = lazy(() =>
+  import("../../components/analytics-demo").then((m) => ({ default: m.HeatmapDemo })),
+);
 
 
 const variants = [
@@ -2422,6 +2425,49 @@ import { AreaChart } from "@/components/ui/area-chart"
     { label: "Signups", value: 4800 },
     { label: "Paid", value: 840 },
   ]}
+/>`,
+    },
+  ],
+  heatmap: [
+    {
+      title: "Heatmap + customization",
+      description:
+        "Matrix or sparse cells · primary / github / cool / warm / mono scales, legend, interactive cells.",
+      preview: <HeatmapDemo />,
+      code: `import { Heatmap } from "@/components/ui/heatmap"
+
+// GitHub contribution greens
+<Heatmap
+  data={contributionMatrix}
+  rows={["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]}
+  cols={weekLabels}
+  colorScale="github"
+  cellSize={11}
+  gap={2}
+  cellRadius={2}
+  legendLowLabel="Less"
+  legendHighLabel="More"
+/>
+
+// Dense matrix + theme scale
+<Heatmap
+  data={[
+    [2, 4, 8, 12],
+    [1, 3, 10, 14],
+    [3, 5, 11, 16],
+  ]}
+  rows={["Mon", "Tue", "Wed"]}
+  cols={["00", "08", "12", "16"]}
+  colorScale="primary" // primary | github | cool | warm | mono | custom stops
+  gap={3}
+  showValues
+  interactive
+/>
+
+// Custom stops
+<Heatmap
+  data={[{ row: "API", col: "p95", value: 180 }]}
+  colorScale={["#e0f2fe", "#0284c7", "#0c4a6e"]}
 />`,
     },
   ],

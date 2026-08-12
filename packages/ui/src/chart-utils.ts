@@ -928,3 +928,354 @@ export function niceTicks(min: number, max: number, tickCount = 4): number[] {
   }
   return ticks;
 }
+
+/* ── Heatmap geometry + color scales ── */
+
+/** Sparse cell for a matrix heatmap (row × col). */
+export type HeatmapDatum = {
+  /** Row category key / label */
+  row: string;
+  /** Column category key / label */
+  col: string;
+  value: number;
+  /** Optional per-cell color override */
+  color?: string;
+};
+
+export type HeatmapCellLayout = {
+  rowIndex: number;
+  colIndex: number;
+  row: string;
+  col: string;
+  value: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  /** Normalized intensity 0–1 against the domain */
+  t: number;
+  /** False when no sparse/matrix value was provided for this slot */
+  present: boolean;
+  color?: string;
+};
+
+/** Named token-aware color ramps (low → high). */
+export type HeatmapColorScaleId =
+  | "primary"
+  | "cool"
+  | "warm"
+  | "mono"
+  /** GitHub contribution-graph greens (light empty → deep green) */
+  | "github";
+
+/**
+ * Default multi-stop ramps using CSS color-mix so heatmaps track Liquid Glass themes.
+ * Consumers can pass a custom `string[]` of stops instead.
+ * `github` uses the classic contribution palette (theme-independent on purpose).
+ */
+export const HEATMAP_COLOR_SCALES: Record<HeatmapColorScaleId, readonly string[]> = {
+  primary: [
+    "color-mix(in oklch, var(--primary) 10%, transparent)",
+    "color-mix(in oklch, var(--primary) 35%, transparent)",
+    "color-mix(in oklch, var(--primary) 62%, transparent)",
+    "var(--primary)",
+  ],
+  cool: [
+    "color-mix(in oklch, oklch(0.72 0.12 230) 12%, transparent)",
+    "color-mix(in oklch, oklch(0.65 0.14 220) 45%, transparent)",
+    "color-mix(in oklch, oklch(0.58 0.16 280) 70%, transparent)",
+    "oklch(0.52 0.18 300)",
+  ],
+  warm: [
+    "color-mix(in oklch, oklch(0.82 0.12 85) 14%, transparent)",
+    "color-mix(in oklch, oklch(0.74 0.15 55) 48%, transparent)",
+    "color-mix(in oklch, oklch(0.65 0.18 35) 72%, transparent)",
+    "oklch(0.58 0.2 25)",
+  ],
+  mono: [
+    "color-mix(in oklch, var(--foreground) 8%, transparent)",
+    "color-mix(in oklch, var(--foreground) 28%, transparent)",
+    "color-mix(in oklch, var(--foreground) 52%, transparent)",
+    "color-mix(in oklch, var(--foreground) 78%, transparent)",
+  ],
+  // Mirrors GitHub contribution levels 0–4 (empty → max activity)
+  github: [
+    "#ebedf0",
+    "#9be9a8",
+    "#40c463",
+    "#30a14e",
+    "#216e39",
+  ],
+} as const;
+
+/** Resolve a named scale id or custom stops into a color list. */
+export function resolveHeatmapScale(
+  scale?: HeatmapColorScaleId | string[],
+): string[] {
+  if (Array.isArray(scale) && scale.length > 0) return [...scale];
+  if (typeof scale === "string" && scale in HEATMAP_COLOR_SCALES) {
+    return [...HEATMAP_COLOR_SCALES[scale as HeatmapColorScaleId]];
+  }
+  return [...HEATMAP_COLOR_SCALES.primary];
+}
+
+/**
+ * Map intensity `t` ∈ [0, 1] onto a multi-stop palette.
+ * Adjacent stops are blended with `color-mix` for continuous ramps in CSS.
+ */
+export function heatmapColorAt(
+  t: number,
+  scale?: HeatmapColorScaleId | string[],
+): string {
+  const colors = resolveHeatmapScale(scale);
+  const clamped = clamp(t, 0, 1);
+  if (colors.length === 0) return "var(--primary)";
+  if (colors.length === 1) return colors[0]!;
+  const pos = clamped * (colors.length - 1);
+  const i = Math.min(colors.length - 2, Math.floor(pos));
+  const f = pos - i;
+  if (f < 1e-6) return colors[i]!;
+  if (f > 1 - 1e-6) return colors[i + 1]!;
+  const pct = Math.round(f * 100);
+  return `color-mix(in oklch, ${colors[i + 1]} ${pct}%, ${colors[i]})`;
+}
+
+/** True when input is a dense numeric matrix (rows of numbers). */
+export function isHeatmapMatrix(
+  input: HeatmapDatum[] | number[][] | undefined | null,
+): input is number[][] {
+  if (!input || input.length === 0) return false;
+  const first = input[0];
+  if (!Array.isArray(first)) return false;
+  // Sparse HeatmapDatum[] never has array rows; matrix rows are number arrays.
+  return input.every(
+    (row) =>
+      Array.isArray(row) &&
+      (row as unknown[]).every(
+        (v) => typeof v === "number" || v == null || Number.isNaN(v as number),
+      ),
+  );
+}
+
+/**
+ * Normalize sparse cells or a dense matrix into ordered rows, cols, and cells.
+ * Matrix form uses `values[rowIndex][colIndex]`.
+ */
+export function normalizeHeatmapData(
+  input:
+    | HeatmapDatum[]
+    | number[][]
+    | undefined
+    | null,
+  options?: {
+    rows?: string[];
+    cols?: string[];
+  },
+): { rows: string[]; cols: string[]; cells: HeatmapDatum[] } {
+  if (!input || (Array.isArray(input) && input.length === 0)) {
+    return { rows: [], cols: [], cells: [] };
+  }
+
+  // Dense matrix: number[][]
+  if (isHeatmapMatrix(input)) {
+    const matrix = input;
+    const rowCount = matrix.length;
+    const colCount = Math.max(0, ...matrix.map((r) => r?.length ?? 0));
+    const rows =
+      options?.rows && options.rows.length > 0
+        ? Array.from({ length: rowCount }, (_, i) => options.rows![i] ?? `R${i + 1}`)
+        : Array.from({ length: rowCount }, (_, i) => `R${i + 1}`);
+    const cols =
+      options?.cols && options.cols.length > 0
+        ? Array.from({ length: colCount }, (_, i) => options.cols![i] ?? `C${i + 1}`)
+        : Array.from({ length: colCount }, (_, i) => `C${i + 1}`);
+    const cells: HeatmapDatum[] = [];
+    for (let r = 0; r < rowCount; r++) {
+      const row = matrix[r] ?? [];
+      for (let c = 0; c < colCount; c++) {
+        const value = row[c];
+        cells.push({
+          row: rows[r]!,
+          col: cols[c]!,
+          value: Number.isFinite(value) ? value! : 0,
+        });
+      }
+    }
+    return { rows, cols, cells };
+  }
+
+  // Sparse cells
+  const sparse = input as HeatmapDatum[];
+  const rowOrder: string[] = [];
+  const colOrder: string[] = [];
+  const rowSeen = new Set<string>();
+  const colSeen = new Set<string>();
+
+  if (options?.rows?.length) {
+    for (const r of options.rows) {
+      if (!rowSeen.has(r)) {
+        rowSeen.add(r);
+        rowOrder.push(r);
+      }
+    }
+  }
+  if (options?.cols?.length) {
+    for (const c of options.cols) {
+      if (!colSeen.has(c)) {
+        colSeen.add(c);
+        colOrder.push(c);
+      }
+    }
+  }
+
+  for (const d of sparse) {
+    if (!rowSeen.has(d.row)) {
+      rowSeen.add(d.row);
+      rowOrder.push(d.row);
+    }
+    if (!colSeen.has(d.col)) {
+      colSeen.add(d.col);
+      colOrder.push(d.col);
+    }
+  }
+
+  return { rows: rowOrder, cols: colOrder, cells: sparse };
+}
+
+/**
+ * Layout heatmap cells as a grid of rects inside a viewBox.
+ * When `cellSize` is set, width/height are derived; otherwise cells fill the plot area.
+ */
+export function layoutHeatmapCells(
+  input: HeatmapDatum[] | number[][] | undefined | null,
+  width: number,
+  height: number,
+  padding: Partial<ChartPadding> = {},
+  options?: {
+    rows?: string[];
+    cols?: string[];
+    gap?: number;
+    minValue?: number;
+    maxValue?: number;
+    /** Fixed square cell size in SVG units (overrides fill-to-fit) */
+    cellSize?: number;
+  },
+): {
+  rows: string[];
+  cols: string[];
+  cells: HeatmapCellLayout[];
+  min: number;
+  max: number;
+  plotWidth: number;
+  plotHeight: number;
+} {
+  const empty = {
+    rows: [] as string[],
+    cols: [] as string[],
+    cells: [] as HeatmapCellLayout[],
+    min: 0,
+    max: 0,
+    plotWidth: 0,
+    plotHeight: 0,
+  };
+  if (!input || width <= 0 || height <= 0) return empty;
+
+  const { rows, cols, cells: rawCells } = normalizeHeatmapData(input, {
+    rows: options?.rows,
+    cols: options?.cols,
+  });
+  if (rows.length === 0 || cols.length === 0) return empty;
+
+  const pad = { ...DEFAULT_PAD, ...padding };
+  const gap = Math.max(0, options?.gap ?? 2);
+  const nRows = rows.length;
+  const nCols = cols.length;
+
+  let cellW: number;
+  let cellH: number;
+  let plotW: number;
+  let plotH: number;
+
+  if (options?.cellSize != null && options.cellSize > 0) {
+    cellW = options.cellSize;
+    cellH = options.cellSize;
+    plotW = nCols * cellW + Math.max(0, nCols - 1) * gap;
+    plotH = nRows * cellH + Math.max(0, nRows - 1) * gap;
+  } else {
+    const innerW = Math.max(0, width - pad.left - pad.right);
+    const innerH = Math.max(0, height - pad.top - pad.bottom);
+    plotW = innerW;
+    plotH = innerH;
+    cellW =
+      nCols === 0
+        ? 0
+        : Math.max(1, (innerW - Math.max(0, nCols - 1) * gap) / nCols);
+    cellH =
+      nRows === 0
+        ? 0
+        : Math.max(1, (innerH - Math.max(0, nRows - 1) * gap) / nRows);
+  }
+
+  // Build lookup for sparse values
+  const valueMap = new Map<string, HeatmapDatum>();
+  for (const d of rawCells) {
+    valueMap.set(`${d.row}\0${d.col}`, d);
+  }
+
+  const values: number[] = [];
+  for (const r of rows) {
+    for (const c of cols) {
+      const hit = valueMap.get(`${r}\0${c}`);
+      if (hit && Number.isFinite(hit.value)) values.push(hit.value);
+    }
+  }
+  const dataMin = values.length ? Math.min(...values) : 0;
+  const dataMax = values.length ? Math.max(...values) : 0;
+  let min = options?.minValue ?? dataMin;
+  let max = options?.maxValue ?? dataMax;
+  if (min === max) {
+    min = min - 1;
+    max = max + 1;
+  }
+
+  const rowIndex = new Map(rows.map((r, i) => [r, i]));
+  const colIndex = new Map(cols.map((c, i) => [c, i]));
+  const layout: HeatmapCellLayout[] = [];
+
+  for (const r of rows) {
+    for (const c of cols) {
+      const ri = rowIndex.get(r)!;
+      const ci = colIndex.get(c)!;
+      const hit = valueMap.get(`${r}\0${c}`);
+      const present = Boolean(hit && Number.isFinite(hit.value));
+      const value = present ? hit!.value : 0;
+      const t = present
+        ? clamp(scaleLinear(value, [min, max], [0, 1]), 0, 1)
+        : 0;
+      layout.push({
+        rowIndex: ri,
+        colIndex: ci,
+        row: r,
+        col: c,
+        value,
+        x: round(pad.left + ci * (cellW + gap)),
+        y: round(pad.top + ri * (cellH + gap)),
+        width: round(cellW),
+        height: round(cellH),
+        t: round(t, 4),
+        present,
+        color: hit?.color,
+      });
+    }
+  }
+
+  return {
+    rows,
+    cols,
+    cells: layout,
+    min: options?.minValue ?? dataMin,
+    max: options?.maxValue ?? dataMax,
+    plotWidth: round(plotW),
+    plotHeight: round(plotH),
+  };
+}

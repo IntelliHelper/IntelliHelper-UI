@@ -109,7 +109,8 @@
     "./pie-chart": "./src/pie-chart.tsx",
     "./stacked-bar-chart": "./src/stacked-bar-chart.tsx",
     "./radar-chart": "./src/radar-chart.tsx",
-    "./funnel-chart": "./src/funnel-chart.tsx"
+    "./funnel-chart": "./src/funnel-chart.tsx",
+    "./heatmap": "./src/heatmap.tsx"
   },
   "scripts": {
     "lint": "eslint . --max-warnings 0",

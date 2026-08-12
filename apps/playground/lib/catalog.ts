@@ -670,6 +670,13 @@ export const CATALOG: CatalogItem[] = [
     description: "Conversion funnel stages with tapering widths and labels.",
     category: "data",
   },
+  {
+    slug: "heatmap",
+    title: "Heatmap",
+    description:
+      "Matrix heatmap with color scales, labels, legend, values, and interactive cells.",
+    category: "data",
+  },
 ];
 
 export function getCatalogItem(slug: string): CatalogItem | undefined {
