@@ -99,7 +99,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     const resolvedSize = size ?? "default";
     const styles = sizeStyles[resolvedSize];
 
-    const commit = (next: number | null) => {
+    const commit = (next: number | null, options?: { syncDraft?: boolean }) => {
       let resolved = next;
       if (resolved !== null && Number.isFinite(resolved)) {
         resolved = clampNumber(roundToStep(resolved, step, min ?? 0), min, max);
@@ -108,6 +108,11 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
       }
       if (valueProp === undefined) setUncontrolled(resolved);
       onValueChange?.(resolved);
+      // Steppers / arrow keys commit while focused — keep draft in sync so blur
+      // does not re-apply a stale intermediate string.
+      if (options?.syncDraft || focused) {
+        setDraft(resolved === null || resolved === undefined ? "" : String(resolved));
+      }
       return resolved;
     };
 
@@ -123,7 +128,7 @@ const NumberInput = forwardRef<HTMLInputElement, NumberInputProps>(
     const nudge = (dir: 1 | -1) => {
       if (disabled) return;
       const base = value ?? min ?? 0;
-      commit(base + dir * step);
+      commit(base + dir * step, { syncDraft: true });
     };
 
     const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {

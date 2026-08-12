@@ -994,6 +994,35 @@ export {
   currencyDecimals,
 } from "./country-data";
 export {
+  AddressCountrySelect,
+  AddressRegionSelect,
+  AddressCitySelect,
+} from "./address-select";
+export type {
+  AddressCountrySelectProps,
+  AddressRegionSelectProps,
+  AddressCitySelectProps,
+} from "./address-select";
+export {
+  AddressFields,
+  type AddressFieldsProps,
+  type AddressValue,
+} from "./address-fields";
+export {
+  ADDRESS_COUNTRIES,
+  getAddressCountry,
+  getRegionsForCountry,
+  getRegion,
+  getCitiesForRegion,
+  searchAddressCountries,
+  searchRegions,
+  searchCities,
+  cascadeAddressValue,
+  emptyAddressValue,
+  type AddressCountry,
+  type AddressRegion,
+} from "./address-data";
+export {
   ColorPicker,
   DEFAULT_SWATCHES,
   type ColorPickerProps,

@@ -152,6 +152,26 @@ const PhoneInput = forwardRef<HTMLInputElement, PhoneInputProps>(
     };
 
     const commitNational = (raw: string) => {
+      const trimmed = raw.trim();
+      // Pasted/typed E.164 (or 00… international): re-detect country instead of
+      // re-prefixing digits under the currently selected dial code.
+      if (trimmed.startsWith("+") || trimmed.startsWith("00")) {
+        const normalized = trimmed.startsWith("00")
+          ? `+${trimmed.slice(2)}`
+          : trimmed;
+        const parsed = parseE164(normalized, country.iso2);
+        if (countryProp === undefined) {
+          setUncontrolledCountry(parsed.country.iso2);
+        }
+        if (parsed.country.iso2 !== country.iso2) {
+          onCountryChange?.(parsed.country.iso2, parsed.country);
+        }
+        const e164 = toE164(parsed.national, parsed.country);
+        if (valueProp === undefined) setUncontrolledValue(e164);
+        onValueChange?.(e164);
+        return;
+      }
+
       const digits = raw.replace(/\D/g, "");
       const e164 = toE164(digits, country);
       if (valueProp === undefined) setUncontrolledValue(e164);

@@ -141,7 +141,7 @@ const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
     const resolvedSize = size ?? "default";
     const pad = sizePad[resolvedSize];
 
-    const commit = (next: number | null) => {
+    const commit = (next: number | null, options?: { syncDraft?: boolean }) => {
       let resolved = next;
       if (resolved !== null && Number.isFinite(resolved)) {
         resolved = clampNumber(roundToStep(resolved, step, min ?? 0), min, max);
@@ -150,6 +150,10 @@ const CurrencyInput = forwardRef<HTMLInputElement, CurrencyInputProps>(
       }
       if (valueProp === undefined) setUncontrolled(resolved);
       onValueChange?.(resolved);
+      // Keep draft aligned when value is committed while focused (controlled updates).
+      if (options?.syncDraft || focused) {
+        setDraft(resolved === null || resolved === undefined ? "" : String(resolved));
+      }
     };
 
     const setCurrency = (next: CurrencyRecord) => {

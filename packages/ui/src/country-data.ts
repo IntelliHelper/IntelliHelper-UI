@@ -3914,6 +3914,20 @@ export function toE164(national: string, country: CountryRecord): string {
   return n ? `+${country.dialCode}${n}` : `+${country.dialCode}`;
 }
 
+/** Primary ISO for shared dial codes (NANP, +44, +7, …). */
+const PRIMARY_DIAL_ISO: Record<string, string> = {
+  "1": "US",
+  "7": "RU",
+  "44": "GB",
+  "61": "AU",
+  "64": "NZ",
+  "212": "MA",
+  "262": "RE",
+  "358": "FI",
+  "590": "GP",
+  "599": "CW",
+};
+
 /**
  * Parse E.164-ish value into country + national digits.
  * Prefers longest matching dial code among known countries.
@@ -3933,10 +3947,14 @@ export function parseE164(
     const prefix = digits.slice(0, len);
     const matches = countryByDial.get(prefix);
     if (!matches?.length) continue;
-    // Prefer exact fallback iso when shared dial (e.g. +1)
+    const primaryIso = PRIMARY_DIAL_ISO[prefix];
+    // Prefer: caller's current country when it shares the dial, else primary
+    // territory for that dial (GB for +44, US for +1), else first match.
     const preferred =
       matches.find((m) => m.iso2 === fallbackIso) ??
-      matches.find((m) => m.iso2 === "US") ??
+      (primaryIso
+        ? matches.find((m) => m.iso2 === primaryIso)
+        : undefined) ??
       matches[0]!;
     best = preferred;
     break;

@@ -4015,6 +4015,224 @@
           "target": "components/ui/virtual-table.tsx"
         }
       ]
+    },
+    {
+      "name": "address-country-select",
+      "type": "registry:ui",
+      "title": "Address Country Select",
+      "description": "Searchable country picker for addresses (250 countries with flags).",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "scroll-area",
+        "layout"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/address-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-regions-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-regions-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-cities-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-cities-data.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/address-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/address-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "address-region-select",
+      "type": "registry:ui",
+      "title": "Address Region Select",
+      "description": "Cascading state/province picker driven by selected country (~5k regions).",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "scroll-area",
+        "layout",
+        "address-country-select"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/address-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-regions-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-regions-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-cities-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-cities-data.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/address-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/address-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "address-city-select",
+      "type": "registry:ui",
+      "title": "Address City Select",
+      "description": "Cascading city picker driven by country + state (148k cities, searchable).",
+      "dependencies": [
+        "@radix-ui/react-popover"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "scroll-area",
+        "layout",
+        "address-region-select"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/address-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-regions-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-regions-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-cities-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-cities-data.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/address-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/address-select.tsx"
+        }
+      ]
+    },
+    {
+      "name": "address-fields",
+      "type": "registry:ui",
+      "title": "Address Fields",
+      "description": "Composite Country \u2192 State \u2192 City selectors with cascading resets and labels.",
+      "dependencies": [
+        "@radix-ui/react-popover",
+        "@radix-ui/react-label"
+      ],
+      "registryDependencies": [
+        "utils",
+        "popover",
+        "scroll-area",
+        "layout",
+        "label",
+        "address-country-select"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/address-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-regions-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-regions-data.ts"
+        },
+        {
+          "path": "packages/ui/src/address-cities-data.ts",
+          "type": "registry:lib",
+          "target": "components/ui/address-cities-data.ts"
+        },
+        {
+          "path": "packages/ui/src/field-variants.ts",
+          "type": "registry:ui",
+          "target": "components/ui/field-variants.ts"
+        },
+        {
+          "path": "packages/ui/src/layout-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/layout-utils.ts"
+        },
+        {
+          "path": "packages/ui/src/layout.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/layout.tsx"
+        },
+        {
+          "path": "packages/ui/src/address-select.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/address-select.tsx"
+        },
+        {
+          "path": "packages/ui/src/address-fields.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/address-fields.tsx"
+        }
+      ]
     }
   ]
 }

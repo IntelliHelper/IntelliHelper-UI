@@ -99,6 +99,12 @@ describe("country-data international support", () => {
     assert.equal(inParsed.country.iso2, "IN");
     assert.equal(inParsed.national, "9876543210");
 
+    // Pasting a UK number while fallback is US must detect +44 (GB), not re-prefix as +1…
+    const uk = parseE164("+442079460958", "US");
+    assert.equal(uk.country.iso2, "GB");
+    assert.equal(uk.national, "2079460958");
+    assert.equal(toE164(uk.national, uk.country), "+442079460958");
+
     assert.equal(
       formatNationalNumber("4155550100", getCountry("US")!),
       "415 555 0100",

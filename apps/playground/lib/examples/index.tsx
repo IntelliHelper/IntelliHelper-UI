@@ -417,6 +417,9 @@ const DataGridDemo = lazy(() =>
 const VirtualTableDemo = lazy(() =>
   import("../../components/tier3-demo").then((m) => ({ default: m.VirtualTableDemo })),
 );
+const AddressFieldsDemo = lazy(() =>
+  import("../../components/tier3-demo").then((m) => ({ default: m.AddressFieldsDemo })),
+);
 
 const variants = [
   "default",
@@ -2799,6 +2802,68 @@ import { AreaChart } from "@/components/ui/area-chart"
   data={rows}
   getRowId={(r) => r.id}
   columns={columns}
+/>`,
+    },
+  ],
+  "address-fields": [
+    {
+      title: "Country · State · City",
+      description: "Select-only cascading address fields with world data.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressFields } from "@/components/ui/address-fields"
+
+const [address, setAddress] = useState({
+  country: "US",
+  region: "CA",
+  city: "San Francisco",
+})
+
+<AddressFields
+  layout="grid"
+  value={address}
+  onValueChange={setAddress}
+/>`,
+    },
+  ],
+  "address-country-select": [
+    {
+      title: "Country select",
+      description: "Same cascade used inside Address Fields.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressCountrySelect } from "@/components/ui/address-select"
+
+<AddressCountrySelect
+  value={country}
+  onValueChange={setCountry}
+/>`,
+    },
+  ],
+  "address-region-select": [
+    {
+      title: "State / province",
+      description: "Enabled after a country is chosen.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressRegionSelect } from "@/components/ui/address-select"
+
+<AddressRegionSelect
+  country={country}
+  value={region}
+  onValueChange={setRegion}
+/>`,
+    },
+  ],
+  "address-city-select": [
+    {
+      title: "City select",
+      description: "Enabled after country + state are chosen.",
+      preview: <AddressFieldsDemo />,
+      code: `import { AddressCitySelect } from "@/components/ui/address-select"
+
+<AddressCitySelect
+  country={country}
+  region={region}
+  value={city}
+  onValueChange={setCity}
 />`,
     },
   ],

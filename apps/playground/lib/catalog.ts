@@ -812,6 +812,31 @@ export const CATALOG: CatalogItem[] = [
     description: "Windowed table for large datasets with infinite-scroll hook.",
     category: "data",
   },
+  {
+    slug: "address-fields",
+    title: "Address Fields",
+    description:
+      "Country → State → City cascading selectors (select-only, full world data).",
+    category: "forms",
+  },
+  {
+    slug: "address-country-select",
+    title: "Address Country Select",
+    description: "Searchable country picker for addresses with flags.",
+    category: "forms",
+  },
+  {
+    slug: "address-region-select",
+    title: "Address Region Select",
+    description: "State/province picker cascading from country.",
+    category: "forms",
+  },
+  {
+    slug: "address-city-select",
+    title: "Address City Select",
+    description: "City picker cascading from country + state.",
+    category: "forms",
+  },
 ];
 
 export function getCatalogItem(slug: string): CatalogItem | undefined {

@@ -3,6 +3,7 @@
 import {
   forwardRef,
   useCallback,
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -67,9 +68,21 @@ function VirtualTableInner<T>(
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
+  /** Prevents duplicate onEndReached fires until more rows arrive. */
+  const endReachedForLengthRef = useRef<number | null>(null);
   const [scrollTop, setScrollTop] = useState(0);
   const viewportHeight =
     typeof height === "number" ? height : scrollerRef.current?.clientHeight ?? 360;
+
+  // Allow another page request only after data grows (or is reset).
+  useEffect(() => {
+    if (
+      endReachedForLengthRef.current !== null &&
+      data.length !== endReachedForLengthRef.current
+    ) {
+      endReachedForLengthRef.current = null;
+    }
+  }, [data.length]);
 
   const window = useMemo(
     () =>
@@ -97,13 +110,15 @@ function VirtualTableInner<T>(
     (e: UIEvent<HTMLDivElement>) => {
       const el = e.currentTarget;
       setScrollTop(el.scrollTop);
-      if (onEndReached) {
-        const remaining =
-          el.scrollHeight - el.scrollTop - el.clientHeight;
-        if (remaining < endReachedThreshold) onEndReached();
+      if (!onEndReached || loadingMore) return;
+      if (endReachedForLengthRef.current === data.length) return;
+      const remaining = el.scrollHeight - el.scrollTop - el.clientHeight;
+      if (remaining < endReachedThreshold) {
+        endReachedForLengthRef.current = data.length;
+        onEndReached();
       }
     },
-    [onEndReached, endReachedThreshold],
+    [onEndReached, endReachedThreshold, loadingMore, data.length],
   );
 
   const heightStyle =

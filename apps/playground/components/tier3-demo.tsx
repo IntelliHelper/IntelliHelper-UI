@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import {
   ActivityFeed,
+  AddressFields,
   Banner,
   BottomNavigation,
   Callout,
@@ -25,6 +26,7 @@ import {
   TimePicker,
   Timeline,
   VirtualTable,
+  type AddressValue,
   type DataGridColumnDef,
   type KanbanCard,
   type MonthValue,
@@ -140,6 +142,26 @@ export function PhoneInputDemo() {
       />
       <p className="text-xs glass-chrome-text-muted">
         {country} · E.164: <strong className="tabular-nums">{p || "—"}</strong>
+      </p>
+    </div>
+  );
+}
+
+export function AddressFieldsDemo() {
+  const [address, setAddress] = useState<AddressValue>({
+    country: "US",
+    region: "CA",
+    city: "San Francisco",
+  });
+  return (
+    <div className="w-full max-w-md space-y-3">
+      <AddressFields
+        layout="grid"
+        value={address}
+        onValueChange={setAddress}
+      />
+      <p className="text-xs glass-chrome-text-muted tabular-nums">
+        {address.country || "—"} / {address.region || "—"} / {address.city || "—"}
       </p>
     </div>
   );

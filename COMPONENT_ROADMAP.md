@@ -158,6 +158,11 @@
 | Data Grid | `data-grid` | data | `packages/ui/src/data-grid.tsx` | ✅ Done |
 | Virtual Table | `virtual-table` | data | `packages/ui/src/virtual-table.tsx` | ✅ Done |
 | Tier 3 utils | (lib) | — | `packages/ui/src/tier3-utils.ts` | ✅ Done |
+| Address Fields (Country / State / City) | `address-fields` | forms | `packages/ui/src/address-fields.tsx` | ✅ Done |
+| Address Country Select | `address-country-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address Region Select | `address-region-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address City Select | `address-city-select` | forms | `packages/ui/src/address-select.tsx` | ✅ Done |
+| Address data (regions + cities) | (lib) | — | `packages/ui/src/address-data.ts` | ✅ Done |
 
 ---
 
