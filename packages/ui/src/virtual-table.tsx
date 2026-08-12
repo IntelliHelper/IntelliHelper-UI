@@ -46,6 +46,12 @@ export interface VirtualTableProps<T>
   onEndReached?: () => void;
   endReachedThreshold?: number;
   loadingMore?: boolean;
+  /**
+   * When false, `onEndReached` is never called (end of list).
+   * Parents should set this after an empty page so we stop retrying.
+   * @default true
+   */
+  hasMore?: boolean;
 }
 
 function VirtualTableInner<T>(
@@ -63,25 +69,35 @@ function VirtualTableInner<T>(
     onEndReached,
     endReachedThreshold = 240,
     loadingMore = false,
+    hasMore = true,
     ...props
   }: VirtualTableProps<T>,
   ref: React.ForwardedRef<HTMLDivElement>,
 ) {
   const scrollerRef = useRef<HTMLDivElement | null>(null);
-  /** Prevents duplicate onEndReached fires until more rows arrive. */
-  const endReachedForLengthRef = useRef<number | null>(null);
+  /**
+   * Blocks duplicate onEndReached while a page is in flight or until the user
+   * leaves the end zone. Cleared when:
+   * - loadingMore goes true → false (failed/empty pages can retry)
+   * - data.length changes (successful append / reset)
+   * - scroll leaves the end threshold (re-entry required to fire again)
+   */
+  const endReachedLockRef = useRef(false);
+  const prevLoadingMoreRef = useRef(loadingMore);
   const [scrollTop, setScrollTop] = useState(0);
   const viewportHeight =
     typeof height === "number" ? height : scrollerRef.current?.clientHeight ?? 360;
 
-  // Allow another page request only after data grows (or is reset).
   useEffect(() => {
-    if (
-      endReachedForLengthRef.current !== null &&
-      data.length !== endReachedForLengthRef.current
-    ) {
-      endReachedForLengthRef.current = null;
+    if (prevLoadingMoreRef.current && !loadingMore) {
+      // Load attempt finished — unlock even when row count did not grow.
+      endReachedLockRef.current = false;
     }
+    prevLoadingMoreRef.current = loadingMore;
+  }, [loadingMore]);
+
+  useEffect(() => {
+    endReachedLockRef.current = false;
   }, [data.length]);
 
   const window = useMemo(
@@ -110,15 +126,22 @@ function VirtualTableInner<T>(
     (e: UIEvent<HTMLDivElement>) => {
       const el = e.currentTarget;
       setScrollTop(el.scrollTop);
-      if (!onEndReached || loadingMore) return;
-      if (endReachedForLengthRef.current === data.length) return;
+      if (!onEndReached || !hasMore || loadingMore) return;
+
       const remaining = el.scrollHeight - el.scrollTop - el.clientHeight;
-      if (remaining < endReachedThreshold) {
-        endReachedForLengthRef.current = data.length;
-        onEndReached();
+      const inEndZone = remaining < endReachedThreshold;
+
+      if (!inEndZone) {
+        // Left the threshold — allow a future re-entry to load again.
+        endReachedLockRef.current = false;
+        return;
       }
+
+      if (endReachedLockRef.current) return;
+      endReachedLockRef.current = true;
+      onEndReached();
     },
-    [onEndReached, endReachedThreshold, loadingMore, data.length],
+    [onEndReached, endReachedThreshold, loadingMore, hasMore],
   );
 
   const heightStyle =
