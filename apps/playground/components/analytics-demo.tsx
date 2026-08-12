@@ -368,7 +368,8 @@ const COLOR_SCALES: HeatmapColorScaleId[] = [
 
 /** 7 weekdays × 12 weeks — contribution-style activity grid */
 const CONTRIB_ROWS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const CONTRIB_COLS = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);
+/** Short week markers — component auto-thins when pitch is tight */
+const CONTRIB_COLS = Array.from({ length: 12 }, (_, i) => String(i + 1));
 const CONTRIB_MATRIX: number[][] = CONTRIB_ROWS.map((_, r) =>
   CONTRIB_COLS.map((__, c) => {
     // Pseudo-random but stable: weekends quieter, mid-week peaks
@@ -454,17 +455,28 @@ export function HeatmapDemo() {
           rows={CONTRIB_ROWS}
           cols={CONTRIB_COLS}
           colorScale="github"
-          gap={2}
+          gap={3}
           cellRadius={2}
-          cellSize={11}
+          cellSize={12}
           showRowLabels
           showColLabels
+          colLabelStep="auto"
           showValues={false}
           emptyColor="#ebedf0"
           legendLowLabel="Less"
           legendHighLabel="More"
           label="Contribution heatmap"
           variant="outline"
+          interactive
+          onCellHover={(cell) =>
+            setHovered(
+              cell
+                ? cell.present
+                  ? `${cell.row} · week ${cell.col}: ${cell.value}`
+                  : `${cell.row} · week ${cell.col}: no data`
+                : null,
+            )
+          }
         />
       </div>
       <Heatmap
