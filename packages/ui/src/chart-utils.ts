@@ -579,15 +579,20 @@ export function toDateInputValue(
   return `${y}-${m}-${day}`;
 }
 
-/** Normalize a range so from ≤ to when both parse. */
+/**
+ * Normalize a range so from ≤ to when both parse.
+ * When `to` is omitted, defaults the end to `now` (open-ended “from → present”).
+ */
 export function normalizeChartPeriodRange(
   range: ChartPeriodRange | null | undefined,
+  now: Date | number = Date.now(),
 ): { from: number; to: number } | null {
   if (!range) return null;
   const from = toEpochMs(range.from);
   if (from == null) return null;
   const toRaw = range.to != null ? toEpochMs(range.to) : null;
-  const to = toRaw ?? from;
+  // Documented contract: missing `to` means “through now”, not a zero-width range.
+  const to = toRaw ?? resolveNowMs(now);
   if (from <= to) return { from, to };
   return { from: to, to: from };
 }
@@ -618,7 +623,7 @@ export function periodStartMs(
   const d = new Date(nowMs);
 
   if (period === "custom") {
-    const bounds = normalizeChartPeriodRange(opts.range);
+    const bounds = normalizeChartPeriodRange(opts.range, nowMs);
     return bounds?.from ?? null;
   }
 
@@ -665,7 +670,7 @@ export function periodEndMs(
 ): number {
   const nowMs = resolveNowMs(now);
   if (period === "custom") {
-    const bounds = normalizeChartPeriodRange(options?.range);
+    const bounds = normalizeChartPeriodRange(options?.range, nowMs);
     if (bounds) return bounds.to;
     return nowMs;
   }
@@ -681,7 +686,10 @@ export function periodDaySpan(
   options?: ChartPeriodResolveOptions,
 ): number | null {
   if (period === "custom") {
-    const bounds = normalizeChartPeriodRange(options?.range);
+    const bounds = normalizeChartPeriodRange(
+      options?.range,
+      options?.now ?? Date.now(),
+    );
     if (!bounds) return null;
     return Math.max(1, Math.ceil((bounds.to - bounds.from) / DAY_MS) + 1);
   }
@@ -749,8 +757,11 @@ export function filterTimeSeriesByPeriod<T extends TimeSeriesDatum>(
   const nowMs = resolveNowMs(opts.now);
   const resolveOpts = { range: opts.range, periods: opts.periods };
   if (period === "all") return [...data];
-  if (period === "custom" && !normalizeChartPeriodRange(opts.range)) {
-    // Incomplete custom range → empty rather than unfiltered surprise
+  // Need a parseable `from`; `to` may default to now.
+  if (
+    period === "custom" &&
+    !normalizeChartPeriodRange(opts.range, nowMs)
+  ) {
     return [];
   }
   const start = periodStartMs(period, nowMs, resolveOpts);
@@ -1598,7 +1609,7 @@ function buildInternalTree(
   path: string,
   depth: number,
 ): InternalTree {
-  const children = (node.children ?? []).map((c, i) =>
+  const children = (node.children ?? []).map((c) =>
     buildInternalTree(c, path ? `${path}.${c.name}` : c.name, depth + 1),
   );
   let value = children.length
@@ -1632,8 +1643,7 @@ function worstAspect(row: number[], side: number): number {
   if (s <= 0) return Infinity;
   let maxR = 0;
   for (const r of row) {
-    const w = (r / s) * side;
-    // rect is (s/side) × w in the layout plane; aspect = max(side²r/s², s²/(side²r))
+    // Aspect of the rect with area `r` along short side `side`: max(side²r/s², s²/(side²r))
     const a1 = (side * side * r) / (s * s);
     const a2 = (s * s) / (side * side * r);
     maxR = Math.max(maxR, a1, a2);
@@ -1970,7 +1980,7 @@ export function layoutSankey(
       queue.push(id);
     }
   }
-  // Relax longest path
+  // Relax longest path (prefer explicit ranks when they stay forward)
   const order = [...nodeMap.keys()];
   for (let pass = 0; pass < order.length; pass++) {
     let changed = false;
@@ -1980,10 +1990,15 @@ export function layoutSankey(
       const want = sc + 1;
       const tc = columns.get(l.target);
       if (tc == null || tc < want) {
-        // Don't overwrite explicit columns from input when they already set a higher rank
         const explicit = nodeMap.get(l.target)?.column;
         if (explicit != null && Number.isFinite(explicit)) {
-          if (tc == null) columns.set(l.target, Math.floor(explicit));
+          // Honor explicit column only if it is strictly after the source
+          const explicitCol = Math.floor(explicit);
+          const next = Math.max(explicitCol, want);
+          if (tc == null || tc !== next) {
+            columns.set(l.target, next);
+            changed = true;
+          }
         } else {
           columns.set(l.target, want);
           changed = true;
@@ -1994,6 +2009,21 @@ export function layoutSankey(
   }
   for (const id of nodeMap.keys()) {
     if (!columns.has(id)) columns.set(id, 0);
+  }
+
+  // No link may flow backward or stay in the same column — force targets forward.
+  for (let pass = 0; pass < order.length; pass++) {
+    let changed = false;
+    for (const l of links) {
+      const sc = columns.get(l.source);
+      const tc = columns.get(l.target);
+      if (sc == null || tc == null) continue;
+      if (tc <= sc) {
+        columns.set(l.target, sc + 1);
+        changed = true;
+      }
+    }
+    if (!changed) break;
   }
 
   const maxCol = Math.max(0, ...[...columns.values()]);

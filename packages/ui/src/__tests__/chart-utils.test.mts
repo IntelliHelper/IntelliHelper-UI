@@ -370,7 +370,7 @@ describe("chart period helpers", () => {
       filtered.map((d) => d.label),
       ["b"],
     );
-    // Incomplete custom → empty
+    // Missing range → empty
     assert.equal(
       filterTimeSeriesByPeriod(data, "custom", { now: fixedNow, range: null })
         .length,
@@ -382,10 +382,32 @@ describe("chart period helpers", () => {
     );
   });
 
+  it("open-ended custom range defaults to now (not a zero-width from)", () => {
+    const from = Date.parse("2026-06-01T00:00:00.000Z");
+    const bounds = normalizeChartPeriodRange({ from }, fixedNow);
+    assert.ok(bounds);
+    assert.equal(bounds!.from, from);
+    assert.equal(bounds!.to, fixedNow);
+    const data = [
+      { label: "a", value: 1, date: Date.parse("2026-05-01T00:00:00.000Z") },
+      { label: "b", value: 2, date: Date.parse("2026-06-10T00:00:00.000Z") },
+      { label: "c", value: 3, date: Date.parse("2026-06-20T00:00:00.000Z") },
+    ];
+    // now is June 15 → only b is in [June 1, now]
+    const filtered = filterTimeSeriesByPeriod(data, "custom", {
+      now: fixedNow,
+      range: { from },
+    });
+    assert.deepEqual(
+      filtered.map((d) => d.label),
+      ["b"],
+    );
+  });
+
   it("normalizeChartPeriodRange swaps inverted bounds", () => {
     const a = Date.parse("2026-06-20T00:00:00.000Z");
     const b = Date.parse("2026-06-10T00:00:00.000Z");
-    const bounds = normalizeChartPeriodRange({ from: a, to: b });
+    const bounds = normalizeChartPeriodRange({ from: a, to: b }, fixedNow);
     assert.ok(bounds);
     assert.ok(bounds!.from < bounds!.to);
     assert.equal(bounds!.from, b);
@@ -841,6 +863,29 @@ describe("layoutSankey", () => {
     assert.equal(layout.links.length, 1);
     assert.equal(layout.nodes.find((n) => n.id === "b")!.column, 2);
     assert.equal(layout.links[0]!.value, 5);
+  });
+
+  it("bumps backward explicit ranks so links always flow forward", () => {
+    const layout = layoutSankey(
+      [
+        { id: "src", column: 2 },
+        { id: "dst", column: 0 }, // invalid: target ranked before source
+      ],
+      [{ source: "src", target: "dst", value: 10 }],
+      300,
+      120,
+      { top: 0, right: 0, bottom: 0, left: 0 },
+    );
+    const src = layout.nodes.find((n) => n.id === "src")!;
+    const dst = layout.nodes.find((n) => n.id === "dst")!;
+    assert.ok(src && dst);
+    assert.ok(
+      dst.column > src.column,
+      `expected dst.col ${dst.column} > src.col ${src.column}`,
+    );
+    assert.ok(dst.x > src.x, "ribbon should flow left → right");
+    assert.equal(layout.links.length, 1);
+    assert.ok(layout.links[0]!.path.startsWith("M "));
   });
 
   it("multi-node column stacks without zero height", () => {
