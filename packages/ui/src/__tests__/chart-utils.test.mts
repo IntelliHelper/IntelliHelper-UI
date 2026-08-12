@@ -500,6 +500,31 @@ describe("heatmap layout + color", () => {
     assert.equal(layout.plotWidth, 12 * 3 + 2 * 2);
   });
 
+  it("layoutHeatmapCells marks sparse holes as not present (not zero data)", () => {
+    const layout = layoutHeatmapCells(
+      [
+        { row: "A", col: "X", value: 10 },
+        { row: "B", col: "Y", value: 0 },
+      ],
+      100,
+      100,
+      { top: 0, right: 0, bottom: 0, left: 0 },
+      { rows: ["A", "B"], cols: ["X", "Y"], gap: 0 },
+    );
+    assert.equal(layout.cells.length, 4);
+    const ax = layout.cells.find((c) => c.row === "A" && c.col === "X")!;
+    const ay = layout.cells.find((c) => c.row === "A" && c.col === "Y")!;
+    const by = layout.cells.find((c) => c.row === "B" && c.col === "Y")!;
+    assert.equal(ax.present, true);
+    assert.equal(ax.value, 10);
+    // Hole: never supplied
+    assert.equal(ay.present, false);
+    assert.equal(ay.value, 0);
+    // Explicit zero is present
+    assert.equal(by.present, true);
+    assert.equal(by.value, 0);
+  });
+
   it("heatmapColorAt blends stops and resolves named scales", () => {
     assert.deepEqual(resolveHeatmapScale("primary"), [
       ...HEATMAP_COLOR_SCALES.primary,

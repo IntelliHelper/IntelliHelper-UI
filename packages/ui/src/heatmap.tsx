@@ -87,10 +87,16 @@ export interface HeatmapProps
   legendLowLabel?: string;
   legendHighLabel?: string;
   label?: string;
-  /** Interactive cells (pointer + keyboard Enter/Space) */
+  /**
+   * Prefer pointer cursor when cells can be activated.
+   * Keyboard `role="button"` + Enter/Space only apply when `onCellClick` is set.
+   * Hover-only cells use focus/blur to mirror `onCellHover` for keyboard users.
+   */
   interactive?: boolean;
   onCellClick?: (payload: HeatmapCellInteraction) => void;
   onCellHover?: (cell: HeatmapCellLayout | null) => void;
+  /** Label used for absent sparse cells in tooltips / values (default "no data") */
+  emptyLabel?: string;
 }
 
 const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
@@ -122,6 +128,7 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       interactive = false,
       onCellClick,
       onCellHover,
+      emptyLabel = "no data",
       ...props
     },
     ref,
@@ -239,17 +246,26 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
               <g data-slot="heatmap-cells">
                 {layout.cells.map((cell) => {
                   const fill = resolveColor(cell);
-                  const valueText = formatValue
-                    ? formatValue(cell.value, cell)
-                    : String(cell.value);
+                  // Absent sparse slots must not be presented as numeric zero.
+                  const valueText = cell.present
+                    ? formatValue
+                      ? formatValue(cell.value, cell)
+                      : String(cell.value)
+                    : emptyLabel;
                   const title = `${cell.row} · ${cell.col}: ${valueText}`;
-                  const canInteract = interactive || Boolean(onCellClick);
+                  const isClickable = Boolean(onCellClick);
+                  const isHoverable = Boolean(onCellHover);
+                  // Focusable when click or hover is wired; never advertise button without click.
+                  const isFocusable = isClickable || isHoverable;
+                  const showPointer =
+                    isClickable || isHoverable || interactive;
                   return (
                     <g
                       key={`${cell.row}-${cell.col}`}
                       data-slot="heatmap-cell"
                       data-row={cell.row}
                       data-col={cell.col}
+                      data-present={cell.present ? undefined : "false"}
                     >
                       <rect
                         x={cell.x}
@@ -259,12 +275,13 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
                         rx={cellRadius}
                         ry={cellRadius}
                         fill={fill}
-                        tabIndex={canInteract ? 0 : undefined}
-                        role={canInteract ? "button" : undefined}
+                        tabIndex={isFocusable ? 0 : undefined}
+                        role={isClickable ? "button" : undefined}
                         aria-label={title}
                         className={cn(
-                          canInteract &&
-                            "cursor-pointer outline-none focus-visible:stroke-[var(--primary)] focus-visible:stroke-2",
+                          showPointer && "cursor-pointer",
+                          isFocusable &&
+                            "outline-none focus-visible:stroke-[var(--primary)] focus-visible:stroke-2",
                         )}
                         onClick={
                           onCellClick
@@ -277,8 +294,14 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
                         onMouseLeave={
                           onCellHover ? () => onCellHover(null) : undefined
                         }
+                        onFocus={
+                          onCellHover ? () => onCellHover(cell) : undefined
+                        }
+                        onBlur={
+                          onCellHover ? () => onCellHover(null) : undefined
+                        }
                         onKeyDown={
-                          canInteract && onCellClick
+                          isClickable && onCellClick
                             ? (event) => {
                                 if (event.key === "Enter" || event.key === " ") {
                                   event.preventDefault();
@@ -299,7 +322,7 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
                           className="pointer-events-none fill-[var(--glass-chrome-fg)]"
                           fontSize={Math.min(10, Math.max(7, cell.width / 3.5))}
                           fontWeight={500}
-                          opacity={0.9}
+                          opacity={cell.present ? 0.9 : 0.55}
                           data-slot="heatmap-value"
                         >
                           {valueText}

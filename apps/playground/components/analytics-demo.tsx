@@ -429,16 +429,21 @@ export function HeatmapDemo() {
         gap={gap}
         showValues={showValues}
         cellRadius={4}
-        interactive
         onCellHover={(cell) =>
-          setHovered(cell ? `${cell.row} ${cell.col}h · ${cell.value}` : null)
+          setHovered(
+            cell
+              ? cell.present
+                ? `${cell.row} ${cell.col}h · ${cell.value}`
+                : `${cell.row} ${cell.col}h · no data`
+              : null,
+          )
         }
         label="Activity by hour"
         height={200}
       />
       <p className="min-h-4 text-xs text-muted-foreground">
         {hovered ??
-          "Hover a cell · try the github scale for contribution-graph greens"}
+          "Hover or focus a cell · try the github scale for contribution greens"}
       </p>
       <div className="space-y-1.5">
         <p className="text-xs font-medium text-muted-foreground">
