@@ -10,8 +10,10 @@ import {
 } from "react";
 import { cn } from "@intelli/utils";
 import {
+  estimateHeatmapLabelWidth,
   heatmapColorAt,
   layoutHeatmapCells,
+  selectHeatmapAxisLabelIndices,
   type HeatmapCellLayout,
   type HeatmapColorScaleId,
   type HeatmapDatum,
@@ -77,6 +79,16 @@ export interface HeatmapProps
   emptyColor?: string;
   showRowLabels?: boolean;
   showColLabels?: boolean;
+  /**
+   * Column label density. `auto` thins labels when they would overlap (default).
+   * `all` forces every label (may collide on dense grids).
+   * A number ≥ 1 shows every Nth label (always keeps first + last).
+   */
+  colLabelStep?: "auto" | "all" | number;
+  /**
+   * Row label density — same semantics as `colLabelStep` (default `auto`).
+   */
+  rowLabelStep?: "auto" | "all" | number;
   /** Render numeric value centered in each cell */
   showValues?: boolean;
   /** Format cell values when `showValues` is true */
@@ -99,6 +111,16 @@ export interface HeatmapProps
   emptyLabel?: string;
 }
 
+function resolveLabelStep(
+  mode: "auto" | "all" | number | undefined,
+): { step?: number; forceAll: boolean } {
+  if (mode === "all") return { forceAll: true };
+  if (typeof mode === "number" && Number.isFinite(mode) && mode >= 1) {
+    return { step: Math.floor(mode), forceAll: false };
+  }
+  return { forceAll: false };
+}
+
 const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
   (
     {
@@ -119,6 +141,8 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       emptyColor = "color-mix(in oklch, var(--glass-chrome-border) 35%, transparent)",
       showRowLabels = true,
       showColLabels = true,
+      colLabelStep = "auto",
+      rowLabelStep = "auto",
       showValues = false,
       formatValue,
       showLegend = true,
@@ -133,14 +157,52 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     },
     ref,
   ) => {
+    // Pre-compute label font + left/top padding from label lengths so long
+    // row labels ("Mon") and multi-char col labels ("W12") never clip.
+    const labelMetrics = useMemo(() => {
+      const colLabels = colsProp ?? [];
+      const rowLabels = rowsProp ?? [];
+      // Dense contribution grids (small cells) use a slightly smaller type.
+      const dense =
+        cellSize != null && cellSize > 0 && cellSize <= 14;
+      const colFont = dense ? 8 : 9;
+      const rowFont = dense ? 8 : 9;
+      const maxColW = colLabels.length
+        ? Math.max(
+            ...colLabels.map((l) => estimateHeatmapLabelWidth(l, colFont)),
+          )
+        : 0;
+      const maxRowW = rowLabels.length
+        ? Math.max(
+            ...rowLabels.map((l) => estimateHeatmapLabelWidth(l, rowFont)),
+          )
+        : 0;
+      return {
+        colFont,
+        rowFont,
+        // Top pad: room for baseline labels above the first cell
+        top: showColLabels ? Math.max(18, Math.ceil(colFont + 10)) : 8,
+        // Left pad: end-anchored row labels + breathing room
+        left: showRowLabels
+          ? Math.max(36, Math.ceil(maxRowW + 10))
+          : 8,
+        // Extra right so last col label isn't clipped when centered on last cell
+        right: showColLabels
+          ? Math.max(8, Math.ceil(maxColW / 2 + 4))
+          : 8,
+        bottom: 8,
+        maxColW,
+      };
+    }, [colsProp, rowsProp, cellSize, showColLabels, showRowLabels]);
+
     const pad = useMemo(
       () => ({
-        top: showColLabels ? 22 : 8,
-        right: 8,
-        bottom: 8,
-        left: showRowLabels ? 44 : 8,
+        top: labelMetrics.top,
+        right: labelMetrics.right,
+        bottom: labelMetrics.bottom,
+        left: labelMetrics.left,
       }),
-      [showRowLabels, showColLabels],
+      [labelMetrics],
     );
 
     const layout = useMemo(
@@ -174,10 +236,79 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
     const domainMin = layout.min;
     const domainMax = layout.max;
 
+    const cellPitchX = useMemo(() => {
+      if (layout.cols.length < 2) {
+        return layout.cells[0]?.width ?? 0;
+      }
+      const a = layout.cells.find((c) => c.colIndex === 0 && c.rowIndex === 0);
+      const b = layout.cells.find((c) => c.colIndex === 1 && c.rowIndex === 0);
+      if (a && b) return b.x - a.x;
+      return (layout.cells[0]?.width ?? 0) + gap;
+    }, [layout.cells, layout.cols.length, gap]);
+
+    const cellPitchY = useMemo(() => {
+      if (layout.rows.length < 2) {
+        return layout.cells[0]?.height ?? 0;
+      }
+      const a = layout.cells.find((c) => c.rowIndex === 0 && c.colIndex === 0);
+      const b = layout.cells.find((c) => c.rowIndex === 1 && c.colIndex === 0);
+      if (a && b) return b.y - a.y;
+      return (layout.cells[0]?.height ?? 0) + gap;
+    }, [layout.cells, layout.rows.length, gap]);
+
+    const visibleColIndices = useMemo(() => {
+      if (!showColLabels || layout.cols.length === 0) return [] as number[];
+      const { step, forceAll } = resolveLabelStep(colLabelStep);
+      if (forceAll) {
+        return layout.cols.map((_, i) => i);
+      }
+      return selectHeatmapAxisLabelIndices(layout.cols, cellPitchX, {
+        fontSize: labelMetrics.colFont,
+        step,
+      });
+    }, [
+      showColLabels,
+      layout.cols,
+      colLabelStep,
+      cellPitchX,
+      labelMetrics.colFont,
+    ]);
+
+    const visibleRowIndices = useMemo(() => {
+      if (!showRowLabels || layout.rows.length === 0) return [] as number[];
+      const { step, forceAll } = resolveLabelStep(rowLabelStep);
+      if (forceAll) {
+        return layout.rows.map((_, i) => i);
+      }
+      // Row labels are end-anchored beside the row; pitch is vertical.
+      // Only thin if row height is extremely tight (stacked micro rows).
+      return selectHeatmapAxisLabelIndices(layout.rows, cellPitchY, {
+        fontSize: labelMetrics.rowFont,
+        // Row labels sit in reserved left pad, so allow denser labels.
+        minGap: 1,
+        step,
+      });
+    }, [
+      showRowLabels,
+      layout.rows,
+      rowLabelStep,
+      cellPitchY,
+      labelMetrics.rowFont,
+    ]);
+
     const resolveColor = (cell: HeatmapCellLayout) => {
       if (getCellColor) return getCellColor(cell, domainMin, domainMax);
       if (cell.color) return cell.color;
       if (!cell.present) return emptyColor;
+      // Explicit zero on github/contribution ramps should read as "empty" level-0.
+      if (cell.value === 0 && cell.t === 0) {
+        // Prefer emptyColor when provided for zero-activity cells on discrete scales
+        const scaleId =
+          typeof colorScale === "string" && !Array.isArray(colorScale)
+            ? colorScale
+            : null;
+        if (scaleId === "github") return emptyColor;
+      }
       return heatmapColorAt(cell.t, colorScale);
     };
 
@@ -196,26 +327,28 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
       >
         <svg
           viewBox={`0 0 ${svgWidth} ${svgHeight}`}
-          className="h-auto w-full"
+          className="h-auto w-full max-w-full"
           role="img"
           aria-label={label}
           data-empty={empty || undefined}
+          preserveAspectRatio="xMinYMid meet"
         >
           <title>{label}</title>
           {!empty ? (
             <>
               {showColLabels
-                ? layout.cols.map((col, i) => {
+                ? visibleColIndices.map((i) => {
+                    const col = layout.cols[i]!;
                     const sample = layout.cells.find((c) => c.colIndex === i);
                     if (!sample) return null;
                     return (
                       <text
-                        key={`col-${col}`}
+                        key={`col-${col}-${i}`}
                         x={sample.x + sample.width / 2}
-                        y={pad.top - 8}
+                        y={Math.max(labelMetrics.colFont + 1, pad.top - 6)}
                         textAnchor="middle"
                         className="fill-muted-foreground"
-                        fontSize={9}
+                        fontSize={labelMetrics.colFont}
                         data-slot="heatmap-col-label"
                       >
                         {col}
@@ -224,18 +357,19 @@ const Heatmap = forwardRef<HTMLDivElement, HeatmapProps>(
                   })
                 : null}
               {showRowLabels
-                ? layout.rows.map((row, i) => {
+                ? visibleRowIndices.map((i) => {
+                    const row = layout.rows[i]!;
                     const sample = layout.cells.find((c) => c.rowIndex === i);
                     if (!sample) return null;
                     return (
                       <text
-                        key={`row-${row}`}
+                        key={`row-${row}-${i}`}
                         x={pad.left - 6}
                         y={sample.y + sample.height / 2}
                         textAnchor="end"
                         dominantBaseline="middle"
                         className="fill-muted-foreground"
-                        fontSize={9}
+                        fontSize={labelMetrics.rowFont}
                         data-slot="heatmap-row-label"
                       >
                         {row}

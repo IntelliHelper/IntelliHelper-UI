@@ -1143,6 +1143,64 @@ export function normalizeHeatmapData(
 }
 
 /**
+ * Estimate SVG text width for monospace-ish labels (viewBox units).
+ * Tuned for ~9px UI labels; slightly wide so we thin early rather than clip.
+ */
+export function estimateHeatmapLabelWidth(
+  label: string,
+  fontSize = 9,
+): number {
+  if (!label) return 0;
+  // Average glyph width ≈ 0.58em for tabular UI labels (W10, Mon, etc.)
+  return Math.max(fontSize * 0.5, label.length * fontSize * 0.58);
+}
+
+/**
+ * Pick which axis labels to show so dense grids don't run labels together.
+ * Always keeps first + last when thinning. Returns indices into `labels`.
+ *
+ * @param pitch Distance between adjacent cell centers (cellSize + gap).
+ */
+export function selectHeatmapAxisLabelIndices(
+  labels: readonly string[],
+  pitch: number,
+  options?: {
+    fontSize?: number;
+    /** Minimum gap between adjacent drawn labels (viewBox units). Default 2. */
+    minGap?: number;
+    /**
+     * Force a fixed step (1 = all). When omitted, step is derived from
+     * the widest label vs pitch.
+     */
+    step?: number;
+  },
+): number[] {
+  const n = labels.length;
+  if (n === 0) return [];
+  if (n === 1) return [0];
+  const fontSize = options?.fontSize ?? 9;
+  const minGap = options?.minGap ?? 2;
+  const maxLabelW = Math.max(
+    ...labels.map((l) => estimateHeatmapLabelWidth(l, fontSize)),
+    fontSize,
+  );
+  const needed = maxLabelW + minGap;
+  const autoStep =
+    pitch > 0 && needed > pitch ? Math.ceil(needed / pitch) : 1;
+  const step = Math.max(1, options?.step ?? autoStep);
+
+  if (step <= 1) {
+    return Array.from({ length: n }, (_, i) => i);
+  }
+
+  const picked = new Set<number>();
+  for (let i = 0; i < n; i += step) picked.add(i);
+  picked.add(0);
+  picked.add(n - 1);
+  return [...picked].sort((a, b) => a - b);
+}
+
+/**
  * Layout heatmap cells as a grid of rects inside a viewBox.
  * When `cellSize` is set, width/height are derived; otherwise cells fill the plot area.
  */

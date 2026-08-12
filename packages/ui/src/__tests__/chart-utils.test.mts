@@ -14,11 +14,13 @@ import {
   donutSlicePath,
   filterTimeSeriesByPeriod,
   formatDelta,
+  estimateHeatmapLabelWidth,
   heatmapColorAt,
   HEATMAP_COLOR_SCALES,
   isHeatmapMatrix,
   layoutFunnelStages,
   layoutHeatmapCells,
+  selectHeatmapAxisLabelIndices,
   layoutHorizontalBars,
   layoutRadarPoints,
   layoutStackedBars,
@@ -541,5 +543,41 @@ describe("heatmap layout + color", () => {
     assert.ok(mid.includes("color-mix") || mid === "a" || mid === "b");
     assert.equal(heatmapColorAt(0, "github"), "#ebedf0");
     assert.equal(heatmapColorAt(1, "github"), "#216e39");
+  });
+
+  it("estimateHeatmapLabelWidth scales with length and font size", () => {
+    assert.ok(estimateHeatmapLabelWidth("W1") > 0);
+    assert.ok(
+      estimateHeatmapLabelWidth("W12") > estimateHeatmapLabelWidth("W1"),
+    );
+    assert.ok(
+      estimateHeatmapLabelWidth("W1", 12) > estimateHeatmapLabelWidth("W1", 8),
+    );
+  });
+
+  it("selectHeatmapAxisLabelIndices keeps all labels when pitch is wide", () => {
+    const labels = ["A", "B", "C", "D"];
+    // Wide pitch → every label fits
+    const all = selectHeatmapAxisLabelIndices(labels, 40, { fontSize: 9 });
+    assert.deepEqual(all, [0, 1, 2, 3]);
+  });
+
+  it("selectHeatmapAxisLabelIndices thins dense week labels and keeps ends", () => {
+    const labels = Array.from({ length: 12 }, (_, i) => `W${i + 1}`);
+    // cellSize 11 + gap 2 → pitch 13; "W12" is wider than pitch
+    const picked = selectHeatmapAxisLabelIndices(labels, 13, { fontSize: 8 });
+    assert.ok(picked.length < 12, `expected thinning, got ${picked.length}`);
+    assert.equal(picked[0], 0);
+    assert.equal(picked[picked.length - 1], 11);
+    // No two picked indices closer than the computed step allows for middle ones
+    for (let i = 1; i < picked.length; i++) {
+      assert.ok(picked[i]! > picked[i - 1]!);
+    }
+  });
+
+  it("selectHeatmapAxisLabelIndices respects explicit step", () => {
+    const labels = ["a", "b", "c", "d", "e", "f"];
+    const picked = selectHeatmapAxisLabelIndices(labels, 100, { step: 2 });
+    assert.deepEqual(picked, [0, 2, 4, 5]);
   });
 });
