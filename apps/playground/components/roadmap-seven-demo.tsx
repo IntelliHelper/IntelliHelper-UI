@@ -23,6 +23,7 @@ import {
   Stepper,
   StepTitle,
   ThemeToggle,
+  FontPicker,
   type CommandItemData,
 } from "@intelli/ui";
 
@@ -264,6 +265,18 @@ export function ThemeToggleDemo() {
       <ThemeToggle variant="outline" size="sm" />
       <ThemeToggle variant="ghost" size="lg" />
       <p className="text-xs text-muted-foreground">Toggles light / dark on the document</p>
+    </div>
+  );
+}
+
+export function FontPickerDemo() {
+  return (
+    <div className="flex w-full max-w-sm flex-col gap-3">
+      <FontPicker />
+      <p className="text-sm leading-6 text-muted-foreground">
+        The quick brown fox jumps over the lazy dog. Change the font above to
+        restyle this page.
+      </p>
     </div>
   );
 }

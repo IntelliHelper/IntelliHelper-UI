@@ -35,6 +35,7 @@
     "./navigation-menu": "./src/navigation-menu.tsx",
     "./stepper": "./src/stepper.tsx",
     "./theme-toggle": "./src/theme-toggle.tsx",
+    "./font-picker": "./src/font-picker.tsx",
     "./copy-button": "./src/copy-button.tsx",
     "./carousel": "./src/carousel.tsx",
     "./collapsible": "./src/collapsible.tsx",

@@ -77,6 +77,7 @@
 | Navigation Menu | `navigation-menu` | navigation | `packages/ui/src/navigation-menu.tsx` | ✅ Done |
 | Stepper | `stepper` | interactive | `packages/ui/src/stepper.tsx` | ✅ Done |
 | Theme Toggle | `theme-toggle` | actions | `packages/ui/src/theme-toggle.tsx` | ✅ Done |
+| Font Picker | `font-picker` | actions | `packages/ui/src/font-picker.tsx` | ✅ Done |
 | Copy Button | `copy-button` | actions | `packages/ui/src/copy-button.tsx` | ✅ Done |
 
 ### Built — remaining Tier 1 + Tier 2

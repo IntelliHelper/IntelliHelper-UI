@@ -308,6 +308,17 @@ export {
   type ThemeMode,
 } from "./theme-toggle";
 export {
+  FontPicker,
+  applyDocumentFont,
+  DEFAULT_FONT_ID,
+  DEFAULT_FONTS,
+  findFontOption,
+  readDocumentFontId,
+  type FontPickerProps,
+  type FontOption,
+  type FontCategory,
+} from "./font-picker";
+export {
   CopyButton,
   copyButtonVariants,
   copyText,

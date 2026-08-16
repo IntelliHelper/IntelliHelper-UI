@@ -98,6 +98,9 @@ const StepperDemo = lazy(() =>
 const ThemeToggleDemo = lazy(() =>
   import("../../components/roadmap-seven-demo").then((m) => ({ default: m.ThemeToggleDemo })),
 );
+const FontPickerDemo = lazy(() =>
+  import("../../components/roadmap-seven-demo").then((m) => ({ default: m.FontPickerDemo })),
+);
 const AgentCardDemo = lazy(() =>
   import("../../components/tier12-demo").then((m) => ({ default: m.AgentCardDemo })),
 );
@@ -1846,6 +1849,19 @@ const items = [
     </StepContent>
   </Step>
 </Stepper>`,
+    },
+  ],
+  "font-picker": [
+    {
+      title: "Change font family",
+      preview: <FontPickerDemo />,
+      code: `import { FontPicker } from "@/components/ui/font-picker"
+
+// Uncontrolled — writes --font-sans on documentElement and persists
+<FontPicker />
+
+// Controlled
+<FontPicker value={fontId} onValueChange={setFontId} applyToDocument />`,
     },
   ],
   "theme-toggle": [
