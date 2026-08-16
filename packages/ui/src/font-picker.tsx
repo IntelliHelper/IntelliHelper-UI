@@ -180,7 +180,7 @@ const FontPicker = forwardRef<HTMLDivElement, FontPickerProps>(
           >
             <SelectValue placeholder={placeholder} />
           </SelectTrigger>
-          <SelectContent>
+          <SelectContent className="max-h-72">
             {grouped.map((group) => (
               <SelectGroup key={group.category}>
                 <SelectLabel>{group.label}</SelectLabel>
