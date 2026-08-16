@@ -1154,6 +1154,39 @@
       }
     },
     {
+      "name": "font-picker",
+      "type": "registry:ui",
+      "title": "Font Picker",
+      "description": "Switch the document font family (sans, serif, mono, and system stacks) via --font-sans.",
+      "dependencies": [
+        "@radix-ui/react-select",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "select"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/font-family.ts",
+          "type": "registry:lib",
+          "target": "components/ui/font-family.ts"
+        },
+        {
+          "path": "packages/ui/src/font-picker.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/font-picker.tsx"
+        }
+      ],
+      "meta": {
+        "categories": [
+          "sans",
+          "serif",
+          "mono"
+        ]
+      }
+    },
+    {
       "name": "theme-toggle",
       "type": "registry:ui",
       "title": "Theme Toggle",

@@ -70,7 +70,7 @@ SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
 const selectContentVariants = cva(
   [
-    "relative z-[var(--z-dropdown)] overflow-hidden rounded-xl",
+    "relative z-[var(--z-dropdown)] max-h-[min(20rem,var(--radix-select-content-available-height))] overflow-x-hidden overflow-y-auto overscroll-contain rounded-xl",
     "text-sm glass-chrome-text",
     "data-[state=closed]:pointer-events-none",
     "data-[state=closed]:opacity-0 data-[state=closed]:scale-[0.97] data-[state=closed]:blur-sm",
@@ -140,7 +140,7 @@ const SelectContent = forwardRef<
           className={cn(
             "p-1",
             position === "popper" &&
-              "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]",
+              "w-full min-w-[var(--radix-select-trigger-width)]",
           )}
         >
           {children}

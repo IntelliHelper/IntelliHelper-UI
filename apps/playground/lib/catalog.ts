@@ -120,6 +120,12 @@ export const CATALOG: CatalogItem[] = [
     category: "actions",
   },
   {
+    slug: "font-picker",
+    title: "Font Picker",
+    description: "Change the app font family — sans, serif, mono, and system stacks.",
+    category: "actions",
+  },
+  {
     slug: "toggle",
     title: "Toggle",
     description: "Pressable glass toggle with spring scale feedback.",
