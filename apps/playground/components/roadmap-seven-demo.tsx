@@ -274,8 +274,8 @@ export function FontPickerDemo() {
     <div className="flex w-full max-w-sm flex-col gap-3">
       <FontPicker />
       <p className="text-sm leading-6 text-muted-foreground">
-        The quick brown fox jumps over the lazy dog. Change the font above to
-        restyle this page.
+        The quick brown fox jumps over the lazy dog. Try Geist, Inter, or
+        Newsreader — webfonts load from Google Fonts when you pick them.
       </p>
     </div>
   );

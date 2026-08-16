@@ -23,7 +23,9 @@ import {
   applyDocumentFont,
   DEFAULT_FONT_ID,
   DEFAULT_FONTS,
+  ensureGoogleFontsLoaded,
   findFontOption,
+  googleFontsHref,
   persistFontId,
   readDocumentFontId,
   readPersistedFontId,
@@ -37,7 +39,9 @@ export {
   applyDocumentFont,
   DEFAULT_FONT_ID,
   DEFAULT_FONTS,
+  ensureGoogleFontsLoaded,
   findFontOption,
+  googleFontsHref,
   readDocumentFontId,
   resolveFontId,
 };
@@ -94,7 +98,8 @@ const FontPicker = forwardRef<HTMLDivElement, FontPickerProps>(
 
     useEffect(() => {
       setMounted(true);
-    }, []);
+      ensureGoogleFontsLoaded(fonts);
+    }, [fonts]);
 
     useEffect(() => {
       if (valueProp !== undefined) {

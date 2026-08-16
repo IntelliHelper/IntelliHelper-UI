@@ -6,7 +6,16 @@ export type FontOption = {
   /** CSS font-family stack applied to `--font-sans` (or `--font-mono`). */
   stack: string;
   category: FontCategory;
+  /** Google Fonts family name. Loaded on demand when applying or previewing. */
+  google?: string;
 };
+
+function googleFamily(name: string, fallback: string): Pick<FontOption, "stack" | "google"> {
+  return {
+    google: name,
+    stack: `"${name}", ${fallback}`,
+  };
+}
 
 export const DEFAULT_FONTS: readonly FontOption[] = [
   {
@@ -19,8 +28,56 @@ export const DEFAULT_FONTS: readonly FontOption[] = [
   {
     id: "inter",
     label: "Inter",
-    stack: 'Inter, ui-sans-serif, system-ui, sans-serif',
     category: "sans",
+    ...googleFamily("Inter", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "geist",
+    label: "Geist",
+    category: "sans",
+    ...googleFamily("Geist", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "plus-jakarta",
+    label: "Plus Jakarta Sans",
+    category: "sans",
+    ...googleFamily("Plus Jakarta Sans", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "dm-sans",
+    label: "DM Sans",
+    category: "sans",
+    ...googleFamily("DM Sans", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "outfit",
+    label: "Outfit",
+    category: "sans",
+    ...googleFamily("Outfit", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "manrope",
+    label: "Manrope",
+    category: "sans",
+    ...googleFamily("Manrope", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "figtree",
+    label: "Figtree",
+    category: "sans",
+    ...googleFamily("Figtree", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "instrument-sans",
+    label: "Instrument Sans",
+    category: "sans",
+    ...googleFamily("Instrument Sans", "ui-sans-serif, system-ui, sans-serif"),
+  },
+  {
+    id: "space-grotesk",
+    label: "Space Grotesk",
+    category: "sans",
+    ...googleFamily("Space Grotesk", "ui-sans-serif, system-ui, sans-serif"),
   },
   {
     id: "arial",
@@ -53,6 +110,42 @@ export const DEFAULT_FONTS: readonly FontOption[] = [
     category: "serif",
   },
   {
+    id: "source-serif",
+    label: "Source Serif 4",
+    category: "serif",
+    ...googleFamily("Source Serif 4", "Georgia, serif"),
+  },
+  {
+    id: "newsreader",
+    label: "Newsreader",
+    category: "serif",
+    ...googleFamily("Newsreader", "Georgia, serif"),
+  },
+  {
+    id: "instrument-serif",
+    label: "Instrument Serif",
+    category: "serif",
+    ...googleFamily("Instrument Serif", "Georgia, serif"),
+  },
+  {
+    id: "fraunces",
+    label: "Fraunces",
+    category: "serif",
+    ...googleFamily("Fraunces", "Georgia, serif"),
+  },
+  {
+    id: "lora",
+    label: "Lora",
+    category: "serif",
+    ...googleFamily("Lora", "Georgia, serif"),
+  },
+  {
+    id: "playfair",
+    label: "Playfair Display",
+    category: "serif",
+    ...googleFamily("Playfair Display", "Georgia, serif"),
+  },
+  {
     id: "georgia",
     label: "Georgia",
     stack: 'Georgia, "Times New Roman", Times, serif',
@@ -77,12 +170,91 @@ export const DEFAULT_FONTS: readonly FontOption[] = [
     category: "mono",
   },
   {
+    id: "geist-mono",
+    label: "Geist Mono",
+    category: "mono",
+    ...googleFamily("Geist Mono", "ui-monospace, monospace"),
+  },
+  {
+    id: "jetbrains-mono",
+    label: "JetBrains Mono",
+    category: "mono",
+    ...googleFamily("JetBrains Mono", "ui-monospace, monospace"),
+  },
+  {
+    id: "ibm-plex-mono",
+    label: "IBM Plex Mono",
+    category: "mono",
+    ...googleFamily("IBM Plex Mono", "ui-monospace, monospace"),
+  },
+  {
+    id: "fira-code",
+    label: "Fira Code",
+    category: "mono",
+    ...googleFamily("Fira Code", "ui-monospace, monospace"),
+  },
+  {
+    id: "source-code-pro",
+    label: "Source Code Pro",
+    category: "mono",
+    ...googleFamily("Source Code Pro", "ui-monospace, monospace"),
+  },
+  {
     id: "courier",
     label: "Courier New",
     stack: '"Courier New", Courier, monospace',
     category: "mono",
   },
 ] as const;
+
+const GOOGLE_FONTS_LINK_ID = "intelli-font-picker-google";
+
+/** Combined Google Fonts stylesheet for every option that needs a webfont. */
+export function googleFontsHref(
+  fonts: readonly FontOption[] = DEFAULT_FONTS,
+): string | null {
+  const families = [
+    ...new Set(
+      fonts
+        .map((font) => font.google)
+        .filter((name): name is string => Boolean(name)),
+    ),
+  ];
+  if (families.length === 0) {
+    return null;
+  }
+  const query = families
+    .map((name) => {
+      const family = name.replace(/ /g, "+");
+      return `family=${family}:wght@400;500;600;700`;
+    })
+    .join("&");
+  return `https://fonts.googleapis.com/css2?${query}&display=swap`;
+}
+
+export function ensureGoogleFontsLoaded(
+  fonts: readonly FontOption[] = DEFAULT_FONTS,
+): void {
+  if (typeof document === "undefined") {
+    return;
+  }
+  const href = googleFontsHref(fonts);
+  if (!href) {
+    return;
+  }
+  const existing = document.getElementById(GOOGLE_FONTS_LINK_ID);
+  if (existing instanceof HTMLLinkElement) {
+    if (existing.href !== href) {
+      existing.href = href;
+    }
+    return;
+  }
+  const link = document.createElement("link");
+  link.id = GOOGLE_FONTS_LINK_ID;
+  link.rel = "stylesheet";
+  link.href = href;
+  document.head.appendChild(link);
+}
 
 export const DEFAULT_FONT_ID = "sans";
 
@@ -121,6 +293,7 @@ export function applyDocumentFont(font: FontOption): void {
   if (typeof document === "undefined") {
     return;
   }
+  ensureGoogleFontsLoaded([font]);
   const root = document.documentElement;
   root.style.setProperty("--font-sans", font.stack);
   if (font.category === "mono") {

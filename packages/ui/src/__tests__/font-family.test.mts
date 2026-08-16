@@ -6,6 +6,7 @@ import {
   DEFAULT_FONTS,
   fallbackFontId,
   findFontOption,
+  googleFontsHref,
   resolveFontId,
   type FontOption,
 } from "../font-family.ts";
@@ -39,6 +40,19 @@ describe("font-family", () => {
     assert.equal(findFontOption(DEFAULT_FONT_ID)?.id, "sans");
     assert.equal(findFontOption("georgia")?.category, "serif");
     assert.equal(findFontOption("missing"), undefined);
+  });
+
+  it("includes modern Google Fonts in the default list", () => {
+    assert.ok(findFontOption("geist"));
+    assert.ok(findFontOption("plus-jakarta"));
+    assert.ok(findFontOption("newsreader"));
+    assert.ok(findFontOption("jetbrains-mono"));
+    const href = googleFontsHref();
+    assert.ok(href);
+    assert.match(href, /fonts\.googleapis\.com\/css2/);
+    assert.match(href, /family=Geist/);
+    assert.match(href, /family=Plus\+Jakarta\+Sans/);
+    assert.match(href, /family=JetBrains\+Mono/);
   });
 
   it("falls back to the first custom font when sans is absent", () => {
