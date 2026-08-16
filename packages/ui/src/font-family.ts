@@ -93,6 +93,27 @@ export function findFontOption(
   return fonts.find((font) => font.id === id);
 }
 
+/** First valid id in `fonts`, preferring the built-in default when present. */
+export function fallbackFontId(
+  fonts: readonly FontOption[] = DEFAULT_FONTS,
+): string {
+  if (findFontOption(DEFAULT_FONT_ID, fonts)) {
+    return DEFAULT_FONT_ID;
+  }
+  return fonts[0]?.id ?? DEFAULT_FONT_ID;
+}
+
+/** Return `id` when it exists in `fonts`; otherwise the list fallback. */
+export function resolveFontId(
+  id: string | null | undefined,
+  fonts: readonly FontOption[] = DEFAULT_FONTS,
+): string {
+  if (id && findFontOption(id, fonts)) {
+    return id;
+  }
+  return fallbackFontId(fonts);
+}
+
 /**
  * Apply a font stack on the document root so `body { font-family: var(--font-sans) }` updates.
  */
@@ -104,6 +125,8 @@ export function applyDocumentFont(font: FontOption): void {
   root.style.setProperty("--font-sans", font.stack);
   if (font.category === "mono") {
     root.style.setProperty("--font-mono", font.stack);
+  } else {
+    root.style.removeProperty("--font-mono");
   }
   root.setAttribute("data-font", font.id);
 }
@@ -112,13 +135,12 @@ export function readDocumentFontId(
   fonts: readonly FontOption[] = DEFAULT_FONTS,
 ): string {
   if (typeof document === "undefined") {
-    return DEFAULT_FONT_ID;
+    return fallbackFontId(fonts);
   }
-  const attr = document.documentElement.getAttribute("data-font");
-  if (attr && fonts.some((font) => font.id === attr)) {
-    return attr;
-  }
-  return DEFAULT_FONT_ID;
+  return resolveFontId(
+    document.documentElement.getAttribute("data-font"),
+    fonts,
+  );
 }
 
 export function persistFontId(storageKey: string, id: string): void {

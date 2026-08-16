@@ -27,6 +27,7 @@ import {
   persistFontId,
   readDocumentFontId,
   readPersistedFontId,
+  resolveFontId,
   type FontCategory,
   type FontOption,
 } from "./font-family";
@@ -38,6 +39,7 @@ export {
   DEFAULT_FONTS,
   findFontOption,
   readDocumentFontId,
+  resolveFontId,
 };
 
 const CATEGORY_LABELS: Record<FontCategory, string> = {
@@ -85,21 +87,22 @@ const FontPicker = forwardRef<HTMLDivElement, FontPickerProps>(
     },
     ref,
   ) => {
-    const [uncontrolled, setUncontrolled] = useState(
-      defaultValue ?? DEFAULT_FONT_ID,
+    const [uncontrolled, setUncontrolled] = useState(() =>
+      resolveFontId(defaultValue, fonts),
     );
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
       setMounted(true);
+    }, []);
+
+    useEffect(() => {
       if (valueProp !== undefined) {
         return;
       }
       const stored =
         storageKey === false ? null : readPersistedFontId(storageKey);
-      const next =
-        (stored && findFontOption(stored, fonts)?.id) ||
-        readDocumentFontId(fonts);
+      const next = resolveFontId(stored ?? readDocumentFontId(fonts), fonts);
       setUncontrolled(next);
       const font = findFontOption(next, fonts);
       if (font && applyToDocument) {
@@ -107,7 +110,18 @@ const FontPicker = forwardRef<HTMLDivElement, FontPickerProps>(
       }
     }, [applyToDocument, fonts, storageKey, valueProp]);
 
-    const value = valueProp !== undefined ? valueProp : uncontrolled;
+    useEffect(() => {
+      if (valueProp === undefined || !applyToDocument) {
+        return;
+      }
+      const font = findFontOption(valueProp, fonts);
+      if (font) {
+        applyDocumentFont(font);
+      }
+    }, [applyToDocument, fonts, valueProp]);
+
+    const value =
+      valueProp !== undefined ? resolveFontId(valueProp, fonts) : uncontrolled;
     const selected = findFontOption(value, fonts);
 
     const grouped = useMemo(() => {
@@ -147,7 +161,7 @@ const FontPicker = forwardRef<HTMLDivElement, FontPickerProps>(
         {...props}
       >
         <Select
-          value={mounted ? value : defaultValue ?? DEFAULT_FONT_ID}
+          value={mounted ? value : resolveFontId(defaultValue, fonts)}
           onValueChange={setValue}
           disabled={disabled}
           name={name}

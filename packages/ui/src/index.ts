@@ -314,6 +314,7 @@ export {
   DEFAULT_FONTS,
   findFontOption,
   readDocumentFontId,
+  resolveFontId,
   type FontPickerProps,
   type FontOption,
   type FontCategory,
