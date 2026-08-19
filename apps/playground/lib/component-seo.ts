@@ -7,6 +7,15 @@ export type ComponentFaqItem = {
 
 /** Extra SERP keywords layered onto component meta (P2 component intent). */
 export const COMPONENT_KEYWORDS: Record<string, string[]> = {
+  drawer: [
+    "react drawer component",
+    "vaul drawer react",
+    "bottom sheet react",
+    "drag to dismiss drawer",
+    "mobile drawer next.js",
+    "glassmorphism drawer",
+    "react snap points drawer",
+  ],
   layout: [
     "react layout components",
     "stack cluster grid react",
@@ -73,7 +82,7 @@ export const CATEGORY_KEYWORDS: Record<ComponentCategory, string[]> = {
     "react calendar component",
   ],
   overlays: [
-    "react dialog sheet popover",
+    "react dialog sheet drawer popover",
     "modal glassmorphism",
     "react tooltip hover card",
   ],
@@ -118,6 +127,18 @@ export const CATEGORY_KEYWORDS: Record<ComponentCategory, string[]> = {
  * Generic install / stack questions are always appended by the page.
  */
 export const COMPONENT_EXTRA_FAQS: Record<string, ComponentFaqItem[]> = {
+  drawer: [
+    {
+      question: "When should I use Drawer instead of Sheet?",
+      answer:
+        "Use Drawer for mobile-first panels that should drag to dismiss, expose a grab handle, or snap to intermediate heights. Use Sheet when you need a desktop-oriented edge panel without gesture physics. Both share Liquid Glass variants (chrome, elevated, outline) and overlay blur/dim controls.",
+    },
+    {
+      question: "How do snap points work?",
+      answer:
+        "Pass snapPoints on Drawer (for example [0.3, 0.6, 1]) as fractions of the viewport or pixel strings, and use size=\"full\" so max-height does not clip the snap. fadeFromIndex controls when the overlay starts fading. Users can drag between points; DrawerHandle also cycles snap points on click.",
+    },
+  ],
   "image-preview": [
     {
       question: "Does Image Preview support multi-image galleries?",

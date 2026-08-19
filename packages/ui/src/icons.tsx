@@ -1193,5 +1193,7 @@ export const DialogCloseIcon = CloseIcon;
 
 export const SheetCloseIcon = CloseIcon;
 
+export const DrawerCloseIcon = CloseIcon;
+
 /** Down chevron alias used by combobox/multi-select */
 export const ChevronIcon = ChevronDownIcon;

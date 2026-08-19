@@ -292,6 +292,9 @@ const HoverCardDemo = lazy(() =>
 const SheetDemo = lazy(() =>
   import("../../components/sheet-hover-card-demo").then((m) => ({ default: m.SheetDemo })),
 );
+const DrawerDemo = lazy(() =>
+  import("../../components/drawer-demo").then((m) => ({ default: m.DrawerDemo })),
+);
 const BadgeDemo = lazy(() =>
   import("../../components/toggle-components-demo").then((m) => ({ default: m.BadgeDemo })),
 );
@@ -1178,6 +1181,43 @@ const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
     </SheetHeader>
   </SheetContent>
 </Sheet>`,
+    },
+  ],
+  drawer: [
+    {
+      title: "Drag to dismiss",
+      preview: <DrawerDemo />,
+      code: `import { Button } from "@/components/ui/button"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+
+<Drawer>
+  <DrawerTrigger asChild>
+    <Button variant="outline">Open drawer</Button>
+  </DrawerTrigger>
+  <DrawerContent>
+    <DrawerHeader>
+      <DrawerTitle>Edit profile</DrawerTitle>
+      <DrawerDescription>
+        Drag the handle or tap the overlay to dismiss.
+      </DrawerDescription>
+    </DrawerHeader>
+    <DrawerFooter>
+      <DrawerClose asChild>
+        <Button variant="outline">Cancel</Button>
+      </DrawerClose>
+      <Button>Save changes</Button>
+    </DrawerFooter>
+  </DrawerContent>
+</Drawer>`,
     },
   ],
   popover: [

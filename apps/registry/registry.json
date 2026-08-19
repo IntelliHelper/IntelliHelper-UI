@@ -1594,6 +1594,70 @@
       }
     },
     {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Drag-to-dismiss glass drawer with a grab handle, snap points, and slide-in from any edge.",
+      "dependencies": [
+        "vaul",
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "dialog",
+        "icons"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/drawer.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/drawer.tsx"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "directions": [
+          "top",
+          "right",
+          "bottom",
+          "left"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg",
+          "full"
+        ],
+        "overlayBlur": [
+          "none",
+          "sm",
+          "default",
+          "lg",
+          "xl",
+          "heavy"
+        ],
+        "overlayDim": [
+          "none",
+          "light",
+          "default",
+          "heavy"
+        ],
+        "slots": [
+          "overlayClassName",
+          "handleClassName",
+          "closeClassName",
+          "closeIcon",
+          "closeLabel",
+          "showHandle",
+          "showClose"
+        ]
+      }
+    },
+    {
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
