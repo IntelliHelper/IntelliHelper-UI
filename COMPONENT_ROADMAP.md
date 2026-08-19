@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-08-12 (Tier 3 product surfaces complete)
+> **Last updated:** 2026-08-19 (Drawer overlay)
 
 ---
 
@@ -43,7 +43,8 @@
 | Calendar | `calendar` | forms | `packages/ui/src/calendar.tsx` | Date / range |
 | Event Calendar | `event-calendar` | data | `packages/ui/src/event-calendar.tsx` | |
 | Dialog | `dialog` | overlays | `packages/ui/src/dialog.tsx` | Modal |
-| Sheet | `sheet` | overlays | `packages/ui/src/sheet.tsx` | Drawer-like |
+| Sheet | `sheet` | overlays | `packages/ui/src/sheet.tsx` | Edge panel |
+| Drawer | `drawer` | overlays | `packages/ui/src/drawer.tsx` | Vaul drag-to-dismiss |
 | Popover / Tooltip / Hover Card | `popover`, `tooltip`, `hover-card` | overlays | | |
 | Toast | `toast` | feedback | `packages/ui/src/toast.tsx` | Imperative API |
 | Floating Widget | `floating-widget` | overlays | `packages/ui/src/floating-widget.tsx` | |
@@ -277,7 +278,7 @@ These appear in `component.md` but map to existing primitives:
 | Divider | `separator` |
 | Empty State / Empty Screen | `empty` |
 | Modal | `dialog` |
-| Drawer | `sheet` |
+| Drawer | `drawer` |
 | Markdown Renderer | `markdown-viewer` |
 | Rich Text Editor | `markdown-editor` |
 

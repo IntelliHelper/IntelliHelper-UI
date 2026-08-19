@@ -29,9 +29,9 @@ Each control follows Liquid Glass chrome conventions: neutral frosted fields, cl
 
 Search intent for “glass form components React”, “Tailwind input glassmorphism”, and “Next.js form UI kit” lands here. Install with \`npx @intellihelper/cli add input select checkbox\` (or any slug), wire your preferred form library, and keep full ownership of the source. Pair with Overlays for modal forms and Feedback for validation states.`,
 
-  overlays: `Overlay components surface temporary UI without breaking immersion — dialogs, alert dialogs, sheets, popovers, tooltips, hover cards, dropdowns, and context menus with Liquid Glass treatment for React and Next.js.
+  overlays: `Overlay components surface temporary UI without breaking immersion — dialogs, alert dialogs, sheets, drawers, popovers, tooltips, hover cards, dropdowns, and context menus with Liquid Glass treatment for React and Next.js.
 
-Glass overlays need careful contrast: frosted panels must stay readable over blurred page content. Intelli UI primitives use elevated chrome, strong focus management, and Radix-style accessibility patterns so keyboard and screen-reader users get first-class support. Sheets suit mobile-first filters; Dialogs confirm high-stakes actions; Popovers and Hover Cards explain without navigation.
+Glass overlays need careful contrast: frosted panels must stay readable over blurred page content. Intelli UI primitives use elevated chrome, strong focus management, and Radix-style accessibility patterns so keyboard and screen-reader users get first-class support. Drawers suit mobile-first drag-to-dismiss flows; Sheets suit desktop edge panels; Dialogs confirm high-stakes actions; Popovers and Hover Cards explain without navigation.
 
 Install free overlay components via the IntelliHelper CLI and customize animation and blur tokens in your codebase. Ideal for product tours, settings drawers, command menus, and AI chat confirmations. Teams evaluating shadcn alternatives for modal and sheet UX get the same copy-paste ownership model with a distinctive glass look.`,
 

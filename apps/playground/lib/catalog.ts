@@ -40,7 +40,7 @@ export const CATEGORY_META: Record<
   },
   overlays: {
     label: "Overlays",
-    description: "Dialogs, sheets, popovers, and tooltips",
+    description: "Dialogs, sheets, drawers, popovers, and tooltips",
   },
   navigation: {
     label: "Navigation",
@@ -274,6 +274,12 @@ export const CATALOG: CatalogItem[] = [
     slug: "sheet",
     title: "Sheet",
     description: "Edge slide-in glass panel with spring animation.",
+    category: "overlays",
+  },
+  {
+    slug: "drawer",
+    title: "Drawer",
+    description: "Drag-to-dismiss glass panel with a handle and optional snap points.",
     category: "overlays",
   },
   {

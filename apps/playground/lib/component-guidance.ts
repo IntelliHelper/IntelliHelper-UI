@@ -88,7 +88,7 @@ const CATEGORY_GUIDANCE: Record<ComponentCategory, ComponentGuidance> = {
   },
   overlays: {
     whenToUse: [
-      "Temporary focus tasks: dialogs, sheets, popovers, tooltips, hover cards.",
+      "Temporary focus tasks: dialogs, sheets, drawers, popovers, tooltips, hover cards.",
       "Confirmations and dense secondary UI that should not navigate away.",
     ],
     whenNotTo: [
@@ -101,7 +101,7 @@ const CATEGORY_GUIDANCE: Record<ComponentCategory, ComponentGuidance> = {
       "Tooltips must not be the only way to access essential information.",
     ],
     composition: [
-      "Prefer sheet for mobile-heavy flows; dialog for focused confirmations.",
+      "Prefer drawer for mobile drag-to-dismiss; sheet for desktop edge panels; dialog for focused confirmations.",
       "Keep overlay body short; link out to full pages for long content.",
     ],
   },

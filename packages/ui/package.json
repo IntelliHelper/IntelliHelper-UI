@@ -50,6 +50,7 @@
     "./calendar": "./src/calendar.tsx",
     "./event-calendar": "./src/event-calendar.tsx",
     "./sheet": "./src/sheet.tsx",
+    "./drawer": "./src/drawer.tsx",
     "./hover-card": "./src/hover-card.tsx",
     "./icons": "./src/icons.tsx",
     "./toggle": "./src/toggle.tsx",
@@ -188,7 +189,8 @@
     "remark-gfm": "^4.0.1",
     "shiki": "^4.3.1",
     "turndown": "^7.2.4",
-    "turndown-plugin-gfm": "^1.0.2"
+    "turndown-plugin-gfm": "^1.0.2",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

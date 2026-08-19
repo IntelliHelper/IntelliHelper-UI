@@ -469,6 +469,28 @@ export {
   type SheetDescriptionProps,
 } from "./sheet";
 export {
+  Drawer,
+  DrawerPortal,
+  DrawerOverlay,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerNestedRoot,
+  DrawerContent,
+  DrawerHandle,
+  DrawerHeader,
+  DrawerFooter,
+  DrawerTitle,
+  DrawerDescription,
+  drawerContentVariants,
+  type DrawerContentProps,
+  type DrawerOverlayProps,
+  type DrawerHandleProps,
+  type DrawerHeaderProps,
+  type DrawerFooterProps,
+  type DrawerTitleProps,
+  type DrawerDescriptionProps,
+} from "./drawer";
+export {
   HoverCard,
   HoverCardTrigger,
   HoverCardContent,
