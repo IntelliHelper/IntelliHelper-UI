@@ -124,7 +124,8 @@ DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName;
 const drawerContentVariants = cva(
   [
     "group/drawer-content fixed z-[calc(var(--z-modal)+1)] flex h-auto flex-col gap-4 p-6 text-foreground",
-    "focus:outline-none",
+    "outline-none",
+    focusRing,
     "data-[vaul-drawer-direction=top]:inset-x-0 data-[vaul-drawer-direction=top]:top-0 data-[vaul-drawer-direction=top]:mb-24 data-[vaul-drawer-direction=top]:rounded-b-2xl data-[vaul-drawer-direction=top]:border-b",
     "data-[vaul-drawer-direction=bottom]:inset-x-0 data-[vaul-drawer-direction=bottom]:bottom-0 data-[vaul-drawer-direction=bottom]:mt-24 data-[vaul-drawer-direction=bottom]:rounded-t-2xl data-[vaul-drawer-direction=bottom]:border-t",
     "data-[vaul-drawer-direction=left]:inset-y-0 data-[vaul-drawer-direction=left]:left-0 data-[vaul-drawer-direction=left]:h-full data-[vaul-drawer-direction=left]:rounded-r-2xl data-[vaul-drawer-direction=left]:border-r",
