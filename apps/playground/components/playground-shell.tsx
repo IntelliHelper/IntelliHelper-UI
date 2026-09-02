@@ -53,6 +53,15 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                 CLI, own the source, and ship with agent tooling when you need
                 it.
               </p>
+              <p className="max-w-sm text-sm leading-relaxed text-muted-foreground">
+                Looking for the workspace app?{" "}
+                <a
+                  href="https://intellihelper.in"
+                  className="font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                  IntelliHelper
+                </a>
+              </p>
             </Stack>
 
             <Grid

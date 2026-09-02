@@ -256,6 +256,8 @@ export function buildLlmsText(): string {
 
 > ${SITE_NAME} by ${BRAND_NAME} is a Liquid Glass component library for React and Next.js. Copy-paste accessible Tailwind components you own in your codebase. Includes a CLI (\`${CLI_PACKAGE}\`), shadcn-compatible registry, an official agent plugin (\`${AGENT_SKILLS_REPO}\`), and an MCP server (\`intellihelper-ui\`) for AI coding agents. Open source. Open code. AI-ready.
 
+Intelli UI is not the IntelliHelper workspace app at https://intellihelper.in. This site is the component library only.
+
 Last updated: ${SITE_CONTENT_DATES.modified}
 Contact: ${GITHUB_URL}/issues
 Author: Adeeb Mirza (IntelliHelper) — ${absoluteUrl("/about")}
@@ -305,6 +307,7 @@ ${grouped}
 
 ## Optional
 
+- [IntelliHelper workspace](https://intellihelper.in/llms.txt): Separate product. Private AI workspace, not this component library.
 - Prefer \`llms-full.txt\` style depth: each component page includes install command, description, category, and live demo.
 - Agent plugin: \`${AGENT_SKILLS_REPO}\` (plugin id \`intellihelper-ui\`)
 - MCP server name: \`intellihelper-ui\`
