@@ -150,9 +150,9 @@ const backgroundPictureTileVariants = cva(
       },
       kind: {
         preset: "",
-        none: "border-dashed bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+        none: "border-dashed bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
         upload:
-          "border-dashed bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+          "border-dashed bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
       },
       size: {
         sm: "size-14",
@@ -174,7 +174,7 @@ const backgroundPictureSurfaceVariants = cva("relative overflow-hidden", {
       fill: "bg-background",
       chrome: [
         "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
         "backdrop-blur-[var(--glass-chrome-blur)]",
         "shadow-[var(--glass-chrome-shadow)]",
       ],

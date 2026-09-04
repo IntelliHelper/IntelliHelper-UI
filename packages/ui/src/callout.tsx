@@ -30,7 +30,7 @@ const calloutVariants = cva("relative w-full rounded-2xl border px-4 py-3.5 text
       ],
       note: [
         "border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%, var(--glass-mix-into))]",
         "backdrop-blur-[var(--glass-chrome-blur)]",
         "[&_[data-slot=callout-icon]]:text-[var(--glass-chrome-fg-muted,var(--muted-foreground))]",
       ],

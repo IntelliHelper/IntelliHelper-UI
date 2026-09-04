@@ -23,7 +23,7 @@ const tabsListVariants = cva(
         chrome: "glass-chrome glass-chrome-capsule",
         plain: [
           "rounded-2xl border border-[var(--glass-chrome-border)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
       },
@@ -107,7 +107,7 @@ const TabsList = forwardRef<
         className={cn(
           "pointer-events-none absolute inset-y-1 left-0 rounded-full",
           variant === "plain"
-            ? "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)] border border-[var(--glass-chrome-border)]"
+            ? "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))] border border-[var(--glass-chrome-border)]"
             : "glass-chrome-indicator",
           /* Only compositor-friendly props — width updates instantly (no width transition) */
           "transition-[transform,opacity]",

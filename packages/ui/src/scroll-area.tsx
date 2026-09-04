@@ -16,7 +16,7 @@ const scrollAreaVariants = cva("relative overflow-hidden", {
       chrome: "rounded-xl border border-[var(--glass-chrome-border)] glass-panel",
       outline: [
         "rounded-xl border border-[var(--glass-chrome-border)]",
-        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
       ],
     },
   },

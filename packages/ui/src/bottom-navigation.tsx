@@ -13,7 +13,7 @@ const bottomNavVariants = cva(
   [
     "w-full border-t px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-1.5",
     "border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_78%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_78%, var(--glass-mix-into))]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
     "shadow-[var(--glass-chrome-shadow)]",
   ],
@@ -41,7 +41,7 @@ const bottomNavItemVariants = cva(
     "relative min-w-0 flex-1 rounded-xl px-2 py-1.5",
     "text-[10px] font-medium glass-chrome-text-muted",
     "transition-[color,background,transform] duration-[var(--duration-normal)]",
-    "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+    "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
     "data-[active=true]:text-primary",
     "active:scale-[0.98]",
     focusRing,

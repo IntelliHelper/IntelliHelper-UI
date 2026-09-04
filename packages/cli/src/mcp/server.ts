@@ -12,6 +12,7 @@ import {
   getExamplesFor,
   getExamplesMap,
   getProjectConfigSummary,
+  getMaterials,
   getThemes,
   loadComponent,
   loadEnrichedItems,
@@ -291,7 +292,7 @@ export function createMcpServer(): Server {
         }
 
         case "list_themes": {
-          return textResult(formatThemes(getThemes()));
+          return textResult(formatThemes(getThemes(), getMaterials()));
         }
 
         case "get_audit_checklist": {

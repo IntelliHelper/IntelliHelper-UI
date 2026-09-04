@@ -8,9 +8,9 @@ const skeletonVariants = cva("", {
   variants: {
     variant: {
       default:
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
       chrome: "glass-panel",
-      text: "h-4 w-full rounded-sm bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+      text: "h-4 w-full rounded-sm bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
     },
     animated: {
       true: "animate-glass-pulse",

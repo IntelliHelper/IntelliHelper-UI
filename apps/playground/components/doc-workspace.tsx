@@ -117,7 +117,7 @@ export function DocWorkspace({
       as="section"
       className={cn(
         "isolate min-w-0 overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)]",
-        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))]",
         "shadow-[var(--glass-chrome-shadow)]",
         className,
       )}
@@ -128,7 +128,7 @@ export function DocWorkspace({
         align="start"
         justify="between"
         gap={3}
-        className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-4 py-3 backdrop-blur-[var(--glass-blur)] md:px-5"
+        className="border-b border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-4 py-3 backdrop-blur-[var(--glass-blur)] md:px-5"
       >
         <Stack gap={0.5} className="min-w-0 flex-1">
           <h3 className="text-sm font-semibold tracking-tight text-foreground">
@@ -173,7 +173,7 @@ export function DocWorkspace({
         data-slot="doc-preview"
         className={cn(
           "relative min-w-0",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))]",
           "border-b border-[var(--glass-chrome-border)]",
         )}
       >
@@ -205,7 +205,7 @@ export function DocWorkspace({
           <Box
             className={cn(
               "overflow-auto overscroll-contain",
-              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
               "[scrollbar-color:var(--glass-scroll-thumb)_var(--glass-scroll-track)] [scrollbar-width:thin]",
               "[&::-webkit-scrollbar]:w-2.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-[var(--glass-scroll-thumb)] [&::-webkit-scrollbar-track]:bg-transparent",
             )}

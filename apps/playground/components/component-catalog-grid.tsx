@@ -173,7 +173,7 @@ export function ComponentCatalogGrid() {
                       <Card
                         variant="outline"
                         animated={false}
-                        className="h-full bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] transition-[border-color,background,box-shadow] duration-200 group-hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] group-hover:backdrop-blur-[var(--glass-blur)] group-focus-visible:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))]"
+                        className="h-full bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] transition-[border-color,background,box-shadow] duration-200 group-hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] group-hover:backdrop-blur-[var(--glass-blur)] group-focus-visible:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))]"
                       >
                         <CardContent className="flex h-full flex-col p-4">
                           <Flex align="start" justify="between" gap={2}>

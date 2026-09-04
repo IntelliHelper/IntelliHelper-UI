@@ -66,12 +66,12 @@ const mediaPlayerVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-inset)]",
         ],
         elevated: [
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_70%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_70%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-blur)]",
           "shadow-[var(--glass-chrome-shadow),var(--glass-chrome-inset)]",
         ],
@@ -96,7 +96,7 @@ const mediaPlayerControlsVariants = cva(
   [
     "flex min-w-0 flex-col gap-1.5 p-2.5 sm:gap-2 sm:p-3",
     "border-t border-[color-mix(in_oklch,var(--glass-chrome-border)_70%,transparent)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
     "text-[var(--glass-chrome-fg)]",
   ],

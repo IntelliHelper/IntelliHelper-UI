@@ -132,7 +132,7 @@ const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(
                   aria-label="Previous year"
                   disabled={viewYear <= minYear}
                   className={cn(
-                    "rounded-lg px-2 py-1 text-sm hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)] disabled:opacity-40",
+                    "rounded-lg px-2 py-1 text-sm hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))] disabled:opacity-40",
                     focusRing,
                   )}
                   onClick={() => setViewYear((y) => Math.max(minYear, y - 1))}
@@ -147,7 +147,7 @@ const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(
                   aria-label="Next year"
                   disabled={viewYear >= maxYear}
                   className={cn(
-                    "rounded-lg px-2 py-1 text-sm hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)] disabled:opacity-40",
+                    "rounded-lg px-2 py-1 text-sm hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))] disabled:opacity-40",
                     focusRing,
                   )}
                   onClick={() => setViewYear((y) => Math.min(maxYear, y + 1))}
@@ -167,7 +167,7 @@ const MonthPicker = forwardRef<HTMLDivElement, MonthPickerProps>(
                         "rounded-xl px-2 py-2.5 text-sm font-medium transition-colors",
                         selected
                           ? "bg-primary/20 text-primary"
-                          : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+                          : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
                         focusRing,
                       )}
                       onClick={() => commit(m)}

@@ -20,7 +20,7 @@ const dockVariants = cva(
   [
     "inline-flex items-end rounded-2xl border p-2",
     "border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
     "shadow-[var(--glass-chrome-shadow)]",
   ],
@@ -49,7 +49,7 @@ const dockItemVariants = cva(
     "text-[var(--glass-chrome-fg)]",
     "transition-[transform,background] duration-[var(--duration-normal)]",
     "[transition-timing-function:var(--ease-spring)]",
-    "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_50%,transparent)]",
+    "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_50%, var(--glass-mix-into))]",
     "data-[active=true]:bg-[color-mix(in_oklch,var(--primary)_22%,transparent)]",
     "data-[active=true]:text-primary",
     focusRing,

@@ -145,7 +145,7 @@ const Banner = forwardRef<HTMLDivElement, BannerProps>(
             className={cn(
               "inline-flex size-8 shrink-0 items-center justify-center self-start rounded-lg",
               "text-[var(--glass-chrome-fg-muted,var(--muted-foreground))]",
-              "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+              "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
               focusRing,
             )}
             onClick={dismiss}

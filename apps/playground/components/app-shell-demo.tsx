@@ -231,7 +231,7 @@ export function ContextMenuDemo() {
   return (
     <ContextMenu>
       <ContextMenuTrigger asChild>
-        <div className="flex h-36 w-full max-w-md items-center justify-center rounded-2xl border border-dashed border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] text-sm text-muted-foreground">
+        <div className="flex h-36 w-full max-w-md items-center justify-center rounded-2xl border border-dashed border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] text-sm text-muted-foreground">
           Right-click this surface
         </div>
       </ContextMenuTrigger>

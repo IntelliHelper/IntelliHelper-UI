@@ -15,7 +15,7 @@ const avatarVariants = cva(
   [
     "relative flex shrink-0 overflow-hidden",
     "border border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
     "shadow-[var(--glass-chrome-inset),var(--glass-chrome-rim)]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
   ],
@@ -81,7 +81,7 @@ const avatarFallbackVariants = cva(
   [
     "flex size-full items-center justify-center font-semibold uppercase tracking-tight",
     "text-[var(--glass-chrome-fg)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%, var(--glass-mix-into))]",
   ],
   {
     variants: {

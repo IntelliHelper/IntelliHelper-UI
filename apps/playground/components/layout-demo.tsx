@@ -15,7 +15,7 @@ import {
 import { Badge } from "@intelli/ui/badge";
 
 const surface =
-  "rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-3 text-sm text-muted-foreground";
+  "rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-3 text-sm text-muted-foreground";
 
 export function LayoutStackDemo() {
   return (
@@ -145,7 +145,7 @@ export function LayoutContainerDemo() {
     <Container
       size="sm"
       padded={false}
-      className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%,transparent)] p-4"
+      className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_28%, var(--glass-mix-into))] p-4"
     >
       <Stack gap={2}>
         <p className="text-sm font-medium text-foreground">Container</p>

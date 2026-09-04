@@ -101,7 +101,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="mono" className="light" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="mono"
+      data-material="glass"
+      className="light"
+      suppressHydrationWarning
+    >
       <head>
         {/*
           Paint-critical baseline before the main CSS chunk arrives.
@@ -115,6 +121,12 @@ export default function RootLayout({
               "body{margin:0;min-height:100%;background:inherit;color:oklch(0.13 0 0)}",
               "html.dark body{color:oklch(0.96 0 0)}",
             ].join(""),
+          }}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var r=JSON.parse(localStorage.getItem('intelli-ui-theme')||'{}');var e=document.documentElement;if(r.theme)e.setAttribute('data-theme',r.theme);if(r.material==='solid'||r.material==='glass')e.setAttribute('data-material',r.material);if(r.mode==='dark'){e.classList.add('dark');e.classList.remove('light')}else if(r.mode==='light'){e.classList.add('light');e.classList.remove('dark')}}catch(t){}})();",
           }}
         />
       </head>

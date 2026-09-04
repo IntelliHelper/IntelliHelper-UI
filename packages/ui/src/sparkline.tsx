@@ -23,7 +23,7 @@ const sparklineVariants = cva(
         bare: "",
         chrome: [
           "rounded-md border border-[color-mix(in_oklch,var(--glass-chrome-border)_70%,transparent)] px-1 py-0.5",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
         ],
       },
     },

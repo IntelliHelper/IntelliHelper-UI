@@ -73,7 +73,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is Intelli UI a shadcn/ui alternative? Why is it better?",
-    a: "Yes — same copy-paste ownership, stronger product system. Intelli UI ships Liquid Glass chrome vs content layers, five themes, glass primitives (glass-bar, content cards), AI surfaces (chat, streaming, reasoning), plus an official agent plugin and MCP. shadcn is excellent for flat/neutral UIs; Intelli UI is built when glass hierarchy and agent-native install matter.",
+    a: "Yes — same copy-paste ownership, stronger product system. Intelli UI ships Liquid Glass chrome vs content layers, five palettes, glass or solid material, glass primitives (glass-bar, content cards), AI surfaces (chat, streaming, reasoning), plus an official agent plugin and MCP. shadcn is excellent for flat/neutral UIs; Intelli UI is built when glass hierarchy and agent-native install matter.",
   },
   {
     q: "Does it support AI coding agents?",
@@ -161,13 +161,13 @@ export default function GettingStartedPage() {
           as="nav"
           gap={1.5}
           aria-label="On this page"
-          className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-1.5 backdrop-blur-[var(--glass-blur)]"
+          className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-1.5 backdrop-blur-[var(--glass-blur)]"
         >
           {TOC.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="rounded-lg bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:backdrop-blur-[var(--glass-blur)]"
+              className="rounded-lg bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:backdrop-blur-[var(--glass-blur)]"
             >
               {item.label}
             </a>

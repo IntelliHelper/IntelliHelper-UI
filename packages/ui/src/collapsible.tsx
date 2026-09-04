@@ -18,7 +18,7 @@ const collapsibleVariants = cva("w-full", {
       chrome: "glass-panel rounded-2xl px-4",
       outline: [
         "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
         "shadow-[var(--glass-chrome-shadow)] px-4",
       ],
     },
@@ -50,7 +50,7 @@ const collapsibleTriggerVariants = cva(
         ],
         tree: [
           "justify-start gap-1.5 rounded-lg px-2 py-1.5 text-xs font-medium",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "[&[data-state=open]>svg:first-child]:rotate-90",
         ],
       },

@@ -165,7 +165,7 @@ function CategoryDemo({
     return (
       <Stack gap={3}>
         <p className="text-[15px] font-semibold">{title}</p>
-        <div className="aspect-video rounded-2xl bg-[color-mix(in_oklch,var(--glass-surface-fill)_70%,transparent)]" />
+        <div className="aspect-video rounded-2xl bg-[color-mix(in_oklch,var(--glass-surface-fill)_70%, var(--glass-mix-into))]" />
         <Button variant="primary">Play</Button>
       </Stack>
     );
@@ -224,7 +224,7 @@ function PreviewBody({
       return (
         <Stack gap={3}>
           <p className="text-[13px] font-medium text-foreground">Invite link</p>
-          <p className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-2 font-mono text-xs text-muted-foreground">
+          <p className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-3 py-2 font-mono text-xs text-muted-foreground">
             intellihelper.in/join
           </p>
           <CopyButton value="https://ui.intellihelper.in/native/copy-button" />
@@ -587,7 +587,7 @@ function PreviewBody({
       return (
         <Cluster
           gap={2}
-          className="justify-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] px-3 py-2 backdrop-blur-[var(--glass-blur)]"
+          className="justify-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))] px-3 py-2 backdrop-blur-[var(--glass-blur)]"
         >
           <Button variant="ghost" size="icon" shape="pill" aria-label="Play">
             ▶

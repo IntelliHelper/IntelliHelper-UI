@@ -66,7 +66,7 @@ const commandVariants = cva(
   [
     "flex w-full flex-col overflow-hidden rounded-2xl border text-sm",
     "border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_78%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_78%, var(--glass-mix-into))]",
     "text-[var(--glass-chrome-fg)]",
     "shadow-[var(--glass-chrome-shadow)]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
@@ -76,7 +76,7 @@ const commandVariants = cva(
       variant: {
         chrome: "",
         elevated: [
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "text-foreground",
         ],
         outline: [

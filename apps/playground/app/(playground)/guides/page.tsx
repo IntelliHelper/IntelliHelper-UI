@@ -91,7 +91,7 @@ export default function GuidesIndexPage() {
                   <Card
                     variant="outline"
                     animated={false}
-                    className="bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] transition-colors group-hover:backdrop-blur-[var(--glass-blur)]"
+                    className="bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] transition-colors group-hover:backdrop-blur-[var(--glass-blur)]"
                   >
                     <CardHeader className="p-5 md:p-6">
                       <Cluster gap={2}>

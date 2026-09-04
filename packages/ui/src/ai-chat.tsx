@@ -16,7 +16,7 @@ const aiChatVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
@@ -45,7 +45,7 @@ const chatBubbleVariants = cva(
         ],
         assistant: [
           "mr-auto border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
           "text-[var(--glass-chrome-fg)]",
         ],
         system: [

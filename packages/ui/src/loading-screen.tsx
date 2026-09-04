@@ -16,14 +16,14 @@ const loadingScreenVariants = cva("text-center", {
       ],
       overlay: [
         "absolute inset-0 z-10 rounded-[inherit]",
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%, var(--glass-mix-into))]",
         "backdrop-blur-sm",
       ],
       inline:
         "relative min-h-[12rem] w-full rounded-2xl border border-dashed border-[var(--glass-chrome-border)] p-8",
       panel: [
         "relative min-h-[12rem] w-full rounded-2xl p-8",
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%, var(--glass-mix-into))]",
         "backdrop-blur-[var(--glass-chrome-blur)]",
         "border border-[var(--glass-chrome-border)]",
         "shadow-[var(--glass-chrome-shadow)]",

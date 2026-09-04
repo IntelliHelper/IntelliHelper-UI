@@ -54,7 +54,7 @@ const markdownEditorVariants = cva("flex w-full flex-col overflow-hidden", {
       ],
       outline: [
         "rounded-xl border border-[var(--glass-chrome-border)]",
-        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
       ],
     },
   },
@@ -264,7 +264,7 @@ function MarkdownEditorToolbar({
         data-slot="markdown-editor-toolbar"
         className={cn(
           "flex flex-wrap items-center gap-1 border-b border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
           "px-2 py-2",
           className,
         )}
@@ -730,7 +730,7 @@ const MarkdownEditor = forwardRef(function MarkdownEditor(
           data-slot="markdown-editor-stats"
           className={cn(
             "flex items-center justify-between gap-3 border-t border-[var(--glass-chrome-border)]",
-            "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+            "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
             "px-4 py-2 text-[11px] text-muted-foreground",
           )}
         >

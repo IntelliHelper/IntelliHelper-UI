@@ -79,7 +79,7 @@ const TypographyBlockquote = createTypographyComponent(
 );
 const TypographyInlineCode = createTypographyComponent(
   "code",
-  "relative rounded-md bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)] px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
+  "relative rounded-md bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))] px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold",
 );
 const TypographyLead = createTypographyComponent(
   "p",

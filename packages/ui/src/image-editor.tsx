@@ -44,12 +44,12 @@ const imageEditorVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-inset)]",
         ],
         elevated: [
-          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_68%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_68%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-blur)]",
           "shadow-[var(--glass-chrome-shadow),var(--glass-chrome-inset)]",
         ],

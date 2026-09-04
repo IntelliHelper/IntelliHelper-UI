@@ -215,7 +215,7 @@ const TimePicker = forwardRef<HTMLDivElement, TimePickerProps>(
                           "rounded-lg px-2.5 py-1.5 text-xs font-semibold",
                           period === p
                             ? "bg-primary/20 text-primary"
-                            : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+                            : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
                           focusRing,
                         )}
                         onClick={() => setPeriod(p)}
@@ -288,7 +288,7 @@ function TimeColumn({
               "rounded-lg px-2.5 py-1.5 text-sm tabular-nums",
               selected === n
                 ? "bg-primary/20 font-semibold text-primary"
-                : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+                : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
               focusRing,
             )}
             onClick={() => onSelect(n)}

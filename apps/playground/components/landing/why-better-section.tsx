@@ -143,7 +143,7 @@ function FeatureCard({
     <Stack
       as="article"
       gap={0}
-      className={`group relative h-full overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--primary)_32%,var(--glass-chrome-border))] hover:shadow-[0_20px_50px_color-mix(in_oklch,black_14%,transparent)] ${className}`}
+      className={`group relative h-full overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%, var(--glass-mix-into))] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-0.5 hover:border-[color-mix(in_oklch,var(--primary)_32%,var(--glass-chrome-border))] hover:shadow-[0_20px_50px_color-mix(in_oklch,black_14%,transparent)] ${className}`}
     >
       <Flex
         align="center"
@@ -257,7 +257,7 @@ export function WhyBetterSection() {
         ))}
       </Grid>
 
-      <Box className="relative overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
+      <Box className="relative overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
         <Box className="border-b border-[var(--glass-chrome-border)] px-5 py-4 sm:px-6">
           <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
             Side-by-side

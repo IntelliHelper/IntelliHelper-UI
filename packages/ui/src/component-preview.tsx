@@ -24,11 +24,11 @@ const componentPreviewVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
         outline: [
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
         ],
       },
     },
@@ -203,7 +203,7 @@ export function ComponentPreview({
                 <div
                   className={cn(
                     "border-t border-[var(--glass-chrome-border)]",
-                    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+                    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
                     codeClassName,
                   )}
                 >

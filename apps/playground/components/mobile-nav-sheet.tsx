@@ -108,8 +108,8 @@ export function MobileNavSheet({
                   className={cn(
                     "rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                     active
-                      ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] text-foreground shadow-[var(--glass-chrome-inset)]"
-                      : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground",
+                      ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))] text-foreground shadow-[var(--glass-chrome-inset)]"
+                      : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] hover:text-foreground",
                   )}
                 >
                   {link.label}
@@ -119,14 +119,14 @@ export function MobileNavSheet({
             <Link
               href="/about"
               onClick={() => onOpenChange(false)}
-              className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
+              className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] hover:text-foreground"
             >
               About
             </Link>
             <Link
               href="/getting-started#plugin"
               onClick={() => onOpenChange(false)}
-              className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
+              className="rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] hover:text-foreground"
             >
               Agent plugin
             </Link>
@@ -143,7 +143,7 @@ export function MobileNavSheet({
                 <Link
                   href={`/categories/${category}`}
                   onClick={() => onOpenChange(false)}
-                  className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
+                  className="block rounded-xl px-3 py-2 text-sm text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] hover:text-foreground"
                 >
                   {CATEGORY_META[category].label}
                 </Link>
@@ -157,7 +157,7 @@ export function MobileNavSheet({
             href={githubUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground"
+            className="inline-flex items-center gap-2 rounded-xl px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] hover:text-foreground"
           >
             <GithubIcon />
             GitHub

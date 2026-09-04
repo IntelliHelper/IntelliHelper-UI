@@ -84,7 +84,7 @@ const ResizableHandle = forwardRef<HTMLDivElement, ResizableHandleProps>(
           className={cn(
             "z-10 flex h-4 w-3 items-center justify-center rounded-sm",
             "border border-[var(--glass-chrome-border)]",
-            "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_65%,transparent)]",
+            "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_65%, var(--glass-mix-into))]",
             "glass-chrome-text-muted",
           )}
         >

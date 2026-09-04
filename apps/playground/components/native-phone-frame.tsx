@@ -48,7 +48,7 @@ export function NativePhoneFrame({
               className="relative min-h-[36rem] bg-background"
               style={{
                 backgroundImage:
-                  "linear-gradient(180deg, color-mix(in oklch, var(--glass-surface-fill) 55%, transparent) 0%, var(--background) 42%)",
+                  "linear-gradient(180deg, color-mix(in oklch, var(--glass-surface-fill) 55%, var(--glass-mix-into)) 0%, var(--background) 42%)",
               }}
             >
               {/* Status bar + Dynamic Island */}
