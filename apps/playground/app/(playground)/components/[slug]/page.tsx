@@ -31,6 +31,7 @@ import {
   getCatalogItem,
   getRelatedItems,
 } from "../../../../lib/catalog";
+import { hasNativeTwin } from "../../../../lib/native-catalog";
 import { getComponentGuidance } from "../../../../lib/component-guidance";
 import { getComponentExtraFaqs } from "../../../../lib/component-seo";
 import {
@@ -142,11 +143,18 @@ export default async function ComponentPage({ params }: PageProps) {
             </>
           }
           actions={
-            <Button asChild variant="outline" size="sm">
-              <Link href={`/categories/${item.category}`}>
-                More {category.label.toLowerCase()}
-              </Link>
-            </Button>
+            <Cluster gap={2}>
+              {hasNativeTwin(item.slug) ? (
+                <Button asChild variant="primary" size="sm">
+                  <Link href={`/native/${item.slug}`}>React Native</Link>
+                </Button>
+              ) : null}
+              <Button asChild variant="outline" size="sm">
+                <Link href={`/categories/${item.category}`}>
+                  More {category.label.toLowerCase()}
+                </Link>
+              </Button>
+            </Cluster>
           }
         />
 

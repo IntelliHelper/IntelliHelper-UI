@@ -91,7 +91,8 @@ function prepareFileContent(
   config: IntelliConfig,
 ): string {
   const raw = getFileContent(item, filePath);
-  return transformImports(raw, config);
+  const native = item.meta?.platform === "native";
+  return transformImports(raw, config, { native });
 }
 
 export function buildInstallPlans(

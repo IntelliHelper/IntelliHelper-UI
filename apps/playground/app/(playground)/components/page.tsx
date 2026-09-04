@@ -83,6 +83,9 @@ export default function ComponentsPage() {
                 <Link href="/components/button">Open Button</Link>
               </Button>
               <Button asChild variant="ghost">
+                <Link href="/native">React Native</Link>
+              </Button>
+              <Button asChild variant="ghost">
                 <Link href="/guides/shadcn-vs-intelli-ui">vs shadcn</Link>
               </Button>
               <Button asChild variant="ghost">

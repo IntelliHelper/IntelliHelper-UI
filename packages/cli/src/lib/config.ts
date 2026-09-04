@@ -25,10 +25,13 @@ const configSchema = z.object({
     hooks: z.string().optional(),
   }),
   registry: z.string().optional(),
+  platform: z.enum(["web", "native"]).optional(),
 });
 
 export const CONFIG_FILE = "components.json";
 export const DEFAULT_REGISTRY_URL = "https://ui.intellihelper.in/r";
+export const DEFAULT_NATIVE_REGISTRY_URL =
+  "https://ui.intellihelper.in/r/native";
 
 export function getConfigPath(cwd: string): string {
   return join(cwd, CONFIG_FILE);
@@ -77,6 +80,7 @@ export function createDefaultConfig(
       hooks: "@/hooks",
     },
     registry: DEFAULT_REGISTRY_URL,
+    platform: "web",
     ...overrides,
   };
 }

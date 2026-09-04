@@ -1,6 +1,7 @@
 import { configExists, readConfig } from "../lib/config.js";
 import { logger } from "../lib/logger.js";
 import { readManifest } from "../lib/manifest.js";
+import { DEFAULT_NATIVE_REGISTRY_URL } from "../lib/config.js";
 import { fetchRegistry, listRegistryItems } from "../lib/registry.js";
 
 type ListOptions = {
@@ -38,8 +39,19 @@ export async function runList(options: ListOptions): Promise<void> {
   }
 
   const items = listRegistryItems(registry);
+  console.log("Web");
   for (const item of items) {
+    if (item.type !== "registry:ui") continue;
     const isInstalled = manifest.components[item.name] ? "✓" : " ";
     console.log(`  [${isInstalled}] ${item.name} — ${item.description ?? item.title ?? ""}`);
+  }
+
+  const nativeRegistry = await fetchRegistry(DEFAULT_NATIVE_REGISTRY_URL);
+  console.log("\nNative  (npx @intellihelper/cli add @native/<name>)");
+  for (const item of listRegistryItems(nativeRegistry)) {
+    if (item.type !== "registry:ui") continue;
+    const key = `@native/${item.name}`;
+    const isInstalled = manifest.components[key] ? "✓" : " ";
+    console.log(`  [${isInstalled}] ${key} — ${item.description ?? item.title ?? ""}`);
   }
 }

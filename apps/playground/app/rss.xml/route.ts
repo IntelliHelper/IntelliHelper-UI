@@ -1,4 +1,5 @@
 import { CATALOG, CATEGORY_META } from "../../lib/catalog";
+import { NATIVE_CATALOG } from "../../lib/native-catalog";
 import { GUIDES } from "../../lib/guides";
 import {
   absoluteUrl,
@@ -40,6 +41,19 @@ export function GET() {
       title: `${item.title} Component`,
       link: absoluteUrl(`/components/${item.slug}`),
       description: `${item.description} (${CATEGORY_META[item.category].label})`,
+      pubDate: buildDate,
+    })),
+    {
+      title: "React Native components",
+      link: absoluteUrl("/native"),
+      description:
+        "Liquid Glass React Native catalog for Expo, iOS, and Android.",
+      pubDate: buildDate,
+    },
+    ...NATIVE_CATALOG.map((item) => ({
+      title: `${item.title} Native Component`,
+      link: absoluteUrl(`/native/${item.slug}`),
+      description: `${item.description} (React Native)`,
       pubDate: buildDate,
     })),
   ];

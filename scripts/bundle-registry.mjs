@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { spawnSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -56,4 +57,11 @@ if (targets.includes("public")) {
   }
 
   console.log(`Public registry written to ${publicDir}`);
+}
+
+const native = spawnSync(process.execPath, [join(monorepoRoot, "scripts/bundle-native-registry.mjs")], {
+  stdio: "inherit",
+});
+if (native.status !== 0) {
+  process.exit(native.status ?? 1);
 }

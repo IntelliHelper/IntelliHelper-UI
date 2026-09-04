@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { CatalogItem, ComponentCategory } from "./catalog";
 import { CATEGORY_META, CATALOG } from "./catalog";
+import { NATIVE_CATALOG } from "./native-catalog";
 import {
   getCategoryKeywords,
   getComponentKeywords,
@@ -29,7 +30,7 @@ export const SITE_CONTENT_DATES = {
   /** First public marketing launch of the docs site */
   published: "2026-07-21",
   /** Last substantive content / schema refresh */
-  modified: "2026-07-25",
+  modified: "2026-09-04",
 } as const;
 
 export const DEFAULT_TITLE =
@@ -266,6 +267,7 @@ Author: Adeeb Mirza (IntelliHelper) — ${absoluteUrl("/about")}
 
 - [Home](${absoluteUrl("/")}): Marketing landing for Liquid Glass React components, CLI, and agent tooling.
 - [Components](${absoluteUrl("/components")}): Full component catalog with live previews, search, and install commands.
+- [Native](${absoluteUrl("/native")}): React Native / Expo Liquid Glass catalog for iOS and Android.
 - [Getting started](${absoluteUrl("/getting-started")}): Install with the CLI, agent plugin, or MCP clients (Cursor, Claude, VS Code, Codex, OpenCode, Grok).
 - [Guides](${absoluteUrl("/guides")}): Liquid Glass tutorials, media kit, and shadcn comparison articles.
 - [shadcn vs Intelli UI](${absoluteUrl("/guides/shadcn-vs-intelli-ui")}): Comparison guide for teams evaluating shadcn alternatives.
@@ -304,6 +306,15 @@ ${Object.entries(CATEGORY_META)
 ## Components
 
 ${grouped}
+
+## React Native
+
+${NATIVE_CATALOG.map(
+  (item) =>
+    `- [${item.title}](${absoluteUrl(`/native/${item.slug}`)}): ${item.description}`,
+).join("\n")}
+
+Install: \`pnpm add @intelli/ui-native\` then wrap the app in \`ThemeProvider\`. Run \`pnpm native\` in the monorepo for Expo Go.
 
 ## Optional
 

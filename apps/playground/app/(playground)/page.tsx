@@ -22,6 +22,7 @@ import {
   CATEGORY_ORDER,
   type CatalogItem,
 } from "../../lib/catalog";
+import { NATIVE_CATALOG } from "../../lib/native-catalog";
 import { homeGraphJsonLd } from "../../lib/json-ld";
 import {
   AGENT_SKILLS_URL,
@@ -219,7 +220,7 @@ export default function LandingPage() {
                   Free · Open source
                 </Badge>
                 <Badge variant="outline" size="sm">
-                  React 19 · Next.js
+                  React 19 · Next.js · Native
                 </Badge>
                 <Badge variant="outline" size="sm">
                   Updated {SITE_CONTENT_DATES.modified}
@@ -264,6 +265,9 @@ export default function LandingPage() {
                   className="min-h-12"
                 >
                   <Link href="/components">Browse components</Link>
+                </Button>
+                <Button asChild variant="ghost" size="lg" className="min-h-12">
+                  <Link href="/native">React Native</Link>
                 </Button>
                 <Button asChild variant="ghost" size="lg" className="min-h-12">
                   <Link href="/guides/shadcn-vs-intelli-ui">vs shadcn</Link>
@@ -337,6 +341,36 @@ export default function LandingPage() {
             ))}
           </Grid>
         </Stack>
+
+        <Box
+          as="section"
+          aria-labelledby="native-heading"
+          className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] md:px-8"
+        >
+          <Split gap={6} align="center" className="flex-col md:flex-row">
+            <Stack gap={3} className="max-w-xl">
+              <Badge variant="secondary" size="sm" className="w-fit">
+                React Native
+              </Badge>
+              <h2
+                id="native-heading"
+                className="text-2xl font-semibold tracking-tight text-foreground"
+              >
+                Same glass system on phones
+              </h2>
+              <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                {NATIVE_CATALOG.length} Expo-ready components in{" "}
+                <code className="font-mono text-xs">@intelli/ui-native</code>.
+                APIs match the web kit. Preview them on this site, then run{" "}
+                <code className="font-mono text-xs">pnpm native</code> for a
+                real device.
+              </p>
+            </Stack>
+            <Button asChild variant="primary" size="lg" className="min-h-12 shrink-0">
+              <Link href="/native">Browse native catalog</Link>
+            </Button>
+          </Split>
+        </Box>
 
         {/* ── Why better than shadcn / other libraries ─────────── */}
         <WhyBetterSection />

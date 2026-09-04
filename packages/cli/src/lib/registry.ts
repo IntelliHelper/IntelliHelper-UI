@@ -1,8 +1,15 @@
 import bundledRegistry from "../registry/bundled.json" with { type: "json" };
+import bundledNativeRegistry from "../registry/bundled-native.json" with { type: "json" };
 import type { Registry, RegistryItem } from "../types.js";
 import { DEFAULT_REGISTRY_URL } from "./config.js";
 
 const bundled = bundledRegistry as Registry;
+const bundledNative = bundledNativeRegistry as Registry;
+
+function bundledFor(registryUrl?: string): Registry {
+  const url = getRegistryUrl(registryUrl);
+  return url.includes("/native") ? bundledNative : bundled;
+}
 
 export function getRegistryUrl(registryUrl?: string): string {
   return registryUrl?.replace(/\/$/, "") ?? DEFAULT_REGISTRY_URL;
@@ -18,7 +25,7 @@ export async function fetchRegistry(registryUrl?: string): Promise<Registry> {
     }
     return (await response.json()) as Registry;
   } catch {
-    return bundled;
+    return bundledFor(registryUrl);
   }
 }
 

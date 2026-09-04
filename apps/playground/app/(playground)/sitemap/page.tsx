@@ -14,6 +14,7 @@ import {
   CATEGORY_ORDER,
   getCatalogByCategory,
 } from "../../../lib/catalog";
+import { NATIVE_CATALOG } from "../../../lib/native-catalog";
 import { GUIDES } from "../../../lib/guides";
 import { createPageMetadata } from "../../../lib/seo";
 
@@ -73,6 +74,7 @@ export default function SitemapPage() {
             {[
               { href: "/", label: "Home" },
               { href: "/components", label: "Components" },
+              { href: "/native", label: "React Native" },
               { href: "/getting-started", label: "Getting started" },
               { href: "/guides", label: "Guides" },
               {
@@ -171,6 +173,32 @@ export default function SitemapPage() {
               </div>
             );
           })}
+        </CardContent>
+      </Card>
+
+      <Card variant="chrome" animated={false}>
+        <CardHeader>
+          <CardTitle className="text-base">React Native</CardTitle>
+          <CardDescription>
+            Phone components in{" "}
+            <Link href="/native" className="font-medium text-foreground underline-offset-4 hover:underline">
+              /native
+            </Link>
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <ul className="flex flex-wrap gap-x-4 gap-y-1.5">
+            {NATIVE_CATALOG.map((item) => (
+              <li key={item.slug}>
+                <Link
+                  href={`/native/${item.slug}`}
+                  className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                >
+                  {item.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </CardContent>
       </Card>
     </div>

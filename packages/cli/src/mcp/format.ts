@@ -93,10 +93,11 @@ export function formatComponent(
   }
 
   if (options.docsBase) {
-    lines.push(
-      "",
-      `**Docs:** ${options.docsBase}/components/${item.name}`,
-    );
+    const slug = item.name.replace(/^@native\//, "");
+    const docsPath = item.name.startsWith("@native/")
+      ? `${options.docsBase}/native/${slug}`
+      : `${options.docsBase}/components/${slug}`;
+    lines.push("", `**Docs:** ${docsPath}`);
   }
 
   lines.push("", "## Files");
@@ -120,7 +121,9 @@ export function formatComponent(
 
   lines.push(
     "",
-    "Next: call `get_component_examples` for usage snippets, then `get_add_command` to install.",
+    item.name.startsWith("@native/")
+      ? "Next: install with `get_add_command` using `@native/<name>`. Import from `@/components/ui/native/...` (onPress / style, not onClick / className)."
+      : "Next: call `get_component_examples` for usage snippets, then `get_add_command` to install.",
   );
 
   return lines.join("\n");
@@ -136,7 +139,7 @@ export function formatExamples(
       "",
       "Tips:",
       "- Use `get_component` to inspect the source and props",
-      "- Browse docs at https://ui.intellihelper.in",
+      "- Browse docs at https://ui.intellihelper.in (native: https://ui.intellihelper.in/native)",
       "- Try `search_components` with a related query",
     ].join("\n");
   }
@@ -196,22 +199,32 @@ export function formatCatalogSummary(catalog: CatalogData): string {
 }
 
 export function formatAddCommand(components: string[]): string {
-  const names = components.map((name) => name.replace(/^@[\w-]+\//, "")).filter(Boolean);
+  const names = components.filter(Boolean);
   if (names.length === 0) {
-    return "No components specified. Example: get_add_command with components: [\"button\", \"dialog\"]";
+    return "No components specified. Example: get_add_command with components: [\"button\", \"@native/button\"]";
   }
+  const web = names.filter((name) => !name.startsWith("@native/"));
+  const native = names
+    .filter((name) => name.startsWith("@native/") || name.startsWith("native/"))
+    .map((name) => (name.startsWith("@native/") ? name : `@native/${name.slice("native/".length)}`));
+  const nativeFromWeb = web.map((name) => `@native/${name}`);
   return [
     "Run this in your project root (after `npx @intellihelper/cli@latest init` if needed):",
     "",
     "```bash",
-    `npx @intellihelper/cli@latest add ${names.join(" ")}`,
+    `npx @intellihelper/cli@latest add ${names.join(" ")} -y`,
     "```",
     "",
-    "Flags:",
-    "- `-y` skip confirmation prompts",
-    "- `--overwrite` overwrite existing files",
-    "- `--dry-run` preview without writing",
-  ].join("\n");
+    "Web: `add button`  ·  Native: `add @native/button`  ·  Both: `add button @native/button`",
+    "",
+    native.length === 0
+      ? `Native equivalent: npx @intellihelper/cli@latest add ${nativeFromWeb.join(" ")} -y`
+      : "",
+    "",
+    "Flags: `-y` skip prompts · `--overwrite` · `--dry-run`",
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 export function formatProjectConfig(config: {

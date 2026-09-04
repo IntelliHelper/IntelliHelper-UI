@@ -19,6 +19,7 @@ import { Kbd } from "@intelli/ui/kbd";
 import { filterItems } from "@intelli/ui/filter-items";
 import { cn } from "@intelli/utils";
 import { CATALOG, CATEGORY_META } from "../lib/catalog";
+import { NATIVE_CATALOG } from "../lib/native-catalog";
 
 type ComponentSearchProps = {
   onNavigate?: () => void;
@@ -55,8 +56,8 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
   const [query, setQuery] = useState("");
 
   const items = useMemo<CommandItemData[]>(
-    () =>
-      CATALOG.map((item) => ({
+    () => [
+      ...CATALOG.map((item) => ({
         value: item.slug,
         label: item.title,
         description: item.description,
@@ -72,6 +73,26 @@ export function ComponentSearch({ onNavigate }: ComponentSearchProps) {
           onNavigate?.();
         },
       })),
+      ...NATIVE_CATALOG.map((item) => ({
+        value: `native-${item.slug}`,
+        label: `${item.title} (Native)`,
+        description: item.description,
+        group: "React Native",
+        keywords: [
+          item.slug,
+          "native",
+          "expo",
+          "ios",
+          "android",
+          item.category,
+          item.description,
+        ],
+        onSelect: () => {
+          router.push(`/native/${item.slug}`);
+          onNavigate?.();
+        },
+      })),
+    ],
     [router, onNavigate],
   );
 

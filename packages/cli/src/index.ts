@@ -25,9 +25,10 @@ program
   .command("init")
   .description("Initialize components.json in your project")
   .option("-y, --yes", "Use default values without prompts")
-  .action(async (options: { yes?: boolean }) => {
+  .option("--native", "Initialize for React Native / Expo (copy-paste native components)")
+  .action(async (options: { yes?: boolean; native?: boolean }) => {
     try {
-      await runInit({ cwd: process.cwd(), yes: options.yes });
+      await runInit({ cwd: process.cwd(), yes: options.yes, native: options.native });
     } catch (error) {
       logger.error(error instanceof Error ? error.message : String(error));
       process.exit(1);
@@ -41,7 +42,8 @@ program
   .option("-y, --yes", "Skip confirmation prompts")
   .option("-o, --overwrite", "Overwrite existing files without prompting")
   .option("--dry-run", "Preview changes without writing files")
-  .action(async (components: string[], options: { yes?: boolean; overwrite?: boolean; dryRun?: boolean }) => {
+  .option("--native", "Treat unprefixed names as @native/<name>")
+  .action(async (components: string[], options: { yes?: boolean; overwrite?: boolean; dryRun?: boolean; native?: boolean }) => {
     try {
       await runAdd({
         cwd: process.cwd(),
@@ -49,6 +51,7 @@ program
         yes: options.yes,
         overwrite: options.overwrite,
         dryRun: options.dryRun,
+        native: options.native,
       });
     } catch (error) {
       logger.error(error instanceof Error ? error.message : String(error));

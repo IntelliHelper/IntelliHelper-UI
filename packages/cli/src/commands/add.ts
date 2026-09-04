@@ -1,4 +1,4 @@
-import type { RegistryItem } from "../types.js";
+import type { Registry, RegistryItem } from "../types.js";
 import { readConfig } from "../lib/config.js";
 import {
   applyPlans,
@@ -18,6 +18,11 @@ import {
   fetchRegistryItem,
   resolveRegistryDependencies,
 } from "../lib/registry.js";
+import {
+  parseComponentSpec,
+  registryUrlFor,
+  type ComponentPlatform,
+} from "../lib/spec.js";
 
 type AddOptions = {
   cwd: string;
@@ -25,27 +30,30 @@ type AddOptions = {
   overwrite?: boolean;
   yes?: boolean;
   dryRun?: boolean;
+  native?: boolean;
 };
 
 export async function runAdd(options: AddOptions): Promise<void> {
-  const { cwd, components, overwrite, yes, dryRun } = options;
+  const { cwd, components, overwrite, yes, dryRun, native } = options;
   const config = readConfig(cwd);
+  const defaultPlatform: ComponentPlatform =
+    native || config.platform === "native" ? "native" : "web";
   const paths = resolvePaths(cwd, config);
-  const registry = await fetchRegistry(config.registry);
+  const webRegistry = await fetchRegistry(config.registry);
 
   let targets = components;
 
   if (targets.length === 0) {
     if (!process.stdin.isTTY) {
       logger.error(
-        "Please specify at least one component. Example: npx @intellihelper/cli add button",
+        "Please specify at least one component. Example: npx @intellihelper/cli add button @native/button",
       );
       logger.info("Run `npx @intellihelper/cli list` to see available components.");
       process.exit(1);
     }
 
     const manifest = readManifest(cwd);
-    const available = registry.items
+    const available = webRegistry.items
       .filter((item) => item.type === "registry:ui")
       .map((item) => ({
         name: item.name,
@@ -67,21 +75,35 @@ export async function runAdd(options: AddOptions): Promise<void> {
   }
 
   const itemsToInstall = new Map<string, RegistryItem>();
+  const registries = new Map<string, Registry>();
 
-  for (const name of targets) {
-    const item = await fetchRegistryItem(name, config.registry);
+  for (const raw of targets) {
+    const spec = parseComponentSpec(raw, defaultPlatform);
+    const url = registryUrlFor(spec, config.registry);
+    const item = await fetchRegistryItem(spec.name, url);
     if (!item) {
-      logger.error(`Component "${name}" not found in registry.`);
+      logger.error(
+        spec.platform === "native"
+          ? `Native component "${spec.name}" not found. Try: npx @intellihelper/cli add @native/${spec.name}`
+          : `Component "${spec.name}" not found in registry. For React Native use @native/${spec.name}.`,
+      );
       process.exit(1);
     }
 
-    for (const resolved of resolveRegistryDependencies(item, registry)) {
-      itemsToInstall.set(resolved.name, resolved);
+    const platformRegistry = await fetchRegistry(url);
+    for (const resolved of resolveRegistryDependencies(item, platformRegistry)) {
+      const key =
+        spec.platform === "native"
+          ? `@native/${resolved.name.replace(/^@native\//, "")}`
+          : resolved.name;
+      itemsToInstall.set(key, { ...resolved, name: key });
+      registries.set(key, platformRegistry);
     }
   }
 
   for (const item of itemsToInstall.values()) {
     logger.info(`Adding ${item.name}...`);
+    const registry = registries.get(item.name) ?? webRegistry;
 
     const plans = buildInstallPlans(item, {
       cwd,

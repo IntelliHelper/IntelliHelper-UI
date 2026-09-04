@@ -3,6 +3,7 @@ import examplesJson from "../registry/examples.json" with { type: "json" };
 import themesJson from "../registry/themes.json" with { type: "json" };
 import {
   configExists,
+  DEFAULT_NATIVE_REGISTRY_URL,
   DEFAULT_REGISTRY_URL,
   getConfigPath,
   readConfig,
@@ -12,6 +13,7 @@ import {
   fetchRegistryItem,
   listRegistryItems,
 } from "../lib/registry.js";
+import { parseComponentSpec, registryUrlFor } from "../lib/spec.js";
 import type { IntelliConfig, RegistryItem } from "../types.js";
 import type { EnrichedItem } from "./format.js";
 
@@ -101,19 +103,41 @@ export async function loadEnrichedItems(
   cwd: string,
 ): Promise<EnrichedItem[]> {
   const registryUrl = getRegistryUrlForProject(cwd);
-  const registry = await fetchRegistry(registryUrl);
-  const items = listRegistryItems(registry);
+  const [webRegistry, nativeRegistry] = await Promise.all([
+    fetchRegistry(registryUrl),
+    fetchRegistry(DEFAULT_NATIVE_REGISTRY_URL),
+  ]);
 
-  return items.map((item) => ({
+  const web = listRegistryItems(webRegistry).map((item) => ({
     ...item,
     category: getCategoryForName(item.name),
   }));
+
+  const native = listRegistryItems(nativeRegistry).map((item) => ({
+    ...item,
+    name: `@native/${item.name.replace(/^@native\//, "")}`,
+    category: getCategoryForName(item.name.replace(/^@native\//, "")),
+  }));
+
+  return [...web, ...native];
 }
 
 export async function loadComponent(
   name: string,
   cwd: string,
 ): Promise<RegistryItem | null> {
-  const registryUrl = getRegistryUrlForProject(cwd);
-  return fetchRegistryItem(name, registryUrl);
+  const spec = parseComponentSpec(name);
+  const url =
+    spec.platform === "native"
+      ? registryUrlFor(spec, getRegistryUrlForProject(cwd))
+      : getRegistryUrlForProject(cwd);
+  const item = await fetchRegistryItem(spec.name, url);
+  if (!item) return null;
+  if (spec.platform === "native") {
+    return {
+      ...item,
+      name: spec.key,
+    };
+  }
+  return item;
 }
