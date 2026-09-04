@@ -1,4 +1,4 @@
-import type { RegistryItem } from "../types.js";
+import type { Registry, RegistryItem } from "../types.js";
 import { readConfig } from "../lib/config.js";
 import {
   applyPlans,
@@ -75,6 +75,7 @@ export async function runAdd(options: AddOptions): Promise<void> {
   }
 
   const itemsToInstall = new Map<string, RegistryItem>();
+  const registries = new Map<string, Registry>();
 
   for (const raw of targets) {
     const spec = parseComponentSpec(raw, defaultPlatform);
@@ -89,24 +90,26 @@ export async function runAdd(options: AddOptions): Promise<void> {
       process.exit(1);
     }
 
-    const registry = await fetchRegistry(url);
-    for (const resolved of resolveRegistryDependencies(item, registry)) {
+    const platformRegistry = await fetchRegistry(url);
+    for (const resolved of resolveRegistryDependencies(item, platformRegistry)) {
       const key =
         spec.platform === "native"
           ? `@native/${resolved.name.replace(/^@native\//, "")}`
           : resolved.name;
       itemsToInstall.set(key, { ...resolved, name: key });
+      registries.set(key, platformRegistry);
     }
   }
 
   for (const item of itemsToInstall.values()) {
     logger.info(`Adding ${item.name}...`);
+    const registry = registries.get(item.name) ?? webRegistry;
 
     const plans = buildInstallPlans(item, {
       cwd,
       config,
       paths,
-      registry: webRegistry,
+      registry,
       overwrite,
       yes,
       dryRun,
@@ -128,7 +131,7 @@ export async function runAdd(options: AddOptions): Promise<void> {
               cwd,
               config,
               paths,
-              registry: webRegistry,
+              registry,
               overwrite: true,
               yes,
               dryRun,
@@ -148,7 +151,7 @@ export async function runAdd(options: AddOptions): Promise<void> {
           cwd,
           config,
           paths,
-          registry: webRegistry,
+          registry,
           overwrite,
           yes,
           dryRun,
@@ -170,7 +173,7 @@ export async function runAdd(options: AddOptions): Promise<void> {
         cwd,
         config,
         paths,
-        registry: webRegistry,
+        registry,
         overwrite: overwrite || yes,
         yes,
         dryRun,

@@ -89,14 +89,35 @@ const DEPS = {
   "date-time-picker": ["date-fns"],
 };
 
+/** Extra registry names that cannot be inferred from relative imports. */
 const REGISTRY_DEPS = {
-  "copy-button": ["button", "native-theme"],
+  "copy-button": ["button"],
   "alert-dialog": ["dialog"],
   drawer: ["sheet"],
   "hover-card": ["popover"],
   "native-select": ["select"],
   "context-menu": ["dropdown-menu"],
 };
+
+const RELATIVE_IMPORT = /from\s+["']\.\/([^"']+)["']/g;
+
+function canonicalNameForFile(file) {
+  const names = FILE_ALIASES[file] ?? [file.replace(/\.tsx$/, "")];
+  return names[0];
+}
+
+function siblingRegistryDeps(file, ownNames) {
+  const source = readFileSync(join(componentsDir, file), "utf8");
+  const deps = new Set();
+  for (const match of source.matchAll(RELATIVE_IMPORT)) {
+    const imported = `${match[1].replace(/\.tsx?$/, "")}.tsx`;
+    const canonical = canonicalNameForFile(imported);
+    if (!ownNames.includes(canonical)) {
+      deps.add(canonical);
+    }
+  }
+  return [...deps];
+}
 
 function titleFromSlug(slug) {
   return slug
@@ -143,20 +164,22 @@ for (const file of readdirSync(componentsDir).filter((f) => f.endsWith(".tsx")))
   const sourcePath = `packages/ui-native/src/components/${file}`;
   const target = `components/ui/native/${file}`;
 
+  const inferred = siblingRegistryDeps(file, names);
+
   for (const name of names) {
     if (seen.has(name)) continue;
     seen.add(name);
+    const extras = REGISTRY_DEPS[name] ?? [];
+    const registryDependencies = [
+      ...new Set(["native-theme", "native-utils", ...inferred, ...extras]),
+    ];
     items.push({
       name,
       type: "registry:ui",
       title: titleFromSlug(name),
       description: `React Native ${titleFromSlug(name)} for Expo, iOS, and Android.`,
       dependencies: DEPS[name] ?? [],
-      registryDependencies: [
-        "native-theme",
-        "native-utils",
-        ...(REGISTRY_DEPS[name] ?? []),
-      ],
+      registryDependencies,
       files: [
         {
           path: sourcePath,

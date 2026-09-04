@@ -84,7 +84,7 @@ export async function runUpdate(options: UpdateOptions): Promise<void> {
         cwd,
         config,
         paths,
-        registry,
+        registry: platformRegistry,
         overwrite,
         yes,
         dryRun,
@@ -115,7 +115,7 @@ export async function runUpdate(options: UpdateOptions): Promise<void> {
             cwd,
             config,
             paths,
-            registry,
+            registry: platformRegistry,
             overwrite: true,
             yes,
             dryRun,
@@ -133,7 +133,7 @@ export async function runUpdate(options: UpdateOptions): Promise<void> {
         cwd,
         config,
         paths,
-        registry,
+        registry: platformRegistry,
         overwrite,
         yes,
         skipModified: skipModified || bulkChoice === "skip",
@@ -162,7 +162,6 @@ export async function runDiff(options: UpdateOptions): Promise<void> {
   const { cwd } = options;
   const config = readConfig(cwd);
   const paths = resolvePaths(cwd, config);
-  const registry = await fetchRegistry(config.registry);
   const manifest = readManifest(cwd);
 
   const targets =
@@ -178,17 +177,31 @@ export async function runDiff(options: UpdateOptions): Promise<void> {
   let hasChanges = false;
 
   for (const name of targets) {
-    const item = await fetchRegistryItem(name, config.registry);
+    const spec = parseComponentSpec(
+      name,
+      config.platform === "native" ? "native" : "web",
+    );
+    const url = registryUrlFor(spec, config.registry);
+    const item = await fetchRegistryItem(spec.name, url);
     if (!item) {
       logger.error(`Component "${name}" not found in registry.`);
       continue;
     }
 
-    const plans = buildInstallPlans(item, {
+    const platformRegistry = await fetchRegistry(url);
+    const resolved =
+      spec.platform === "native"
+        ? {
+            ...item,
+            name: `@native/${item.name.replace(/^@native\//, "")}`,
+          }
+        : item;
+
+    const plans = buildInstallPlans(resolved, {
       cwd,
       config,
       paths,
-      registry,
+      registry: platformRegistry,
     });
 
     const changed = plans.filter((plan) => plan.status !== "unchanged");
