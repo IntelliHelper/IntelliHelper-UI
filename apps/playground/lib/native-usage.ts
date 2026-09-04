@@ -1,4 +1,4 @@
-import { NATIVE_PACKAGE, type NativeCatalogItem } from "./native-catalog";
+import type { NativeCatalogItem } from "./native-catalog";
 
 function innerJsx(item: NativeCatalogItem): string {
   const n = item.importName;

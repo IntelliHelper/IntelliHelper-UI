@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 import { useTheme } from "../theme";
 import { Alert } from "./alert";
 
