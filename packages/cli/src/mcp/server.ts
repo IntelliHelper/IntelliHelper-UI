@@ -150,12 +150,12 @@ export function createMcpServer(): Server {
             ...(input.name ? [input.name] : []),
             ...(input.names ?? []),
           ]
-            .map((n) => n.replace(/^@[\w-]+\//, "").trim())
+            .map((n) => n.trim())
             .filter(Boolean);
 
           if (names.length === 0) {
             return textResult(
-              "Provide `name` or `names`. Example: name: \"button\"",
+              "Provide `name` or `names`. Example: name: \"button\" or \"@native/button\"",
               true,
             );
           }
@@ -169,9 +169,10 @@ export function createMcpServer(): Server {
               missing.push(name);
               continue;
             }
+            const slug = item.name.replace(/^@native\//, "");
             sections.push(
               formatComponent(item, {
-                category: getCategoryForName(item.name),
+                category: getCategoryForName(slug),
                 docsBase: DOCS_BASE,
               }),
             );
@@ -200,7 +201,24 @@ export function createMcpServer(): Server {
           const examplesMap = getExamplesMap();
 
           if (input.name) {
-            const name = input.name.replace(/^@[\w-]+\//, "").trim();
+            const raw = input.name.trim();
+            const native = raw.startsWith("@native/") || raw.startsWith("native/");
+            const name = raw.replace(/^@native\//, "").replace(/^native\//, "");
+            if (native) {
+              return textResult(
+                [
+                  `React Native usage for \`${raw.startsWith("@") ? raw : `@native/${name}`}\` lives on the native docs, not the web example snippets.`,
+                  "",
+                  `Docs: ${DOCS_BASE}/native/${name}`,
+                  "",
+                  "Use `get_component` with `name: \"@native/" +
+                    name +
+                    "\"` for the Expo source (onPress / style).",
+                  "",
+                  `Install: npx @intellihelper/cli@latest add @native/${name} -y`,
+                ].join("\n"),
+              );
+            }
             return textResult(formatExamples(name, getExamplesFor(name)));
           }
 

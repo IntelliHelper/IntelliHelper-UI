@@ -93,10 +93,11 @@ export function formatComponent(
   }
 
   if (options.docsBase) {
-    lines.push(
-      "",
-      `**Docs:** ${options.docsBase}/components/${item.name}`,
-    );
+    const slug = item.name.replace(/^@native\//, "");
+    const docsPath = item.name.startsWith("@native/")
+      ? `${options.docsBase}/native/${slug}`
+      : `${options.docsBase}/components/${slug}`;
+    lines.push("", `**Docs:** ${docsPath}`);
   }
 
   lines.push("", "## Files");
@@ -120,7 +121,9 @@ export function formatComponent(
 
   lines.push(
     "",
-    "Next: call `get_component_examples` for usage snippets, then `get_add_command` to install.",
+    item.name.startsWith("@native/")
+      ? "Next: install with `get_add_command` using `@native/<name>`. Import from `@/components/ui/native/...` (onPress / style, not onClick / className)."
+      : "Next: call `get_component_examples` for usage snippets, then `get_add_command` to install.",
   );
 
   return lines.join("\n");
@@ -136,7 +139,7 @@ export function formatExamples(
       "",
       "Tips:",
       "- Use `get_component` to inspect the source and props",
-      "- Browse docs at https://ui.intellihelper.in",
+      "- Browse docs at https://ui.intellihelper.in (native: https://ui.intellihelper.in/native)",
       "- Try `search_components` with a related query",
     ].join("\n");
   }

@@ -61,7 +61,9 @@ export const getAddCommandSchema = z.object({
   components: z
     .array(z.string())
     .min(1)
-    .describe("Component names to install, e.g. ['button', 'dialog', 'card']"),
+    .describe(
+        "Component names to install, e.g. ['button', 'dialog'] or ['@native/button'] for React Native",
+      ),
 });
 
 export type ToolDefinition = {
@@ -81,7 +83,7 @@ export function getToolDefinitions(): ToolDefinition[] {
     {
       name: "list_components",
       description:
-        "List available IntelliHelper UI registry components with title, description, category, and dependencies. Use search_components for fuzzy discovery. After picking a component, call get_component for source.",
+        "List available IntelliHelper UI registry components (web slugs and @native/<name> React Native entries) with title, description, category, and dependencies. Use search_components for fuzzy discovery. After picking a component, call get_component for source.",
       inputSchema: zodToJsonSchema(listComponentsSchema) as Record<string, unknown>,
     },
     {
@@ -96,7 +98,7 @@ export function getToolDefinitions(): ToolDefinition[] {
     {
       name: "get_component",
       description:
-        "Get detailed information about one or more components including meta (variants, sizes, shapes), dependencies, and full source file contents. Prefer this before writing code so props match the real API.",
+        "Get detailed information about one or more components including meta (variants, sizes, shapes), dependencies, and full source file contents. Prefer this before writing code so props match the real API. Use @native/<name> for React Native (Expo) components.",
       inputSchema: zodToJsonSchema(getComponentSchema) as Record<string, unknown>,
     },
     {
@@ -111,7 +113,7 @@ export function getToolDefinitions(): ToolDefinition[] {
     {
       name: "get_add_command",
       description:
-        "Return the CLI install command for one or more IntelliHelper UI components. Does not write files — run the returned command in the project shell.",
+        "Return the CLI install command for one or more IntelliHelper UI components. Use @native/<name> for React Native. Does not write files — run the returned command in the project shell.",
       inputSchema: zodToJsonSchema(getAddCommandSchema) as Record<string, unknown>,
     },
     {
