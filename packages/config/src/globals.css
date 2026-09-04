@@ -143,6 +143,120 @@
   --glass-frost-chrome: blur(5px) saturate(180%);
 }
 
+/*
+ * Solid material — opaque product chrome (IntelliHelper frontend).
+ * Orthogonal to data-theme palettes. Set html[data-material="solid"].
+ */
+:root[data-material="solid"].light {
+  --glass-surface-fill: oklch(1 0 0);
+  --glass-panel-bg: oklch(1 0 0);
+  --glass-header-bg: oklch(1 0 0 / 0.94);
+  --glass-dialog-bg: oklch(1 0 0);
+  --glass-dialog-elevated-bg: oklch(1 0 0);
+  --glass-surface-bg: oklch(1 0 0);
+  --glass-surface-thin-bg: oklch(1 0 0);
+  --glass-surface-subtle-bg: oklch(0.985 0.004 286);
+  --glass-field-bg: oklch(0.975 0.006 286);
+  --glass-chrome-bg: oklch(0.975 0.006 286);
+  --glass-chrome-bg-env: oklch(0.975 0.006 286);
+  --glass-chrome-fg: oklch(0.23 0.028 280);
+  --glass-chrome-fg-muted: oklch(0.5 0.02 280);
+  --glass-chrome-border: oklch(0.91 0.01 286);
+  --glass-chrome-blur: 0px;
+  --glass-chrome-shadow:
+    0 1px 2px oklch(0.4 0.04 280 / 0.05),
+    0 10px 28px oklch(0.4 0.04 280 / 0.04);
+  --glass-chrome-inset: none;
+  --glass-chrome-rim: none;
+  --glass-button-ui-bg: oklch(1 0 0);
+  --glass-button-ui-bg-hover: oklch(0.975 0.006 286);
+  --glass-button-ui-fg: oklch(0.23 0.028 280);
+  --glass-button-ui-border: oklch(0.91 0.01 286);
+  --glass-frost: none;
+  --glass-frost-heavy: none;
+  --glass-frost-chrome: none;
+  --card: var(--surface);
+  --popover: var(--surface);
+  --glass-blur: 0px;
+  --glass-blur-heavy: 0px;
+  --glass-saturation: 100%;
+  --glass-inset: none;
+  --glass-shimmer: transparent;
+  --glass-border: var(--border);
+  --glass-shadow:
+    0 1px 2px oklch(0.4 0.04 280 / 0.05),
+    0 10px 28px oklch(0.4 0.04 280 / 0.04);
+  --glass-shadow-hover:
+    0 1px 2px oklch(0.4 0.04 280 / 0.06),
+    0 12px 32px oklch(0.4 0.04 280 / 0.06);
+  --glass-shadow-pressed: inset 0 1px 2px oklch(0.4 0.04 280 / 0.06);
+  --button-filled-bg: var(--primary);
+  --button-filled-text: var(--primary-foreground);
+  --button-filled-border: transparent;
+  --button-destructive-bg: var(--destructive);
+  --button-destructive-text: var(--destructive-foreground);
+  --button-destructive-border: transparent;
+  --button-tonal-bg: var(--secondary);
+  --button-tonal-text: var(--secondary-foreground);
+  --button-tonal-border: var(--border);
+  --button-outline-bg: var(--surface);
+  --button-outline-text: var(--foreground);
+  --button-outline-border: var(--border);
+  --button-ghost-hover-bg: var(--muted);
+}
+
+:root[data-material="solid"].dark {
+  --glass-surface-fill: oklch(0.23 0.03 280);
+  --glass-panel-bg: oklch(0.23 0.03 280);
+  --glass-header-bg: oklch(0.22 0.03 280 / 0.96);
+  --glass-dialog-bg: oklch(0.23 0.03 280);
+  --glass-dialog-elevated-bg: oklch(0.25 0.03 280);
+  --glass-surface-bg: oklch(0.23 0.03 280);
+  --glass-surface-thin-bg: oklch(0.24 0.03 280);
+  --glass-surface-subtle-bg: oklch(0.26 0.03 280);
+  --glass-field-bg: oklch(0.26 0.03 280);
+  --glass-chrome-bg: oklch(0.26 0.03 280);
+  --glass-chrome-bg-env: oklch(0.26 0.03 280);
+  --glass-chrome-fg: oklch(0.96 0.01 286);
+  --glass-chrome-fg-muted: oklch(0.72 0.02 280);
+  --glass-chrome-border: oklch(0.36 0.03 280 / 0.75);
+  --glass-chrome-blur: 0px;
+  --glass-chrome-shadow: 0 8px 28px oklch(0 0 0 / 0.28);
+  --glass-chrome-inset: none;
+  --glass-chrome-rim: none;
+  --glass-button-ui-bg: oklch(0.36 0.02 270 / 0.7);
+  --glass-button-ui-bg-hover: oklch(0.4 0.02 270 / 0.82);
+  --glass-button-ui-fg: oklch(0.97 0 0);
+  --glass-button-ui-border: oklch(1 0 0 / 0.2);
+  --glass-frost: none;
+  --glass-frost-heavy: none;
+  --glass-frost-chrome: none;
+  --card: var(--surface);
+  --popover: var(--surface);
+  --glass-blur: 0px;
+  --glass-blur-heavy: 0px;
+  --glass-saturation: 100%;
+  --glass-inset: none;
+  --glass-shimmer: transparent;
+  --glass-border: var(--border);
+  --glass-shadow: 0 8px 28px oklch(0 0 0 / 0.28);
+  --glass-shadow-hover: 0 12px 36px oklch(0 0 0 / 0.34);
+  --glass-shadow-pressed: inset 0 1px 2px oklch(0 0 0 / 0.2);
+  --button-filled-bg: var(--primary);
+  --button-filled-text: var(--primary-foreground);
+  --button-filled-border: transparent;
+  --button-destructive-bg: var(--destructive);
+  --button-destructive-text: var(--destructive-foreground);
+  --button-destructive-border: transparent;
+  --button-tonal-bg: var(--secondary);
+  --button-tonal-text: var(--secondary-foreground);
+  --button-tonal-border: var(--border);
+  --button-outline-bg: var(--surface);
+  --button-outline-text: var(--foreground);
+  --button-outline-border: var(--border);
+  --button-ghost-hover-bg: var(--muted);
+}
+
 @layer base {
   * {
     scrollbar-width: thin;
@@ -593,4 +707,71 @@
   .glass-row-hover:hover {
     transform: none;
   }
+
+  /* Solid material must stay unfrosted on mobile (overrides thinner-blur above). */
+  :root[data-material="solid"] .glass-frost,
+  :root[data-material="solid"] .glass-base,
+  :root[data-material="solid"] .glass-filled,
+  :root[data-material="solid"] .glass-filled-destructive,
+  :root[data-material="solid"] .glass-tonal,
+  :root[data-material="solid"] .glass-outlined,
+  :root[data-material="solid"] .glass-panel,
+  :root[data-material="solid"] .glass-field,
+  :root[data-material="solid"] .glass-surface,
+  :root[data-material="solid"] .glass-surface-thin,
+  :root[data-material="solid"] .glass-surface-subtle,
+  :root[data-material="solid"] .glass-chrome-indicator,
+  :root[data-material="solid"] .glass-button-chrome,
+  :root[data-material="solid"] .glass-button-chrome-subtle,
+  :root[data-material="solid"] .glass-button-content,
+  :root[data-material="solid"] .glass-button-content-destructive,
+  :root[data-material="solid"] .glass-button-glass,
+  :root[data-material="solid"] .glass-header,
+  :root[data-material="solid"] .glass-dialog,
+  :root[data-material="solid"] .glass-dialog-elevated,
+  :root[data-material="solid"] .glass-chrome,
+  :root[data-material="solid"] .glass-button-ghost:hover {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/*
+ * Solid material — strip hardcoded backdrop-filter on glass utilities.
+ * Utilities use literal blur() because Safari/Chromium are flaky with var().
+ */
+:root[data-material="solid"] .glass-frost,
+:root[data-material="solid"] .glass-base,
+:root[data-material="solid"] .glass-filled,
+:root[data-material="solid"] .glass-filled-destructive,
+:root[data-material="solid"] .glass-tonal,
+:root[data-material="solid"] .glass-outlined,
+:root[data-material="solid"] .glass-panel,
+:root[data-material="solid"] .glass-header,
+:root[data-material="solid"] .glass-dialog,
+:root[data-material="solid"] .glass-dialog-elevated,
+:root[data-material="solid"] .glass-field,
+:root[data-material="solid"] .glass-surface,
+:root[data-material="solid"] .glass-surface-thin,
+:root[data-material="solid"] .glass-surface-subtle,
+:root[data-material="solid"] .glass-chrome,
+:root[data-material="solid"] .glass-chrome-indicator,
+:root[data-material="solid"] .glass-button-chrome,
+:root[data-material="solid"] .glass-button-chrome-subtle,
+:root[data-material="solid"] .glass-button-content,
+:root[data-material="solid"] .glass-button-content-destructive,
+:root[data-material="solid"] .glass-button-glass,
+:root[data-material="solid"] .glass-button-ghost:hover {
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+:root[data-material="solid"] .glass-button-content {
+  background-color: var(--primary);
+  border-color: var(--primary);
+}
+
+:root[data-material="solid"] .glass-button-content-destructive {
+  background-color: var(--destructive);
+  border-color: var(--destructive);
 }

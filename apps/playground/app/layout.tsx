@@ -101,7 +101,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" data-theme="mono" className="light" suppressHydrationWarning>
+    <html
+      lang="en"
+      data-theme="mono"
+      data-material="glass"
+      className="light"
+      suppressHydrationWarning
+    >
       <head>
         {/*
           Paint-critical baseline before the main CSS chunk arrives.

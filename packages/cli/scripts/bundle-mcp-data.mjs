@@ -38,6 +38,23 @@ if (themes.length === 0) {
   process.exit(1);
 }
 
+const materials = [];
+const materialsBlock = themesSource.match(
+  /export const materials[\s\S]*?=\s*\[([\s\S]*?)\];/,
+)?.[1];
+if (materialsBlock) {
+  const materialRe =
+    /\{\s*id:\s*"([^"]+)",\s*label:\s*"([^"]+)",\s*description:\s*"([^"]+)",?\s*\}/g;
+  let materialMatch;
+  while ((materialMatch = materialRe.exec(materialsBlock)) !== null) {
+    materials.push({
+      id: materialMatch[1],
+      label: materialMatch[2],
+      description: materialMatch[3],
+    });
+  }
+}
+
 // ── Catalog ─────────────────────────────────────────────────────────────────
 
 const catalogSource = readFileSync(
@@ -386,12 +403,12 @@ const catalogOut = {
   items: catalog,
 };
 
-const themesOut = { themes };
+const themesOut = { materials, themes };
 
 writeFileSync(join(outDir, "catalog.json"), `${JSON.stringify(catalogOut, null, 2)}\n`);
 writeFileSync(join(outDir, "examples.json"), `${JSON.stringify(examples, null, 2)}\n`);
 writeFileSync(join(outDir, "themes.json"), `${JSON.stringify(themesOut, null, 2)}\n`);
 
 console.log(
-  `bundle-mcp-data: ${catalog.length} catalog items, ${exampleCount} examples, ${themes.length} themes → ${outDir}`,
+  `bundle-mcp-data: ${catalog.length} catalog items, ${exampleCount} examples, ${themes.length} themes, ${materials.length} materials → ${outDir}`,
 );

@@ -1,2 +1,9 @@
 export { ThemeProvider, useTheme, type ColorMode } from "./provider";
-export { themes, type ThemeDefinition, type ThemeId } from "./manifest";
+export {
+  themes,
+  materials,
+  type ThemeDefinition,
+  type ThemeId,
+  type MaterialId,
+  type MaterialDefinition,
+} from "./manifest";

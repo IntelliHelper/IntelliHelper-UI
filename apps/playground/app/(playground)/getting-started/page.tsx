@@ -73,7 +73,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is Intelli UI a shadcn/ui alternative? Why is it better?",
-    a: "Yes — same copy-paste ownership, stronger product system. Intelli UI ships Liquid Glass chrome vs content layers, five themes, glass primitives (glass-bar, content cards), AI surfaces (chat, streaming, reasoning), plus an official agent plugin and MCP. shadcn is excellent for flat/neutral UIs; Intelli UI is built when glass hierarchy and agent-native install matter.",
+    a: "Yes — same copy-paste ownership, stronger product system. Intelli UI ships Liquid Glass chrome vs content layers, five palettes, glass or solid material, glass primitives (glass-bar, content cards), AI surfaces (chat, streaming, reasoning), plus an official agent plugin and MCP. shadcn is excellent for flat/neutral UIs; Intelli UI is built when glass hierarchy and agent-native install matter.",
   },
   {
     q: "Does it support AI coding agents?",

@@ -42,9 +42,18 @@ export type ThemeEntry = {
   cssFile: string;
 };
 
+export type MaterialEntry = {
+  id: string;
+  label: string;
+  description: string;
+};
+
 const catalog = catalogJson as CatalogData;
 const examples = examplesJson as Record<string, ExampleEntry[]>;
-const themesData = themesJson as { themes: ThemeEntry[] };
+const themesData = themesJson as {
+  themes: ThemeEntry[];
+  materials?: MaterialEntry[];
+};
 
 export const DOCS_BASE = "https://ui.intellihelper.in";
 
@@ -66,6 +75,10 @@ export function getExamplesFor(name: string): ExampleEntry[] {
 
 export function getThemes(): ThemeEntry[] {
   return themesData.themes;
+}
+
+export function getMaterials(): MaterialEntry[] {
+  return themesData.materials ?? [];
 }
 
 export function resolveCwd(): string {

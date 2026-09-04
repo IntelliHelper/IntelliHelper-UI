@@ -1,4 +1,5 @@
 import { BackgroundPictureDemo } from "./background-picture-demo";
+import { MaterialSwitcher } from "./material-switcher";
 import { ThemeSwitcher } from "./theme-switcher";
 
 type PlaygroundSettingsProps = {
@@ -17,6 +18,11 @@ export function PlaygroundSettings({ embedded = false }: PlaygroundSettingsProps
       <div className="min-w-0 space-y-3">
         <h3 className="text-sm font-medium text-foreground">Theme</h3>
         <ThemeSwitcher variant="compact" />
+        <h3 className="pt-2 text-sm font-medium text-foreground">Material</h3>
+        <p className="text-xs text-muted-foreground">
+          Liquid Glass frost, or solid product chrome (no blur).
+        </p>
+        <MaterialSwitcher />
       </div>
     </div>
   );
@@ -32,8 +38,8 @@ export function PlaygroundSettings({ embedded = false }: PlaygroundSettingsProps
           Customize the playground
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
-          Adjust the background and theme — changes apply across every component
-          page.
+          Adjust the background, color theme, and material — changes apply
+          across every component page.
         </p>
       </div>
       {body}

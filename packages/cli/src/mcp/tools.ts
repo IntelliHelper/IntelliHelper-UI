@@ -119,7 +119,7 @@ export function getToolDefinitions(): ToolDefinition[] {
     {
       name: "list_themes",
       description:
-        "List IntelliHelper UI themes (mono, aurora, sunset, frost, ocean) with descriptions. Themes drive Liquid Glass CSS variables.",
+        "List IntelliHelper UI color palettes (mono, aurora, sunset, frost, ocean) and surface materials (glass, solid). Palettes set data-theme; material sets data-material (frosted vs opaque product chrome).",
       inputSchema: zodToJsonSchema(z.object({})) as Record<string, unknown>,
     },
     {

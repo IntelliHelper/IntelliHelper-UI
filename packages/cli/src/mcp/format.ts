@@ -1,5 +1,5 @@
 import type { RegistryItem } from "../types.js";
-import type { CatalogData, ExampleEntry, ThemeEntry } from "./data.js";
+import type { CatalogData, ExampleEntry, MaterialEntry, ThemeEntry } from "./data.js";
 
 export type EnrichedItem = RegistryItem & {
   category?: string;
@@ -166,11 +166,16 @@ export function formatExamples(
   return lines.join("\n");
 }
 
-export function formatThemes(themes: ThemeEntry[]): string {
+export function formatThemes(
+  themes: ThemeEntry[],
+  materials: MaterialEntry[] = [],
+): string {
   const lines: string[] = [
     "# IntelliHelper UI Themes",
     "",
-    "Themes live in `@intelli/themes` and style the Liquid Glass system via CSS variables.",
+    "Color palettes live in `@intelli/themes` (`data-theme`). Surface treatment is a separate axis (`data-material`).",
+    "",
+    "## Palettes",
     "",
   ];
 
@@ -179,9 +184,21 @@ export function formatThemes(themes: ThemeEntry[]): string {
     lines.push(`  ${theme.description}`);
   }
 
+  if (materials.length > 0) {
+    lines.push("", "## Material (orthogonal to palette)", "");
+    for (const material of materials) {
+      lines.push(`- **${material.id}** — ${material.label}`);
+      lines.push(`  ${material.description}`);
+    }
+    lines.push(
+      "",
+      "Set `html[data-material=\"glass\"|\"solid\"]` via `ThemeProvider` (`material` / `setMaterial`). Solid is opaque product chrome (IntelliHelper frontend); glass is frosted Liquid Glass.",
+    );
+  }
+
   lines.push(
     "",
-    "Use `ThemeProvider` from the themes package (or playground setup) to switch themes.",
+    "Use `ThemeProvider` from the themes package (or playground setup) to switch themes and material.",
     "Docs: https://ui.intellihelper.in",
   );
 
