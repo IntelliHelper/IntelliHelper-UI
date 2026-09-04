@@ -84,7 +84,7 @@ const selectContentVariants = cva(
         elevated: "glass-dialog-elevated",
         outline: [
           "border border-[var(--glass-chrome-border)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "backdrop-blur-[calc(var(--glass-blur)+12px)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
@@ -173,7 +173,7 @@ const selectItemVariants = cva(
     "glass-chrome-text-muted",
     "transition-[background,color,transform] duration-[var(--duration-normal)] [transition-timing-function:var(--ease-default)]",
     "data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
-    "data-[highlighted]:glass-chrome-text data-[highlighted]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_65%,transparent)]",
+    "data-[highlighted]:glass-chrome-text data-[highlighted]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_65%, var(--glass-mix-into))]",
     "data-[highlighted]:shadow-[var(--glass-chrome-inset)]",
     "data-[state=checked]:glass-chrome-text data-[state=checked]:font-medium",
     "active:scale-[0.98]",

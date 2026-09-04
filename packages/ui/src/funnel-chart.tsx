@@ -19,7 +19,7 @@ const funnelChartVariants = cva("relative w-full min-w-0 overflow-hidden", {
     variant: {
       chrome: [
         "rounded-2xl border border-[var(--glass-chrome-border)] p-3",
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
         "backdrop-blur-[var(--glass-chrome-blur)]",
         "shadow-[var(--glass-chrome-shadow)]",
       ],

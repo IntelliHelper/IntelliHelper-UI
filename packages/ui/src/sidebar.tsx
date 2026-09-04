@@ -202,7 +202,7 @@ const sidebarVariants = cva(
         elevated: "glass-header",
         outline: [
           "border border-[var(--glass-chrome-border)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
@@ -584,7 +584,7 @@ const sidebarMenuButtonVariants = cva(
     "peer/menu-button relative flex w-full items-center gap-2 overflow-hidden rounded-xl px-2.5 py-2 text-left text-sm font-medium",
     "glass-chrome-text-muted",
     "transition-[color,background,transform,box-shadow] duration-[var(--duration-normal)] [transition-timing-function:var(--ease-spring)]",
-    "hover:glass-chrome-text hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+    "hover:glass-chrome-text hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
     "hover:shadow-[var(--glass-chrome-inset)]",
     "active:scale-[0.98]",
     "disabled:pointer-events-none disabled:opacity-50",
@@ -599,7 +599,7 @@ const sidebarMenuButtonVariants = cva(
       active: {
         true: [
           "glass-chrome-text font-semibold",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%, var(--glass-mix-into))]",
           "shadow-[var(--glass-chrome-inset),var(--glass-chrome-rim)]",
         ],
         false: "",

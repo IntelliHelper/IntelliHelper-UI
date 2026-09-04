@@ -170,7 +170,7 @@ function OptionButton({
           "flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-sm",
           selected
             ? "bg-primary/15 text-primary"
-            : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+            : "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
           focusRing,
         )}
         onClick={onSelect}

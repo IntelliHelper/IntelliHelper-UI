@@ -12,7 +12,7 @@ const thinkingAnimationVariants = cva(
         default: "",
         pill: [
           "rounded-full border border-[var(--glass-chrome-border)] px-3 py-1.5",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
       },

@@ -167,7 +167,7 @@ function VirtualTableInner<T>(
           animated={false}
           containerClassName="overflow-visible rounded-none"
         >
-          <TableHeader className="sticky top-0 z-[1] bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_88%,transparent)] backdrop-blur-md">
+          <TableHeader className="sticky top-0 z-[1] bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_88%, var(--glass-mix-into))] backdrop-blur-md">
             <TableRow>
               {columns.map((col) => (
                 <TableHead

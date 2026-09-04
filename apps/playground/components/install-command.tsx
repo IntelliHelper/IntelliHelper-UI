@@ -27,7 +27,7 @@ export function InstallCommand({
       gap={3}
       className={cn(
         "min-w-0 rounded-xl border border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-2.5 backdrop-blur-[var(--glass-blur)] sm:px-4",
+        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-3 py-2.5 backdrop-blur-[var(--glass-blur)] sm:px-4",
         className,
       )}
     >

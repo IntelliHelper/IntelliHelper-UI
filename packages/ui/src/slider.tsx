@@ -40,11 +40,11 @@ const sliderTrackVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
         outline: [
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
       },
@@ -96,7 +96,7 @@ const sliderThumbVariants = cva(
     focusRing,
     /* Pill morph while interacting */
     "group-data-[dragging]/slider:border-[color-mix(in_oklch,var(--glass-chrome-border)_85%,transparent)]",
-    "group-data-[dragging]/slider:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+    "group-data-[dragging]/slider:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
     "group-data-[dragging]/slider:backdrop-blur-[var(--glass-chrome-blur)]",
     "group-data-[dragging]/slider:shadow-[var(--glass-chrome-shadow),var(--glass-chrome-inset),var(--glass-chrome-rim)]",
     "group-data-[dragging]/slider:scale-100",
@@ -127,7 +127,7 @@ const sliderThumbVariants = cva(
 const sliderThumbGlassVariants = cva(
   [
     "pointer-events-none absolute inset-[2px] rounded-[inherit]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
     "backdrop-blur-[calc(var(--glass-chrome-blur)+4px)]",
     "border border-[color-mix(in_oklch,white_22%,transparent)]",
     "shadow-[inset_0_1px_0_color-mix(in_oklch,white_35%,transparent)]",

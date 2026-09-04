@@ -52,7 +52,7 @@ export default function ComponentsPage() {
       <Stack gap={10} className="pb-8">
         <Box
           as="section"
-          className="relative overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] md:px-8 md:py-10"
+          className="relative overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-6 py-8 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] md:px-8 md:py-10"
         >
           <Stack gap={5} className="relative max-w-2xl">
             <Cluster gap={2}>
@@ -115,7 +115,7 @@ export default function ComponentsPage() {
               <li key={category}>
                 <Link
                   href={`/categories/${category}`}
-                  className="inline-flex min-h-11 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-2 text-xs font-medium text-muted-foreground backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                  className="inline-flex min-h-11 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] px-3 py-2 text-xs font-medium text-muted-foreground backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                 >
                   {CATEGORY_META[category].label}
                 </Link>

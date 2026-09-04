@@ -20,7 +20,7 @@ const activityFeedVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
@@ -111,7 +111,7 @@ const ActivityFeed = forwardRef<HTMLDivElement, ActivityFeedProps>(
                     className={cn(
                       "w-full px-4 py-3 text-left transition-colors",
                       onItemClick &&
-                        "cursor-pointer hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+                        "cursor-pointer hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
                       !onItemClick && "cursor-default",
                     )}
                     onClick={() => onItemClick?.(item)}

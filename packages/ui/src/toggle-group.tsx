@@ -18,7 +18,7 @@ const toggleGroupVariants = cva("inline-flex items-center gap-1 p-1", {
       chrome: "glass-chrome glass-chrome-capsule",
       plain: [
         "rounded-2xl border border-[var(--glass-chrome-border)]",
-        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+        "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
         "backdrop-blur-[var(--glass-chrome-blur)]",
       ],
     },

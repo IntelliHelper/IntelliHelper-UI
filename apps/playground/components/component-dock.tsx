@@ -56,7 +56,7 @@ function DockLink({
       href={`/components/${item.slug}`}
       className={cn(
         "group flex min-w-0 flex-1 items-center gap-2 rounded-xl px-3 py-2 transition-colors",
-        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] hover:backdrop-blur-[var(--glass-blur)]",
+        "bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] hover:backdrop-blur-[var(--glass-blur)]",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/40",
       )}
     >

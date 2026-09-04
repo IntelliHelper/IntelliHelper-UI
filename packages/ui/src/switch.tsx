@@ -25,12 +25,12 @@ const switchVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "data-[state=checked]:bg-[color-mix(in_oklch,var(--primary)_72%,transparent)]",
         ],
         outline: [
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "data-[state=checked]:bg-primary",
         ],
@@ -86,7 +86,7 @@ const switchThumbVariants = cva(
 const switchThumbGlassVariants = cva(
   [
     "pointer-events-none absolute inset-[2px] rounded-[inherit]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
     "backdrop-blur-[calc(var(--glass-chrome-blur)+4px)]",
     "border border-[color-mix(in_oklch,white_22%,transparent)]",
     "shadow-[inset_0_1px_0_color-mix(in_oklch,white_35%,transparent)]",

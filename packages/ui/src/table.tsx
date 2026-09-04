@@ -122,7 +122,7 @@ const TableFooter = forwardRef<
     data-slot="table-footer"
     className={cn(
       "border-t border-[color-mix(in_oklch,var(--glass-chrome-border)_55%,transparent)]",
-      "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+      "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
       "font-medium [&>tr]:last:border-b-0",
       className,
     )}
@@ -141,7 +141,7 @@ const TableRow = forwardRef<
     className={cn(
       "border-b border-[color-mix(in_oklch,var(--glass-chrome-border)_35%,transparent)]",
       "glass-row-hover",
-      "data-[state=selected]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+      "data-[state=selected]:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
       className,
     )}
     {...props}

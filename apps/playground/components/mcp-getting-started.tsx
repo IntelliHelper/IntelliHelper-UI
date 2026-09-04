@@ -87,7 +87,7 @@ const PROMPTS = [
 ] as const;
 
 const blockClass =
-  "rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-4";
+  "rounded-xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-4";
 
 function CodeBlock({ code, label }: { code: string; label?: string }) {
   return (

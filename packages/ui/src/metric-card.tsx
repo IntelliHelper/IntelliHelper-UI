@@ -22,12 +22,12 @@ const metricCardVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
         elevated: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_78%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_78%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],

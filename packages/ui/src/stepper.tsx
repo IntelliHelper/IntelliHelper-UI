@@ -210,7 +210,7 @@ const stepIndicatorVariants = cva(
         ],
         upcoming: [
           "border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
           "text-[var(--glass-chrome-fg-muted)]",
         ],
       },

@@ -37,7 +37,7 @@ const columnVariants = cva(
   [
     "shrink-0 rounded-2xl border",
     "border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_48%, var(--glass-mix-into))]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
   ],
   {
@@ -181,7 +181,7 @@ const Kanban = forwardRef<HTMLDivElement, KanbanProps>(
                         data-card-id={card.id}
                         className={cn(
                           "rounded-xl border border-[var(--glass-chrome-border)] p-3",
-                          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_70%,transparent)]",
+                          "bg-[color-mix(in_oklch,var(--glass-surface-fill)_70%, var(--glass-mix-into))]",
                           "shadow-[var(--glass-chrome-inset)]",
                           "transition-[opacity,transform,box-shadow]",
                           !disabled && "cursor-grab active:cursor-grabbing",

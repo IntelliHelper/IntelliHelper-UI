@@ -18,9 +18,9 @@ const citationCardVariants = cva(
     variants: {
       variant: {
         chrome: [
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
         ],
         outline: "bg-transparent hover:bg-[color-mix(in_oklch,var(--foreground)_4%,transparent)]",
       },

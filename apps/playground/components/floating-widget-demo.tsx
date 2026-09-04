@@ -21,7 +21,7 @@ export function FloatingWidgetDemo() {
   const [message, setMessage] = useState("");
 
   return (
-    <div className="relative h-[28rem] w-full overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]">
+    <div className="relative h-[28rem] w-full overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]">
       <div className="absolute inset-0 flex items-center justify-center p-6">
         <div className="max-w-sm space-y-2 text-center">
           <p className="text-sm font-medium">Floating feedback bubble</p>
@@ -112,7 +112,7 @@ export function FloatingWidgetDemo() {
 
 export function FloatingWidgetChromeDemo() {
   return (
-    <div className="relative h-72 w-full overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]">
+    <div className="relative h-72 w-full overflow-hidden rounded-2xl border border-[var(--glass-chrome-border)] backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]">
       <div className="absolute inset-0 flex items-center justify-center p-6">
         <p className="text-center text-xs text-muted-foreground">
           Chrome trigger + elevated panel

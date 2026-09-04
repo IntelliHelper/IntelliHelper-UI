@@ -123,6 +123,12 @@ export default function RootLayout({
             ].join(""),
           }}
         />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var r=JSON.parse(localStorage.getItem('intelli-ui-theme')||'{}');var e=document.documentElement;if(r.theme)e.setAttribute('data-theme',r.theme);if(r.material==='solid'||r.material==='glass')e.setAttribute('data-material',r.material);if(r.mode==='dark'){e.classList.add('dark');e.classList.remove('light')}else if(r.mode==='light'){e.classList.add('light');e.classList.remove('dark')}}catch(t){}})();",
+          }}
+        />
       </head>
       <body className="min-h-screen antialiased px-3 pt-2 sm:px-4 sm:pt-3">
         <a

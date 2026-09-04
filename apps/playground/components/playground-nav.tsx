@@ -132,8 +132,8 @@ export function PlaygroundNav({ githubUrl }: PlaygroundNavProps) {
               className={cn(
                 "rounded-lg px-3 py-1.5 text-sm font-medium transition-colors",
                 active
-                  ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] text-foreground shadow-[var(--glass-chrome-inset)]"
-                  : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] hover:text-foreground",
+                  ? "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))] text-foreground shadow-[var(--glass-chrome-inset)]"
+                  : "text-muted-foreground hover:backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] hover:text-foreground",
               )}
             >
               {link.label}

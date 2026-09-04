@@ -141,7 +141,7 @@ export default async function GuidePage({ params }: PageProps) {
                     </Stack>
                   ) : null}
                   {section.table ? (
-                    <Box className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_40%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
+                    <Box className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_40%, var(--glass-mix-into))] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]">
                       <table className="w-full min-w-[32rem] border-collapse text-left text-sm">
                         <caption className="border-b border-[var(--glass-chrome-border)] px-4 py-3 text-left text-xs font-medium text-muted-foreground md:px-5">
                           {section.table.caption}
@@ -190,7 +190,7 @@ export default async function GuidePage({ params }: PageProps) {
                     </Box>
                   ) : null}
                   {section.code ? (
-                    <pre className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] p-4 text-xs leading-relaxed text-foreground backdrop-blur-[var(--glass-blur)]">
+                    <pre className="overflow-x-auto rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] p-4 text-xs leading-relaxed text-foreground backdrop-blur-[var(--glass-blur)]">
                       <code>{section.code}</code>
                     </pre>
                   ) : null}
@@ -245,7 +245,7 @@ export default async function GuidePage({ params }: PageProps) {
                       <Card
                         variant="outline"
                         animated={false}
-                        className="bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] transition-colors group-hover:backdrop-blur-[var(--glass-blur)]"
+                        className="bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] transition-colors group-hover:backdrop-blur-[var(--glass-blur)]"
                       >
                         <CardHeader className="p-4">
                           <CardTitle className="text-sm">{g.title}</CardTitle>

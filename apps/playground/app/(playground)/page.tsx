@@ -39,7 +39,7 @@ const HeroStage = dynamic(
     ssr: true,
     loading: () => (
       <div
-        className="min-h-[280px] rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)]"
+        className="min-h-[280px] rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))]"
         aria-hidden
       />
     ),
@@ -345,7 +345,7 @@ export default function LandingPage() {
         <Box
           as="section"
           aria-labelledby="native-heading"
-          className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-8 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] md:px-8"
+          className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-6 py-8 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] md:px-8"
         >
           <Split gap={6} align="center" className="flex-col md:flex-row">
             <Stack gap={3} className="max-w-xl">
@@ -400,7 +400,7 @@ export default function LandingPage() {
                 key={step.title}
                 as="li"
                 gap={0}
-                className="relative rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
+                className="relative rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
               >
                 <span className="mb-4 flex size-8 items-center justify-center rounded-full border border-[var(--glass-chrome-border)] text-xs font-semibold tabular-nums text-muted-foreground">
                   {index + 1}
@@ -444,7 +444,7 @@ export default function LandingPage() {
               <li key={item.slug}>
                 <Link
                   href={`/components/${item.slug}`}
-                  className="group flex h-full flex-col rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)]"
+                  className="group flex h-full flex-col rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-5 backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_28%,var(--glass-chrome-border))] hover:bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))]"
                 >
                   <Flex align="start" justify="between" gap={2}>
                     <h3 className="text-sm font-semibold text-foreground group-hover:text-foreground">
@@ -474,7 +474,7 @@ export default function LandingPage() {
                 <li key={category}>
                   <Link
                     href={`/categories/${category}`}
-                    className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
+                    className="inline-flex items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] px-3 py-1.5 text-xs font-medium text-muted-foreground backdrop-blur-[var(--glass-blur)] transition-colors hover:border-[color-mix(in_oklch,var(--primary)_25%,var(--glass-chrome-border))] hover:text-foreground"
                   >
                     {CATEGORY_META[category].label}
                   </Link>
@@ -488,7 +488,7 @@ export default function LandingPage() {
         <Box
           as="section"
           aria-labelledby="agents-heading"
-          className="cv-auto overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
+          className="cv-auto overflow-hidden rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
         >
           <Grid cols={1} lgCols={2} gap={0}>
             <Stack gap={5} className="p-6 sm:p-8 md:p-10">
@@ -546,7 +546,7 @@ export default function LandingPage() {
                   <Box
                     key={row.label}
                     as="li"
-                    className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-3.5 backdrop-blur-[var(--glass-blur)]"
+                    className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-3.5 backdrop-blur-[var(--glass-blur)]"
                   >
                     <p className="mb-1.5 text-xs font-medium text-foreground">
                       {row.label}
@@ -596,7 +596,7 @@ export default function LandingPage() {
             {HOME_FAQ.map((item) => (
               <Box
                 key={item.q}
-                className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
+                className="rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-5 shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)]"
               >
                 <dt className="text-sm font-semibold text-foreground">
                   {item.q}
@@ -612,7 +612,7 @@ export default function LandingPage() {
         {/* ── Final CTA ────────────────────────────────────────── */}
         <Box
           as="section"
-          className="rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-6 py-10 text-center shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] sm:px-10 md:py-14"
+          className="rounded-3xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-6 py-10 text-center shadow-[var(--glass-chrome-shadow)] backdrop-blur-[var(--glass-blur)] sm:px-10 md:py-14"
         >
           <Stack gap={5} className="mx-auto max-w-xl">
             <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-3xl">

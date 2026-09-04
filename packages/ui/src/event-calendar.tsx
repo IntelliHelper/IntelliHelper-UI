@@ -69,7 +69,7 @@ const eventCalendarVariants = cva(
         elevated: "glass-header rounded-2xl",
         outline: [
           "rounded-2xl border border-[var(--glass-chrome-border)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
       },
@@ -117,7 +117,7 @@ const eventChipVariants = cva(
       color: {
         default: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_80%,transparent)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
           "text-[var(--glass-chrome-fg)]",
         ],
         primary: [
@@ -323,9 +323,9 @@ function EventCalendarEventRow({
       className={cn(
         "flex w-full min-w-0 items-start gap-3 rounded-xl border p-3 text-left",
         "border-[var(--glass-chrome-border)]",
-        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
         "transition-[background,transform,box-shadow] duration-[var(--duration-normal)]",
-        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
         "hover:shadow-[var(--glass-chrome-inset)]",
         "active:scale-[0.99]",
         focusRing,
@@ -527,7 +527,7 @@ function EventCalendar({
           <div
             className={cn(
               "flex items-center rounded-xl border border-[var(--glass-chrome-border)]",
-              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
+              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
               "p-0.5 shadow-[var(--glass-chrome-inset)]",
             )}
           >
@@ -620,10 +620,10 @@ function EventCalendar({
                       className={cn(
                         "group/day flex min-h-[var(--ec-cell-min)] cursor-pointer flex-col gap-1 rounded-xl border p-1.5",
                         "border-transparent",
-                        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+                        "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
                         "transition-[background,border-color,box-shadow,transform]",
                         "duration-[var(--duration-normal)]",
-                        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+                        "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
                         "hover:border-[var(--glass-chrome-border)]",
                         outside && "opacity-45",
                         today &&
@@ -690,7 +690,7 @@ function EventCalendar({
             className={cn(
               "flex min-h-0 flex-col border-t border-[var(--glass-chrome-border)]",
               "lg:border-l lg:border-t-0",
-              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+              "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
             )}
           >
             <div className="border-b border-[var(--glass-chrome-border)] p-[var(--ec-pad)]">

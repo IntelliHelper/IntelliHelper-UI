@@ -31,12 +31,12 @@ const popoverContentVariants = cva(
       variant: {
         chrome: [
           "border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%, var(--glass-mix-into))]",
           "text-[var(--glass-chrome-fg)]",
         ],
         elevated: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_85%,transparent)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "text-foreground",
         ],
         outline: [

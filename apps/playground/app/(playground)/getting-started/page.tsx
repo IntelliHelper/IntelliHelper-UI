@@ -161,13 +161,13 @@ export default function GettingStartedPage() {
           as="nav"
           gap={1.5}
           aria-label="On this page"
-          className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] p-1.5 backdrop-blur-[var(--glass-blur)]"
+          className="rounded-xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] p-1.5 backdrop-blur-[var(--glass-blur)]"
         >
           {TOC.map((item) => (
             <a
               key={item.id}
               href={`#${item.id}`}
-              className="rounded-lg bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:backdrop-blur-[var(--glass-blur)]"
+              className="rounded-lg bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:text-foreground hover:backdrop-blur-[var(--glass-blur)]"
             >
               {item.label}
             </a>

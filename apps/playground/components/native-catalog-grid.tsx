@@ -130,8 +130,8 @@ function FilterChip({
       onClick={onClick}
       className={
         active
-          ? "inline-flex min-h-10 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)] px-3 text-xs font-medium text-foreground"
-          : "inline-flex min-h-10 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%,transparent)] px-3 text-xs font-medium text-muted-foreground hover:text-foreground"
+          ? "inline-flex min-h-10 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))] px-3 text-xs font-medium text-foreground"
+          : "inline-flex min-h-10 items-center rounded-full border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_36%, var(--glass-mix-into))] px-3 text-xs font-medium text-muted-foreground hover:text-foreground"
       }
     >
       {label}

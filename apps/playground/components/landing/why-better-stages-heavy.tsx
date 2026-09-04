@@ -134,7 +134,7 @@ export function LivePreviewsStage() {
           </Badge>
         </div>
         <TabsContent value="preview" className="mt-0 outline-none">
-          <div className="flex flex-col gap-2.5 rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_40%,transparent)] p-3 backdrop-blur-[var(--glass-blur)]">
+          <div className="flex flex-col gap-2.5 rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_40%, var(--glass-mix-into))] p-3 backdrop-blur-[var(--glass-blur)]">
             <div className="flex flex-wrap items-center gap-2">
               <Button type="button" variant="primary" size="sm" shape="pill">
                 Get started

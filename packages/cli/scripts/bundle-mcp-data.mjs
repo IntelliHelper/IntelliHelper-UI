@@ -55,7 +55,10 @@ if (materialsBlock) {
   }
 }
 
-// ── Catalog ─────────────────────────────────────────────────────────────────
+if (materials.length === 0) {
+  console.error("bundle-mcp-data: failed to extract materials from manifest.ts");
+  process.exit(1);
+}
 
 const catalogSource = readFileSync(
   join(monorepoRoot, "apps/playground/lib/catalog.ts"),

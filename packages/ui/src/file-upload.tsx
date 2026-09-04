@@ -31,7 +31,7 @@ const fileUploadVariants = cva(
       variant: {
         chrome: [
           "border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_62%, var(--glass-mix-into))]",
           "text-[var(--glass-chrome-fg)]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],
@@ -42,7 +42,7 @@ const fileUploadVariants = cva(
         ],
         elevated: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_85%,transparent)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "text-foreground",
           "backdrop-blur-[var(--glass-chrome-blur)]",
         ],

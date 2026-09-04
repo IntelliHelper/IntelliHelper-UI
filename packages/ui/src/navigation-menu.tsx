@@ -68,8 +68,8 @@ const navigationMenuTriggerVariants = cva(
         ],
         outline: [
           "border border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%,transparent)]",
-          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_52%, var(--glass-mix-into))]",
+          "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_70%, var(--glass-mix-into))]",
         ],
       },
     },
@@ -154,12 +154,12 @@ const navigationMenuViewportVariants = cva(
       variant: {
         chrome: [
           "border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_82%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_82%, var(--glass-mix-into))]",
           "text-[var(--glass-chrome-fg)]",
         ],
         elevated: [
           "border-[color-mix(in_oklch,var(--glass-chrome-border)_85%,transparent)]",
-          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%,transparent)]",
+          "backdrop-blur-[var(--glass-blur)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_64%, var(--glass-mix-into))]",
           "text-foreground",
         ],
       },

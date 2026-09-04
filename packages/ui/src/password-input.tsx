@@ -106,7 +106,7 @@ const PasswordInput = forwardRef<HTMLInputElement, PasswordInputProps>(
             "text-[var(--glass-chrome-fg-muted,var(--muted-foreground))]",
             "transition-[background,color,transform] duration-[var(--duration-normal)]",
             "[transition-timing-function:var(--ease-spring)]",
-            "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%,transparent)]",
+            "hover:bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_40%, var(--glass-mix-into))]",
             "hover:text-[var(--glass-chrome-fg,var(--foreground))]",
             "active:scale-95",
             // Wrapper already applies opacity-50 when disabled; keep button fully opaque inside it.

@@ -100,6 +100,8 @@
   --glass-frost: blur(3px) saturate(180%);
   --glass-frost-heavy: blur(5px) saturate(190%);
   --glass-frost-chrome: blur(5px) saturate(180%);
+  /* Second stop for color-mix(..., transparent) surfaces — solid mode stays opaque */
+  --glass-mix-into: transparent;
 }
 
 :root.dark {
@@ -141,6 +143,7 @@
   --glass-frost: blur(5px) saturate(180%);
   --glass-frost-heavy: blur(7px) saturate(190%);
   --glass-frost-chrome: blur(5px) saturate(180%);
+  --glass-mix-into: transparent;
 }
 
 /*
@@ -203,6 +206,7 @@
   --button-outline-text: var(--foreground);
   --button-outline-border: var(--border);
   --button-ghost-hover-bg: var(--muted);
+  --glass-mix-into: var(--glass-surface-fill);
 }
 
 :root[data-material="solid"].dark {
@@ -255,6 +259,7 @@
   --button-outline-text: var(--foreground);
   --button-outline-border: var(--border);
   --button-ghost-hover-bg: var(--muted);
+  --glass-mix-into: var(--glass-surface-fill);
 }
 
 @layer base {

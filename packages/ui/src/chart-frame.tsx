@@ -24,13 +24,13 @@ const chartFrameVariants = cva(
       variant: {
         chrome: [
           "border-[var(--glass-chrome-border)] p-4",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_55%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],
         elevated: [
           "border-[var(--glass-chrome-border)] p-4",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%, var(--glass-mix-into))]",
           "backdrop-blur-[var(--glass-chrome-blur)]",
           "shadow-[var(--glass-chrome-shadow)]",
         ],

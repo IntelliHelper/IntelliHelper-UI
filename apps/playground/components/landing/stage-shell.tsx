@@ -121,7 +121,7 @@ export function StagePlaceholder({ className = "" }: { className?: string }) {
       className={`flex h-[13.5rem] items-center justify-center sm:h-[14.5rem] ${className}`}
       aria-hidden
     >
-      <div className="h-[10.75rem] w-full max-w-[22rem] rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%,transparent)] sm:h-[11.5rem]" />
+      <div className="h-[10.75rem] w-full max-w-[22rem] rounded-2xl border border-[var(--glass-chrome-border)] bg-[color-mix(in_oklch,var(--glass-surface-fill)_42%, var(--glass-mix-into))] sm:h-[11.5rem]" />
     </div>
   );
 }

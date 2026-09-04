@@ -328,7 +328,7 @@ export default async function ComponentPage({ params }: PageProps) {
                     <Card
                       variant="outline"
                       animated={false}
-                      className="h-full bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%,transparent)] transition-colors group-hover:backdrop-blur-[var(--glass-blur)]"
+                      className="h-full bg-[color-mix(in_oklch,var(--glass-surface-fill)_50%, var(--glass-mix-into))] transition-colors group-hover:backdrop-blur-[var(--glass-blur)]"
                     >
                       <CardHeader className="p-4 pb-2">
                         <CardTitle className="text-sm">{rel.title}</CardTitle>

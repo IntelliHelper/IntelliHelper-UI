@@ -49,7 +49,7 @@ const imagePreviewThumbVariants = cva(
       variant: {
         chrome: [
           "border-[var(--glass-chrome-border)]",
-          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_50%,transparent)]",
+          "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_50%, var(--glass-mix-into))]",
           "shadow-[var(--glass-chrome-inset)]",
           "hover:shadow-[var(--glass-chrome-shadow)]",
         ],
@@ -70,7 +70,7 @@ const imagePreviewToolbarVariants = cva(
   [
     "pointer-events-auto flex items-center gap-1 rounded-full px-1.5 py-1",
     "border border-[var(--glass-chrome-border)]",
-    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%,transparent)]",
+    "bg-[color-mix(in_oklch,var(--glass-chrome-bg-env)_72%, var(--glass-mix-into))]",
     "text-[var(--glass-chrome-fg)]",
     "backdrop-blur-[var(--glass-chrome-blur)]",
     "shadow-[var(--glass-chrome-shadow),var(--glass-chrome-inset)]",
