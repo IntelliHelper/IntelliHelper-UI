@@ -196,22 +196,32 @@ export function formatCatalogSummary(catalog: CatalogData): string {
 }
 
 export function formatAddCommand(components: string[]): string {
-  const names = components.map((name) => name.replace(/^@[\w-]+\//, "")).filter(Boolean);
+  const names = components.filter(Boolean);
   if (names.length === 0) {
-    return "No components specified. Example: get_add_command with components: [\"button\", \"dialog\"]";
+    return "No components specified. Example: get_add_command with components: [\"button\", \"@native/button\"]";
   }
+  const web = names.filter((name) => !name.startsWith("@native/"));
+  const native = names
+    .filter((name) => name.startsWith("@native/") || name.startsWith("native/"))
+    .map((name) => (name.startsWith("@native/") ? name : `@native/${name.slice("native/".length)}`));
+  const nativeFromWeb = web.map((name) => `@native/${name}`);
   return [
     "Run this in your project root (after `npx @intellihelper/cli@latest init` if needed):",
     "",
     "```bash",
-    `npx @intellihelper/cli@latest add ${names.join(" ")}`,
+    `npx @intellihelper/cli@latest add ${names.join(" ")} -y`,
     "```",
     "",
-    "Flags:",
-    "- `-y` skip confirmation prompts",
-    "- `--overwrite` overwrite existing files",
-    "- `--dry-run` preview without writing",
-  ].join("\n");
+    "Web: `add button`  ·  Native: `add @native/button`  ·  Both: `add button @native/button`",
+    "",
+    native.length === 0
+      ? `Native equivalent: npx @intellihelper/cli@latest add ${nativeFromWeb.join(" ")} -y`
+      : "",
+    "",
+    "Flags: `-y` skip prompts · `--overwrite` · `--dry-run`",
+  ]
+    .filter(Boolean)
+    .join("\n");
 }
 
 export function formatProjectConfig(config: {

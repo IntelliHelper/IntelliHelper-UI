@@ -42,6 +42,7 @@ export type IntelliConfig = {
     hooks?: string;
   };
   registry?: string;
+  platform?: "web" | "native";
 };
 
 export type ResolvedPaths = {

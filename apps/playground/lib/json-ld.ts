@@ -102,7 +102,7 @@ export function softwareApplicationJsonLd(): JsonLd {
     publisher: { "@id": `${SITE_URL}/#organization` },
     codeRepository: GITHUB_URL,
     programmingLanguage: ["TypeScript", "JavaScript"],
-    runtimePlatform: "React, Next.js",
+    runtimePlatform: "React, Next.js, React Native, Expo",
     featureList: [
       "Liquid Glass design system (chrome vs content layers)",
       `${CATALOG.length}+ React components`,
@@ -113,6 +113,7 @@ export function softwareApplicationJsonLd(): JsonLd {
       "Agent plugin for coding agents (IntelliHelper/agent-skills)",
       "MCP server for AI coding agents (intellihelper-ui)",
       "Live component previews and source",
+      "React Native / Expo components (@intelli/ui-native)",
       "Copy-paste ownership of component code",
       "Accessible primitives and keyboard support",
     ],

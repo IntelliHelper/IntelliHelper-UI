@@ -57,6 +57,11 @@ const PRIMARY_LINKS = [
       path.startsWith("/components") || path.startsWith("/categories"),
   },
   {
+    href: "/native",
+    label: "Native",
+    match: (path: string) => path.startsWith("/native"),
+  },
+  {
     href: "/getting-started",
     label: "Docs",
     match: (path: string) => path.startsWith("/getting-started"),

@@ -19,6 +19,7 @@ import {
   fetchRegistryItem,
   resolveRegistryDependencies,
 } from "../lib/registry.js";
+import { parseComponentSpec, registryUrlFor } from "../lib/spec.js";
 
 type UpdateOptions = {
   cwd: string;
@@ -53,15 +54,28 @@ export async function runUpdate(options: UpdateOptions): Promise<void> {
       continue;
     }
 
-    const item = await fetchRegistryItem(name, config.registry);
+    const spec = parseComponentSpec(
+      name,
+      config.platform === "native" ? "native" : "web",
+    );
+    const url = registryUrlFor(spec, config.registry);
+    const item = await fetchRegistryItem(spec.name, url);
     if (!item) {
       logger.error(`Component "${name}" not found in registry.`);
       continue;
     }
 
-    const itemsToUpdate = resolveRegistryDependencies(item, registry).filter(
-      (entry) => manifest.components[entry.name],
-    );
+    const platformRegistry = await fetchRegistry(url);
+    const itemsToUpdate = resolveRegistryDependencies(item, platformRegistry)
+      .map((entry) =>
+        spec.platform === "native"
+          ? {
+              ...entry,
+              name: `@native/${entry.name.replace(/^@native\//, "")}`,
+            }
+          : entry,
+      )
+      .filter((entry) => manifest.components[entry.name]);
 
     for (const resolved of itemsToUpdate) {
       logger.info(`Checking ${resolved.name} for updates...`);

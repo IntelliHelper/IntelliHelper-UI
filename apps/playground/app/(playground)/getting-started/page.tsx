@@ -91,6 +91,7 @@ const FAQ_ITEMS = [
 
 const TOC = [
   { id: "cli", label: "CLI" },
+  { id: "native", label: "React Native" },
   { id: "plugin", label: "Agent plugin" },
   { id: "mcp", label: "MCP" },
   { id: "customization", label: "Customization" },
@@ -146,6 +147,9 @@ export default function GettingStartedPage() {
                 <Link href="/components">Browse catalog</Link>
               </Button>
               <Button asChild variant="ghost" size="sm">
+                <Link href="/native">React Native</Link>
+              </Button>
+              <Button asChild variant="ghost" size="sm">
                 <Link href="/guides/layout-primitives">Layout guide</Link>
               </Button>
             </Cluster>
@@ -180,6 +184,40 @@ export default function GettingStartedPage() {
           </CardHeader>
           <CardContent>
             <CliGettingStarted />
+          </CardContent>
+        </Card>
+
+        <Card id="native" className="scroll-mt-24" variant="chrome" animated={false}>
+          <CardHeader>
+            <CardTitle>React Native</CardTitle>
+            <CardDescription>
+              Same CLI as web — copies source into your Expo app. StyleSheet
+              tokens, not Tailwind.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Stack gap={3}>
+              <pre className="overflow-x-auto rounded-xl bg-[color-mix(in_oklch,var(--background)_50%,transparent)] p-4 font-mono text-xs text-foreground">
+                {`npx @intellihelper/cli@latest init -y
+npx @intellihelper/cli@latest add @native/button @native/card @native/dialog -y`}
+              </pre>
+              <p className="text-sm text-muted-foreground">
+                Files land in{" "}
+                <code className="font-mono text-xs text-foreground">
+                  @/components/ui/native
+                </code>
+                . Wrap the app in{" "}
+                <code className="font-mono text-xs text-foreground">ThemeProvider</code>
+                . Catalog:{" "}
+                <Link
+                  href="/native"
+                  className="font-medium text-foreground underline-offset-4 hover:underline"
+                >
+                  /native
+                </Link>
+                .
+              </p>
+            </Stack>
           </CardContent>
         </Card>
 

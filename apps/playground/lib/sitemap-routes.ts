@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { CATALOG, CATEGORY_ORDER } from "./catalog";
+import { NATIVE_CATALOG } from "./native-catalog";
 import { GUIDES } from "./guides";
 import { absoluteUrl, SITE_CONTENT_DATES } from "./seo";
 
@@ -26,6 +27,10 @@ const STATIC_ROUTES: Array<{
   },
   {
     path: "/components",
+    lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
+  },
+  {
+    path: "/native",
     lastModified: startOfUtcDay(new Date(SITE_CONTENT_DATES.modified)),
   },
   {
@@ -70,11 +75,17 @@ export function getSitemapEntries(): MetadataRoute.Sitemap {
     lastModified: contentDay,
   }));
 
+  const nativeRoutes: MetadataRoute.Sitemap = NATIVE_CATALOG.map((item) => ({
+    url: absoluteUrl(`/native/${item.slug}`),
+    lastModified: contentDay,
+  }));
+
   return [
     ...staticRoutes,
     ...guideRoutes,
     ...categoryRoutes,
     ...componentRoutes,
+    ...nativeRoutes,
   ];
 }
 

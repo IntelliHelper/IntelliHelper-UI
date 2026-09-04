@@ -3,6 +3,7 @@ import { existsSync } from "node:fs";
 import {
   configExists,
   createDefaultConfig,
+  DEFAULT_NATIVE_REGISTRY_URL,
   writeConfig,
 } from "../lib/config.js";
 import { logger } from "../lib/logger.js";
@@ -10,10 +11,11 @@ import { logger } from "../lib/logger.js";
 type InitOptions = {
   cwd: string;
   yes?: boolean;
+  native?: boolean;
 };
 
 export async function runInit(options: InitOptions): Promise<void> {
-  const { cwd, yes } = options;
+  const { cwd, yes, native } = options;
 
   if (configExists(cwd)) {
     const overwrite = yes
@@ -29,10 +31,25 @@ export async function runInit(options: InitOptions): Promise<void> {
     }
   }
 
-  const defaults = createDefaultConfig();
+  const defaults = createDefaultConfig(
+    native
+      ? {
+          platform: "native",
+          style: "intelli-glass-native",
+          rsc: false,
+          registry: DEFAULT_NATIVE_REGISTRY_URL,
+          tailwind: {
+            config: "",
+            css: "",
+            baseColor: "neutral",
+            cssVariables: false,
+          },
+        }
+      : {},
+  );
 
   const cssPath =
-    yes || !process.stdin.isTTY
+    native || yes || !process.stdin.isTTY
       ? defaults.tailwind?.css ?? "app/globals.css"
       : await input({
           message: "Where is your global CSS file?",
@@ -56,8 +73,8 @@ export async function runInit(options: InitOptions): Promise<void> {
         });
 
   const rsc =
-    yes || !process.stdin.isTTY
-      ? true
+    native || yes || !process.stdin.isTTY
+      ? Boolean(defaults.rsc)
       : await confirm({
           message: "Are you using React Server Components?",
           default: true,
@@ -78,6 +95,8 @@ export async function runInit(options: InitOptions): Promise<void> {
   const config = createDefaultConfig({
     rsc,
     registry,
+    platform: native ? "native" : "web",
+    style: native ? "intelli-glass-native" : defaults.style,
     tailwind: {
       ...defaults.tailwind,
       css: cssPath,
@@ -89,7 +108,15 @@ export async function runInit(options: InitOptions): Promise<void> {
     },
   });
 
-  writeConfig(cwd, config);
+  writeConfig(cwd, {
+    ...config,
+    platform: native ? "native" : config.platform ?? "web",
+    registry: native ? DEFAULT_NATIVE_REGISTRY_URL : config.registry,
+  });
   logger.success("Created components.json");
-  logger.info("Add components with: npx @intellihelper/cli add <component>");
+  logger.info(
+    native
+      ? "Add native components with: npx @intellihelper/cli add @native/button"
+      : "Add web: npx @intellihelper/cli add button  ·  Native: npx @intellihelper/cli add @native/button",
+  );
 }

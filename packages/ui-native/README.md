@@ -3,15 +3,21 @@
 React Native component library for the Intelli UI glass design system.  
 Mirrors the APIs of `@intelli/ui` (web) where the platform allows.
 
-## Install
-
-From the monorepo:
+## Install (same as web)
 
 ```bash
-pnpm add @intelli/ui-native react-native
+npx @intellihelper/cli@latest init -y
+npx @intellihelper/cli@latest add @native/button @native/card @native/dialog -y
 ```
 
-In an app:
+Source lands in `@/components/ui/native`. Then:
+
+```tsx
+import { ThemeProvider } from "@/components/ui/native/theme";
+import { Button } from "@/components/ui/native/button";
+```
+
+### Optional: workspace package
 
 ```bash
 pnpm add @intelli/ui-native
@@ -61,17 +67,7 @@ export default function App() {
 
 Button, Card, Input, Textarea, Badge, Alert, Skeleton, Separator, Spinner, Progress, Switch, Checkbox, RadioGroup, Toggle, ToggleGroup, Typography, Empty, Tabs, Accordion, Collapsible, Slider, Dialog, Sheet, Select, Popover, Tooltip, ScrollArea, ScrollToTop, Pagination, Table, Carousel, Calendar, Sidebar, GlassBar, GlassIconButton, GlassContentCard, MarkdownViewer, GlassSurface
 
-### Deferred (web-only or low mobile value)
-
-| Web component | Reason |
-|---------------|--------|
-| HoverCard | No hover — use Tooltip / Popover |
-| Kbd | Desktop keyboard UI |
-| Resizable | Desktop split panes |
-| ComponentPreview | Playground tooling |
-| NativeSelect | Use Select |
-| BackgroundPicturePicker | Web wallpaper picker |
-| MarkdownEditor / RichTextEditor | Different editing model on native |
+The native kit mirrors the web catalog. Phone-first implementations use `View` / `Pressable` / `StyleSheet`; a few (charts, media, hover card) are simplified vs the HTML versions.
 
 ## Themes
 

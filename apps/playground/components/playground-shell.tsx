@@ -103,6 +103,14 @@ export function PlaygroundShell({ children }: PlaygroundShellProps) {
                   </li>
                   <li>
                     <Link
+                      href="/native"
+                      className="transition-colors hover:text-foreground"
+                    >
+                      React Native
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       href="/guides"
                       className="transition-colors hover:text-foreground"
                     >

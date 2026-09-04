@@ -45,7 +45,7 @@
   },
   "scripts": {
     "prebuild": "node scripts/bundle-registry.mjs && node scripts/bundle-mcp-data.mjs",
-    "build": "tsc && mkdir -p dist/registry && cp src/registry/bundled.json src/registry/catalog.json src/registry/examples.json src/registry/themes.json dist/registry/",
+    "build": "tsc && mkdir -p dist/registry && cp src/registry/bundled.json src/registry/bundled-native.json src/registry/catalog.json src/registry/examples.json src/registry/themes.json dist/registry/",
     "check-types": "pnpm prebuild && tsc --noEmit",
     "dev": "pnpm prebuild && tsc --watch",
     "prepublishOnly": "pnpm build"

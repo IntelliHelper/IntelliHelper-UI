@@ -5,12 +5,21 @@ import { Flex } from "@intelli/ui/layout";
 import { cn } from "@intelli/utils";
 
 type InstallCommandProps = {
-  slug: string;
+  slug?: string;
+  command?: string;
+  label?: string;
   className?: string;
 };
 
-export function InstallCommand({ slug, className }: InstallCommandProps) {
-  const command = `npx @intellihelper/cli@latest add ${slug}`;
+export function InstallCommand({
+  slug,
+  command: commandProp,
+  label = "Install",
+  className,
+}: InstallCommandProps) {
+  const command =
+    commandProp ??
+    `npx @intellihelper/cli@latest add ${slug ?? ""}`;
 
   return (
     <Flex
@@ -23,7 +32,7 @@ export function InstallCommand({ slug, className }: InstallCommandProps) {
       )}
     >
       <span className="hidden shrink-0 text-[11px] font-medium text-muted-foreground sm:inline">
-        Install
+        {label}
       </span>
       <code className="min-w-0 flex-1 truncate font-mono text-[13px] text-foreground sm:text-sm">
         {command}
