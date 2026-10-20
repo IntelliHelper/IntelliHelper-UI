@@ -34,13 +34,13 @@ export default function manifest(): MetadataRoute.Manifest {
         purpose: "any",
       },
       {
-        src: "/intellihelper.png",
+        src: "/intelli_logo.png",
         sizes: "500x500",
         type: "image/png",
         purpose: "any",
       },
       {
-        src: "/intellihelper.png",
+        src: "/intelli_logo.png",
         sizes: "500x500",
         type: "image/png",
         purpose: "maskable",

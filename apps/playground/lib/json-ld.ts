@@ -26,7 +26,7 @@ export function organizationJsonLd(): JsonLd {
     url: SITE_URL,
     logo: {
       "@type": "ImageObject",
-      url: absoluteUrl("/intellihelper.png"),
+      url: absoluteUrl("/intelli_logo.png"),
       width: 500,
       height: 500,
     },

@@ -70,7 +70,7 @@ function innerJsx(item: NativeCatalogItem): string {
       return `<${n} data={[8, 14, 11, 20, 18]} />`;
     case "image-preview":
     case "image-editor":
-      return `<${n} source={{ uri: "https://ui.intellihelper.in/intellihelper.png" }} />`;
+      return `<${n} source={{ uri: "https://ui.intellihelper.in/intelli_logo.png" }} />`;
     case "media-player":
       return `<${n} title="Track" progress={35} />`;
     case "bottom-navigation":
