@@ -1,6 +1,6 @@
 {
   "name": "@intellihelper/cli",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "CLI and MCP server for IntelliHelper UI — add, update, and explore Liquid Glass React components",
   "type": "module",
   "license": "MIT",
