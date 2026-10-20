@@ -3,7 +3,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 
 const logoSrc = `data:image/png;base64,${readFileSync(
-  join(process.cwd(), "public/intellihelper.png"),
+  join(process.cwd(), "public/intelli_logo.png"),
 ).toString("base64")}`;
 
 type OgImageProps = {

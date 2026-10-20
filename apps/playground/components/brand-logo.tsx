@@ -19,7 +19,7 @@ export function BrandLogo({
         alt={`${BRAND_NAME} logo`}
         width={size}
         height={size}
-        className="rounded-lg"
+        className="rounded-full object-cover"
         priority
         fetchPriority="high"
       />

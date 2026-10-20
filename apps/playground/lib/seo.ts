@@ -12,7 +12,7 @@ export const SITE_URL =
 
 export const SITE_NAME = "Intelli UI";
 export const BRAND_NAME = "IntelliHelper";
-export const LOGO_PATH = "/intellihelper.png";
+export const LOGO_PATH = "/intelli_logo.webp";
 export const OG_IMAGE_PATH = "/opengraph-image";
 export const GITHUB_URL = "https://github.com/IntelliHelper/IntelliHelper-UI";
 export const AGENT_SKILLS_URL =
