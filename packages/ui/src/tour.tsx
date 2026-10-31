@@ -28,7 +28,7 @@ import {
 
 const tourCardVariants = cva(
   [
-    "fixed z-[calc(var(--z-modal)+1)] rounded-xl text-sm",
+    "fixed z-[calc(var(--z-modal)+1)] flex max-h-[calc(100dvh-1.5rem)] max-w-[calc(100vw-1.5rem)] flex-col overflow-hidden rounded-xl text-sm",
     "shadow-[var(--glass-chrome-shadow)]",
     "animate-scale-in outline-none",
   ],
@@ -94,6 +94,16 @@ const ESTIMATED_CARD: Record<NonNullable<VariantProps<typeof tourCardVariants>["
   default: { width: 320, height: 168 },
   lg: { width: 360, height: 180 },
 };
+
+const FOCUSABLE_SELECTOR = [
+  "button:not([disabled])",
+  "[href]",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
+  "[contenteditable='true']",
+  "[tabindex]:not([tabindex='-1'])",
+].join(", ");
 
 export type TourStep = {
   /** Stable id. Falls back to the step index. */
@@ -168,6 +178,39 @@ function readViewport(): { width: number; height: number } {
   };
 }
 
+function nearly(a: number, b: number) {
+  return Math.abs(a - b) < 0.5;
+}
+
+function sameRect(a: TourRect | null, b: TourRect | null) {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  return (
+    nearly(a.top, b.top) &&
+    nearly(a.left, b.left) &&
+    nearly(a.width, b.width) &&
+    nearly(a.height, b.height)
+  );
+}
+
+function samePlacement(a: TourPlacement | null, b: TourPlacement | null) {
+  if (a === b) return true;
+  if (!a || !b) return false;
+  return a.side === b.side && nearly(a.top, b.top) && nearly(a.left, b.left);
+}
+
+function isTourField(target: EventTarget | null) {
+  if (!(target instanceof HTMLElement)) return false;
+  if (target.isContentEditable) return true;
+  return target.closest("input, textarea, select, [contenteditable='true']") !== null;
+}
+
+function listTourFocusable(card: HTMLElement) {
+  return [...card.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)].filter(
+    (node) => node.getClientRects().length > 0,
+  );
+}
+
 export function Tour({
   steps,
   open: openProp,
@@ -198,7 +241,6 @@ export function Tour({
   const [mounted, setMounted] = useState(false);
   const [targetRect, setTargetRect] = useState<TourRect | null>(null);
   const [placement, setPlacement] = useState<TourPlacement | null>(null);
-  const [cardSize, setCardSize] = useState(ESTIMATED_CARD[size ?? "default"]);
 
   const open = openProp ?? openState;
   const step = clampTourIndex(stepProp ?? stepState, steps.length);
@@ -268,15 +310,19 @@ export function Tour({
     const node = findTarget(targetSelector);
     const viewport = readViewport();
     const measuredCard = cardRef.current?.getBoundingClientRect();
+    const fallback = ESTIMATED_CARD[size ?? "default"];
     const nextCard = {
-      width: measuredCard?.width || cardSize.width,
-      height: measuredCard?.height || cardSize.height,
+      width: measuredCard?.width || fallback.width,
+      height: measuredCard?.height || fallback.height,
     };
 
     if (!node) {
       const centered = centerTourCard(nextCard, viewport, viewportMargin);
       setTargetRect(null);
-      setPlacement({ ...centered, side: "bottom" });
+      setPlacement((prev) => {
+        const next = { ...centered, side: "bottom" as const };
+        return samePlacement(prev, next) ? prev : next;
+      });
       return;
     }
 
@@ -285,9 +331,9 @@ export function Tour({
       { top: box.top, left: box.left, width: box.width, height: box.height },
       spotlightPadding,
     );
-    setTargetRect(hole);
-    setPlacement(
-      placeTourCard(
+    setTargetRect((prev) => (sameRect(prev, hole) ? prev : hole));
+    setPlacement((prev) => {
+      const next = placeTourCard(
         hole,
         nextCard,
         viewport,
@@ -295,14 +341,14 @@ export function Tour({
         align,
         gap,
         viewportMargin,
-      ),
-    );
+      );
+      return samePlacement(prev, next) ? prev : next;
+    });
   }, [
     align,
-    cardSize.height,
-    cardSize.width,
     gap,
     preferredSide,
+    size,
     spotlightPadding,
     targetSelector,
     viewportMargin,
@@ -332,35 +378,88 @@ export function Tour({
   }, [open, scrollIntoView, step, targetSelector]);
 
   useLayoutEffect(() => {
-    if (!open) return;
+    if (!open) {
+      setPlacement(null);
+      setTargetRect(null);
+      return;
+    }
     measure();
-  }, [measure, open, step]);
+  }, [current?.description, current?.title, measure, open, size, step, variant]);
 
   useEffect(() => {
     if (!open) return;
-    const onLayout = () => measure();
-    window.addEventListener("resize", onLayout);
-    window.addEventListener("scroll", onLayout, true);
-    return () => {
-      window.removeEventListener("resize", onLayout);
-      window.removeEventListener("scroll", onLayout, true);
-    };
-  }, [measure, open]);
+    let frame = 0;
+    const observed = new Set<Element>();
+    const watcher = new ResizeObserver(() => schedule());
 
-  useLayoutEffect(() => {
-    const node = cardRef.current;
-    if (!node) return;
-    const box = node.getBoundingClientRect();
-    setCardSize((prev) => {
-      if (
-        Math.abs(prev.width - box.width) < 1 &&
-        Math.abs(prev.height - box.height) < 1
-      ) {
-        return prev;
-      }
-      return { width: box.width, height: box.height };
+    const watchTarget = () => {
+      const node = findTarget(targetSelector);
+      if (!node || observed.has(node)) return;
+      observed.add(node);
+      watcher.observe(node);
+    };
+
+    const schedule = () => {
+      watchTarget();
+      window.cancelAnimationFrame(frame);
+      frame = window.requestAnimationFrame(() => measure());
+    };
+
+    watcher.observe(document.documentElement);
+    watcher.observe(document.body);
+    if (cardRef.current) watcher.observe(cardRef.current);
+    watchTarget();
+
+    const tourRoot = cardRef.current?.closest("[data-slot='tour']");
+    const mutations = new MutationObserver((records) => {
+      const outside = records.some((record) => {
+        const node = record.target;
+        return !(node instanceof Node) || !tourRoot?.contains(node);
+      });
+      if (outside) schedule();
     });
-  }, [open, step, current?.title, current?.description, size, variant]);
+    mutations.observe(document.body, {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ["class", "style", "hidden"],
+    });
+
+    window.addEventListener("resize", schedule);
+    window.addEventListener("scroll", schedule, true);
+    document.addEventListener("load", schedule, true);
+    const visualViewport = window.visualViewport;
+    visualViewport?.addEventListener("resize", schedule);
+    visualViewport?.addEventListener("scroll", schedule);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      watcher.disconnect();
+      mutations.disconnect();
+      window.removeEventListener("resize", schedule);
+      window.removeEventListener("scroll", schedule, true);
+      document.removeEventListener("load", schedule, true);
+      visualViewport?.removeEventListener("resize", schedule);
+      visualViewport?.removeEventListener("scroll", schedule);
+    };
+  }, [measure, open, targetSelector]);
+
+  useEffect(() => {
+    if (!open) return;
+    const onFocusIn = (event: FocusEvent) => {
+      const card = cardRef.current;
+      if (!card || !(event.target instanceof Node) || card.contains(event.target)) return;
+      const focusable = listTourFocusable(card);
+      const first = focusable[0] ?? card;
+      const last = focusable[focusable.length - 1] ?? card;
+      const from = event.relatedTarget;
+      if (from === last) first.focus();
+      else if (from === first || from === card) last.focus();
+      else first.focus();
+    };
+    document.addEventListener("focusin", onFocusIn);
+    return () => document.removeEventListener("focusin", onFocusIn);
+  }, [open]);
 
   const finish = useCallback(() => {
     onFinish?.();
@@ -389,31 +488,29 @@ export function Tour({
         setOpen(false);
         return;
       }
-      if (event.key === "ArrowRight") {
+      if (event.key === "ArrowRight" || event.key === "ArrowLeft") {
+        if (event.defaultPrevented || isTourField(event.target)) return;
         event.preventDefault();
-        next();
-        return;
-      }
-      if (event.key === "ArrowLeft") {
-        event.preventDefault();
-        back();
+        if (event.key === "ArrowRight") next();
+        else back();
         return;
       }
       if (event.key !== "Tab" || !cardRef.current) return;
 
-      const focusable = [
-        ...cardRef.current.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
-        ),
-      ];
-      if (focusable.length === 0) return;
+      const card = cardRef.current;
+      const focusable = listTourFocusable(card);
       const first = focusable[0];
       const last = focusable[focusable.length - 1];
-      if (!first || !last) return;
-      if (event.shiftKey && document.activeElement === first) {
+      if (!first || !last) {
+        event.preventDefault();
+        return;
+      }
+      const active = document.activeElement;
+      const outside = !(active instanceof Node) || !card.contains(active);
+      if (event.shiftKey && (active === first || active === card || outside)) {
         event.preventDefault();
         last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
+      } else if (!event.shiftKey && (active === last || active === card || outside)) {
         event.preventDefault();
         first.focus();
       }
@@ -421,7 +518,9 @@ export function Tour({
     [back, next, setOpen],
   );
 
-  if (!mounted || !open || !current || !placement) return null;
+  if (!mounted || !open || !current) return null;
+
+  const shown = placement ?? { top: 0, left: 0, side: "bottom" as TourSide };
 
   const copy = { ...DEFAULT_LABELS, ...labels };
   const progress = copy.progress(step + 1, steps.length);
@@ -481,10 +580,14 @@ export function Tour({
         aria-describedby={describedBy}
         tabIndex={-1}
         data-slot="tour-card"
-        data-side={placement.side satisfies TourSide}
+        data-side={shown.side}
         data-missing-target={targetRect ? undefined : "true"}
         className={cn(tourCardVariants({ variant, size }), focusRing, className)}
-        style={{ top: placement.top, left: placement.left }}
+        style={{
+          top: shown.top,
+          left: shown.left,
+          visibility: placement ? undefined : "hidden",
+        }}
         onKeyDown={onKeyDown}
       >
         <div
@@ -492,7 +595,7 @@ export function Tour({
           data-slot="tour-card-surface"
           className={tourSurfaceVariants({ variant })}
         />
-        <div className="relative z-[1] flex flex-col gap-3 p-4">
+        <div className="relative z-[1] flex min-h-0 flex-col gap-3 overflow-hidden p-4">
         {showProgress ? (
           <div className="flex flex-col gap-2">
             <p className="text-xs glass-chrome-text-muted" aria-live="polite">
@@ -511,21 +614,21 @@ export function Tour({
             </div>
           </div>
         ) : null}
-        <div className="flex flex-col gap-1.5">
+        <div className="flex min-h-0 flex-col gap-1.5 overflow-y-auto overscroll-contain">
           <h2 id={titleId} data-slot="tour-title" className="text-sm font-semibold leading-none">
             {current.title}
           </h2>
           {current.description ? (
-            <p
+            <div
               id={descriptionId}
               data-slot="tour-description"
               className="text-xs leading-relaxed glass-chrome-text-muted"
             >
               {current.description}
-            </p>
+            </div>
           ) : null}
         </div>
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex shrink-0 items-center justify-between gap-2">
           {showSkip ? (
             <Button
               type="button"
