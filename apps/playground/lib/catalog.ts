@@ -289,6 +289,12 @@ export const CATALOG: CatalogItem[] = [
     category: "overlays",
   },
   {
+    slug: "tour",
+    title: "Tour",
+    description: "Spotlight product tour with a frosted step card and keyboard navigation.",
+    category: "overlays",
+  },
+  {
     slug: "dropdown-menu",
     title: "Dropdown Menu",
     description: "Glass action menus with checkboxes, radios, and nested submenus.",

@@ -1786,6 +1786,50 @@
       }
     },
     {
+      "name": "tour",
+      "type": "registry:ui",
+      "title": "Tour",
+      "description": "Product tour with a spotlight cutout, frosted step card, and keyboard navigation.",
+      "dependencies": [
+        "class-variance-authority"
+      ],
+      "registryDependencies": [
+        "utils",
+        "button"
+      ],
+      "files": [
+        {
+          "path": "packages/ui/src/tour.tsx",
+          "type": "registry:ui",
+          "target": "components/ui/tour.tsx"
+        },
+        {
+          "path": "packages/ui/src/tour-utils.ts",
+          "type": "registry:lib",
+          "target": "components/ui/tour-utils.ts"
+        }
+      ],
+      "meta": {
+        "variants": [
+          "chrome",
+          "elevated",
+          "outline"
+        ],
+        "sizes": [
+          "sm",
+          "default",
+          "lg"
+        ],
+        "sides": [
+          "auto",
+          "top",
+          "right",
+          "bottom",
+          "left"
+        ]
+      }
+    },
+    {
       "name": "background-picture-picker",
       "type": "registry:ui",
       "title": "Background Picture Picker",

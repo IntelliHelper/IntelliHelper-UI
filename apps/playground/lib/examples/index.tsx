@@ -307,6 +307,9 @@ const SwitchDemo = lazy(() =>
 const PopoverDemo = lazy(() =>
   import("../../components/toggle-popover-demo").then((m) => ({ default: m.PopoverDemo })),
 );
+const TourDemo = lazy(() =>
+  import("../../components/tour-demo").then((m) => ({ default: m.TourDemo })),
+);
 const ToggleDemo = lazy(() =>
   import("../../components/toggle-popover-demo").then((m) => ({ default: m.ToggleDemo })),
 );
@@ -1237,6 +1240,30 @@ import {
   </PopoverTrigger>
   <PopoverContent>Place content here.</PopoverContent>
 </Popover>`,
+    },
+  ],
+  tour: [
+    {
+      title: "Spotlight walkthrough",
+      description: "Walk through page targets with a spotlight card.",
+      preview: <TourDemo />,
+      code: `import { Tour, type TourStep } from "@/components/ui/tour"
+
+const steps: TourStep[] = [
+  {
+    target: "[data-tour='search']",
+    title: "Search the workspace",
+    description: "Find projects without leaving the page.",
+  },
+  {
+    target: "[data-tour='create']",
+    title: "Create something new",
+    description: "Start a project from the primary action.",
+    side: "left",
+  },
+]
+
+<Tour open={open} onOpenChange={setOpen} steps={steps} />`,
     },
   ],
   "hover-card": [

@@ -56,6 +56,8 @@
     "./toggle": "./src/toggle.tsx",
     "./toggle-group": "./src/toggle-group.tsx",
     "./popover": "./src/popover.tsx",
+    "./tour": "./src/tour.tsx",
+    "./tour-utils": "./src/tour-utils.ts",
     "./background-picture-picker": "./src/background-picture-picker.tsx",
     "./empty": "./src/empty.tsx",
     "./skeleton": "./src/skeleton.tsx",

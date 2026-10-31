@@ -88,7 +88,7 @@ const CATEGORY_GUIDANCE: Record<ComponentCategory, ComponentGuidance> = {
   },
   overlays: {
     whenToUse: [
-      "Temporary focus tasks: dialogs, sheets, drawers, popovers, tooltips, hover cards.",
+      "Temporary focus tasks: dialogs, sheets, drawers, popovers, tooltips, hover cards, and product tours.",
       "Confirmations and dense secondary UI that should not navigate away.",
     ],
     whenNotTo: [
