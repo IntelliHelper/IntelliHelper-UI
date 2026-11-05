@@ -10,6 +10,11 @@ const STEPS: TourStep[] = [
     title: "Search the workspace",
     description: "Find projects, people, and files without leaving the page.",
     side: "bottom",
+    media: {
+      type: "image",
+      src: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80",
+      alt: "Abstract fluid artwork above the search step",
+    },
   },
   {
     id: "create",
@@ -17,12 +22,18 @@ const STEPS: TourStep[] = [
     title: "Create something new",
     description: "Start a project from here. Skip closes the tour at any step.",
     side: "left",
+    media: {
+      type: "video",
+      src: "https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4",
+      poster: "https://images.unsplash.com/photo-1490750967868-88aa4486c946?w=800&q=80",
+      label: "Short clip of flowers in a field",
+    },
   },
   {
     id: "metrics",
     target: "[data-tour='metrics']",
     title: "Watch the numbers",
-    description: "The spotlight follows each target. Arrow keys move between steps.",
+    description: "Media is optional. This step is text only. Arrow keys move between steps.",
     side: "top",
   },
 ];

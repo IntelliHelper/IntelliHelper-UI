@@ -1254,12 +1254,23 @@ const steps: TourStep[] = [
     target: "[data-tour='search']",
     title: "Search the workspace",
     description: "Find projects without leaving the page.",
+    media: {
+      type: "image",
+      src: "/welcome.png",
+      alt: "Welcome illustration",
+    },
   },
   {
     target: "[data-tour='create']",
-    title: "Create something new",
+    title: "See it in motion",
     description: "Start a project from the primary action.",
     side: "left",
+    media: {
+      type: "video",
+      src: "/walkthrough.mp4",
+      poster: "/welcome.png",
+      label: "Product walkthrough",
+    },
   },
 ]
 

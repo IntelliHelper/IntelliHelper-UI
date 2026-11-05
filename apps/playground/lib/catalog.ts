@@ -291,7 +291,7 @@ export const CATALOG: CatalogItem[] = [
   {
     slug: "tour",
     title: "Tour",
-    description: "Spotlight product tour with a frosted step card and keyboard navigation.",
+    description: "Spotlight product tour with a frosted step card, optional image or video, and keyboard navigation.",
     category: "overlays",
   },
   {

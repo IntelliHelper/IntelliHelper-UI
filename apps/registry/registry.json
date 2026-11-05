@@ -1789,7 +1789,7 @@
       "name": "tour",
       "type": "registry:ui",
       "title": "Tour",
-      "description": "Product tour with a spotlight cutout, frosted step card, and keyboard navigation.",
+      "description": "Product tour with a spotlight cutout, frosted step card, optional image or video, and keyboard navigation.",
       "dependencies": [
         "class-variance-authority"
       ],

@@ -95,6 +95,19 @@ const ESTIMATED_CARD: Record<NonNullable<VariantProps<typeof tourCardVariants>["
   lg: { width: 360, height: 180 },
 };
 
+/** 16:9 media sits above the copy, so the first placement accounts for it. */
+function estimateTourCard(
+  size: NonNullable<VariantProps<typeof tourCardVariants>["size"]>,
+  hasMedia: boolean,
+) {
+  const base = ESTIMATED_CARD[size];
+  if (!hasMedia) return base;
+  return {
+    width: base.width,
+    height: base.height + Math.round((base.width * 9) / 16),
+  };
+}
+
 const FOCUSABLE_SELECTOR = [
   "button:not([disabled])",
   "[href]",
@@ -105,6 +118,24 @@ const FOCUSABLE_SELECTOR = [
   "[tabindex]:not([tabindex='-1'])",
 ].join(", ");
 
+export type TourImage = {
+  type: "image";
+  src: string;
+  alt: string;
+};
+
+export type TourVideo = {
+  type: "video";
+  src: string;
+  /** Shown before the file loads. */
+  poster?: string;
+  /** Accessible name for the player. Falls back to "Step video". */
+  label?: string;
+};
+
+/** Image or video file shown above the step title. Omit it for a text step. */
+export type TourMedia = TourImage | TourVideo;
+
 export type TourStep = {
   /** Stable id. Falls back to the step index. */
   id?: string;
@@ -112,6 +143,8 @@ export type TourStep = {
   target: string;
   title: ReactNode;
   description?: ReactNode;
+  /** Optional image or video above the title. */
+  media?: TourMedia;
   /** Preferred side. Flips when the card would leave the viewport. */
   side?: TourPreferredSide;
   align?: TourAlign;
@@ -202,7 +235,43 @@ function samePlacement(a: TourPlacement | null, b: TourPlacement | null) {
 function isTourField(target: EventTarget | null) {
   if (!(target instanceof HTMLElement)) return false;
   if (target.isContentEditable) return true;
-  return target.closest("input, textarea, select, [contenteditable='true']") !== null;
+  return target.closest("input, textarea, select, video, audio, [contenteditable='true']") !== null;
+}
+
+function TourStepMedia({
+  media,
+  onReady,
+}: {
+  media: TourMedia;
+  onReady: () => void;
+}) {
+  if (!media.src) return null;
+
+  if (media.type === "image") {
+    return (
+      <img
+        data-slot="tour-media"
+        src={media.src}
+        alt={media.alt}
+        className="aspect-video w-full shrink-0 object-cover"
+        onLoad={onReady}
+      />
+    );
+  }
+
+  return (
+    <video
+      data-slot="tour-media"
+      src={media.src}
+      poster={media.poster}
+      aria-label={media.label || "Step video"}
+      controls
+      playsInline
+      preload="metadata"
+      className="aspect-video w-full shrink-0 bg-black object-contain"
+      onLoadedMetadata={onReady}
+    />
+  );
 }
 
 function listTourFocusable(card: HTMLElement) {
@@ -310,7 +379,7 @@ export function Tour({
     const node = findTarget(targetSelector);
     const viewport = readViewport();
     const measuredCard = cardRef.current?.getBoundingClientRect();
-    const fallback = ESTIMATED_CARD[size ?? "default"];
+    const fallback = estimateTourCard(size ?? "default", Boolean(current?.media?.src));
     const nextCard = {
       width: measuredCard?.width || fallback.width,
       height: measuredCard?.height || fallback.height,
@@ -349,6 +418,7 @@ export function Tour({
     gap,
     preferredSide,
     size,
+    current?.media?.src,
     spotlightPadding,
     targetSelector,
     viewportMargin,
@@ -595,7 +665,11 @@ export function Tour({
           data-slot="tour-card-surface"
           className={tourSurfaceVariants({ variant })}
         />
-        <div className="relative z-[1] flex min-h-0 flex-col gap-3 overflow-hidden p-4">
+        <div className="relative z-[1] flex min-h-0 flex-1 flex-col overflow-hidden">
+        {current.media ? (
+          <TourStepMedia key={current.media.src} media={current.media} onReady={measure} />
+        ) : null}
+        <div className="flex min-h-0 flex-col gap-3 overflow-hidden p-4">
         {showProgress ? (
           <div className="flex flex-col gap-2">
             <p className="text-xs glass-chrome-text-muted" aria-live="polite">
@@ -663,6 +737,7 @@ export function Tour({
               {isLast ? copy.finish : copy.next}
             </Button>
           </div>
+        </div>
         </div>
         </div>
       </div>
