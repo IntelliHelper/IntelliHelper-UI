@@ -2,7 +2,7 @@
 
 > **Purpose:** Single source of truth for what is shipped vs what to build next.  
 > **Update rule:** When you implement a component, move it from **To Build** → **Built**, add the ship date, and link the source file.  
-> **Last updated:** 2026-08-19 (Drawer overlay)
+> **Last updated:** 2026-11-01 (Tour overlay)
 
 ---
 
@@ -46,6 +46,7 @@
 | Sheet | `sheet` | overlays | `packages/ui/src/sheet.tsx` | Edge panel |
 | Drawer | `drawer` | overlays | `packages/ui/src/drawer.tsx` | Vaul drag-to-dismiss |
 | Popover / Tooltip / Hover Card | `popover`, `tooltip`, `hover-card` | overlays | | |
+| Tour | `tour` | overlays | `packages/ui/src/tour.tsx` | Spotlight step card, optional image or video |
 | Toast | `toast` | feedback | `packages/ui/src/toast.tsx` | Imperative API |
 | Floating Widget | `floating-widget` | overlays | `packages/ui/src/floating-widget.tsx` | |
 | Sidebar | `sidebar` | navigation | `packages/ui/src/sidebar.tsx` | |

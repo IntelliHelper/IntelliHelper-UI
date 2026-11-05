@@ -517,6 +517,16 @@ export {
   type PopoverContentProps,
 } from "./popover";
 export {
+  Tour,
+  tourCardVariants,
+  type TourProps,
+  type TourStep,
+  type TourMedia,
+  type TourImage,
+  type TourVideo,
+  type TourLabels,
+} from "./tour";
+export {
   Empty,
   EmptyHeader,
   EmptyTitle,
